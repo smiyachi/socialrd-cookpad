@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ソーシャルR&D Cookpad — 眠ってるものを起こすパターン</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#F8F7F4;font-family:'Helvetica Neue','Noto Sans JP',sans-serif;color:#1A1A1A}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.loading{display:flex;align-items:center;justify-content:center;height:100vh;font-size:14px;color:#6B7280}
+</style>
+</head>
+<body>
+<div id="root"><div class="loading">データを読み込み中...</div></div>
+<script type="text/babel">
+const {useState,useMemo,useEffect} = React;
+
+const LAYERS = [
+  {id:"all",  label:"全パターン", color:"#6B7280"},
+  {id:"proc", label:"①プロセス",  color:"#059669"},
+  {id:"conn", label:"②つなぎ方",  color:"#7C3AED"},
+  {id:"supp", label:"③支え方",    color:"#DB2777"},
+];
+const PROC_STAGES = [
+  {id:"all",label:"全段階"},
+  {id:1,label:"第1段階：気づきと診断"},
+  {id:2,label:"第2段階：アイデアと提案"},
+  {id:3,label:"第3段階：試作と検証"},
+  {id:4,label:"第4段階：持続化"},
+  {id:5,label:"第5段階：スケール"},
+  {id:6,label:"第6段階：システム変革"},
+];
+const CONN_SUBS = [
+  {id:"all",label:"全カテゴリ"},
+  {id:"people",label:"人・組織"},
+  {id:"network",label:"ネットワーク"},
+  {id:"platform",label:"プラットフォーム"},
+];
+const SUPP_SUBS = [
+  {id:"all",label:"全カテゴリ"},
+  {id:"public",label:"公共セクター"},
+  {id:"grant",label:"助成経済"},
+  {id:"market",label:"市場経済"},
+  {id:"informal",label:"家庭・インフォーマル経済"},
+];
+
+const lc = l => l==="proc"?"#059669":l==="conn"?"#7C3AED":"#DB2777";
+const lb = l => l==="proc"?"#D1FAE5":l==="conn"?"#EDE9FE":"#FCE7F3";
+const ll = l => l==="proc"?"①プロセス":l==="conn"?"②つなぎ方":"③支え方";
+const sl = s => ["","気づきと診断","アイデアと提案","試作と検証","持続化","スケール","システム変革"][s]||"";
+const connSl = s => s==="people"?"人・組織":s==="network"?"ネットワーク":"プラットフォーム";
+const suppSl = s => ({public:"公共セクター",grant:"助成経済",market:"市場経済",informal:"家庭・インフォーマル"})[s]||"";
+const subLabel = p => p.layer==="conn"?connSl(p.sub):p.layer==="supp"?suppSl(p.sub):sl(p.stage);
+
+function App(){
+  const [patterns,setPatterns]=useState([]);
+  const [loading,setLoading]=useState(true);
+  const [layer,setLayer]=useState("all");
+  const [sub,setSub]=useState("all");
+  const [search,setSearch]=useState("");
+  const [expanded,setExpanded]=useState(null);
+
+  useEffect(()=>{
+    fetch('./patterns.json')
+      .then(r=>r.json())
+      .then(d=>{setPatterns(d);setLoading(false);})
+      .catch(()=>setLoading(false));
+  },[]);
+
+  const filtered=useMemo(()=>{
+    return patterns.filter(p=>{
+      if(layer!=="all"&&p.layer!==layer) return false;
+      if(sub!=="all"){
+        if(layer==="proc"&&p.stage!==sub) return false;
+        if((layer==="conn"||layer==="supp")&&p.sub!==sub) return false;
+      }
+      if(search){
+        const q=search.toLowerCase();
+        return p.name.toLowerCase().includes(q)||
+               (p.problem||"").toLowerCase().includes(q)||
+               (p.solution||"").toLowerCase().includes(q)||
+               (p.alliance||"").toLowerCase().includes(q)||
+               (p.notes||"").toLowerCase().includes(q)||
+               (p.examples||[]).some(e=>e.toLowerCase().includes(q));
+      }
+      return true;
+    });
+  },[patterns,layer,sub,search]);
+
+  const subOptions = layer==="proc"?PROC_STAGES:layer==="conn"?CONN_SUBS:layer==="supp"?SUPP_SUBS:[];
+  const subCount = sid => {
+    if(sid==="all") return layer==="all"?patterns.length:patterns.filter(p=>p.layer===layer).length;
+    if(layer==="proc") return patterns.filter(p=>p.layer==="proc"&&p.stage===sid).length;
+    return patterns.filter(p=>p.layer===layer&&p.sub===sid).length;
+  };
+
+  if(loading) return React.createElement("div",{className:"loading"},"データを読み込み中...");
+
+  return React.createElement("div",{style:{background:"#F8F7F4",minHeight:"100vh",padding:"24px 16px",maxWidth:900,margin:"0 auto"}},
+    // ヘッダー
+    React.createElement("div",{style:{marginBottom:6}},
+      React.createElement("span",{style:{fontSize:10,fontWeight:700,letterSpacing:"0.1em",color:"#D97706",textTransform:"uppercase"}},"ソーシャルR&D Cookpad — Pattern Language")),
+    React.createElement("h1",{style:{fontSize:20,fontWeight:800,lineHeight:1.4,margin:"0 0 4px"}},"「眠ってるなんでもないものを起こす」パターン・カード"),
+    React.createElement("p",{style:{fontSize:12,color:"#6B7280",margin:"0 0 20px"}},`Open Book of Social Innovationから抽出・精錬。${patterns.length}パターン収録。`),
+
+    // 検索
+    React.createElement("input",{
+      placeholder:"キーワードで検索（問題・解決・事例・同盟の文脈・メモ）",
+      value:search,
+      onChange:e=>{setSearch(e.target.value);setExpanded(null)},
+      style:{width:"100%",padding:"8px 14px",borderRadius:10,border:"1px solid #E5E7EB",
+             fontSize:13,marginBottom:14,outline:"none",background:"#fff"}
+    }),
+
+    // 層フィルター
+    React.createElement("div",{style:{display:"flex",gap:6,marginBottom:10,flexWrap:"wrap"}},
+      LAYERS.map(l=>{
+        const cnt=l.id==="all"?patterns.length:patterns.filter(p=>p.layer===l.id).length;
+        return React.createElement("button",{key:l.id,
+          onClick:()=>{setLayer(l.id);setSub("all");setExpanded(null)},
+          style:{padding:"6px 14px",borderRadius:20,border:"none",fontSize:12,fontWeight:600,cursor:"pointer",
+            background:layer===l.id?(l.id==="all"?"#1A1A1A":l.color):"#E5E7EB",
+            color:layer===l.id?"#fff":"#374151",transition:"all 0.15s"}
+        },`${l.label} (${cnt})`);
+      })
+    ),
+
+    // サブフィルター
+    layer!=="all"&&React.createElement("div",{style:{display:"flex",gap:6,marginBottom:14,flexWrap:"wrap",
+      paddingLeft:8,borderLeft:`3px solid ${lc(layer)}`}},
+      subOptions.map(s=>React.createElement("button",{key:s.id,
+        onClick:()=>{setSub(s.id);setExpanded(null)},
+        style:{padding:"4px 12px",borderRadius:16,border:"none",fontSize:11,fontWeight:600,cursor:"pointer",
+          background:sub===s.id?lc(layer):"#F3F4F6",
+          color:sub===s.id?"#fff":"#6B7280",transition:"all 0.15s"}
+      },`${s.label} (${subCount(s.id)})`))
+    ),
+
+    // 件数
+    React.createElement("div",{style:{fontSize:11,color:"#9CA3AF",marginBottom:12}},`${filtered.length}件表示`),
+
+    // カード
+    React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:10}},
+      filtered.map(p=>{
+        const isOpen=expanded===p.id;
+        const c=lc(p.layer); const bg=lb(p.layer);
+        return React.createElement("div",{key:p.id,
+          onClick:()=>setExpanded(isOpen?null:p.id),
+          style:{background:"#fff",borderRadius:14,
+            border:isOpen?`2px solid ${c}`:"1px solid #E5E7EB",
+            overflow:"hidden",cursor:"pointer",
+            boxShadow:isOpen?`0 4px 16px ${c}22`:"0 1px 3px rgba(0,0,0,0.04)",
+            transition:"all 0.2s"}},
+
+          // ヘッダー
+          React.createElement("div",{style:{padding:"14px 18px",display:"flex",alignItems:"center",gap:12}},
+            React.createElement("div",{style:{width:36,height:36,borderRadius:10,background:bg,color:c,
+              display:"flex",alignItems:"center",justifyContent:"center",
+              fontSize:12,fontWeight:800,flexShrink:0}},p.id),
+            React.createElement("div",{style:{flex:1,minWidth:0}},
+              React.createElement("div",{style:{fontSize:15,fontWeight:700}},p.name),
+              React.createElement("div",{style:{fontSize:10,color:"#9CA3AF",overflow:"hidden",
+                textOverflow:"ellipsis",whiteSpace:"nowrap"}},
+                p.en+"  |  src:"+p.src)),
+            React.createElement("div",{style:{display:"flex",flexDirection:"column",alignItems:"flex-end",gap:3,flexShrink:0}},
+              React.createElement("span",{style:{fontSize:10,fontWeight:600,padding:"2px 8px",
+                borderRadius:10,background:bg,color:c}},ll(p.layer)),
+              subLabel(p)&&React.createElement("span",{style:{fontSize:10,color:"#9CA3AF"}},subLabel(p))),
+            React.createElement("span",{style:{color:"#9CA3AF",fontSize:14,flexShrink:0,
+              transition:"transform 0.2s",transform:isOpen?"rotate(180deg)":"none"}},"▼")),
+
+          // 展開
+          isOpen&&React.createElement("div",{style:{padding:"0 18px 18px",animation:"fadeIn 0.2s ease"}},
+            React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:10}},
+              React.createElement("div",{style:{background:"#F9FAFB",borderRadius:10,padding:"10px 14px"}},
+                React.createElement("div",{style:{fontSize:10,fontWeight:700,color:"#6B7280",marginBottom:3}},"状況（Context）"),
+                React.createElement("div",{style:{fontSize:13,lineHeight:1.7}},p.context)),
+              React.createElement("div",{style:{background:"#FEF2F2",borderRadius:10,padding:"10px 14px",borderLeft:"3px solid #EF4444"}},
+                React.createElement("div",{style:{fontSize:10,fontWeight:700,color:"#EF4444",marginBottom:3}},"問題（力の対立）"),
+                React.createElement("div",{style:{fontSize:13,lineHeight:1.7}},p.problem)),
+              React.createElement("div",{style:{background:"#F0FDF4",borderRadius:10,padding:"10px 14px",borderLeft:"3px solid #22C55E"}},
+                React.createElement("div",{style:{fontSize:10,fontWeight:700,color:"#16A34A",marginBottom:3}},"解決（Solution）"),
+                React.createElement("div",{style:{fontSize:13,lineHeight:1.7}},p.solution)),
+              p.examples&&p.examples.length>0&&React.createElement("div",{style:{background:"#F9FAFB",borderRadius:10,padding:"10px 14px"}},
+                React.createElement("div",{style:{fontSize:10,fontWeight:700,color:"#6B7280",marginBottom:3}},"事例"),
+                p.examples.map((e,i)=>React.createElement("div",{key:i,style:{fontSize:12,color:"#374151",lineHeight:1.6}},"・"+e))),
+              React.createElement("div",{style:{background:bg,borderRadius:10,padding:"10px 14px",borderLeft:`3px solid ${c}`}},
+                React.createElement("div",{style:{fontSize:10,fontWeight:700,color:c,marginBottom:3}},"🌱 同盟の文脈"),
+                React.createElement("div",{style:{fontSize:13,lineHeight:1.7}},p.alliance)),
+              p.notes&&React.createElement("div",{style:{background:"#FFFBEB",borderRadius:10,padding:"10px 14px",borderLeft:"3px solid #F59E0B"}},
+                React.createElement("div",{style:{fontSize:10,fontWeight:700,color:"#D97706",marginBottom:3}},"📝 メモ・追記"),
+                React.createElement("div",{style:{fontSize:13,lineHeight:1.7,whiteSpace:"pre-wrap"}},p.notes))
+            ))
+        );
+      })
+    )
+  );
+}
+
+ReactDOM.render(React.createElement(App),document.getElementById("root"));
+</script>
+</body>
+</html>
