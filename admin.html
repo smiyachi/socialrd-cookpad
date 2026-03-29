@@ -8,40 +8,33 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#F8F7F4;font-family:'Helvetica Neue','Noto Sans JP',sans-serif;color:#1A1A1A;padding:32px 16px}
 .wrap{max-width:640px;margin:0 auto}
-.header{margin-bottom:32px}
 .badge{font-size:10px;font-weight:700;letter-spacing:0.1em;color:#D97706;text-transform:uppercase;margin-bottom:8px}
 h1{font-size:20px;font-weight:800;margin-bottom:4px}
-.sub{font-size:12px;color:#6B7280}
+.sub{font-size:12px;color:#6B7280;margin-bottom:32px}
 .card{background:#fff;border-radius:14px;border:1px solid #E5E7EB;padding:24px;margin-bottom:16px}
-.card h2{font-size:13px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:16px}
+.card h2{font-size:12px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:16px}
 label{display:block;font-size:12px;font-weight:600;color:#374151;margin-bottom:6px}
 input,textarea,select{width:100%;padding:10px 12px;border:1px solid #E5E7EB;border-radius:8px;font-size:13px;font-family:inherit;outline:none;background:#fff;transition:border 0.15s}
-input:focus,textarea:focus,select:focus{border-color:#059669}
-textarea{min-height:100px;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:#059669;box-shadow:0 0 0 3px #D1FAE5}
+textarea{min-height:90px;resize:vertical;line-height:1.6}
 .field{margin-bottom:16px}
-.row{display:flex;gap:12px}
-.row .field{flex:1}
 .hint{font-size:11px;color:#9CA3AF;margin-top:4px}
 .btn{padding:12px 24px;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.15s}
 .btn-primary{background:#059669;color:#fff;width:100%}
 .btn-primary:hover{background:#047857}
-.btn-primary:disabled{background:#D1D5DB;cursor:not-allowed}
-.btn-secondary{background:#F3F4F6;color:#374151}
-.btn-secondary:hover{background:#E5E7EB}
-.status{margin-top:16px;padding:12px 16px;border-radius:10px;font-size:13px;display:none}
+.btn-primary:disabled{background:#D1D5DB;color:#9CA3AF;cursor:not-allowed}
+.btn-sm{padding:8px 14px;font-size:12px;background:#F3F4F6;color:#374151;border-radius:8px}
+.btn-sm:hover{background:#E5E7EB}
+.status{margin-top:12px;padding:12px 16px;border-radius:10px;font-size:13px;line-height:1.6;display:none}
 .status.success{background:#D1FAE5;color:#065F46;display:block}
 .status.error{background:#FEE2E2;color:#991B1B;display:block}
 .status.loading{background:#EDE9FE;color:#5B21B6;display:block}
-.divider{border:none;border-top:1px solid #F3F4F6;margin:16px 0}
-.unclassified-box{background:#FFFBEB;border:1px solid #FDE68A;border-radius:14px;padding:20px;margin-bottom:16px}
-.unclassified-box h3{font-size:13px;font-weight:700;color:#92400E;margin-bottom:8px}
-.unclassified-list{max-height:200px;overflow-y:auto}
+.none-msg{background:#FEF3C7;border-radius:8px;padding:12px 14px;font-size:13px;color:#92400E;display:none}
+.unclassified-box{background:#FFFBEB;border:1px solid #FDE68A;border-radius:14px;padding:20px}
 .unclassified-item{background:#fff;border-radius:8px;padding:10px 12px;margin-bottom:8px;font-size:12px;border:1px solid #FDE68A}
-.unclassified-item .title{font-weight:600;margin-bottom:2px}
-.unclassified-item .meta{color:#6B7280}
 .back-link{font-size:12px;color:#6B7280;text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:24px}
 .back-link:hover{color:#1A1A1A}
-select option[disabled]{color:#9CA3AF}
+hr{border:none;border-top:1px solid #E5E7EB;margin:24px 0}
 </style>
 </head>
 <body>
@@ -49,31 +42,25 @@ select option[disabled]{color:#9CA3AF}
 
   <a class="back-link" href="./index.html">← Cookpadに戻る</a>
 
-  <div class="header">
-    <div class="badge">Admin — 事例登録</div>
-    <h1>🏷 新しい事例を登録する</h1>
-    <p class="sub">日本の現場事例をパターンに紐付けて登録します。登録後1〜2分でサイトに反映されます。</p>
-  </div>
+  <div class="badge">Admin — 事例登録</div>
+  <h1>🏷 新しい事例を登録する</h1>
+  <p class="sub">日本の現場事例をパターンに紐付けて登録します。登録後1〜2分でサイトに反映されます。</p>
 
-  <!-- 登録フォーム -->
+  <!-- 事例情報 -->
   <div class="card">
     <h2>事例の情報</h2>
-
     <div class="field">
       <label>事例タイトル <span style="color:#EF4444">*</span></label>
       <input type="text" id="case-title" placeholder="例：○○市の参加型予算プロジェクト">
     </div>
-
     <div class="field">
       <label>概要・内容 <span style="color:#EF4444">*</span></label>
-      <textarea id="case-desc" placeholder="どんな取り組みか、どんな成果があったかなどを簡潔に。"></textarea>
+      <textarea id="case-desc" placeholder="どんな取り組みか、どんな成果があったかなど。"></textarea>
     </div>
-
     <div class="field">
       <label>参照URL（任意）</label>
       <input type="url" id="case-url" placeholder="https://...">
     </div>
-
     <div class="field">
       <label>投稿者名（任意）</label>
       <input type="text" id="case-author" placeholder="例：宮地俊一">
@@ -84,95 +71,98 @@ select option[disabled]{color:#9CA3AF}
   <div class="card">
     <h2>パターンを選ぶ</h2>
 
-    <div class="row">
-      <div class="field">
-        <label>層 <span style="color:#EF4444">*</span></label>
-        <select id="layer-select" onchange="updatePatternList()">
-          <option value="">選択してください</option>
-          <option value="proc">①プロセス</option>
-          <option value="conn">②つなぎ方</option>
-          <option value="supp">③支え方</option>
-          <option value="none">当てはまるパターンがない</option>
-        </select>
-      </div>
-
-      <div class="field" id="sub-field" style="display:none">
-        <label>カテゴリ</label>
-        <select id="sub-select" onchange="updatePatternList()">
-        </select>
-      </div>
+    <div class="field">
+      <label>① 層を選ぶ <span style="color:#EF4444">*</span></label>
+      <select id="sel-layer">
+        <option value="">選択してください</option>
+        <option value="proc">①プロセス（178パターン）</option>
+        <option value="conn">②つなぎ方（29パターン）</option>
+        <option value="supp">③支え方（143パターン）</option>
+        <option value="none">当てはまるパターンがない</option>
+      </select>
     </div>
 
-    <div class="field" id="pattern-field" style="display:none">
-      <label>パターン <span style="color:#EF4444">*</span></label>
-      <select id="pattern-select">
+    <div class="field" id="field-sub" style="display:none">
+      <label>② カテゴリを選ぶ</label>
+      <select id="sel-sub">
+      </select>
+    </div>
+
+    <div class="field" id="field-pattern" style="display:none">
+      <label>③ パターンを選ぶ <span style="color:#EF4444">*</span></label>
+      <select id="sel-pattern">
         <option value="">パターンを選択...</option>
       </select>
-      <div class="hint">※ 層・カテゴリを選ぶとパターン一覧が絞り込まれます</div>
+      <div class="hint">上の層・カテゴリで絞り込まれます</div>
     </div>
 
-    <div id="none-message" style="display:none;background:#FEF3C7;border-radius:8px;padding:12px;font-size:13px;color:#92400E">
+    <div class="none-msg" id="none-msg">
       📦 「未分類ボックス」に保存します。後でClaudeと一緒に整理できます。
     </div>
   </div>
 
-  <!-- 登録ボタン -->
   <button class="btn btn-primary" id="submit-btn" onclick="submitCase()">登録する</button>
-  <div class="status" id="status-msg"></div>
+  <div class="status" id="status"></div>
 
-  <hr class="divider" style="margin:32px 0">
+  <hr>
 
   <!-- 未分類ボックス -->
-  <div class="unclassified-box" id="unclassified-box" style="display:none">
-    <h3>📦 未分類ボックス（<span id="unclassified-count">0</span>件）</h3>
-    <p style="font-size:12px;color:#92400E;margin-bottom:12px">当てはまるパターンがなかった事例です。Claudeに整理を依頼できます。</p>
-    <div class="unclassified-list" id="unclassified-list"></div>
-    <button class="btn btn-secondary" onclick="exportUnclassified()" style="margin-top:12px;font-size:12px;padding:8px 16px">
-      📥 CSVでエクスポート（Claudeに渡す用）
-    </button>
+  <div id="unclassified-section" style="display:none">
+    <div class="unclassified-box">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#92400E">📦 未分類ボックス（<span id="uc-count">0</span>件）</div>
+          <div style="font-size:11px;color:#92400E;margin-top:2px">Claudeに渡してパターン候補を整理できます</div>
+        </div>
+        <button class="btn-sm" onclick="exportCSV()">📥 CSVエクスポート</button>
+      </div>
+      <div id="uc-list"></div>
+    </div>
   </div>
 
 </div>
-
 <script>
-const GITHUB_TOKEN = "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";
+const TOKEN = "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";
 const REPO = "smiyachi/socialrd-cookpad";
-const PATTERNS = [{"id":1,"name":"綻びの利用","layer":"proc","stage":1,"sub":null},{"id":2,"name":"都市の鍼治療","layer":"proc","stage":1,"sub":null},{"id":3,"name":"技術と事実の翻訳","layer":"proc","stage":1,"sub":null},{"id":4,"name":"余白と水脈のマッピング","layer":"proc","stage":1,"sub":null},{"id":5,"name":"当事者の目への憑依","layer":"proc","stage":1,"sub":null},{"id":6,"name":"還流する悲鳴","layer":"proc","stage":1,"sub":null},{"id":7,"name":"市民の手にデータを取り戻す","layer":"proc","stage":1,"sub":null},{"id":8,"name":"行動のスクリプト書き換え","layer":"proc","stage":1,"sub":null},{"id":9,"name":"異物の意図的な混入","layer":"proc","stage":1,"sub":null},{"id":10,"name":"スポットライトと拡声器","layer":"proc","stage":1,"sub":null},{"id":11,"name":"ユーザーという名の共同設計者","layer":"proc","stage":2,"sub":null},{"id":12,"name":"演じるプロトタイプ","layer":"proc","stage":2,"sub":null},{"id":13,"name":"現場からの絶え間ない改善","layer":"proc","stage":2,"sub":null},{"id":14,"name":"眠れる知見と素材の転用","layer":"proc","stage":2,"sub":null},{"id":15,"name":"内なる成功者の発見","layer":"proc","stage":2,"sub":null},{"id":16,"name":"極限からの逆輸入","layer":"proc","stage":2,"sub":null},{"id":17,"name":"廃墟の再定義","layer":"proc","stage":2,"sub":null},{"id":18,"name":"アイデアの公開市場","layer":"proc","stage":2,"sub":null},{"id":19,"name":"デジタル武装した対話","layer":"proc","stage":2,"sub":null},{"id":20,"name":"市民の声を編む仕組み","layer":"proc","stage":2,"sub":null},{"id":21,"name":"出会いと余白の祭典","layer":"proc","stage":2,"sub":null},{"id":22,"name":"まぜこぜの座席配置","layer":"proc","stage":2,"sub":null},{"id":23,"name":"走りながら直す","layer":"proc","stage":3,"sub":null},{"id":24,"name":"凍結された公開実験","layer":"proc","stage":3,"sub":null},{"id":25,"name":"失敗も共有する公開テスト","layer":"proc","stage":3,"sub":null},{"id":26,"name":"段階式の応援","layer":"proc","stage":3,"sub":null},{"id":27,"name":"伴走するインキュベーション","layer":"proc","stage":3,"sub":null},{"id":28,"name":"時間を買い取る","layer":"proc","stage":3,"sub":null},{"id":29,"name":"知識共有を条件とした資金","layer":"proc","stage":3,"sub":null},{"id":30,"name":"結果への入札による市場創出","layer":"proc","stage":3,"sub":null},{"id":31,"name":"データを統合して一人の人間を見る","layer":"proc","stage":1,"sub":null},{"id":32,"name":"知識を組織の壁越しに流す","layer":"proc","stage":1,"sub":null},{"id":33,"name":"症状の下にある原因を診断する","layer":"proc","stage":1,"sub":null},{"id":34,"name":"思考の癖を意図的に壊す","layer":"proc","stage":2,"sub":null},{"id":35,"name":"現場に足を運んで見る","layer":"proc","stage":2,"sub":null},{"id":36,"name":"考えることと動くことを一体化する場","layer":"proc","stage":2,"sub":null},{"id":37,"name":"新しい能力が育つまで待つ試作","layer":"proc","stage":3,"sub":null},{"id":38,"name":"仲間を集めながら実験する","layer":"proc","stage":3,"sub":null},{"id":39,"name":"選ぶ力を当事者に渡す","layer":"proc","stage":3,"sub":null},{"id":40,"name":"集合知で何を育てるかを決める","layer":"proc","stage":3,"sub":null},{"id":41,"name":"使命とビジネスモデルを一緒に育てる","layer":"proc","stage":4,"sub":null},{"id":42,"name":"セクターの地図を読んで陣地を取る","layer":"proc","stage":4,"sub":null},{"id":43,"name":"資産を分解して収入源を増やす","layer":"proc","stage":4,"sub":null},{"id":44,"name":"計画は地図ではなく羅針盤として使う","layer":"proc","stage":4,"sub":null},{"id":45,"name":"組織の弱いリンクを可視化する","layer":"proc","stage":4,"sub":null},{"id":46,"name":"法人格を持たない強さ","layer":"proc","stage":4,"sub":null},{"id":47,"name":"株式会社という器に使命の鍵をかける","layer":"proc","stage":4,"sub":null},{"id":48,"name":"柔軟な共同所有の器","layer":"proc","stage":4,"sub":null},{"id":49,"name":"仲間のために動く組合の力","layer":"proc","stage":4,"sub":null},{"id":50,"name":"みんなのものにする相互組合","layer":"proc","stage":4,"sub":null},{"id":51,"name":"合意を形にする覚書","layer":"proc","stage":4,"sub":null},{"id":52,"name":"使命を法的に守る器を選ぶ","layer":"proc","stage":4,"sub":null},{"id":53,"name":"理事会を使命と革新の回路にする","layer":"proc","stage":4,"sub":null},{"id":54,"name":"総会を使命の更新装置にする","layer":"proc","stage":4,"sub":null},{"id":55,"name":"ステークホルダーを構造に組み込む","layer":"proc","stage":4,"sub":null},{"id":56,"name":"ガバナンスの選び方を可視化する","layer":"proc","stage":4,"sub":null},{"id":57,"name":"支援者に株を持ってもらう","layer":"proc","stage":4,"sub":null},{"id":58,"name":"使命を守るゴールデンシェア","layer":"proc","stage":4,"sub":null},{"id":59,"name":"ヒエラルキーには生き残る理由がある","layer":"proc","stage":4,"sub":null},{"id":60,"name":"現場チームに権限を渡す","layer":"proc","stage":4,"sub":null},{"id":61,"name":"細胞分裂で広がる組織","layer":"proc","stage":4,"sub":null},{"id":62,"name":"段階に合わせてリーダーシップを変える","layer":"proc","stage":4,"sub":null},{"id":63,"name":"革新と日常業務を構造的に分離する","layer":"proc","stage":4,"sub":null},{"id":64,"name":"仕入れから販売まで使命を一本通す","layer":"proc","stage":4,"sub":null},{"id":65,"name":"バックオフィスを複数組織で共有する","layer":"proc","stage":4,"sub":null},{"id":66,"name":"現場の制約に合わせて技術を再設計する","layer":"proc","stage":4,"sub":null},{"id":67,"name":"外に開き続けることを経営資源にする","layer":"proc","stage":4,"sub":null},{"id":68,"name":"利用者の声を経営の背骨にする","layer":"proc","stage":4,"sub":null},{"id":69,"name":"ウェブを関係資本の窓にする","layer":"proc","stage":4,"sub":null},{"id":70,"name":"ブランドを存在を知らせる炎にする","layer":"proc","stage":4,"sub":null},{"id":71,"name":"体験できる場が最も深く伝える","layer":"proc","stage":4,"sub":null},{"id":72,"name":"知識を手放して信頼を得る","layer":"proc","stage":4,"sub":null},{"id":73,"name":"共に学ぶ文化を育てる研修を設計する","layer":"proc","stage":4,"sub":null},{"id":74,"name":"給与と評価に使命を刻む","layer":"proc","stage":4,"sub":null},{"id":75,"name":"ボランティアに役割と意味を設計する","layer":"proc","stage":4,"sub":null},{"id":76,"name":"使命に共鳴する資金を組み合わせる","layer":"proc","stage":4,"sub":null},{"id":77,"name":"政策・プログラムに乗って生き延びる","layer":"proc","stage":4,"sub":null},{"id":78,"name":"アイコンになって広がる","layer":"proc","stage":5,"sub":null},{"id":79,"name":"社会運動として広がる","layer":"proc","stage":5,"sub":null},{"id":80,"name":"情報で需要を作る","layer":"proc","stage":5,"sub":null},{"id":81,"name":"ユーザーグループが需要を動かす","layer":"proc","stage":5,"sub":null},{"id":82,"name":"行動変容をマーケティングする","layer":"proc","stage":5,"sub":null},{"id":83,"name":"ブランドとマークで質を保証する","layer":"proc","stage":5,"sub":null},{"id":84,"name":"インセンティブで行動を引き出す","layer":"proc","stage":5,"sub":null},{"id":85,"name":"社会目標を設定して革新を引き出す","layer":"proc","stage":5,"sub":null},{"id":86,"name":"政策と標準で一気に広げる","layer":"proc","stage":5,"sub":null},{"id":87,"name":"規制当局の承認で普及を加速する","layer":"proc","stage":5,"sub":null},{"id":88,"name":"専門職を通じて中間需要を作る","layer":"proc","stage":5,"sub":null},{"id":89,"name":"ベストプラクティスを賞で伝える","layer":"proc","stage":5,"sub":null},{"id":90,"name":"グローバルに普及を促す","layer":"proc","stage":5,"sub":null},{"id":91,"name":"委託を革新の入口にする","layer":"proc","stage":5,"sub":null},{"id":92,"name":"成果で発注する","layer":"proc","stage":5,"sub":null},{"id":93,"name":"政府が最初の顧客になる","layer":"proc","stage":5,"sub":null},{"id":94,"name":"競争で革新の多様性を生む","layer":"proc","stage":5,"sub":null},{"id":95,"name":"現場の専門職に委託権限を渡す","layer":"proc","stage":5,"sub":null},{"id":96,"name":"結果に対して固定料金を払う","layer":"proc","stage":5,"sub":null},{"id":97,"name":"発見のための探索的契約","layer":"proc","stage":5,"sub":null},{"id":98,"name":"調達の仕組み自体を革新する","layer":"proc","stage":5,"sub":null},{"id":99,"name":"購入の約束が革新を引き出す","layer":"proc","stage":5,"sub":null},{"id":100,"name":"複数機関が共同で委託する","layer":"proc","stage":5,"sub":null},{"id":101,"name":"節約分を革新者に還元する","layer":"proc","stage":5,"sub":null},{"id":102,"name":"予算を当事者に直接渡す","layer":"proc","stage":5,"sub":null},{"id":103,"name":"組織から革新を切り出す","layer":"proc","stage":5,"sub":null},{"id":104,"name":"人を育てて広げる","layer":"proc","stage":5,"sub":null},{"id":105,"name":"既存組織の力を使って広げる","layer":"proc","stage":5,"sub":null},{"id":106,"name":"移転と適応の支援構造を作る","layer":"proc","stage":5,"sub":null},{"id":107,"name":"供給チェーンを成長に合わせる","layer":"proc","stage":5,"sub":null},{"id":108,"name":"モデルを削ぎ落としてコストを下げる","layer":"proc","stage":5,"sub":null},{"id":109,"name":"オープンブランドで一緒に広げる","layer":"proc","stage":5,"sub":null},{"id":110,"name":"プラットフォームで自己組織化を支援する","layer":"proc","stage":5,"sub":null},{"id":111,"name":"集まる場が普及と出会いを生む","layer":"proc","stage":5,"sub":null},{"id":112,"name":"メディアを通じて拡散する","layer":"proc","stage":5,"sub":null},{"id":113,"name":"専門家団体が知識を循環させる","layer":"proc","stage":5,"sub":null},{"id":114,"name":"知識を手放して橋渡しをする人","layer":"proc","stage":5,"sub":null},{"id":115,"name":"ウェブとバイラルで拡散する","layer":"proc","stage":5,"sub":null},{"id":116,"name":"ハンドブックで知識を届ける","layer":"proc","stage":5,"sub":null},{"id":117,"name":"組織を大きくして広げる","layer":"proc","stage":5,"sub":null},{"id":118,"name":"協働で能力と影響力を増やす","layer":"proc","stage":5,"sub":null},{"id":119,"name":"大きなシステムの中に小さなユニットを置く","layer":"proc","stage":5,"sub":null},{"id":120,"name":"コンソルティアで中小が協働する","layer":"proc","stage":5,"sub":null},{"id":121,"name":"核心だけ共有して現地が自律する","layer":"proc","stage":5,"sub":null},{"id":122,"name":"ライセンスで革新を知的財産にする","layer":"proc","stage":5,"sub":null},{"id":123,"name":"合併・買収で規模と能力を得る","layer":"proc","stage":5,"sub":null},{"id":124,"name":"標準的な投資評価を使う","layer":"proc","stage":5,"sub":null},{"id":125,"name":"費用便益分析で社会的価値を示す","layer":"proc","stage":5,"sub":null},{"id":126,"name":"人々の意向を価格にする","layer":"proc","stage":5,"sub":null},{"id":127,"name":"行動から価値を推計する","layer":"proc","stage":5,"sub":null},{"id":128,"name":"GDPを超える指標で社会を測る","layer":"proc","stage":5,"sub":null},{"id":129,"name":"QALYで医療の費用対効果を測る","layer":"proc","stage":5,"sub":null},{"id":130,"name":"患者自身が健康状態を報告する","layer":"proc","stage":5,"sub":null},{"id":131,"name":"学校の付加価値を測る","layer":"proc","stage":5,"sub":null},{"id":132,"name":"社会的インパクトを総合評価する","layer":"proc","stage":5,"sub":null},{"id":133,"name":"社会的投資収益率で価値を示す","layer":"proc","stage":5,"sub":null},{"id":134,"name":"社会勘定で組織の社会的影響を可視化する","layer":"proc","stage":5,"sub":null},{"id":135,"name":"社会的・経済的リターンを混ぜた価値を測る","layer":"proc","stage":5,"sub":null},{"id":136,"name":"公共価値を測る","layer":"proc","stage":5,"sub":null},{"id":137,"name":"生活満足度で政策を比較する","layer":"proc","stage":5,"sub":null},{"id":138,"name":"建築環境の価値を多手法で測る","layer":"proc","stage":5,"sub":null},{"id":139,"name":"運用データから改善の契機を掴む","layer":"proc","stage":5,"sub":null},{"id":140,"name":"比較することで学ぶ","layer":"proc","stage":5,"sub":null},{"id":141,"name":"バランスト・スコアカードで戦略と現場をつなぐ","layer":"proc","stage":5,"sub":null},{"id":142,"name":"評価に利用者の声と経験を組み込む","layer":"proc","stage":5,"sub":null},{"id":143,"name":"地域の成果を地域で測る","layer":"proc","stage":5,"sub":null},{"id":144,"name":"評価を学びのプロセスにする","layer":"proc","stage":5,"sub":null},{"id":145,"name":"生産を分散させる","layer":"proc","stage":6,"sub":null},{"id":146,"name":"台本を書き直すことがシステムを変える","layer":"proc","stage":6,"sub":null},{"id":147,"name":"今の投資が将来を変える","layer":"proc","stage":6,"sub":null},{"id":148,"name":"サポート経済の新しいモデル","layer":"proc","stage":6,"sub":null},{"id":149,"name":"低炭素・ゼロ炭素の生活様式","layer":"proc","stage":6,"sub":null},{"id":150,"name":"分断されたサービスを人を中心に統合する","layer":"proc","stage":6,"sub":null},{"id":151,"name":"市民のエネルギーを動かす支援モデル","layer":"proc","stage":6,"sub":null},{"id":152,"name":"周辺化されたグループを主役にする","layer":"proc","stage":6,"sub":null},{"id":153,"name":"民主主義を新しい空間に広げる","layer":"proc","stage":6,"sub":null},{"id":154,"name":"信頼を作るデバイスを設計する","layer":"proc","stage":6,"sub":null},{"id":155,"name":"新しいシステムを動かすインフラを先に作る","layer":"proc","stage":6,"sub":null},{"id":156,"name":"経済を再配線する","layer":"proc","stage":6,"sub":null},{"id":157,"name":"チェーンの急所に技術革新を入れる","layer":"proc","stage":6,"sub":null},{"id":158,"name":"革新のアカデミーを作る","layer":"proc","stage":6,"sub":null},{"id":159,"name":"当事者が担い手になるシステムを作る","layer":"proc","stage":6,"sub":null},{"id":160,"name":"証拠の争いに新しい事実を作る","layer":"proc","stage":6,"sub":null},{"id":161,"name":"新しいシステムの動くプロトタイプを作る","layer":"proc","stage":6,"sub":null},{"id":162,"name":"システム革新を促すプラットフォームを設計する","layer":"proc","stage":6,"sub":null},{"id":163,"name":"包括的なパイロットでシステムを試す","layer":"proc","stage":6,"sub":null},{"id":164,"name":"古いシステムへの投資を止める","layer":"proc","stage":6,"sub":null},{"id":165,"name":"フレーミングで変革を加速する","layer":"proc","stage":6,"sub":null},{"id":166,"name":"新しい権利を作る","layer":"proc","stage":6,"sub":null},{"id":167,"name":"新しい責任を作る","layer":"proc","stage":6,"sub":null},{"id":168,"name":"財産の新しいかたちを作る","layer":"proc","stage":6,"sub":null},{"id":169,"name":"法的禁止でシステムを変える","layer":"proc","stage":6,"sub":null},{"id":170,"name":"法律を本気で執行する","layer":"proc","stage":6,"sub":null},{"id":171,"name":"分類を変えてシステムを変える","layer":"proc","stage":6,"sub":null},{"id":172,"name":"義務とペナルティでシステムを動かす","layer":"proc","stage":6,"sub":null},{"id":173,"name":"税制と財政でシステムを再調整する","layer":"proc","stage":6,"sub":null},{"id":174,"name":"何を測るかがシステムの論理を決める","layer":"proc","stage":6,"sub":null},{"id":175,"name":"自発的な社会運動が生活様式を変える","layer":"proc","stage":6,"sub":null},{"id":176,"name":"明確な目標を持つ公式連合を組む","layer":"proc","stage":6,"sub":null},{"id":177,"name":"財政の流れを変革の方向に向け直す","layer":"proc","stage":6,"sub":null},{"id":178,"name":"予防への投資を可能にする財政","layer":"proc","stage":6,"sub":null},{"id":179,"name":"革新を発見して広める人","layer":"conn","stage":null,"sub":"people"},{"id":180,"name":"革新を組織に埋め込む人","layer":"conn","stage":null,"sub":"people"},{"id":181,"name":"大組織の内側から社会変革を動かす人","layer":"conn","stage":null,"sub":"people"},{"id":182,"name":"通常業務から切り離した革新専用の空間を作る","layer":"conn","stage":null,"sub":"people"},{"id":183,"name":"地域に根ざした革新チーム","layer":"conn","stage":null,"sub":"people"},{"id":184,"name":"横断的専門革新ユニット","layer":"conn","stage":null,"sub":"people"},{"id":185,"name":"革新者が集まる場所がエコシステムを生む","layer":"conn","stage":null,"sub":"people"},{"id":186,"name":"革新を政府の公式な仕事にする機関を作る","layer":"conn","stage":null,"sub":"people"},{"id":187,"name":"専門分野の革新機関","layer":"conn","stage":null,"sub":"people"},{"id":188,"name":"革新ファンド","layer":"conn","stage":null,"sub":"people"},{"id":189,"name":"革新インキュベーター","layer":"conn","stage":null,"sub":"people"},{"id":190,"name":"課題と解決策の間に橋をかける専門的仲介","layer":"conn","stage":null,"sub":"people"},{"id":191,"name":"専門誌・業界誌が革新を流通させる","layer":"conn","stage":null,"sub":"people"},{"id":192,"name":"研究と実践を統合した革新の学習拠点","layer":"conn","stage":null,"sub":"people"},{"id":193,"name":"革新学習ラボ","layer":"conn","stage":null,"sub":"people"},{"id":194,"name":"分野特化の専門機関","layer":"conn","stage":null,"sub":"people"},{"id":195,"name":"デモンストレーションセンター","layer":"conn","stage":null,"sub":"network"},{"id":196,"name":"革新アクセラレーター","layer":"conn","stage":null,"sub":"network"},{"id":197,"name":"革新ネットワーク","layer":"conn","stage":null,"sub":"network"},{"id":198,"name":"花粉を運ぶネットワーク","layer":"conn","stage":null,"sub":"network"},{"id":199,"name":"協働ネットワーク","layer":"conn","stage":null,"sub":"network"},{"id":200,"name":"サービス協働体","layer":"conn","stage":null,"sub":"network"},{"id":201,"name":"実践しながら仲間と学ぶ継続的な場","layer":"conn","stage":null,"sub":"network"},{"id":202,"name":"会員組織が革新を育てる","layer":"conn","stage":null,"sub":"network"},{"id":203,"name":"情報と資源を必要な人につなぐプラットフォーム","layer":"conn","stage":null,"sub":"platform"},{"id":204,"name":"集合行動プラットフォーム","layer":"conn","stage":null,"sub":"platform"},{"id":205,"name":"専門家と市民の壁を溶かして共同制作する","layer":"conn","stage":null,"sub":"platform"},{"id":206,"name":"オンラインラボ","layer":"conn","stage":null,"sub":"platform"},{"id":207,"name":"P2Pプラットフォーム","layer":"conn","stage":null,"sub":"platform"},{"id":208,"name":"革新を戦略の中心に置く","layer":"supp","stage":null,"sub":"public"},{"id":209,"name":"トップが失敗を歓迎すると宣言する","layer":"supp","stage":null,"sub":"public"},{"id":210,"name":"革新をブロックしているものを取り除く","layer":"supp","stage":null,"sub":"public"},{"id":211,"name":"リスクをポートフォリオで管理する","layer":"supp","stage":null,"sub":"public"},{"id":212,"name":"革新を個人の成長に組み込む","layer":"supp","stage":null,"sub":"public"},{"id":213,"name":"現場の声が組織を学ばせる回路を作る","layer":"supp","stage":null,"sub":"public"},{"id":214,"name":"ユーザーをサービス設計者にする","layer":"supp","stage":null,"sub":"public"},{"id":215,"name":"実験のための安全な空間を作る","layer":"supp","stage":null,"sub":"public"},{"id":216,"name":"革新のための専用の財布を作る","layer":"supp","stage":null,"sub":"public"},{"id":217,"name":"使途を委ねるほど革新が生まれる","layer":"supp","stage":null,"sub":"public"},{"id":218,"name":"革新の利益を革新者に還元する","layer":"supp","stage":null,"sub":"public"},{"id":219,"name":"市民がオンラインで予算を設定する","layer":"supp","stage":null,"sub":"public"},{"id":220,"name":"段階的に資金と説明責任を整える","layer":"supp","stage":null,"sub":"public"},{"id":221,"name":"革新連動報酬を設計する","layer":"supp","stage":null,"sub":"public"},{"id":222,"name":"公共契約に社会条項を入れる","layer":"supp","stage":null,"sub":"public"},{"id":223,"name":"市民が政策・行政に直接関与できる場を作る","layer":"supp","stage":null,"sub":"public"},{"id":224,"name":"市民のアイデアを立法化する議会構造","layer":"supp","stage":null,"sub":"public"},{"id":225,"name":"資源配分を市民が決める","layer":"supp","stage":null,"sub":"public"},{"id":226,"name":"市民社会による影の予算プロセス","layer":"supp","stage":null,"sub":"public"},{"id":227,"name":"コミュニティが自分のサービスを設計・運営する権利","layer":"supp","stage":null,"sub":"public"},{"id":228,"name":"公的財政を透明にして市民の信頼を生む","layer":"supp","stage":null,"sub":"public"},{"id":229,"name":"革新を支援する監査・検査体制","layer":"supp","stage":null,"sub":"public"},{"id":230,"name":"政府の革新度を測る指標","layer":"supp","stage":null,"sub":"public"},{"id":231,"name":"使途を指定した税・義務","layer":"supp","stage":null,"sub":"public"},{"id":232,"name":"参加に応じた税優遇","layer":"supp","stage":null,"sub":"public"},{"id":233,"name":"自発的な追加税","layer":"supp","stage":null,"sub":"public"},{"id":234,"name":"一時税で大きな目的に投資する","layer":"supp","stage":null,"sub":"public"},{"id":235,"name":"コミュニティ共同誓約","layer":"supp","stage":null,"sub":"public"},{"id":236,"name":"行動に連動した料金・手数料の設計","layer":"supp","stage":null,"sub":"public"},{"id":237,"name":"公共の宝くじ・抽選・コンテストで資金を集める","layer":"supp","stage":null,"sub":"public"},{"id":238,"name":"リスクを社会化する","layer":"supp","stage":null,"sub":"public"},{"id":239,"name":"個人が自分のサービスを設計できる直接支払い","layer":"supp","stage":null,"sub":"public"},{"id":240,"name":"特定の行動に連動した報酬設計","layer":"supp","stage":null,"sub":"public"},{"id":241,"name":"デジタル技術で公共サービスを再設計する","layer":"supp","stage":null,"sub":"public"},{"id":242,"name":"地域債券と事業改善地区","layer":"supp","stage":null,"sub":"public"},{"id":243,"name":"公共投資からの収益を地域に還元する","layer":"supp","stage":null,"sub":"public"},{"id":244,"name":"社会的目的の組織に専用の投資資金を届ける","layer":"supp","stage":null,"sub":"public"},{"id":245,"name":"財団型基金","layer":"supp","stage":null,"sub":"public"},{"id":246,"name":"異なる資金を組み合わせて大きな投資を実現する","layer":"supp","stage":null,"sub":"public"},{"id":247,"name":"保険で不確実性を定量化する","layer":"supp","stage":null,"sub":"public"},{"id":248,"name":"保証付き投資で公共機関のリスクを下げる","layer":"supp","stage":null,"sub":"public"},{"id":249,"name":"将来の収益を証券化して今の投資に変える","layer":"supp","stage":null,"sub":"public"},{"id":250,"name":"予防への投資を今の財源から可能にする","layer":"supp","stage":null,"sub":"public"},{"id":251,"name":"成果連動のボーナス支払い","layer":"supp","stage":null,"sub":"public"},{"id":252,"name":"社会革新成長戦略への公的投資","layer":"supp","stage":null,"sub":"public"},{"id":253,"name":"官民連携によるインフラ整備","layer":"supp","stage":null,"sub":"public"},{"id":254,"name":"税制と法的地位を社会的革新の後押しに使う","layer":"supp","stage":null,"sub":"public"},{"id":255,"name":"実験区域を設ける","layer":"supp","stage":null,"sub":"public"},{"id":256,"name":"市場を再設計する政策手段","layer":"supp","stage":null,"sub":"public"},{"id":257,"name":"新しい法的形態と要件を作る","layer":"supp","stage":null,"sub":"public"},{"id":258,"name":"革新を促進する法的義務","layer":"supp","stage":null,"sub":"public"},{"id":259,"name":"創造的経済を促進する計画・税制ルール","layer":"supp","stage":null,"sub":"public"},{"id":260,"name":"資産移転プログラム","layer":"supp","stage":null,"sub":"public"},{"id":261,"name":"革新を評価・可視化して説明責任を作る","layer":"supp","stage":null,"sub":"public"},{"id":262,"name":"革新アワードで模範を示す","layer":"supp","stage":null,"sub":"public"},{"id":263,"name":"公務員組合を革新の推進者にする","layer":"supp","stage":null,"sub":"public"},{"id":264,"name":"フロントラインワーカーを革新者として支援する","layer":"supp","stage":null,"sub":"public"},{"id":265,"name":"日常業務から革新のための時間を切り出す","layer":"supp","stage":null,"sub":"public"},{"id":266,"name":"指定エリアでの革新の自由度拡大","layer":"supp","stage":null,"sub":"public"},{"id":267,"name":"革新アニメーター","layer":"supp","stage":null,"sub":"public"},{"id":268,"name":"失敗と雇用を切り離す革新モデル","layer":"supp","stage":null,"sub":"public"},{"id":269,"name":"革新者の認定・採用","layer":"supp","stage":null,"sub":"public"},{"id":270,"name":"内と外を混ぜると両方が強くなる","layer":"supp","stage":null,"sub":"public"},{"id":271,"name":"公共部門でのボランティア活用","layer":"supp","stage":null,"sub":"public"},{"id":272,"name":"地域公共通貨","layer":"supp","stage":null,"sub":"public"},{"id":273,"name":"高割引率投資家を先に満たす","layer":"supp","stage":null,"sub":"public"},{"id":274,"name":"協働的な構造でサービスを革新する","layer":"supp","stage":null,"sub":"grant"},{"id":275,"name":"最初の一歩に資金を届ける","layer":"supp","stage":null,"sub":"grant"},{"id":276,"name":"事後の表彰・認識賞","layer":"supp","stage":null,"sub":"grant"},{"id":277,"name":"素早いグラント","layer":"supp","stage":null,"sub":"grant"},{"id":278,"name":"期限付き慈善組織","layer":"supp","stage":null,"sub":"grant"},{"id":279,"name":"コンペとチャレンジファンド","layer":"supp","stage":null,"sub":"grant"},{"id":280,"name":"専門的な配分仲介者","layer":"supp","stage":null,"sub":"grant"},{"id":281,"name":"非営利組織のIPO","layer":"supp","stage":null,"sub":"grant"},{"id":282,"name":"助成を投資として設計する","layer":"supp","stage":null,"sub":"grant"},{"id":283,"name":"ギビング・サークルとソーシャル投資サークル","layer":"supp","stage":null,"sub":"grant"},{"id":284,"name":"企業の非現金資源を社会革新に届ける","layer":"supp","stage":null,"sub":"grant"},{"id":285,"name":"善意と資金を効率よくつなぐデジタルプラットフォーム","layer":"supp","stage":null,"sub":"grant"},{"id":286,"name":"資金を特定の変革目標に集中させる","layer":"supp","stage":null,"sub":"grant"},{"id":287,"name":"フィランソロピーのミューチュアルファンド","layer":"supp","stage":null,"sub":"grant"},{"id":288,"name":"受益者を意思決定と評価の中心に置く","layer":"supp","stage":null,"sub":"grant"},{"id":289,"name":"会員・準会員を革新と評価の源泉にする","layer":"supp","stage":null,"sub":"grant"},{"id":290,"name":"ベンチャーフィランソロピーのための指標","layer":"supp","stage":null,"sub":"grant"},{"id":291,"name":"フィランソロピーを透明化して効果を高める","layer":"supp","stage":null,"sub":"grant"},{"id":292,"name":"革新者へのサポートサービス","layer":"supp","stage":null,"sub":"grant"},{"id":293,"name":"社会的組織の経営能力を体系的に強化する","layer":"supp","stage":null,"sub":"grant"},{"id":294,"name":"個人のリーダーシップ・起業家精神評価ツール","layer":"supp","stage":null,"sub":"grant"},{"id":295,"name":"社会セクターの人材を専門的に育成する","layer":"supp","stage":null,"sub":"grant"},{"id":296,"name":"セクター間の役割交換","layer":"supp","stage":null,"sub":"grant"},{"id":297,"name":"社会的目的組織のための法的形態と場所の確保","layer":"supp","stage":null,"sub":"grant"},{"id":298,"name":"コモンズを財産化して収益を社会に還元する","layer":"supp","stage":null,"sub":"grant"},{"id":299,"name":"グローバルネットワーク","layer":"supp","stage":null,"sub":"grant"},{"id":300,"name":"全国ネットワーク","layer":"supp","stage":null,"sub":"grant"},{"id":301,"name":"受給者ネットワークで知識を共有する","layer":"supp","stage":null,"sub":"grant"},{"id":302,"name":"インスピレーションと接続を提供するネットワーク","layer":"supp","stage":null,"sub":"grant"},{"id":303,"name":"社会的企業として市場で活動する","layer":"supp","stage":null,"sub":"market"},{"id":304,"name":"所有することで市場の論理に対抗する協同の形","layer":"supp","stage":null,"sub":"market"},{"id":305,"name":"所有とガバナンスで使命を守る","layer":"supp","stage":null,"sub":"market"},{"id":306,"name":"社会的モデルの営利開発","layer":"supp","stage":null,"sub":"market"},{"id":307,"name":"企業の資源と責任を社会的目的に向ける","layer":"supp","stage":null,"sub":"market"},{"id":308,"name":"フェアトレードのような市場コミットメント","layer":"supp","stage":null,"sub":"market"},{"id":309,"name":"企業の資源（技術・費用）を社会的目的に転用する","layer":"supp","stage":null,"sub":"market"},{"id":310,"name":"投資を社会的価値・使命と整合させる","layer":"supp","stage":null,"sub":"market"},{"id":311,"name":"社会的企業・ベンチャーに段階に応じたエクイティを届ける","layer":"supp","stage":null,"sub":"market"},{"id":312,"name":"通常の金融が届かない人・組織への融資","layer":"supp","stage":null,"sub":"market"},{"id":313,"name":"慈善と投資を組み合わせる金融商品","layer":"supp","stage":null,"sub":"market"},{"id":314,"name":"投資準備支援","layer":"supp","stage":null,"sub":"market"},{"id":315,"name":"起業前のR&Dメンタードファンディング","layer":"supp","stage":null,"sub":"market"},{"id":316,"name":"社会的価値を優先する銀行・金融機関","layer":"supp","stage":null,"sub":"market"},{"id":317,"name":"金融保証協同組合","layer":"supp","stage":null,"sub":"market"},{"id":318,"name":"投資家と社会的プロジェクトを直接つなぐ","layer":"supp","stage":null,"sub":"market"},{"id":319,"name":"社会的企業への銀行融資","layer":"supp","stage":null,"sub":"market"},{"id":320,"name":"ビジネスエンジェルによる社会的ベンチャー投資","layer":"supp","stage":null,"sub":"market"},{"id":321,"name":"社会的卸売銀行","layer":"supp","stage":null,"sub":"market"},{"id":322,"name":"ビジネス能力と社会的使命を組み合わせたハイブリッドビジネスモデル","layer":"supp","stage":null,"sub":"market"},{"id":323,"name":"社会的サービスの非営利的企業管理","layer":"supp","stage":null,"sub":"market"},{"id":324,"name":"社会的価値を認証・マークで見えるようにする","layer":"supp","stage":null,"sub":"informal"},{"id":325,"name":"消費者ガイドとレビュー","layer":"supp","stage":null,"sub":"informal"},{"id":326,"name":"企業行動に対する社会運動キャンペーン","layer":"supp","stage":null,"sub":"informal"},{"id":327,"name":"国家通貨では届かない価値を循環させる代替システム","layer":"supp","stage":null,"sub":"informal"},{"id":328,"name":"社会経済を担う人材を育成する","layer":"supp","stage":null,"sub":"informal"},{"id":329,"name":"相互支援ネットワーク","layer":"supp","stage":null,"sub":"informal"},{"id":330,"name":"余暇時間の社会的市場","layer":"supp","stage":null,"sub":"informal"},{"id":331,"name":"市場の価格設計で悪を減らし善を増やす","layer":"supp","stage":null,"sub":"informal"},{"id":332,"name":"ソーシャルストック取引所","layer":"supp","stage":null,"sub":"informal"},{"id":333,"name":"社会的指標","layer":"supp","stage":null,"sub":"informal"},{"id":334,"name":"バーチャル市民社会","layer":"supp","stage":null,"sub":"informal"},{"id":335,"name":"個人の小さな行動を集めて大きな力にする","layer":"supp","stage":null,"sub":"informal"},{"id":336,"name":"共同制作プラットフォーム（インフォーマル経済版）","layer":"supp","stage":null,"sub":"informal"},{"id":337,"name":"オンラインガイドとモデレーター","layer":"supp","stage":null,"sub":"informal"},{"id":338,"name":"知識・情報をオープンにしながら創造者も守る","layer":"supp","stage":null,"sub":"informal"},{"id":339,"name":"コミュニティによる資産の新しい所有形態","layer":"supp","stage":null,"sub":"informal"},{"id":340,"name":"家庭・コミュニティの無償労働を社会が認め守る","layer":"supp","stage":null,"sub":"informal"},{"id":341,"name":"ボランティアへの研修とネットワーク","layer":"supp","stage":null,"sub":"informal"},{"id":342,"name":"ストリートを革新とサービスの単位にする","layer":"supp","stage":null,"sub":"informal"},{"id":343,"name":"公共空間をコミュニティの活動・生産に開放する","layer":"supp","stage":null,"sub":"informal"},{"id":344,"name":"活動を通じた抗議","layer":"supp","stage":null,"sub":"informal"},{"id":345,"name":"家庭活動に溶け込むコミュニティセンター","layer":"supp","stage":null,"sub":"informal"},{"id":346,"name":"近隣ウェブサイトとメディア","layer":"supp","stage":null,"sub":"informal"},{"id":347,"name":"ユーザーが生産者になる","layer":"supp","stage":null,"sub":"informal"},{"id":348,"name":"生産者・消費者協働","layer":"supp","stage":null,"sub":"informal"},{"id":349,"name":"家の枠を超えてコミュニティが支え合う住まいを作る","layer":"supp","stage":null,"sub":"informal"},{"id":350,"name":"ケア・支援の新しいモデルを開発する","layer":"supp","stage":null,"sub":"informal"}];
+const ALL = [{"id":1,"name":"綻びの利用","layer":"proc","stage":1,"sub":null},{"id":2,"name":"都市の鍼治療","layer":"proc","stage":1,"sub":null},{"id":3,"name":"技術と事実の翻訳","layer":"proc","stage":1,"sub":null},{"id":4,"name":"余白と水脈のマッピング","layer":"proc","stage":1,"sub":null},{"id":5,"name":"当事者の目への憑依","layer":"proc","stage":1,"sub":null},{"id":6,"name":"還流する悲鳴","layer":"proc","stage":1,"sub":null},{"id":7,"name":"市民の手にデータを取り戻す","layer":"proc","stage":1,"sub":null},{"id":8,"name":"行動のスクリプト書き換え","layer":"proc","stage":1,"sub":null},{"id":9,"name":"異物の意図的な混入","layer":"proc","stage":1,"sub":null},{"id":10,"name":"スポットライトと拡声器","layer":"proc","stage":1,"sub":null},{"id":11,"name":"ユーザーという名の共同設計者","layer":"proc","stage":2,"sub":null},{"id":12,"name":"演じるプロトタイプ","layer":"proc","stage":2,"sub":null},{"id":13,"name":"現場からの絶え間ない改善","layer":"proc","stage":2,"sub":null},{"id":14,"name":"眠れる知見と素材の転用","layer":"proc","stage":2,"sub":null},{"id":15,"name":"内なる成功者の発見","layer":"proc","stage":2,"sub":null},{"id":16,"name":"極限からの逆輸入","layer":"proc","stage":2,"sub":null},{"id":17,"name":"廃墟の再定義","layer":"proc","stage":2,"sub":null},{"id":18,"name":"アイデアの公開市場","layer":"proc","stage":2,"sub":null},{"id":19,"name":"デジタル武装した対話","layer":"proc","stage":2,"sub":null},{"id":20,"name":"市民の声を編む仕組み","layer":"proc","stage":2,"sub":null},{"id":21,"name":"出会いと余白の祭典","layer":"proc","stage":2,"sub":null},{"id":22,"name":"まぜこぜの座席配置","layer":"proc","stage":2,"sub":null},{"id":23,"name":"走りながら直す","layer":"proc","stage":3,"sub":null},{"id":24,"name":"凍結された公開実験","layer":"proc","stage":3,"sub":null},{"id":25,"name":"失敗も共有する公開テスト","layer":"proc","stage":3,"sub":null},{"id":26,"name":"段階式の応援","layer":"proc","stage":3,"sub":null},{"id":27,"name":"伴走するインキュベーション","layer":"proc","stage":3,"sub":null},{"id":28,"name":"時間を買い取る","layer":"proc","stage":3,"sub":null},{"id":29,"name":"知識共有を条件とした資金","layer":"proc","stage":3,"sub":null},{"id":30,"name":"結果への入札による市場創出","layer":"proc","stage":3,"sub":null},{"id":31,"name":"データを統合して一人の人間を見る","layer":"proc","stage":1,"sub":null},{"id":32,"name":"知識を組織の壁越しに流す","layer":"proc","stage":1,"sub":null},{"id":33,"name":"症状の下にある原因を診断する","layer":"proc","stage":1,"sub":null},{"id":34,"name":"思考の癖を意図的に壊す","layer":"proc","stage":2,"sub":null},{"id":35,"name":"現場に足を運んで見る","layer":"proc","stage":2,"sub":null},{"id":36,"name":"考えることと動くことを一体化する場","layer":"proc","stage":2,"sub":null},{"id":37,"name":"新しい能力が育つまで待つ試作","layer":"proc","stage":3,"sub":null},{"id":38,"name":"仲間を集めながら実験する","layer":"proc","stage":3,"sub":null},{"id":39,"name":"選ぶ力を当事者に渡す","layer":"proc","stage":3,"sub":null},{"id":40,"name":"集合知で何を育てるかを決める","layer":"proc","stage":3,"sub":null},{"id":41,"name":"使命とビジネスモデルを一緒に育てる","layer":"proc","stage":4,"sub":null},{"id":42,"name":"セクターの地図を読んで陣地を取る","layer":"proc","stage":4,"sub":null},{"id":43,"name":"資産を分解して収入源を増やす","layer":"proc","stage":4,"sub":null},{"id":44,"name":"計画は地図ではなく羅針盤として使う","layer":"proc","stage":4,"sub":null},{"id":45,"name":"組織の弱いリンクを可視化する","layer":"proc","stage":4,"sub":null},{"id":46,"name":"法人格を持たない強さ","layer":"proc","stage":4,"sub":null},{"id":47,"name":"株式会社という器に使命の鍵をかける","layer":"proc","stage":4,"sub":null},{"id":48,"name":"柔軟な共同所有の器","layer":"proc","stage":4,"sub":null},{"id":49,"name":"仲間のために動く組合の力","layer":"proc","stage":4,"sub":null},{"id":50,"name":"みんなのものにする相互組合","layer":"proc","stage":4,"sub":null},{"id":51,"name":"合意を形にする覚書","layer":"proc","stage":4,"sub":null},{"id":52,"name":"使命を法的に守る器を選ぶ","layer":"proc","stage":4,"sub":null},{"id":53,"name":"理事会を使命と革新の回路にする","layer":"proc","stage":4,"sub":null},{"id":54,"name":"総会を使命の更新装置にする","layer":"proc","stage":4,"sub":null},{"id":55,"name":"ステークホルダーを構造に組み込む","layer":"proc","stage":4,"sub":null},{"id":56,"name":"ガバナンスの選び方を可視化する","layer":"proc","stage":4,"sub":null},{"id":57,"name":"支援者に株を持ってもらう","layer":"proc","stage":4,"sub":null},{"id":58,"name":"使命を守るゴールデンシェア","layer":"proc","stage":4,"sub":null},{"id":59,"name":"ヒエラルキーには生き残る理由がある","layer":"proc","stage":4,"sub":null},{"id":60,"name":"現場チームに権限を渡す","layer":"proc","stage":4,"sub":null},{"id":61,"name":"細胞分裂で広がる組織","layer":"proc","stage":4,"sub":null},{"id":62,"name":"段階に合わせてリーダーシップを変える","layer":"proc","stage":4,"sub":null},{"id":63,"name":"革新と日常業務を構造的に分離する","layer":"proc","stage":4,"sub":null},{"id":64,"name":"仕入れから販売まで使命を一本通す","layer":"proc","stage":4,"sub":null},{"id":65,"name":"バックオフィスを複数組織で共有する","layer":"proc","stage":4,"sub":null},{"id":66,"name":"現場の制約に合わせて技術を再設計する","layer":"proc","stage":4,"sub":null},{"id":67,"name":"外に開き続けることを経営資源にする","layer":"proc","stage":4,"sub":null},{"id":68,"name":"利用者の声を経営の背骨にする","layer":"proc","stage":4,"sub":null},{"id":69,"name":"ウェブを関係資本の窓にする","layer":"proc","stage":4,"sub":null},{"id":70,"name":"ブランドを存在を知らせる炎にする","layer":"proc","stage":4,"sub":null},{"id":71,"name":"体験できる場が最も深く伝える","layer":"proc","stage":4,"sub":null},{"id":72,"name":"知識を手放して信頼を得る","layer":"proc","stage":4,"sub":null},{"id":73,"name":"共に学ぶ文化を育てる研修を設計する","layer":"proc","stage":4,"sub":null},{"id":74,"name":"給与と評価に使命を刻む","layer":"proc","stage":4,"sub":null},{"id":75,"name":"ボランティアに役割と意味を設計する","layer":"proc","stage":4,"sub":null},{"id":76,"name":"使命に共鳴する資金を組み合わせる","layer":"proc","stage":4,"sub":null},{"id":77,"name":"政策・プログラムに乗って生き延びる","layer":"proc","stage":4,"sub":null},{"id":78,"name":"アイコンになって広がる","layer":"proc","stage":5,"sub":null},{"id":79,"name":"社会運動として広がる","layer":"proc","stage":5,"sub":null},{"id":80,"name":"情報で需要を作る","layer":"proc","stage":5,"sub":null},{"id":81,"name":"ユーザーグループが需要を動かす","layer":"proc","stage":5,"sub":null},{"id":82,"name":"行動変容をマーケティングする","layer":"proc","stage":5,"sub":null},{"id":83,"name":"ブランドとマークで質を保証する","layer":"proc","stage":5,"sub":null},{"id":84,"name":"インセンティブで行動を引き出す","layer":"proc","stage":5,"sub":null},{"id":85,"name":"社会目標を設定して革新を引き出す","layer":"proc","stage":5,"sub":null},{"id":86,"name":"政策と標準で一気に広げる","layer":"proc","stage":5,"sub":null},{"id":87,"name":"規制当局の承認で普及を加速する","layer":"proc","stage":5,"sub":null},{"id":88,"name":"専門職を通じて中間需要を作る","layer":"proc","stage":5,"sub":null},{"id":89,"name":"ベストプラクティスを賞で伝える","layer":"proc","stage":5,"sub":null},{"id":90,"name":"グローバルに普及を促す","layer":"proc","stage":5,"sub":null},{"id":91,"name":"委託を革新の入口にする","layer":"proc","stage":5,"sub":null},{"id":92,"name":"成果で発注する","layer":"proc","stage":5,"sub":null},{"id":93,"name":"政府が最初の顧客になる","layer":"proc","stage":5,"sub":null},{"id":94,"name":"競争で革新の多様性を生む","layer":"proc","stage":5,"sub":null},{"id":95,"name":"現場の専門職に委託権限を渡す","layer":"proc","stage":5,"sub":null},{"id":96,"name":"結果に対して固定料金を払う","layer":"proc","stage":5,"sub":null},{"id":97,"name":"発見のための探索的契約","layer":"proc","stage":5,"sub":null},{"id":98,"name":"調達の仕組み自体を革新する","layer":"proc","stage":5,"sub":null},{"id":99,"name":"購入の約束が革新を引き出す","layer":"proc","stage":5,"sub":null},{"id":100,"name":"複数機関が共同で委託する","layer":"proc","stage":5,"sub":null},{"id":101,"name":"節約分を革新者に還元する","layer":"proc","stage":5,"sub":null},{"id":102,"name":"予算を当事者に直接渡す","layer":"proc","stage":5,"sub":null},{"id":103,"name":"組織から革新を切り出す","layer":"proc","stage":5,"sub":null},{"id":104,"name":"人を育てて広げる","layer":"proc","stage":5,"sub":null},{"id":105,"name":"既存組織の力を使って広げる","layer":"proc","stage":5,"sub":null},{"id":106,"name":"移転と適応の支援構造を作る","layer":"proc","stage":5,"sub":null},{"id":107,"name":"供給チェーンを成長に合わせる","layer":"proc","stage":5,"sub":null},{"id":108,"name":"モデルを削ぎ落としてコストを下げる","layer":"proc","stage":5,"sub":null},{"id":109,"name":"オープンブランドで一緒に広げる","layer":"proc","stage":5,"sub":null},{"id":110,"name":"プラットフォームで自己組織化を支援する","layer":"proc","stage":5,"sub":null},{"id":111,"name":"集まる場が普及と出会いを生む","layer":"proc","stage":5,"sub":null},{"id":112,"name":"メディアを通じて拡散する","layer":"proc","stage":5,"sub":null},{"id":113,"name":"専門家団体が知識を循環させる","layer":"proc","stage":5,"sub":null},{"id":114,"name":"知識を手放して橋渡しをする人","layer":"proc","stage":5,"sub":null},{"id":115,"name":"ウェブとバイラルで拡散する","layer":"proc","stage":5,"sub":null},{"id":116,"name":"ハンドブックで知識を届ける","layer":"proc","stage":5,"sub":null},{"id":117,"name":"組織を大きくして広げる","layer":"proc","stage":5,"sub":null},{"id":118,"name":"協働で能力と影響力を増やす","layer":"proc","stage":5,"sub":null},{"id":119,"name":"大きなシステムの中に小さなユニットを置く","layer":"proc","stage":5,"sub":null},{"id":120,"name":"コンソルティアで中小が協働する","layer":"proc","stage":5,"sub":null},{"id":121,"name":"核心だけ共有して現地が自律する","layer":"proc","stage":5,"sub":null},{"id":122,"name":"ライセンスで革新を知的財産にする","layer":"proc","stage":5,"sub":null},{"id":123,"name":"合併・買収で規模と能力を得る","layer":"proc","stage":5,"sub":null},{"id":124,"name":"標準的な投資評価を使う","layer":"proc","stage":5,"sub":null},{"id":125,"name":"費用便益分析で社会的価値を示す","layer":"proc","stage":5,"sub":null},{"id":126,"name":"人々の意向を価格にする","layer":"proc","stage":5,"sub":null},{"id":127,"name":"行動から価値を推計する","layer":"proc","stage":5,"sub":null},{"id":128,"name":"GDPを超える指標で社会を測る","layer":"proc","stage":5,"sub":null},{"id":129,"name":"QALYで医療の費用対効果を測る","layer":"proc","stage":5,"sub":null},{"id":130,"name":"患者自身が健康状態を報告する","layer":"proc","stage":5,"sub":null},{"id":131,"name":"学校の付加価値を測る","layer":"proc","stage":5,"sub":null},{"id":132,"name":"社会的インパクトを総合評価する","layer":"proc","stage":5,"sub":null},{"id":133,"name":"社会的投資収益率で価値を示す","layer":"proc","stage":5,"sub":null},{"id":134,"name":"社会勘定で組織の社会的影響を可視化する","layer":"proc","stage":5,"sub":null},{"id":135,"name":"社会的・経済的リターンを混ぜた価値を測る","layer":"proc","stage":5,"sub":null},{"id":136,"name":"公共価値を測る","layer":"proc","stage":5,"sub":null},{"id":137,"name":"生活満足度で政策を比較する","layer":"proc","stage":5,"sub":null},{"id":138,"name":"建築環境の価値を多手法で測る","layer":"proc","stage":5,"sub":null},{"id":139,"name":"運用データから改善の契機を掴む","layer":"proc","stage":5,"sub":null},{"id":140,"name":"比較することで学ぶ","layer":"proc","stage":5,"sub":null},{"id":141,"name":"バランスト・スコアカードで戦略と現場をつなぐ","layer":"proc","stage":5,"sub":null},{"id":142,"name":"評価に利用者の声と経験を組み込む","layer":"proc","stage":5,"sub":null},{"id":143,"name":"地域の成果を地域で測る","layer":"proc","stage":5,"sub":null},{"id":144,"name":"評価を学びのプロセスにする","layer":"proc","stage":5,"sub":null},{"id":145,"name":"生産を分散させる","layer":"proc","stage":6,"sub":null},{"id":146,"name":"台本を書き直すことがシステムを変える","layer":"proc","stage":6,"sub":null},{"id":147,"name":"今の投資が将来を変える","layer":"proc","stage":6,"sub":null},{"id":148,"name":"サポート経済の新しいモデル","layer":"proc","stage":6,"sub":null},{"id":149,"name":"低炭素・ゼロ炭素の生活様式","layer":"proc","stage":6,"sub":null},{"id":150,"name":"分断されたサービスを人を中心に統合する","layer":"proc","stage":6,"sub":null},{"id":151,"name":"市民のエネルギーを動かす支援モデル","layer":"proc","stage":6,"sub":null},{"id":152,"name":"周辺化されたグループを主役にする","layer":"proc","stage":6,"sub":null},{"id":153,"name":"民主主義を新しい空間に広げる","layer":"proc","stage":6,"sub":null},{"id":154,"name":"信頼を作るデバイスを設計する","layer":"proc","stage":6,"sub":null},{"id":155,"name":"新しいシステムを動かすインフラを先に作る","layer":"proc","stage":6,"sub":null},{"id":156,"name":"経済を再配線する","layer":"proc","stage":6,"sub":null},{"id":157,"name":"チェーンの急所に技術革新を入れる","layer":"proc","stage":6,"sub":null},{"id":158,"name":"革新のアカデミーを作る","layer":"proc","stage":6,"sub":null},{"id":159,"name":"当事者が担い手になるシステムを作る","layer":"proc","stage":6,"sub":null},{"id":160,"name":"証拠の争いに新しい事実を作る","layer":"proc","stage":6,"sub":null},{"id":161,"name":"新しいシステムの動くプロトタイプを作る","layer":"proc","stage":6,"sub":null},{"id":162,"name":"システム革新を促すプラットフォームを設計する","layer":"proc","stage":6,"sub":null},{"id":163,"name":"包括的なパイロットでシステムを試す","layer":"proc","stage":6,"sub":null},{"id":164,"name":"古いシステムへの投資を止める","layer":"proc","stage":6,"sub":null},{"id":165,"name":"フレーミングで変革を加速する","layer":"proc","stage":6,"sub":null},{"id":166,"name":"新しい権利を作る","layer":"proc","stage":6,"sub":null},{"id":167,"name":"新しい責任を作る","layer":"proc","stage":6,"sub":null},{"id":168,"name":"財産の新しいかたちを作る","layer":"proc","stage":6,"sub":null},{"id":169,"name":"法的禁止でシステムを変える","layer":"proc","stage":6,"sub":null},{"id":170,"name":"法律を本気で執行する","layer":"proc","stage":6,"sub":null},{"id":171,"name":"分類を変えてシステムを変える","layer":"proc","stage":6,"sub":null},{"id":172,"name":"義務とペナルティでシステムを動かす","layer":"proc","stage":6,"sub":null},{"id":173,"name":"税制と財政でシステムを再調整する","layer":"proc","stage":6,"sub":null},{"id":174,"name":"何を測るかがシステムの論理を決める","layer":"proc","stage":6,"sub":null},{"id":175,"name":"自発的な社会運動が生活様式を変える","layer":"proc","stage":6,"sub":null},{"id":176,"name":"明確な目標を持つ公式連合を組む","layer":"proc","stage":6,"sub":null},{"id":177,"name":"財政の流れを変革の方向に向け直す","layer":"proc","stage":6,"sub":null},{"id":178,"name":"予防への投資を可能にする財政","layer":"proc","stage":6,"sub":null},{"id":179,"name":"革新を発見して広める人","layer":"conn","stage":null,"sub":"people"},{"id":180,"name":"革新を組織に埋め込む人","layer":"conn","stage":null,"sub":"people"},{"id":181,"name":"大組織の内側から社会変革を動かす人","layer":"conn","stage":null,"sub":"people"},{"id":182,"name":"通常業務から切り離した革新専用の空間を作る","layer":"conn","stage":null,"sub":"people"},{"id":183,"name":"地域に根ざした革新チーム","layer":"conn","stage":null,"sub":"people"},{"id":184,"name":"横断的専門革新ユニット","layer":"conn","stage":null,"sub":"people"},{"id":185,"name":"革新者が集まる場所がエコシステムを生む","layer":"conn","stage":null,"sub":"people"},{"id":186,"name":"革新を政府の公式な仕事にする機関を作る","layer":"conn","stage":null,"sub":"people"},{"id":187,"name":"専門分野の革新機関","layer":"conn","stage":null,"sub":"people"},{"id":188,"name":"革新ファンド","layer":"conn","stage":null,"sub":"people"},{"id":189,"name":"革新インキュベーター","layer":"conn","stage":null,"sub":"people"},{"id":190,"name":"課題と解決策の間に橋をかける専門的仲介","layer":"conn","stage":null,"sub":"people"},{"id":191,"name":"専門誌・業界誌が革新を流通させる","layer":"conn","stage":null,"sub":"people"},{"id":192,"name":"研究と実践を統合した革新の学習拠点","layer":"conn","stage":null,"sub":"people"},{"id":193,"name":"革新学習ラボ","layer":"conn","stage":null,"sub":"people"},{"id":194,"name":"分野特化の専門機関","layer":"conn","stage":null,"sub":"people"},{"id":195,"name":"デモンストレーションセンター","layer":"conn","stage":null,"sub":"network"},{"id":196,"name":"革新アクセラレーター","layer":"conn","stage":null,"sub":"network"},{"id":197,"name":"革新ネットワーク","layer":"conn","stage":null,"sub":"network"},{"id":198,"name":"花粉を運ぶネットワーク","layer":"conn","stage":null,"sub":"network"},{"id":199,"name":"協働ネットワーク","layer":"conn","stage":null,"sub":"network"},{"id":200,"name":"サービス協働体","layer":"conn","stage":null,"sub":"network"},{"id":201,"name":"実践しながら仲間と学ぶ継続的な場","layer":"conn","stage":null,"sub":"network"},{"id":202,"name":"会員組織が革新を育てる","layer":"conn","stage":null,"sub":"network"},{"id":203,"name":"情報と資源を必要な人につなぐプラットフォーム","layer":"conn","stage":null,"sub":"platform"},{"id":204,"name":"集合行動プラットフォーム","layer":"conn","stage":null,"sub":"platform"},{"id":205,"name":"専門家と市民の壁を溶かして共同制作する","layer":"conn","stage":null,"sub":"platform"},{"id":206,"name":"オンラインラボ","layer":"conn","stage":null,"sub":"platform"},{"id":207,"name":"P2Pプラットフォーム","layer":"conn","stage":null,"sub":"platform"},{"id":208,"name":"革新を戦略の中心に置く","layer":"supp","stage":null,"sub":"public"},{"id":209,"name":"トップが失敗を歓迎すると宣言する","layer":"supp","stage":null,"sub":"public"},{"id":210,"name":"革新をブロックしているものを取り除く","layer":"supp","stage":null,"sub":"public"},{"id":211,"name":"リスクをポートフォリオで管理する","layer":"supp","stage":null,"sub":"public"},{"id":212,"name":"革新を個人の成長に組み込む","layer":"supp","stage":null,"sub":"public"},{"id":213,"name":"現場の声が組織を学ばせる回路を作る","layer":"supp","stage":null,"sub":"public"},{"id":214,"name":"ユーザーをサービス設計者にする","layer":"supp","stage":null,"sub":"public"},{"id":215,"name":"実験のための安全な空間を作る","layer":"supp","stage":null,"sub":"public"},{"id":216,"name":"革新のための専用の財布を作る","layer":"supp","stage":null,"sub":"public"},{"id":217,"name":"使途を委ねるほど革新が生まれる","layer":"supp","stage":null,"sub":"public"},{"id":218,"name":"革新の利益を革新者に還元する","layer":"supp","stage":null,"sub":"public"},{"id":219,"name":"市民がオンラインで予算を設定する","layer":"supp","stage":null,"sub":"public"},{"id":220,"name":"段階的に資金と説明責任を整える","layer":"supp","stage":null,"sub":"public"},{"id":221,"name":"革新連動報酬を設計する","layer":"supp","stage":null,"sub":"public"},{"id":222,"name":"公共契約に社会条項を入れる","layer":"supp","stage":null,"sub":"public"},{"id":223,"name":"市民が政策・行政に直接関与できる場を作る","layer":"supp","stage":null,"sub":"public"},{"id":224,"name":"市民のアイデアを立法化する議会構造","layer":"supp","stage":null,"sub":"public"},{"id":225,"name":"資源配分を市民が決める","layer":"supp","stage":null,"sub":"public"},{"id":226,"name":"市民社会による影の予算プロセス","layer":"supp","stage":null,"sub":"public"},{"id":227,"name":"コミュニティが自分のサービスを設計・運営する権利","layer":"supp","stage":null,"sub":"public"},{"id":228,"name":"公的財政を透明にして市民の信頼を生む","layer":"supp","stage":null,"sub":"public"},{"id":229,"name":"革新を支援する監査・検査体制","layer":"supp","stage":null,"sub":"public"},{"id":230,"name":"政府の革新度を測る指標","layer":"supp","stage":null,"sub":"public"},{"id":231,"name":"使途を指定した税・義務","layer":"supp","stage":null,"sub":"public"},{"id":232,"name":"参加に応じた税優遇","layer":"supp","stage":null,"sub":"public"},{"id":233,"name":"自発的な追加税","layer":"supp","stage":null,"sub":"public"},{"id":234,"name":"一時税で大きな目的に投資する","layer":"supp","stage":null,"sub":"public"},{"id":235,"name":"コミュニティ共同誓約","layer":"supp","stage":null,"sub":"public"},{"id":236,"name":"行動に連動した料金・手数料の設計","layer":"supp","stage":null,"sub":"public"},{"id":237,"name":"公共の宝くじ・抽選・コンテストで資金を集める","layer":"supp","stage":null,"sub":"public"},{"id":238,"name":"リスクを社会化する","layer":"supp","stage":null,"sub":"public"},{"id":239,"name":"個人が自分のサービスを設計できる直接支払い","layer":"supp","stage":null,"sub":"public"},{"id":240,"name":"特定の行動に連動した報酬設計","layer":"supp","stage":null,"sub":"public"},{"id":241,"name":"デジタル技術で公共サービスを再設計する","layer":"supp","stage":null,"sub":"public"},{"id":242,"name":"地域債券と事業改善地区","layer":"supp","stage":null,"sub":"public"},{"id":243,"name":"公共投資からの収益を地域に還元する","layer":"supp","stage":null,"sub":"public"},{"id":244,"name":"社会的目的の組織に専用の投資資金を届ける","layer":"supp","stage":null,"sub":"public"},{"id":245,"name":"財団型基金","layer":"supp","stage":null,"sub":"public"},{"id":246,"name":"異なる資金を組み合わせて大きな投資を実現する","layer":"supp","stage":null,"sub":"public"},{"id":247,"name":"保険で不確実性を定量化する","layer":"supp","stage":null,"sub":"public"},{"id":248,"name":"保証付き投資で公共機関のリスクを下げる","layer":"supp","stage":null,"sub":"public"},{"id":249,"name":"将来の収益を証券化して今の投資に変える","layer":"supp","stage":null,"sub":"public"},{"id":250,"name":"予防への投資を今の財源から可能にする","layer":"supp","stage":null,"sub":"public"},{"id":251,"name":"成果連動のボーナス支払い","layer":"supp","stage":null,"sub":"public"},{"id":252,"name":"社会革新成長戦略への公的投資","layer":"supp","stage":null,"sub":"public"},{"id":253,"name":"官民連携によるインフラ整備","layer":"supp","stage":null,"sub":"public"},{"id":254,"name":"税制と法的地位を社会的革新の後押しに使う","layer":"supp","stage":null,"sub":"public"},{"id":255,"name":"実験区域を設ける","layer":"supp","stage":null,"sub":"public"},{"id":256,"name":"市場を再設計する政策手段","layer":"supp","stage":null,"sub":"public"},{"id":257,"name":"新しい法的形態と要件を作る","layer":"supp","stage":null,"sub":"public"},{"id":258,"name":"革新を促進する法的義務","layer":"supp","stage":null,"sub":"public"},{"id":259,"name":"創造的経済を促進する計画・税制ルール","layer":"supp","stage":null,"sub":"public"},{"id":260,"name":"資産移転プログラム","layer":"supp","stage":null,"sub":"public"},{"id":261,"name":"革新を評価・可視化して説明責任を作る","layer":"supp","stage":null,"sub":"public"},{"id":262,"name":"革新アワードで模範を示す","layer":"supp","stage":null,"sub":"public"},{"id":263,"name":"公務員組合を革新の推進者にする","layer":"supp","stage":null,"sub":"public"},{"id":264,"name":"フロントラインワーカーを革新者として支援する","layer":"supp","stage":null,"sub":"public"},{"id":265,"name":"日常業務から革新のための時間を切り出す","layer":"supp","stage":null,"sub":"public"},{"id":266,"name":"指定エリアでの革新の自由度拡大","layer":"supp","stage":null,"sub":"public"},{"id":267,"name":"革新アニメーター","layer":"supp","stage":null,"sub":"public"},{"id":268,"name":"失敗と雇用を切り離す革新モデル","layer":"supp","stage":null,"sub":"public"},{"id":269,"name":"革新者の認定・採用","layer":"supp","stage":null,"sub":"public"},{"id":270,"name":"内と外を混ぜると両方が強くなる","layer":"supp","stage":null,"sub":"public"},{"id":271,"name":"公共部門でのボランティア活用","layer":"supp","stage":null,"sub":"public"},{"id":272,"name":"地域公共通貨","layer":"supp","stage":null,"sub":"public"},{"id":273,"name":"高割引率投資家を先に満たす","layer":"supp","stage":null,"sub":"public"},{"id":274,"name":"協働的な構造でサービスを革新する","layer":"supp","stage":null,"sub":"grant"},{"id":275,"name":"最初の一歩に資金を届ける","layer":"supp","stage":null,"sub":"grant"},{"id":276,"name":"事後の表彰・認識賞","layer":"supp","stage":null,"sub":"grant"},{"id":277,"name":"素早いグラント","layer":"supp","stage":null,"sub":"grant"},{"id":278,"name":"期限付き慈善組織","layer":"supp","stage":null,"sub":"grant"},{"id":279,"name":"コンペとチャレンジファンド","layer":"supp","stage":null,"sub":"grant"},{"id":280,"name":"専門的な配分仲介者","layer":"supp","stage":null,"sub":"grant"},{"id":281,"name":"非営利組織のIPO","layer":"supp","stage":null,"sub":"grant"},{"id":282,"name":"助成を投資として設計する","layer":"supp","stage":null,"sub":"grant"},{"id":283,"name":"ギビング・サークルとソーシャル投資サークル","layer":"supp","stage":null,"sub":"grant"},{"id":284,"name":"企業の非現金資源を社会革新に届ける","layer":"supp","stage":null,"sub":"grant"},{"id":285,"name":"善意と資金を効率よくつなぐデジタルプラットフォーム","layer":"supp","stage":null,"sub":"grant"},{"id":286,"name":"資金を特定の変革目標に集中させる","layer":"supp","stage":null,"sub":"grant"},{"id":287,"name":"フィランソロピーのミューチュアルファンド","layer":"supp","stage":null,"sub":"grant"},{"id":288,"name":"受益者を意思決定と評価の中心に置く","layer":"supp","stage":null,"sub":"grant"},{"id":289,"name":"会員・準会員を革新と評価の源泉にする","layer":"supp","stage":null,"sub":"grant"},{"id":290,"name":"ベンチャーフィランソロピーのための指標","layer":"supp","stage":null,"sub":"grant"},{"id":291,"name":"フィランソロピーを透明化して効果を高める","layer":"supp","stage":null,"sub":"grant"},{"id":292,"name":"革新者へのサポートサービス","layer":"supp","stage":null,"sub":"grant"},{"id":293,"name":"社会的組織の経営能力を体系的に強化する","layer":"supp","stage":null,"sub":"grant"},{"id":294,"name":"個人のリーダーシップ・起業家精神評価ツール","layer":"supp","stage":null,"sub":"grant"},{"id":295,"name":"社会セクターの人材を専門的に育成する","layer":"supp","stage":null,"sub":"grant"},{"id":296,"name":"セクター間の役割交換","layer":"supp","stage":null,"sub":"grant"},{"id":297,"name":"社会的目的組織のための法的形態と場所の確保","layer":"supp","stage":null,"sub":"grant"},{"id":298,"name":"コモンズを財産化して収益を社会に還元する","layer":"supp","stage":null,"sub":"grant"},{"id":299,"name":"グローバルネットワーク","layer":"supp","stage":null,"sub":"grant"},{"id":300,"name":"全国ネットワーク","layer":"supp","stage":null,"sub":"grant"},{"id":301,"name":"受給者ネットワークで知識を共有する","layer":"supp","stage":null,"sub":"grant"},{"id":302,"name":"インスピレーションと接続を提供するネットワーク","layer":"supp","stage":null,"sub":"grant"},{"id":303,"name":"社会的企業として市場で活動する","layer":"supp","stage":null,"sub":"market"},{"id":304,"name":"所有することで市場の論理に対抗する協同の形","layer":"supp","stage":null,"sub":"market"},{"id":305,"name":"所有とガバナンスで使命を守る","layer":"supp","stage":null,"sub":"market"},{"id":306,"name":"社会的モデルの営利開発","layer":"supp","stage":null,"sub":"market"},{"id":307,"name":"企業の資源と責任を社会的目的に向ける","layer":"supp","stage":null,"sub":"market"},{"id":308,"name":"フェアトレードのような市場コミットメント","layer":"supp","stage":null,"sub":"market"},{"id":309,"name":"企業の資源（技術・費用）を社会的目的に転用する","layer":"supp","stage":null,"sub":"market"},{"id":310,"name":"投資を社会的価値・使命と整合させる","layer":"supp","stage":null,"sub":"market"},{"id":311,"name":"社会的企業・ベンチャーに段階に応じたエクイティを届ける","layer":"supp","stage":null,"sub":"market"},{"id":312,"name":"通常の金融が届かない人・組織への融資","layer":"supp","stage":null,"sub":"market"},{"id":313,"name":"慈善と投資を組み合わせる金融商品","layer":"supp","stage":null,"sub":"market"},{"id":314,"name":"投資準備支援","layer":"supp","stage":null,"sub":"market"},{"id":315,"name":"起業前のR&Dメンタードファンディング","layer":"supp","stage":null,"sub":"market"},{"id":316,"name":"社会的価値を優先する銀行・金融機関","layer":"supp","stage":null,"sub":"market"},{"id":317,"name":"金融保証協同組合","layer":"supp","stage":null,"sub":"market"},{"id":318,"name":"投資家と社会的プロジェクトを直接つなぐ","layer":"supp","stage":null,"sub":"market"},{"id":319,"name":"社会的企業への銀行融資","layer":"supp","stage":null,"sub":"market"},{"id":320,"name":"ビジネスエンジェルによる社会的ベンチャー投資","layer":"supp","stage":null,"sub":"market"},{"id":321,"name":"社会的卸売銀行","layer":"supp","stage":null,"sub":"market"},{"id":322,"name":"ビジネス能力と社会的使命を組み合わせたハイブリッドビジネスモデル","layer":"supp","stage":null,"sub":"market"},{"id":323,"name":"社会的サービスの非営利的企業管理","layer":"supp","stage":null,"sub":"market"},{"id":324,"name":"社会的価値を認証・マークで見えるようにする","layer":"supp","stage":null,"sub":"informal"},{"id":325,"name":"消費者ガイドとレビュー","layer":"supp","stage":null,"sub":"informal"},{"id":326,"name":"企業行動に対する社会運動キャンペーン","layer":"supp","stage":null,"sub":"informal"},{"id":327,"name":"国家通貨では届かない価値を循環させる代替システム","layer":"supp","stage":null,"sub":"informal"},{"id":328,"name":"社会経済を担う人材を育成する","layer":"supp","stage":null,"sub":"informal"},{"id":329,"name":"相互支援ネットワーク","layer":"supp","stage":null,"sub":"informal"},{"id":330,"name":"余暇時間の社会的市場","layer":"supp","stage":null,"sub":"informal"},{"id":331,"name":"市場の価格設計で悪を減らし善を増やす","layer":"supp","stage":null,"sub":"informal"},{"id":332,"name":"ソーシャルストック取引所","layer":"supp","stage":null,"sub":"informal"},{"id":333,"name":"社会的指標","layer":"supp","stage":null,"sub":"informal"},{"id":334,"name":"バーチャル市民社会","layer":"supp","stage":null,"sub":"informal"},{"id":335,"name":"個人の小さな行動を集めて大きな力にする","layer":"supp","stage":null,"sub":"informal"},{"id":336,"name":"共同制作プラットフォーム（インフォーマル経済版）","layer":"supp","stage":null,"sub":"informal"},{"id":337,"name":"オンラインガイドとモデレーター","layer":"supp","stage":null,"sub":"informal"},{"id":338,"name":"知識・情報をオープンにしながら創造者も守る","layer":"supp","stage":null,"sub":"informal"},{"id":339,"name":"コミュニティによる資産の新しい所有形態","layer":"supp","stage":null,"sub":"informal"},{"id":340,"name":"家庭・コミュニティの無償労働を社会が認め守る","layer":"supp","stage":null,"sub":"informal"},{"id":341,"name":"ボランティアへの研修とネットワーク","layer":"supp","stage":null,"sub":"informal"},{"id":342,"name":"ストリートを革新とサービスの単位にする","layer":"supp","stage":null,"sub":"informal"},{"id":343,"name":"公共空間をコミュニティの活動・生産に開放する","layer":"supp","stage":null,"sub":"informal"},{"id":344,"name":"活動を通じた抗議","layer":"supp","stage":null,"sub":"informal"},{"id":345,"name":"家庭活動に溶け込むコミュニティセンター","layer":"supp","stage":null,"sub":"informal"},{"id":346,"name":"近隣ウェブサイトとメディア","layer":"supp","stage":null,"sub":"informal"},{"id":347,"name":"ユーザーが生産者になる","layer":"supp","stage":null,"sub":"informal"},{"id":348,"name":"生産者・消費者協働","layer":"supp","stage":null,"sub":"informal"},{"id":349,"name":"家の枠を超えてコミュニティが支え合う住まいを作る","layer":"supp","stage":null,"sub":"informal"},{"id":350,"name":"ケア・支援の新しいモデルを開発する","layer":"supp","stage":null,"sub":"informal"}];
 
-const PROC_STAGES = [
-  {id:"all",label:"全段階"},
-  {id:1,label:"第1段階：気づきと診断"},
-  {id:2,label:"第2段階：アイデアと提案"},
-  {id:3,label:"第3段階：試作と検証"},
-  {id:4,label:"第4段階：持続化"},
-  {id:5,label:"第5段階：スケール"},
-  {id:6,label:"第6段階：システム変革"},
-];
-const CONN_SUBS = [
-  {id:"all",label:"全カテゴリ"},
-  {id:"people",label:"人・組織"},
-  {id:"network",label:"ネットワーク"},
-  {id:"platform",label:"プラットフォーム"},
-];
-const SUPP_SUBS = [
-  {id:"all",label:"全カテゴリ"},
-  {id:"public",label:"公共セクター"},
-  {id:"grant",label:"助成経済"},
-  {id:"market",label:"市場経済"},
-  {id:"informal",label:"家庭・インフォーマル経済"},
-];
+const SUBS = {
+  proc: [
+    {v:"all",l:"全段階（絞り込まない）"},
+    {v:"1",l:"第1段階：気づきと診断"},
+    {v:"2",l:"第2段階：アイデアと提案"},
+    {v:"3",l:"第3段階：試作と検証"},
+    {v:"4",l:"第4段階：持続化"},
+    {v:"5",l:"第5段階：スケール"},
+    {v:"6",l:"第6段階：システム変革"},
+  ],
+  conn: [
+    {v:"all",l:"全カテゴリ"},
+    {v:"people",l:"人・組織"},
+    {v:"network",l:"ネットワーク"},
+    {v:"platform",l:"プラットフォーム"},
+  ],
+  supp: [
+    {v:"all",l:"全カテゴリ"},
+    {v:"public",l:"公共セクター"},
+    {v:"grant",l:"助成経済"},
+    {v:"market",l:"市場経済"},
+    {v:"informal",l:"家庭・インフォーマル経済"},
+  ]
+};
 
-function updatePatternList() {
-  const layer = document.getElementById('layer-select').value;
-  const subField = document.getElementById('sub-field');
-  const patternField = document.getElementById('pattern-field');
-  const noneMsg = document.getElementById('none-message');
-  const subSelect = document.getElementById('sub-select');
-  const patternSelect = document.getElementById('pattern-select');
+// 層を変えたとき
+document.getElementById('sel-layer').addEventListener('change', function() {
+  const layer = this.value;
+  const fieldSub = document.getElementById('field-sub');
+  const fieldPat = document.getElementById('field-pattern');
+  const noneMsg = document.getElementById('none-msg');
 
+  // 全部リセット
+  fieldSub.style.display = 'none';
+  fieldPat.style.display = 'none';
   noneMsg.style.display = 'none';
-  patternField.style.display = 'none';
-  subField.style.display = 'none';
+  document.getElementById('sel-pattern').innerHTML = '<option value="">パターンを選択...</option>';
 
   if (layer === 'none') {
     noneMsg.style.display = 'block';
@@ -181,200 +171,159 @@ function updatePatternList() {
   if (!layer) return;
 
   // サブカテゴリを設定
-  let subs = [];
-  if (layer === 'proc') subs = PROC_STAGES;
-  if (layer === 'conn') subs = CONN_SUBS;
-  if (layer === 'supp') subs = SUPP_SUBS;
+  const subSel = document.getElementById('sel-sub');
+  subSel.innerHTML = SUBS[layer].map(s => `<option value="${s.v}">${s.l}</option>`).join('');
+  fieldSub.style.display = 'block';
 
-  subSelect.innerHTML = subs.map(s =>
-    `<option value="${s.id}">${s.label}</option>`
-  ).join('');
-  subField.style.display = 'block';
-
+  // パターン一覧（全件）を設定
   fillPatterns(layer, 'all');
-  patternField.style.display = 'block';
-}
+  fieldPat.style.display = 'block';
+});
 
-function fillPatterns(layer, subVal) {
-  const patternSelect = document.getElementById('pattern-select');
-  let filtered = PATTERNS.filter(p => p.layer === layer);
-
-  if (layer === 'proc' && subVal !== 'all') {
-    filtered = filtered.filter(p => p.stage === parseInt(subVal));
-  } else if ((layer === 'conn' || layer === 'supp') && subVal !== 'all') {
-    filtered = filtered.filter(p => p.sub === subVal);
-  }
-
-  patternSelect.innerHTML = '<option value="">パターンを選択...</option>' +
-    filtered.map(p => `<option value="${p.id}">#${p.id} ${p.name}</option>`).join('');
-}
-
-document.getElementById('sub-select').addEventListener('change', function() {
-  const layer = document.getElementById('layer-select').value;
+// カテゴリを変えたとき
+document.getElementById('sel-sub').addEventListener('change', function() {
+  const layer = document.getElementById('sel-layer').value;
   fillPatterns(layer, this.value);
 });
 
+function fillPatterns(layer, subVal) {
+  let list = ALL.filter(p => p.layer === layer);
+
+  if (subVal !== 'all') {
+    if (layer === 'proc') {
+      list = list.filter(p => p.stage === parseInt(subVal));
+    } else {
+      list = list.filter(p => p.sub === subVal);
+    }
+  }
+
+  const sel = document.getElementById('sel-pattern');
+  sel.innerHTML = `<option value="">パターンを選択... (${list.length}件)</option>` +
+    list.map(p => `<option value="${p.id}">#${p.id} ${p.name}</option>`).join('');
+}
+
 async function submitCase() {
   const title = document.getElementById('case-title').value.trim();
-  const desc = document.getElementById('case-desc').value.trim();
-  const url = document.getElementById('case-url').value.trim();
-  const author = document.getElementById('case-author').value.trim();
-  const layer = document.getElementById('layer-select').value;
-  const patternId = parseInt(document.getElementById('pattern-select').value);
+  const desc  = document.getElementById('case-desc').value.trim();
+  const url   = document.getElementById('case-url').value.trim();
+  const author= document.getElementById('case-author').value.trim();
+  const layer = document.getElementById('sel-layer').value;
+  const patId = parseInt(document.getElementById('sel-pattern').value);
 
-  const status = document.getElementById('status-msg');
+  if (!title || !desc) { showStatus('error', 'タイトルと概要は必須です。'); return; }
+  if (!layer)           { showStatus('error', '層を選択してください。'); return; }
 
-  if (!title || !desc) {
-    showStatus('error', 'タイトルと概要は必須です。');
-    return;
-  }
-  if (!layer) {
-    showStatus('error', '層を選択してください。');
-    return;
-  }
-
-  // 未分類の場合
   if (layer === 'none') {
-    saveUnclassified({title, desc, url, author, date: new Date().toLocaleDateString('ja-JP')});
+    saveUC({title, desc, url, author, date: today()});
     showStatus('success', '📦 未分類ボックスに保存しました。');
     resetForm();
     return;
   }
 
-  if (!patternId) {
-    showStatus('error', 'パターンを選択してください。');
-    return;
-  }
+  if (!patId) { showStatus('error', 'パターンを選択してください。'); return; }
 
   const btn = document.getElementById('submit-btn');
   btn.disabled = true;
   showStatus('loading', 'GitHubに登録中...');
 
   try {
-    // 1. patterns.jsonを取得
-    const getRes = await fetch(`https://api.github.com/repos/${REPO}/contents/patterns.json`, {
-      headers: {
-        'Authorization': `token ${GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json'
-      }
+    // patterns.json を取得
+    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/patterns.json`, {
+      headers: {'Authorization': `token ${TOKEN}`, 'Accept': 'application/vnd.github.v3+json'}
     });
-    const fileData = await getRes.json();
-    const sha = fileData.sha;
-    const patterns = JSON.parse(atob(fileData.content.replace(/\n/g, '')));
+    const file = await r.json();
+    const sha  = file.sha;
+    const data = JSON.parse(atob(file.content.replace(/\n/g,'')));
 
-    // 2. 対象パターンに事例を追加
-    const caseText = url
-      ? `${title}（${url}）${author ? ' — ' + author : ''}`
-      : `${title}${author ? ' — ' + author : ''}`;
-
-    const target = patterns.find(p => p.id === patternId);
+    // 対象パターンに jp_cases を追加
+    const target = data.find(p => p.id === patId);
     if (!target) throw new Error('パターンが見つかりません');
+    if (!Array.isArray(target.jp_cases)) target.jp_cases = [];
+    target.jp_cases.push({ title, desc, url: url||null, author: author||null, date: today() });
 
-    if (!target.examples) target.examples = [];
-    if (!target.jp_cases) target.jp_cases = [];
-
-    target.jp_cases.push({
-      title,
-      desc,
-      url: url || null,
-      author: author || null,
-      date: new Date().toLocaleDateString('ja-JP')
-    });
-
-    // 3. GitHubに保存
-    const newContent = btoa(unescape(encodeURIComponent(JSON.stringify(patterns, null, 2))));
-    const putRes = await fetch(`https://api.github.com/repos/${REPO}/contents/patterns.json`, {
+    // 保存
+    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+    const put = await fetch(`https://api.github.com/repos/${REPO}/contents/patterns.json`, {
       method: 'PUT',
       headers: {
-        'Authorization': `token ${GITHUB_TOKEN}`,
+        'Authorization': `token ${TOKEN}`,
         'Accept': 'application/vnd.github.v3+json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        message: `事例追加: #${patternId} ${target.name} — ${title}`,
-        content: newContent,
-        sha: sha
+        message: `事例追加: #${patId} ${target.name} — ${title}`,
+        content: encoded,
+        sha
       })
     });
 
-    if (putRes.ok) {
-      showStatus('success', `✅ 登録しました！「#${patternId} ${target.name}」に追加されました。1〜2分でサイトに反映されます。`);
+    if (put.ok) {
+      showStatus('success', `✅ 登録完了！「#${patId} ${target.name}」に追加。1〜2分でサイトに反映されます。`);
       resetForm();
     } else {
-      const err = await putRes.json();
-      throw new Error(err.message);
+      const e = await put.json();
+      throw new Error(e.message);
     }
   } catch(e) {
-    showStatus('error', `エラーが発生しました: ${e.message}`);
+    showStatus('error', 'エラー: ' + e.message);
   } finally {
     btn.disabled = false;
   }
 }
 
 function showStatus(type, msg) {
-  const el = document.getElementById('status-msg');
-  el.className = `status ${type}`;
+  const el = document.getElementById('status');
+  el.className = 'status ' + type;
   el.textContent = msg;
-  el.style.display = 'block';
 }
 
 function resetForm() {
-  document.getElementById('case-title').value = '';
-  document.getElementById('case-desc').value = '';
-  document.getElementById('case-url').value = '';
-  document.getElementById('case-author').value = '';
-  document.getElementById('layer-select').value = '';
-  document.getElementById('sub-field').style.display = 'none';
-  document.getElementById('pattern-field').style.display = 'none';
-  document.getElementById('none-message').style.display = 'none';
+  ['case-title','case-desc','case-url','case-author'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('sel-layer').value = '';
+  document.getElementById('field-sub').style.display = 'none';
+  document.getElementById('field-pattern').style.display = 'none';
+  document.getElementById('none-msg').style.display = 'none';
 }
 
-// 未分類ボックス
-function saveUnclassified(item) {
-  const list = JSON.parse(localStorage.getItem('unclassified') || '[]');
+function today() {
+  return new Date().toLocaleDateString('ja-JP');
+}
+
+// 未分類
+function saveUC(item) {
+  const list = JSON.parse(localStorage.getItem('uc')||'[]');
   list.push(item);
-  localStorage.setItem('unclassified', JSON.stringify(list));
-  renderUnclassified();
+  localStorage.setItem('uc', JSON.stringify(list));
+  renderUC();
 }
 
-function renderUnclassified() {
-  const list = JSON.parse(localStorage.getItem('unclassified') || '[]');
-  const box = document.getElementById('unclassified-box');
-  const listEl = document.getElementById('unclassified-list');
-  const countEl = document.getElementById('unclassified-count');
-
-  if (list.length === 0) { box.style.display = 'none'; return; }
-
-  box.style.display = 'block';
-  countEl.textContent = list.length;
-  listEl.innerHTML = list.map((item, i) => `
+function renderUC() {
+  const list = JSON.parse(localStorage.getItem('uc')||'[]');
+  const sec = document.getElementById('unclassified-section');
+  if (list.length === 0) { sec.style.display='none'; return; }
+  sec.style.display = 'block';
+  document.getElementById('uc-count').textContent = list.length;
+  document.getElementById('uc-list').innerHTML = list.map(item => `
     <div class="unclassified-item">
-      <div class="title">${item.title}</div>
-      <div class="meta">${item.date}${item.author ? ' / ' + item.author : ''}</div>
-      <div style="margin-top:4px;font-size:11px;color:#374151">${item.desc.slice(0, 60)}${item.desc.length > 60 ? '...' : ''}</div>
+      <div style="font-weight:600;margin-bottom:2px">${item.title}</div>
+      <div style="color:#6B7280;font-size:11px">${item.date}${item.author?' / '+item.author:''}</div>
+      <div style="margin-top:4px;font-size:11px">${item.desc.slice(0,80)}${item.desc.length>80?'...':''}</div>
     </div>
   `).join('');
 }
 
-function exportUnclassified() {
-  const list = JSON.parse(localStorage.getItem('unclassified') || '[]');
-  if (list.length === 0) return;
-
-  const header = 'タイトル,概要,URL,投稿者,日付';
-  const rows = list.map(item =>
-    `"${item.title}","${item.desc}","${item.url || ''}","${item.author || ''}","${item.date}"`
-  );
-  const csv = '\uFEFF' + header + '\n' + rows.join('\n');
-
-  const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+function exportCSV() {
+  const list = JSON.parse(localStorage.getItem('uc')||'[]');
+  if (!list.length) return;
+  const csv = '\uFEFF' + 'タイトル,概要,URL,投稿者,日付\n' +
+    list.map(i=>`"${i.title}","${i.desc}","${i.url||''}","${i.author||''}","${i.date}"`).join('\n');
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `未分類事例_${new Date().toLocaleDateString('ja-JP').replace(/\//g, '-')}.csv`;
+  a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  a.download = `未分類事例_${today().replace(/\//g,'-')}.csv`;
   a.click();
 }
 
-// 初期表示
-renderUnclassified();
+renderUC();
 </script>
 </body>
 </html>
