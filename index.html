@@ -6,76 +6,115 @@
 <title>social R&D パターンランゲージ試作品一覧</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#F8F7F4;font-family:'Helvetica Neue','Noto Sans JP',sans-serif;color:#1A1A1A;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 16px}
+body{background:#F8F7F4;font-family:'Helvetica Neue','Noto Sans JP',sans-serif;color:#1A1A1A;min-height:100vh;padding:40px 16px}
+.wrap{max-width:680px;margin:0 auto}
 .header{text-align:center;margin-bottom:48px}
 .badge{font-size:10px;font-weight:700;letter-spacing:0.12em;color:#D97706;text-transform:uppercase;margin-bottom:10px}
 h1{font-size:22px;font-weight:800;line-height:1.5;margin-bottom:8px}
 .sub{font-size:13px;color:#6B7280;line-height:1.7}
-.cards{display:flex;flex-direction:column;gap:16px;width:100%;max-width:600px}
-.card{background:#fff;border-radius:16px;border:1px solid #E5E7EB;padding:24px 28px;text-decoration:none;color:inherit;display:flex;align-items:center;gap:20px;transition:all 0.2s;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
-.card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.1);border-color:transparent}
-.icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
-.card-body{flex:1}
-.card-title{font-size:16px;font-weight:700;margin-bottom:4px}
-.card-desc{font-size:12px;color:#6B7280;line-height:1.6}
-.card-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:8px;display:inline-block;margin-top:6px}
-.footer{margin-top:48px;font-size:11px;color:#9CA3AF;text-align:center}
+.section{margin-bottom:28px}
+.section-label{font-size:11px;font-weight:700;letter-spacing:0.08em;color:#9CA3AF;text-transform:uppercase;margin-bottom:12px;padding-left:4px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid-1{display:grid;grid-template-columns:1fr;gap:12px}
+.card{background:#fff;border-radius:16px;border:1px solid #E5E7EB;padding:20px 22px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px;transition:all 0.2s;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,0.10);border-color:transparent}
+.card-top{display:flex;align-items:center;gap:12px}
+.icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.card-title{font-size:15px;font-weight:700;line-height:1.3}
+.card-desc{font-size:12px;color:#6B7280;line-height:1.65}
+.card-badge{font-size:10px;font-weight:600;padding:2px 9px;border-radius:8px;display:inline-block;align-self:flex-start}
+.sep{border:none;border-top:1px dashed #E5E7EB;margin:4px 0 28px}
+.footer{margin-top:48px;text-align:center;font-size:11px;color:#9CA3AF;line-height:1.8}
+@media(max-width:480px){.grid-2{grid-template-columns:1fr}h1{font-size:18px}}
 </style>
 </head>
 <body>
-<div class="header">
-  <div class="badge">Social R&D Tools</div>
-  <h1>暗黙知を伝達可能にするための<br>コミュニケーションツール</h1>
-  <p class="sub">ソーシャルイノベーションのためののパターン・ランゲージ集。<br>気になるツールを選んでください。</p>
-</div>
+<div class="wrap">
 
-<div class="cards">
+  <div class="header">
+    <div class="badge">Social R&D Tools</div>
+    <h1>暗黙知を伝達可能にするための<br>コミュニケーションツール</h1>
+    <p class="sub">ソーシャルイノベーションのためのパターン・ランゲージ集。<br>気になるツールを選んでください。</p>
+  </div>
 
-  <a class="card" href="./socialrd-cookpad.html" style="border-left:4px solid #059669">
-    <div class="icon" style="background:#D1FAE5">🍳</div>
-    <div class="card-body">
-      <div class="card-title">ソーシャルR&D Cookpad</div>
-      <div class="card-desc">Open Book of Social Innovationから抽出・精錬した350パターン。プロセス・つなぎ方・支え方の3層構造でナビゲート。</div>
-      <span class="card-badge" style="background:#D1FAE5;color:#059669">350パターン収録</span>
+  <!-- ソーシャルイノベーション -->
+  <div class="section">
+    <div class="section-label">🌍 ソーシャルイノベーション</div>
+    <div class="grid-2">
+
+      <a class="card" href="./socialrd-cookpad.html" style="border-top:3px solid #059669">
+        <div class="card-top">
+          <div class="icon" style="background:#D1FAE5">🍳</div>
+          <div class="card-title">ソーシャルR&D<br>Cookpad</div>
+        </div>
+        <div class="card-desc">Open Bookから精錬した350パターン。プロセス・つなぎ方・支え方の3層でナビゲート。</div>
+        <span class="card-badge" style="background:#D1FAE5;color:#059669">350パターン収録</span>
+      </a>
+
+      <a class="card" href="./open-book.html" style="border-top:3px solid #2563EB">
+        <div class="card-top">
+          <div class="icon" style="background:#DBEAFE">📖</div>
+          <div class="card-title">Open Book of<br>Social Innovation</div>
+        </div>
+        <div class="card-desc">Nestaのオープンブックに収録された527手法を原典に忠実に網羅したリファレンス。</div>
+        <span class="card-badge" style="background:#DBEAFE;color:#2563EB">527手法 原典版</span>
+      </a>
+
     </div>
-    <span style="color:#D1D5DB;font-size:18px">›</span>
-  </a>
+  </div>
 
-  <a class="card" href="./open-book.html" style="border-left:4px solid #2563EB">
-    <div class="icon" style="background:#DBEAFE">📖</div>
-    <div class="card-body">
-      <div class="card-title">Open Book of Social Innovation</div>
-      <div class="card-desc">527 Methods — Nestaのオープンブックに収録された社会革新の手法を原典に忠実に網羅したリファレンス。</div>
-      <span class="card-badge" style="background:#DBEAFE;color:#2563EB">527手法 原典版</span>
-    </div>
-    <span style="color:#D1D5DB;font-size:18px">›</span>
-  </a>
+  <hr class="sep">
 
-  <a class="card" href="./cross-border.html" style="border-left:4px solid #7C3AED">
-    <div class="icon" style="background:#EDE9FE">🤝</div>
-    <div class="card-body">
-      <div class="card-title">越境学習についての伴走者のためのパターン・ランゲージ</div>
-      <div class="card-desc">社会起業家やプロジェクトに伴走するコーディネーターのための実践パターン集。現場の知恵を言語化。</div>
-      <span class="card-badge" style="background:#EDE9FE;color:#7C3AED">伴走実践パターン</span>
-    </div>
-    <span style="color:#D1D5DB;font-size:18px">›</span>
-  </a>
-  
-  <a class="card" href="./entrecomp-patterns.html" style="border-left:4px solid #C4852A">
-    <div class="icon" style="background:#FDF3E3">🚀</div>
-    <div class="card-body">
-      <div class="card-title">起業家的行動のパターン</div>
-      <div class="card-desc">日本版EntreCompに基づく起業家的コンピテンシーのパターン・ランゲージ。アイデアから価値創造へ。</div>
-      <span class="card-badge" style="background:#FDF3E3;color:#C4852A">EntreComp パターン</span>
-    </div>
-    <span style="color:#D1D5DB;font-size:18px">›</span>
-  </a>
-  
-</div>
+  <!-- コーディネーター -->
+  <div class="section">
+    <div class="section-label">🤝 コーディネーター</div>
+    <div class="grid-1">
 
-<div class="footer">
-  Powered by みやち<br>
-  このサイトは随時更新されます
+      <a class="card" href="./cross-border.html" style="border-top:3px solid #7C3AED">
+        <div class="card-top">
+          <div class="icon" style="background:#EDE9FE">🤝</div>
+          <div class="card-title">越境学習についての伴走者のためのパターン・ランゲージ</div>
+        </div>
+        <div class="card-desc">社会起業家やプロジェクトに伴走するコーディネーターのための実践パターン集。現場の知恵を言語化した、支援者のための手引き。</div>
+        <span class="card-badge" style="background:#EDE9FE;color:#7C3AED">伴走実践パターン</span>
+      </a>
+
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- プロデューサー -->
+  <div class="section">
+    <div class="section-label">🚀 プロデューサー</div>
+    <div class="grid-2">
+
+      <a class="card" href="./entrecomp-pattern-eu.html" style="border-top:3px solid #DB2777">
+        <div class="card-top">
+          <div class="icon" style="background:#FCE7F3">🇪🇺</div>
+          <div class="card-title">EU EntreComp<br>パターン</div>
+        </div>
+        <div class="card-desc">EUの起業家コンピテンシー枠組みをパターン・ランゲージ化。変化の種を育てる力を体系化。</div>
+        <span class="card-badge" style="background:#FCE7F3;color:#DB2777">EU版 EntreComp</span>
+      </a>
+
+      <a class="card" href="./entrecomp-patterns.html" style="border-top:3px solid #C4852A">
+        <div class="card-top">
+          <div class="icon" style="background:#FDF3E3">🇯🇵</div>
+          <div class="card-title">起業家的行動の<br>パターン</div>
+        </div>
+        <div class="card-desc">日本版EntreCompに基づく起業家的コンピテンシーのパターン・ランゲージ。アイデアから価値創造へ。</div>
+        <span class="card-badge" style="background:#FDF3E3;color:#C4852A">日本版 EntreComp</span>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    Powered by みやち<br>
+    このサイトは随時更新されます
+  </div>
+
 </div>
 </body>
 </html>
