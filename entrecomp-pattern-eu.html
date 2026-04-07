@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>変化の種を育てる人 — 社会起業家支援コーディネーターのパターン・ランゲージ</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#F8F7F4;font-family:'Helvetica Neue','Noto Sans JP',sans-serif;color:#1A1A1A}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState, useMemo} = React;
+
+const PATTERNS = [
+  // ════════ エリアI: アイデアと機会 ════════
+  // C1: 機会を見つける
+  {id:"P01", area:"area1", areaName:"アイデアと機会", comp:"機会を見つける",
+   name:"まだ名前のない課題を掴む", en:"Naming the Unnamed",
+   context:"支援相談や地域ヒアリング、イベントの雑談の中で、コーディネーターは日々大量の情報を受け取っている。",
+   problem:"「すでに課題と名付けられたもの」にだけ反応していると、本当に重要な社会変化の芽——まだ誰も言語化していない違和感——を見逃してしまう。",
+   solution:"「この人がこういう言い方をするのは初めてだ」という瞬間を意識的に記録する。複数の起業家から似た違和感が出てきたとき（3人以上＝ルール・オブ・スリー）、それを「仮の名前」をつけて共有する。機会は「発見するもの」ではなく「命名することで生まれるもの」と捉える。",
+   result:"エコシステム全体の「アンテナ役」として機能し、支援プログラム設計や政策提言の先行指標になる。",
+   related:["P02","P04","P05"]},
+
+  {id:"P02", area:"area1", areaName:"アイデアと機会", comp:"機会を見つける",
+   name:"課題の焦点を絞る", en:"Reframing the Problem",
+   context:"起業家が「これが私の課題だ」と決め打ちして相談に来る。しかしその定義は解決策から逆算されており、本質的な問いが埋もれていることが多い。",
+   problem:"問題定義をそのまま受け取ると「正しい問いへの正しくない答え」を一緒に追いかけることになる。かといって頭ごなしに否定すると信頼関係が壊れる。",
+   solution:"「なぜその解決策を選んだのですか」「それが解決されると、誰のどんな状況が変わりますか」と連続して問う。課題の定義を「組み直す」のではなく「一緒に発見し直す」プロセスとして場をデザインする。",
+   result:"起業家が自分の課題を深く理解し直し、より本質的なアプローチへのシフトが起きる。",
+   related:["P01","P08"]},
+
+  {id:"P04", area:"area1", areaName:"アイデアと機会", comp:"機会を見つける",
+   name:"見えないニーズを掘る", en:"Surfacing Silent Needs",
+   context:"起業家が「ターゲット像」を描いているが、それは自分の思い込みや既存の支援枠組みに引っ張られていることが多い。",
+   problem:"「声を上げられる人」のニーズしか見えておらず、最も支援が必要な層が設計から抜け落ちる。",
+   solution:"「誰のどんな状況を変えたいか」を丁寧に問い直す。「まだ声になっていないニーズ」を持つ人たちへの直接接触を促す。コーディネーター自身がそのブリッジ役になる。",
+   result:"事業設計が当事者の現実に根ざしたものになり、社会的インパクトの解像度が上がる。",
+   related:["P01","P56"]},
+
+  {id:"P05", area:"area1", areaName:"アイデアと機会", comp:"機会を見つける",
+   name:"社会的文脈を読む", en:"Reading the System",
+   context:"起業家は自分の事業領域の課題には詳しいが、それを取り巻く行政・市場・市民セクターの動きを把握しきれていないことが多い。",
+   problem:"文脈を読まずに動くと、すでに類似の動きがあることを知らなかったり、追い風になりうる政策変化を見逃したりする。",
+   solution:"「その課題が生まれている社会的背景は何か」「公・民・NPOのどのセクターがどう動いているか」を一緒にマッピングする。コーディネーターは複数の起業家を横断して見ているからこそ持てる「鳥の目」を積極的に渡す。",
+   result:"起業家が自分の事業をエコシステムの一部として位置づけられるようになる。",
+   related:["P01","P14"]},
+
+  // C2: 創造性
+  {id:"P06", area:"area1", areaName:"アイデアと機会", comp:"創造性",
+   name:"好奇心を火種にする", en:"Curiosity as Fuel",
+   context:"支援の場で、起業家が「正解」を求めて相談に来る。コーディネーターもつい「答え」を出そうとする。",
+   problem:"正解探しに入ると、まだ見えていない可能性の扉が閉じてしまう。「知らないこと」を資源として扱えなくなる。",
+   solution:"「それ、面白いですね。もっと聞かせてください」という反応を意識的に先行させる。コーディネーター自身が「わからないことを楽しんでいる」姿勢を見せることで、場に好奇心の文化をつくる。",
+   result:"起業家が「完成した計画」ではなく「途中の問い」を持ち込める関係性が生まれる。",
+   related:["P07","P60"]},
+
+  {id:"P07", area:"area1", areaName:"アイデアと機会", comp:"創造性",
+   name:"アイデアを育てる畑を作る", en:"Creating a Field for Ideas",
+   context:"起業家が「アイデアはあるが、一人で煮詰まっている」状態で相談に来る。",
+   problem:"アイデアは孤独な頭の中では育ちにくい。しかし「批評される」場に出すのは怖い。",
+   solution:"アイデアを「正しいか間違いか」で評価する場ではなく「どうしたらもっと面白くなるか」で受け取る場をデザインする。「はい、そして……」（Yes, and）の原則でアイデアを継ぎ足していく対話の型を意識する。",
+   result:"起業家がアイデアを安心して外に出せるようになり、思いがけない接続が生まれる。",
+   related:["P06","P37"]},
+
+  {id:"P08", area:"area1", areaName:"アイデアと機会", comp:"創造性",
+   name:"問いを組み直す", en:"Recomposing the Question",
+   context:"起業家が「解決策を探している」状態で来るが、その前提となる問いの設定が狭すぎたり、ズレていたりする。",
+   problem:"問い自体を疑わずに解決策を探し続けると、どれだけ優れた答えを出しても本質的な変化が起きない。",
+   solution:"「その問いが解けたとして、何が変わりますか」「なぜその問いが問題だと思うのですか」と問いの上流に遡る。「問題の再定義」そのものを一つの創造的作業として位置づける。",
+   result:"起業家が問いを持ち続ける力を育み、変化する状況に応じて問いを更新できるようになる。",
+   related:["P02","P04"]},
+
+  {id:"P09", area:"area1", areaName:"アイデアと機会", comp:"創造性",
+   name:"価値の試作品を作る", en:"Prototyping Value",
+   context:"起業家が「まだ完成していないから」と言って、ターゲットへの価値検証を先延ばしにしている。",
+   problem:"完成を待ち続けると、誰にも届かないまま時間とリソースを使い切ってしまう。",
+   solution:"「今できる最小限の形で、一人の当事者に試してみる」を促す。完璧なサービスより「荒削りな原型で本物のフィードバックを得ること」の価値をコーディネーター自身が体現して見せる。",
+   result:"早期の失敗が安くなり、学習サイクルが速くなる。起業家の「完成恐怖」が和らぐ。",
+   related:["P44","P60"]},
+
+  {id:"P10", area:"area1", areaName:"アイデアと機会", comp:"創造性",
+   name:"イノベーションの文脈を語る", en:"Narrating the Innovation",
+   context:"起業家が「自分のやっていることは新しい」と思っているが、それが既存の取り組みとどう違うのかを説明できないでいる。",
+   problem:"「新しさ」を言語化できないと、資金調達・採用・連携のすべての場面で相手に伝わらない。",
+   solution:"「既存の取り組みと何が違うのか」「その違いによって誰の状況がどう変わるのか」を一緒に言語化する。「革新的かどうか」ではなく「その革新が誰にとって意味があるか」に焦点を当てる。",
+   result:"起業家の「新しさ」が相手に届く言葉を持ち、多様な支援者・連携先を引き寄せられる。",
+   related:["P11","P40"]},
+
+  // C3: ビジョン
+  {id:"P11", area:"area1", areaName:"アイデアと機会", comp:"ビジョン",
+   name:"可能性の絵を描く", en:"Painting Possibilities",
+   context:"起業家が「現状の問題解決」に終始しており、その先にある「変わった後の社会の姿」を描けていない。",
+   problem:"課題解決型の語り口は共感を呼びやすいが、「それが実現した先の世界」を見せないと、人を動かす力が弱い。",
+   solution:"「10年後、この課題が解決されている社会では、日常の何が変わっていますか」と問い、具体的な日常シーンを語らせる。コーディネーターが「それ、いいですね。もっとその世界を教えてください」と引き出す役に徹する。",
+   result:"起業家の言語が「問題から未来へ」シフトし、共感の広がり方が変わる。",
+   related:["P12","P40"]},
+
+  {id:"P12", area:"area1", areaName:"アイデアと機会", comp:"ビジョン",
+   name:"戦略的に未来を設計する", en:"Designing the Future Backward",
+   context:"ビジョンは描けているが、そこから今やるべきことへの逆算ができていない。",
+   problem:"「いつかそうなればいい」というビジョンは、日々の意思決定の指針にならない。",
+   solution:"「そのビジョンが実現している状態から逆算すると、3年後・1年後・来月、何が起きている必要がありますか」と「バックキャスティング」の対話を促す。コーディネーターが戦略設計の対話相手として機能する。",
+   result:"ビジョンが「夢」から「戦略の起点」に変わる。",
+   related:["P11","P45"]},
+
+  {id:"P13", area:"area1", areaName:"アイデアと機会", comp:"ビジョン",
+   name:"変化のロードマップを引く", en:"Mapping the Change",
+   context:"ビジョンはあるが、それを実現するための「変化の経路」が描けておらず、目の前のタスクとビジョンが断絶している。",
+   problem:"ビジョンと日常業務が繋がっていないと、緊急のことに追われてビジョンが形骸化する。",
+   solution:"「今やっていることが、どうビジョンに繋がっているか」を定期的に確認する場を設ける。「変化の理論（Theory of Change）」の簡易版を一緒に書き、壁に貼っておく。",
+   result:"日々の行動の意味が明確になり、モチベーションの持続性が変わる。",
+   related:["P12","P45"]},
+
+  // C4: アイデアの価値
+  {id:"P14", area:"area1", areaName:"アイデアと機会", comp:"アイデアの価値",
+   name:"価値の多層性を見る", en:"Seeing Value in Layers",
+   context:"起業家が「社会価値か経済価値か」という二項対立で悩んでいる。あるいは支援者が「経済的持続可能性」だけで事業を評価している。",
+   problem:"社会的価値・文化的価値・経済的価値は本来複合的に存在するが、一つの軸だけで評価すると、本当の価値が見えなくなる。",
+   solution:"「この事業が生み出す価値を、社会・文化・経済の三つの層で語ってみてください」という問いを立てる。コーディネーターが「これは経済的には小さいが、文化的には大きい」という複眼的評価を示す。",
+   result:"起業家が自分の事業の価値を多角的に語れるようになり、多様な支援者・連携先を引き寄せられる。",
+   related:["P15","P18"]},
+
+  {id:"P15", area:"area1", areaName:"アイデアと機会", comp:"アイデアの価値",
+   name:"知的財産を守る戦略", en:"Sharing and Protecting",
+   context:"起業家がアイデアを広く共有したいと思っているが、「真似される」「搾取される」という恐怖から、情報を出し渋っている。",
+   problem:"社会課題解決のエコシステムでは、アイデアの「オープンな共有」と「権利保護」のバランスが特に難しい。囲い込みすぎると普及しない。",
+   solution:"「何を守り、何を開放するか」を戦略として考える。オープンライセンス・クリエイティブコモンズ・ノウハウの明示的な共有など、「共有することで広がる価値」と「守ることで持続する価値」を切り分ける。",
+   result:"アイデアの普及と持続可能性が両立できる。",
+   related:["P14","P30"]},
+
+  // C5: 倫理と持続可能な思考
+  {id:"P16", area:"area1", areaName:"アイデアと機会", comp:"倫理と持続可能な思考",
+   name:"誠実さを行動で示す", en:"Integrity in Action",
+   context:"支援関係の中で、コーディネーターは「善意の第三者」として振る舞いながら、実は組織の利害や評価指標に影響されている。",
+   problem:"言葉では「起業家のために」と言いながら、行動が組織の論理に引っ張られると、起業家との信頼関係が静かに壊れる。",
+   solution:"「この支援は誰のためか」を定期的に問い直す習慣を持つ。組織の利益と起業家の利益が相反する場面では、その葛藤を起業家に正直に開示する。",
+   result:"コーディネーターへの信頼が「機能的信頼」から「人格的信頼」へと深まる。",
+   related:["P17","P55"]},
+
+  {id:"P17", area:"area1", areaName:"アイデアと機会", comp:"倫理と持続可能な思考",
+   name:"持続可能性を事業設計に織り込む", en:"Sustainability by Design",
+   context:"起業家が「社会課題を解決したい」という強い意志を持ちながら、事業活動自体が環境・地域コミュニティに負荷をかけている場合がある。",
+   problem:"「良いことをしている」という確信が、持続可能性の盲点を生む。",
+   solution:"「この事業活動が環境・コミュニティ・将来世代に与える影響は何か」を事業設計の段階から一緒に考える。「持続可能性のチェック」を評価の後付けではなく設計の前提として位置づける。",
+   result:"「善意の事業」が意図せず生む負の外部性を早期に発見・修正できる。",
+   related:["P16","P18"]},
+
+  {id:"P18", area:"area1", areaName:"アイデアと機会", comp:"倫理と持続可能な思考",
+   name:"インパクトを可視化する", en:"Making Impact Visible",
+   context:"起業家が「良いことをしている」感覚はあるが、その変化が実際に起きているかどうかを確認する手段を持っていない。",
+   problem:"可視化されないインパクトは、支援者・投資家・連携先に伝わらず、事業の拡大機会を逃す。また「何が本当に効いているのか」がわからないまま資源が分散する。",
+   solution:"「何が変われば成功と言えますか」を最初に問い、「変化の指標」を一緒に設計する。測定の精緻さより「何を変えたいかの明確さ」を優先する。",
+   result:"インパクトの語りが「感覚」から「証拠」へと移行し、支援者との対話の質が変わる。",
+   related:["P17","P19"]},
+
+  {id:"P19", area:"area1", areaName:"アイデアと機会", comp:"倫理と持続可能な思考",
+   name:"説明責任を設計する", en:"Designing Accountability",
+   context:"起業家が「成果を報告しなければならない」という義務感で報告書を書いているが、それが事業の学習や改善に繋がっていない。",
+   problem:"報告のための報告は、資源と時間を消耗するだけで、誰にも価値をもたらさない。",
+   solution:"「この報告は誰に、何を伝えるためのものか」を問い直す。「インプット→アウトプット→アウトカム→インパクト」の連鎖を見せることで、報告が「成果のストーリー」になるよう設計を手伝う。",
+   result:"報告書が義務から、事業の改善ツール兼コミュニケーションツールへと変わる。",
+   related:["P18","P30"]},
+
+  // ════════ エリアII: リソース ════════
+  // C6: 自己認識と自己効力感
+  {id:"P20", area:"area2", areaName:"リソース", comp:"自己認識と自己効力感",
+   name:"自分の軸を持つ", en:"Knowing Your Center",
+   context:"コーディネーターが「組織に求められる役割」と「自分がやりたいこと」の間でジレンマを感じている。",
+   problem:"自分の動機や価値観を言語化できていないと、組織の論理や目の前の起業家のニーズに振り回されて消耗する。",
+   solution:"「私がこの仕事を続ける理由は何か」「10年後、自分はどんなコーディネーターでいたいか」を定期的に書き出す。スーパービジョンや同僚との内省の時間を意図的に設ける。",
+   result:"自分の軸が明確になると、判断が速くなり、余計な消耗が減る。",
+   related:["P21","P24"]},
+
+  {id:"P21", area:"area2", areaName:"リソース", comp:"自己認識と自己効力感",
+   name:"強みと限界を把握する", en:"Knowing Your Edges",
+   context:"コーディネーターが「全部自分でやらなければ」と抱え込んでいる、あるいは逆に「自分には無理」と引きすぎている。",
+   problem:"強みと限界の過大評価・過小評価が、チームの力を活かす機会を失わせる。",
+   solution:"「自分が最も価値を発揮できる場面」と「他の人に任せた方がうまくいく場面」を明示的にリストアップする。「限界を知ること」を弱さではなくチームを作る起点として捉える。",
+   result:"コーディネーターが自分の得意領域に集中でき、チームとしての総合力が上がる。",
+   related:["P20","P57"]},
+
+  {id:"P22", area:"area2", areaName:"リソース", comp:"自己認識と自己効力感",
+   name:"自分の影響力を信じる", en:"Believing in Your Reach",
+   context:"コーディネーターが「自分一人が何をしても社会は変わらない」という無力感を感じている。",
+   problem:"中間支援の仕事は直接的な成果が見えにくく、自分の貢献が見えにくい。それが蓄積すると内発動機が失われる。",
+   solution:"「自分が関わったことで何が変わったか」を小さくても記録する習慣を持つ。「変えた」という大きな話ではなく「関わった」「つないだ」「見えるようにした」という動詞で自分の仕事を語り直す。",
+   result:"自己効力感が「成果」ではなく「プロセスへの関与」に根ざすようになり、長期的な持続力が生まれる。",
+   related:["P20","P27"]},
+
+  {id:"P23", area:"area2", areaName:"リソース", comp:"自己認識と自己効力感",
+   name:"キャリアを自分で設計する", en:"Authoring Your Career",
+   context:"コーディネーターが「組織に用意されたキャリアパス」の中に自分を当てはめようとしている。",
+   problem:"社会変化の速い分野では、既存のキャリアパスがすぐに陳腐化する。受け身のキャリア観では、環境変化に適応できない。",
+   solution:"「5年後の自分に必要なスキルと経験は何か」を自分で設計する。組織のキャリアパスを参考にしながら、自分の探求テーマを持つ「T字型」「Π字型」の専門性を意識的に育てる。",
+   result:"コーディネーター自身が「変化のモデル」として起業家に影響を与える。",
+   related:["P20","P61"]},
+
+  // C7: 動機と粘り強さ
+  {id:"P24", area:"area2", areaName:"リソース", comp:"動機と粘り強さ",
+   name:"内発動機の火を守る", en:"Keeping the Inner Fire",
+   context:"コーディネーターが、多くの相談・業務・報告に追われ、「なぜこの仕事をしているのか」を感じられなくなっている。",
+   problem:"外発動機（給与・評価・義務）だけで動き続けると、支援の質が「こなし」になっていく。起業家はその変化を敏感に感じ取る。",
+   solution:"「この仕事で、自分が一番嬉しかった瞬間はどんな場面だったか」を定期的に思い出す。支援した起業家の変化を「記録」として残し、それを自分の動機の燃料にする。",
+   result:"長期的な支援の質が維持され、コーディネーター自身の燃え尽きが防げる。",
+   related:["P20","P25"]},
+
+  {id:"P25", area:"area2", areaName:"リソース", comp:"動機と粘り強さ",
+   name:"挑戦を楽しむ姿勢を持つ", en:"Embracing the Challenge",
+   context:"コーディネーターが「前例のない支援要求」や「既存の枠に収まらない起業家」に戸惑い、距離を置いてしまう。",
+   problem:"「やったことがない」を「できない」と解釈すると、支援の質が過去の成功パターンに固定化される。",
+   solution:"「初めてのことに直面したとき」を「学べるチャンス」と意識的に再フレームする。「どうやって解決するか」より「解決するプロセスで何を学べるか」を問いの起点にする。",
+   result:"コーディネーターが学習者としての姿勢を持ち続け、起業家にとっての「伴走者」であり続けられる。",
+   related:["P24","P61"]},
+
+  {id:"P26", area:"area2", areaName:"リソース", comp:"動機と粘り強さ",
+   name:"動機の源泉を知る", en:"Understanding Your Drive",
+   context:"コーディネーターが「モチベーションが上がらない」と感じているが、なぜそうなのかを分析できていない。",
+   problem:"動機には「内発的なもの」と「外発的なもの」があり、それぞれの組み合わせは人によって違う。自分の動機の構造を知らずにいると、管理できない。",
+   solution:"「どんな状況のとき最もエネルギーを感じるか」「逆に消耗するのはどんな場面か」を言語化する。それを踏まえて、業務の配分や関わり方を意識的に調整する。",
+   result:"「なんとなくやる気がない」から「この条件のときに力が出る」という具体的な自己理解に移行する。",
+   related:["P24","P21"]},
+
+  {id:"P27", area:"area2", areaName:"リソース", comp:"動機と粘り強さ",
+   name:"折れずに続ける姿勢を持つ", en:"Resilience as Practice",
+   context:"支援した起業家が事業を畳んだ、連携が破談になった、プログラムが不調に終わったなど、コーディネーターが「失敗経験」を抱えている。",
+   problem:"失敗をそのまま受け止めると、次の支援への躊躇が生まれる。しかし「気にしない」と蓋をしても、同じパターンを繰り返す。",
+   solution:"「何が起きたか」を事実として整理し、「なぜ起きたか」を構造として分析し、「次に何が変えられるか」を具体的に問う。失敗の解剖を批判ではなく知識生成のプロセスとして位置づける。",
+   result:"失敗が「傷」ではなく「資産」に変わり、経験の蓄積が自信の根拠になる。",
+   related:["P28","P60"]},
+
+  {id:"P28", area:"area2", areaName:"リソース", comp:"動機と粘り強さ",
+   name:"あきらめない方法を持つ", en:"The Art of Not Quitting",
+   context:"起業家が「もうやめようかと思っている」という状態で相談に来る。",
+   problem:"「諦めないで」という励ましは、当事者の痛みを軽くしない。しかし「諦めていい」とも言えない。",
+   solution:"「今、何が一番つらいですか」と聞き、感情を先に受け取る。その後「今の状態で、次の一手として考えられることは何でしょう」と一緒に考える。「続ける」か「ピボットする」か「一旦止める」かを、価値観に照らして一緒に整理する。",
+   result:"起業家が「諦め」を「再設計」に変えられる可能性が開かれる。",
+   related:["P27","P51"]},
+
+  // C8: リソースの動員
+  {id:"P29", area:"area2", areaName:"リソース", comp:"リソースの動員",
+   name:"資源の組み合わせを設計する", en:"Designing Resource Combinations",
+   context:"起業家が「お金がない」「人がいない」と言って行動を止めている。",
+   problem:"「十分なリソースが揃ってから動く」という思考は、社会起業の文脈では機能しない。リソースは揃えてから使うのではなく、動きながら引き寄せるものである。",
+   solution:"「今持っているリソース（時間・人脈・スキル・場所・信頼）を棚卸しして、それだけで何ができるか」を一緒に考える。「ないもの」ではなく「あるもの」から出発する。",
+   result:"起業家が「制約を前提にした創造」のモードに入り、行動が始まる。",
+   related:["P30","P32"]},
+
+  {id:"P30", area:"area2", areaName:"リソース", comp:"リソースの動員",
+   name:"資源を責任持って使う", en:"Stewardship of Resources",
+   context:"起業家が助成金・寄付・人の善意など「外部から得たリソース」を、目的と手段の整合性なく使っている。",
+   problem:"リソースの提供者（投資家・支援者・地域コミュニティ）への説明責任を意識しないと、信頼が失われ、次のリソースが来なくなる。",
+   solution:"「このリソースは誰から、何のために預かっているか」を事業設計の起点に置く。使途の透明性と効果の報告を習慣にする。",
+   result:"リソースの提供者との長期的な信頼関係が築かれ、次のリソースが循環する。",
+   related:["P19","P29"]},
+
+  {id:"P31", area:"area2", areaName:"リソース", comp:"リソースの動員",
+   name:"時間を価値に変える", en:"Time as Value",
+   context:"コーディネーターも起業家も「忙しい」が口癖で、重要なことより緊急なことに時間を使っている。",
+   problem:"「いつか重要なことに取り組む」は永遠に来ない。時間の使い方が価値の優先順位を決めている。",
+   solution:"「重要だが緊急でないこと」（関係構築・戦略的思考・学習・休息）に時間を意識的に割り当てる。「時間をどう使ったか」を週次で振り返る簡単な習慣を持つ。",
+   result:"業務の質が「こなす」から「育てる」へと変わる。",
+   related:["P29","P48"]},
+
+  {id:"P32", area:"area2", areaName:"リソース", comp:"リソースの動員",
+   name:"助けを求める力を養う", en:"The Power of Asking for Help",
+   context:"起業家もコーディネーターも「自分でやらなければ」と思い込んで、必要な支援を受け取れていない。",
+   problem:"「助けを求めること」を弱さと感じる文化の中では、孤立と消耗が進む。しかしエコシステムの中には必要な資源が存在している。",
+   solution:"「今、自分が一人で抱えているもので、誰かに助けてもらえるものは何か」を定期的に問う。支援を受け取る能力（受援力）を意識的に育てる。コーディネーター自身が「助けを求める」モデルを見せる。",
+   result:"エコシステム内のリソースが循環し始め、孤軍奮闘から協働へのシフトが起きる。",
+   related:["P59","P57"]},
+
+  // C9: 財務・経済リテラシー
+  {id:"P33", area:"area2", areaName:"リソース", comp:"財務・経済リテラシー",
+   name:"お金の言語を共有する", en:"Speaking the Language of Money",
+   context:"起業家が「お金の話は苦手」と言って、財務や事業モデルの議論を避けている。",
+   problem:"財務リテラシーの欠如は、事業の持続可能性の最大のリスクの一つだが、「苦手意識」がある人に正面から突きつけると関係が壊れる。",
+   solution:"財務を「管理のための数字」ではなく「事業のストーリーを語るための言語」として紹介する。「お金の流れを図にしてみると、どう見えますか」という問いから入る。",
+   result:"財務が「苦手なもの」から「自分の事業を理解するためのツール」に変わる。",
+   related:["P34","P35"]},
+
+  {id:"P34", area:"area2", areaName:"リソース", comp:"財務・経済リテラシー",
+   name:"予算を計画の地図にする", en:"Budget as a Map",
+   context:"起業家が予算を「使っていいお金の上限」として捉えており、計画ツールとして活用していない。",
+   problem:"予算が計画と連動していないと、何のためにどこにお金を使っているかが見えなくなる。",
+   solution:"「この予算配分は、どのような事業の優先順位を反映していますか」と問う。予算を「価値の優先順位の可視化」として位置づける。",
+   result:"予算編成が戦略的意思決定の場になる。",
+   related:["P33","P35"]},
+
+  {id:"P35", area:"area2", areaName:"リソース", comp:"財務・経済リテラシー",
+   name:"資金調達の多様性を設計する", en:"Designing Funding Diversity",
+   context:"起業家が助成金や補助金に依存しており、資金調達の多様化ができていない。",
+   problem:"単一の資金源への依存は、事業の持続可能性を脆弱にする。助成金が終わると事業が止まるというパターンが繰り返される。",
+   solution:"「5年後、どんな資金構造になっていたいか」を一緒に設計する。助成金・収益事業・寄付・社会的投資の組み合わせを「ポートフォリオ」として考える。",
+   result:"資金調達が「お金をもらう行為」から「事業の自律性を設計する行為」に変わる。",
+   related:["P34","P30"]},
+
+  {id:"P36", area:"area2", areaName:"リソース", comp:"財務・経済リテラシー",
+   name:"税と制度を味方につける", en:"Turning Regulation into Resource",
+   context:"起業家が税務・法務・会計を「後で専門家に任せる」として後回しにしている。",
+   problem:"制度的な知識の欠如が、事業の選択肢を知らぬまま狭めていることがある。",
+   solution:"「どんな法人形態があり、それぞれどんな特徴があるか」「社会的事業に関係する優遇税制や公的支援制度にはどんなものがあるか」を一緒に整理する。「専門家に任せる前に、概要だけ把握しておく」ことの重要性を伝える。",
+   result:"制度的な知識が事業の可能性を広げるツールになる。",
+   related:["P33","P29"]},
+
+  // ════════ エリアIII: 行動へ ════════
+  // C10: 他者を動員する
+  {id:"P37", area:"area3", areaName:"行動へ", comp:"他者を動員する",
+   name:"共感の場を演出する", en:"Staging Empathy",
+   context:"起業家が「良いことをしているのに、なぜか人が集まらない」という状態にある。",
+   problem:"「良いこと」だけでは人は動かない。人が動くのは「この人と一緒に動きたい」「この変化に自分も関わりたい」という感情が生まれたときである。",
+   solution:"「あなたがこの活動を始めた原点のストーリーを教えてください」と問い、語りの中から「感情を動かす核」を一緒に見つける。コーディネーター自身が「この活動に感動した」という事実を正直に伝える。",
+   result:"起業家の語りが「説明」から「物語」へと変わり、聴衆の感情が動く。",
+   related:["P38","P39"]},
+
+  {id:"P38", area:"area3", areaName:"行動へ", comp:"他者を動員する",
+   name:"証拠で納得させる", en:"Persuading with Evidence",
+   context:"起業家が支援者・行政・投資家を説得しようとしているが、「熱意」だけで勝負している。",
+   problem:"熱意だけでは「良い人だが信頼できる事業家かどうかわからない」という評価で止まる。特に行政・企業との連携では、エビデンスが求められる。",
+   solution:"「この主張を裏付けるデータや事例はありますか」を問い、エビデンスの整理を一緒に行う。「証拠があることで、相手の意思決定のリスクが下がる」という視点を渡す。",
+   result:"説得の幅が広がり、多様な支援者・連携先にアプローチできる。",
+   related:["P37","P39"]},
+
+  {id:"P39", area:"area3", areaName:"行動へ", comp:"他者を動員する",
+   name:"感情に訴える", en:"Reaching the Heart",
+   context:"起業家が論理的な説明はできるが、相手の心が動いていない。あるいは逆に、感情的すぎて信頼されない。",
+   problem:"論理と感情のバランスが崩れると、説得力が片方に偏る。",
+   solution:"「この話を聞いて、あなたはどう感じましたか」という感情の確認を相手に向けて行う練習をする。ピッチの冒頭に「なぜ私がこれをするのか」という感情的な理由を置く。",
+   result:"相手が「頭で理解する」だけでなく「心で共感する」体験が生まれる。",
+   related:["P37","P38"]},
+
+  {id:"P40", area:"area3", areaName:"行動へ", comp:"他者を動員する",
+   name:"価値の翻訳者になる", en:"Becoming a Value Translator",
+   context:"起業家が自分の事業の価値を「自分の言葉」で語っているが、異なるバックグラウンドを持つ相手（行政・企業・投資家・地域住民）に伝わっていない。",
+   problem:"同じ価値でも、相手によって「刺さる言い方」は異なる。一つの語りを全員に使い続けると、誰にも深く届かない。",
+   solution:"「この相手に伝えるとしたら、何が一番重要なメッセージですか」と聞き、相手ごとのメッセージ設計を一緒に行う。コーディネーター自身が「多言語話者」として異なるセクター間の橋渡しをする。",
+   result:"起業家の価値が多様なステークホルダーに届き、連携・支援の幅が広がる。",
+   related:["P41","P05"]},
+
+  {id:"P41", area:"area3", areaName:"行動へ", comp:"他者を動員する",
+   name:"メディアを使いこなす", en:"Mastering Media",
+   context:"起業家が「SNSやメディアを使った方がいいのはわかるが、何をどう発信すればいいかわからない」でいる。",
+   problem:"発信しない事業は「存在しない事業」に等しい時代だが、目的のない発信は資源の無駄遣いになる。",
+   solution:"「誰に、何を知ってほしくて、どんな行動を促したいか」を先に決める。そこから「どのメディア・どんな形式・どんな頻度か」を逆算する。",
+   result:"発信が「義務」から「戦略的コミュニケーション」に変わる。",
+   related:["P40","P18"]},
+
+  // C11: 主体的に動く
+  {id:"P42", area:"area3", areaName:"行動へ", comp:"主体的に動く",
+   name:"責任を取る覚悟を育てる", en:"Growing into Ownership",
+   context:"起業家（特に社会起業の初期段階）が「誰かに背中を押してもらわないと動けない」状態にある。",
+   problem:"支援者への依存が強いと、支援が終わった後に事業が止まる。「自分が決める」という経験を積まないと、主体性が育たない。",
+   solution:"「この選択はあなたがしていいことです」と明示的に伝える。小さな意思決定から「自分で決める経験」を積み重ねさせる。コーディネーターが「答えを出す人」ではなく「問いを渡す人」であり続ける。",
+   result:"起業家に「自分が主語」の感覚が育ち、自律的な事業推進が始まる。",
+   related:["P43","P44"]},
+
+  {id:"P43", area:"area3", areaName:"行動へ", comp:"主体的に動く",
+   name:"自分のペースで動く", en:"Moving at Your Own Pace",
+   context:"起業家が「他の人の事業と比べて、自分は遅い」「もっとうまくやれるはず」と自分を責めている。",
+   problem:"他者との比較は、自分の事業の固有の文脈や価値観を見えなくさせる。",
+   solution:"「あなたの事業は、あなたのペースで育てるべきものです」と伝える。「今日一歩進んだこと」を記録し、自分の変化の軌跡を自分で認識できる仕組みを作る。",
+   result:"起業家が「自分の速度で成長している」という感覚を持ち、比較による消耗が減る。",
+   related:["P42","P49"]},
+
+  {id:"P44", area:"area3", areaName:"行動へ", comp:"主体的に動く",
+   name:"行動から始める", en:"Start Before You're Ready",
+   context:"起業家が「準備が整ってから動く」「もっと考えてから」と言い続けて、行動が始まらない。",
+   problem:"社会課題解決の文脈では、「完全に準備が整った」状態は来ない。動きながら学ぶことでしか、現実の課題の解像度は上がらない。",
+   solution:"「今できる最も小さな一手は何ですか」を問い、「今日やれること」に落とし込む。行動の結果より「行動したこと」を先に肯定する。",
+   result:"行動のハードルが下がり、学習サイクルが回り始める。",
+   related:["P09","P42"]},
+
+  // C12: 計画と管理
+  {id:"P45", area:"area3", areaName:"行動へ", comp:"計画と管理",
+   name:"目標を生きた地図にする", en:"Goals as Living Maps",
+   context:"起業家が目標を立てたが、それが形骸化して「目標のための目標」になっている。",
+   problem:"固定した目標は、環境変化に対応できず、達成できなかったときの「失敗感」だけを残す。",
+   solution:"「この目標は、どんな状況が変わったら修正していいですか」を設定時に一緒に決める。目標を「変化を感知するセンサー」として使う。",
+   result:"目標が「評価のための固定基準」ではなく「方向を確認するための生きた地図」になる。",
+   related:["P46","P13"]},
+
+  {id:"P46", area:"area3", areaName:"行動へ", comp:"計画と管理",
+   name:"行動計画を組み立てる", en:"Building an Action Plan",
+   context:"起業家がやりたいことのリストは持っているが、それが優先順位のない「やることリスト」になっている。",
+   problem:"計画のない実行は散漫になり、計画だけで実行しない人は現実から学べない。",
+   solution:"「まず30日でやることを3つに絞りましょう」と問い、「何をやらないか」を決める対話をする。小さな計画を実行→振り返り→修正のサイクルで回す。",
+   result:"起業家が「計画と実行」を自分でPDCAできるようになる。",
+   related:["P45","P47"]},
+
+  {id:"P47", area:"area3", areaName:"行動へ", comp:"計画と管理",
+   name:"持続可能な事業モデルを描く", en:"Drawing a Sustainable Model",
+   context:"起業家が「良い活動はしているが、お金が続かない」という状況にある。",
+   problem:"社会的使命と事業の持続可能性は「どちらかを選ぶ」ものではなく、設計次第で両立できる。しかしそのモデルを描く言語を持っていない。",
+   solution:"「誰が、何のために、いくら払うか」を図に描く。社会的価値と経済的価値が循環する「ハイブリッドモデル」の事例を複数見せる。",
+   result:"事業モデルが「活動計画」から「持続のための設計図」へと変わる。",
+   related:["P33","P34"]},
+
+  {id:"P48", area:"area3", areaName:"行動へ", comp:"計画と管理",
+   name:"優先順位を守り続ける", en:"Holding Your Priorities",
+   context:"コーディネーターが多くの案件・プロジェクト・相談を同時に抱えており、何が本当に重要かが見えなくなっている。",
+   problem:"優先順位は立てても、緊急なことが次々と入ってくると守れなくなる。結果、重要だが緊急でないことが永遠に後回しになる。",
+   solution:"「今週やらないと決めること」を明示的にリストアップする。「優先順位を下げる決断」も意思決定として扱う。",
+   result:"重要なことへの時間が確保され、支援の質が維持される。",
+   related:["P31","P46"]},
+
+  {id:"P49", area:"area3", areaName:"行動へ", comp:"計画と管理",
+   name:"進捗をモニタリングする", en:"Monitoring What Matters",
+   context:"起業家が「頑張っているが、前進しているかどうかわからない」状態にある。",
+   problem:"進捗の確認がないと、方向のズレに気づかないまま資源を使い続ける。しかし細かすぎる管理は自由な試行を阻害する。",
+   solution:"「何が変わったら前進したと言えるか」を最初に合意する。シンプルな「3つの問い」（やれたこと・学んだこと・次にすること）を週次で振り返る。",
+   result:"前進感が生まれ、モチベーションが維持される。同時に方向のズレを早期に発見できる。",
+   related:["P45","P18"]},
+
+  {id:"P50", area:"area3", areaName:"行動へ", comp:"計画と管理",
+   name:"変化に柔軟に対応する", en:"Adapting with Agility",
+   context:"起業家が計画通りに進まない状況に直面して、「計画を守ること」に固執するか「全部やめること」の二択で考えている。",
+   problem:"計画は「守るもの」ではなく「現実と対話しながら更新するもの」である。しかしこの感覚は体験なしには身につかない。",
+   solution:"「計画が変わったこと」を失敗ではなく「環境から学んだ証拠」と意味づける。「何が変わったから計画を修正するのか」を言語化することを習慣にする。",
+   result:"計画の変更が「諦め」ではなく「賢い適応」として起業家に体験される。",
+   related:["P46","P51"]},
+
+  // C13: 不確かさへの対処
+  {id:"P51", area:"area3", areaName:"行動へ", comp:"不確かさへの対処",
+   name:"不確かさを受け入れる", en:"Embracing Uncertainty",
+   context:"起業家が「全部わかってから動きたい」「正解が見えないと不安」という状態にある。",
+   problem:"社会課題解決の現場は構造的に不確かである。情報が揃うことを待っていると、永遠に動けない。",
+   solution:"「今持っている情報で、最も合理的な次の一手は何か」を問う。「不確かさを減らすこと」ではなく「不確かな中で決める力を育てること」が支援の目的だと伝える。",
+   result:"起業家が「決断力」と「柔軟性」の両方を持つようになる。",
+   related:["P52","P50"]},
+
+  {id:"P52", area:"area3", areaName:"行動へ", comp:"不確かさへの対処",
+   name:"リスクを計算する", en:"Calculating Risk",
+   context:"起業家が「リスクがあるからやらない」と言うか、逆に「社会のためだから」とリスクを無視して動いている。",
+   problem:"リスクは「ゼロにするもの」でも「無視するもの」でもなく、「理解した上で賭けるもの」である。",
+   solution:"「最悪のケースは何で、その確率はどのくらいで、その場合の回復コストはどのくらいか」を一緒に整理する。「許容できる損失（Affordable Loss）」を先に決めてから動く。",
+   result:"リスクとの関係が「恐怖」から「設計可能なもの」に変わる。",
+   related:["P51","P53"]},
+
+  {id:"P53", area:"area3", areaName:"行動へ", comp:"不確かさへの対処",
+   name:"リスクを管理する", en:"Managing Risk",
+   context:"起業家が事業を進める中で、思わぬリスクが顕在化してきた。",
+   problem:"リスクが顕在化した後の対応は、その前に対処するよりコストが高い。",
+   solution:"「今後3ヶ月で最も起こりそうなリスクを3つ挙げてください」と問い、それぞれに「発生確率」「影響度」「対応策」をセットで考える。リスク管理を「危機対応」ではなく「日常的な思考習慣」にする。",
+   result:"起業家が先を読みながら動けるようになり、事業の安定性が高まる。",
+   related:["P52","P19"]},
+
+  // C14: 他者との協働
+  {id:"P54", area:"area3", areaName:"行動へ", comp:"他者との協働",
+   name:"違いを触媒にする", en:"Diversity as Catalyst",
+   context:"チームや連携グループの中で、バックグラウンドや価値観の違いが「摩擦」として現れている。",
+   problem:"多様性は「良いこと」として認識されているが、実際の場面では同質性の方が「楽」と感じられる。",
+   solution:"「この違いが、どんな問いや発想を生み出しているか」を意識的に探す。「違い」を問題解決のリソースとして扱う場のデザインを学ぶ。",
+   result:"多様性が「管理するもの」から「活かすもの」へと転換し、集団としての創造力が高まる。",
+   related:["P55","P57"]},
+
+  {id:"P55", area:"area3", areaName:"行動へ", comp:"他者との協働",
+   name:"感情知性を育てる", en:"Developing Emotional Intelligence",
+   context:"支援の場で、起業家が感情的になっている、あるいはコーディネーター自身が感情的な反応をしてしまっている。",
+   problem:"感情を「邪魔なもの」として排除しようとすると、本当の問題が見えなくなる。しかし感情に飲み込まれると判断が歪む。",
+   solution:"「今この場で何が起きているか」を感情の言葉で観察する。「あなたは今、どんな気持ちですか」と聞くことをためらわない。コーディネーター自身が「感情のセルフモニタリング」を習慣にする。",
+   result:"支援の場の安心感が高まり、起業家が本音を話せるようになる。",
+   related:["P54","P16"]},
+
+  {id:"P56", area:"area3", areaName:"行動へ", comp:"他者との協働",
+   name:"当事者の声を聴く", en:"Listening to the Source",
+   context:"コーディネーターが「支援する立場」から「自分が知っていることを伝えようとする」姿勢になっている。",
+   problem:"聴く前に答えを持っていると、相手の固有の文脈が見えなくなる。「聴いているふり」は相手に伝わる。",
+   solution:"「何も解決しようとせずに、ただ聴く」時間を意識的に作る。共感的傾聴（相手の言葉を繰り返す・感情を受け取る）のスキルを意識的に練習する。「あなたが一番伝えたいことは何ですか」を最後に確認する。",
+   result:"起業家が「聴いてもらえた」と感じることで、自分自身の問題を整理し始める。",
+   related:["P55","P04"]},
+
+  {id:"P57", area:"area3", areaName:"行動へ", comp:"他者との協働",
+   name:"チームをデザインする", en:"Designing the Team",
+   context:"起業家が「一緒にやる仲間がいない」と言っているか、あるいは「仲間はいるが機能していない」という状態にある。",
+   problem:"「仲の良い人」を集めたチームは心理的安全性は高いが、必要なスキルや視点が揃わないことが多い。",
+   solution:"「この事業に必要なスキル・視点・人脈を持っている人は誰か」から逆算してチームを設計する。「好きな人」より「補完的な人」を意識的に選ぶ発想を渡す。",
+   result:"チームが「仲良しグループ」から「機能するユニット」へと進化する。",
+   related:["P21","P54"]},
+
+  {id:"P58", area:"area3", areaName:"行動へ", comp:"他者との協働",
+   name:"協働の場を設計する", en:"Designing for Collaboration",
+   context:"複数の組織・人が「連携しよう」と言いながら、実際にはそれぞれが自分の論理で動いており、連携が機能していない。",
+   problem:"「連携」は宣言するものではなく、一緒に何かを作るプロセスを通じて生まれるものである。",
+   solution:"「今日この場で一緒に決めることは何か」「それぞれが持ち帰ってやることは何か」を明確にする。「共同作業の経験」を意図的に設計する。",
+   result:"宣言的な連携から「実質的な協働」へと変わる。",
+   related:["P57","P59"]},
+
+  {id:"P59", area:"area3", areaName:"行動へ", comp:"他者との協働",
+   name:"ネットワークを耕す", en:"Cultivating Networks",
+   context:"コーディネーターが「人脈はあるが、使い方がわからない」、あるいは起業家が「ネットワーキングは苦手」と言っている。",
+   problem:"ネットワークは「数」ではなく「質と文脈の多様性」で決まる。「名刺交換のための場」は機能しない。",
+   solution:"「今この事業に必要なのは、どんな立場の人からどんな視点をもらうことか」を先に決めてからネットワークを動かす。コーディネーターが「仲介者」として意図的に人をつなぐ。",
+   result:"ネットワークが「社交的な活動」から「事業推進のための戦略的資源」へと変わる。",
+   related:["P32","P58"]},
+
+  // C15: 経験から学ぶ
+  {id:"P60", area:"area3", areaName:"行動へ", comp:"経験から学ぶ",
+   name:"失敗を問い直す", en:"Reexamining Failure",
+   context:"起業家（またはコーディネーター自身）が「うまくいかなかった経験」を抱えており、そこから抜け出せないでいる。",
+   problem:"失敗を「自分のせい」として内在化すると自己効力感が下がり、「外のせい」として外在化すると学習が止まる。",
+   solution:"「何が起きたか」を事実として整理し、「なぜ起きたか」を構造として分析し、「次に何が変えられるか」を具体的に問う。「失敗の解剖」を、批判ではなく知識生成のプロセスとして位置づける。",
+   result:"失敗が「傷」から「次の設計のための情報」に変わる。",
+   related:["P61","P62"]},
+
+  {id:"P61", area:"area3", areaName:"行動へ", comp:"経験から学ぶ",
+   name:"学び続ける力を育てる", en:"Growing as a Learner",
+   context:"コーディネーターが「忙しくて学ぶ時間がない」という状態になっている。",
+   problem:"学習を「特別な時間に行うもの」として捉えると、日常業務の中で学習機会を見逃す。",
+   solution:"「今日の仕事の中で、何を学んだか」を毎日30秒で記録する。「経験そのものを教材にする」という姿勢で日常業務に臨む。月に一度、「この1ヶ月で変わった自分の認識」を言語化する。",
+   result:"学習が「特別な場での知識習得」から「日常的な認識の更新」へと変わる。",
+   related:["P60","P62"]},
+
+  {id:"P62", area:"area3", areaName:"行動へ", comp:"経験から学ぶ",
+   name:"経験を知識に変える", en:"Turning Experience into Knowledge",
+   context:"ベテランコーディネーターが多くの経験を持っているが、それが「個人の勘」として留まっており、チームや組織に蓄積されていない。",
+   problem:"暗黙知が個人に留まると、離職・異動で知識が消える。また本人も「なぜうまくいったか」を説明できないまま、再現性を持てない。",
+   solution:"「あのとき、なぜそう判断したのですか」「それはどんな経験から来ていますか」と問い、暗黙知を言語化する対話を意図的に行う。「うまくいったパターン」を物語として記録し、チームで共有する。",
+   result:"ベテランの知恵がチームの財産になり、経験の少ないコーディネーターの成長が加速する。",
+   related:["P60","P61"]},
+];
+
+const AREAS = [
+  {id:"all",   label:"全パターン",    color:"#6B7280"},
+  {id:"area1", label:"I. アイデアと機会", color:"#2D7D6E"},
+  {id:"area2", label:"II. リソース",    color:"#3D4F8C"},
+  {id:"area3", label:"III. 行動へ",    color:"#B5442A"},
+];
+
+// コンピテンシー一覧（エリアごと）
+const COMPS = {
+  area1:["機会を見つける","創造性","ビジョン","アイデアの価値","倫理と持続可能な思考"],
+  area2:["自己認識と自己効力感","動機と粘り強さ","リソースの動員","財務・経済リテラシー"],
+  area3:["他者を動員する","主体的に動く","計画と管理","不確かさへの対処","他者との協働","経験から学ぶ"],
+};
+
+const areaColor = a => ({area1:"#2D7D6E",area2:"#3D4F8C",area3:"#B5442A"}[a]||"#6B7280");
+const areaBg    = a => ({area1:"#D1FAE5",area2:"#EDE9FE",area3:"#FCE7F3"}[a]||"#F3F4F6");
+const areaLabel = a => ({area1:"I. アイデアと機会",area2:"II. リソース",area3:"III. 行動へ"}[a]||"");
+
+function App(){
+  const [area, setArea]       = useState("all");
+  const [comp, setComp]       = useState("all");
+  const [search, setSearch]   = useState("");
+  const [expanded, setExpanded] = useState(null);
+
+  // エリア切替時にコンプをリセット
+  const handleAreaChange = (a) => { setArea(a); setComp("all"); setExpanded(null); };
+  const handleCompChange = (c) => { setComp(c); setExpanded(null); };
+
+  const filtered = useMemo(()=>{
+    return PATTERNS.filter(p=>{
+      if(area!=="all" && p.area!==area) return false;
+      if(comp!=="all" && p.comp!==comp) return false;
+      if(search){
+        const q = search.toLowerCase();
+        return p.name.toLowerCase().includes(q) ||
+               p.en.toLowerCase().includes(q) ||
+               p.comp.toLowerCase().includes(q) ||
+               p.context.includes(q) ||
+               p.problem.includes(q) ||
+               p.solution.includes(q) ||
+               p.result.includes(q);
+      }
+      return true;
+    });
+  },[area,comp,search]);
+
+  // サブフィルター選択肢
+  const compOptions = useMemo(()=>{
+    if(area==="all") return [];
+    return COMPS[area]||[];
+  },[area]);
+
+  const compCount = (c) => {
+    const base = area==="all" ? PATTERNS : PATTERNS.filter(p=>p.area===area);
+    if(c==="all") return base.length;
+    return base.filter(p=>p.comp===c).length;
+  };
+
+  return (
+    <div style={{background:"#F8F7F4",minHeight:"100vh",padding:"20px 16px",maxWidth:860,margin:"0 auto"}}>
+
+      {/* ヘッダー */}
+      <div style={{marginBottom:4}}>
+        <span style={{fontSize:10,fontWeight:700,letterSpacing:"0.12em",color:"#C4852A",textTransform:"uppercase"}}>
+          Pattern Language — EntreComp × 社会起業家支援コーディネーター
+        </span>
+      </div>
+      <h1 style={{fontSize:19,fontWeight:800,lineHeight:1.4,margin:"0 0 4px"}}>
+        変化の種を育てる人
+      </h1>
+      <p style={{fontSize:12,color:"#9CA3AF",margin:"0 0 18px"}}>
+        EUのEntreComp（起業家的コンピテンシー・フレームワーク）60スレッドを、社会起業家支援コーディネーターの現場文脈に翻訳したパターン・ランゲージ。{PATTERNS.length}パターン収録。
+      </p>
+
+      {/* 検索 */}
+      <input
+        placeholder="キーワード検索（パターン名・コンピテンシー・文脈・問題・解決策）"
+        value={search}
+        onChange={e=>{setSearch(e.target.value);setExpanded(null);}}
+        style={{width:"100%",padding:"9px 14px",borderRadius:10,border:"1.5px solid #E5E7EB",
+          fontSize:13,marginBottom:14,outline:"none",background:"#fff",
+          fontFamily:"inherit"}}
+      />
+
+      {/* エリアフィルター */}
+      <div style={{display:"flex",gap:6,marginBottom:10,flexWrap:"wrap"}}>
+        {AREAS.map(a=>{
+          const cnt = a.id==="all" ? PATTERNS.length : PATTERNS.filter(p=>p.area===a.id).length;
+          return (
+            <button key={a.id}
+              onClick={()=>handleAreaChange(a.id)}
+              style={{padding:"6px 14px",borderRadius:20,border:"none",fontSize:12,fontWeight:600,
+                cursor:"pointer",transition:"all 0.15s",
+                background:area===a.id?(a.id==="all"?"#1A1A1A":a.color):"#E5E7EB",
+                color:area===a.id?"#fff":"#374151"}}
+            >{a.label}（{cnt}）</button>
+          );
+        })}
+      </div>
+
+      {/* コンピテンシー（サブ）フィルター */}
+      {area!=="all" && (
+        <div style={{display:"flex",gap:5,marginBottom:14,flexWrap:"wrap",
+          paddingLeft:10,borderLeft:`3px solid ${areaColor(area)}`}}>
+          <button
+            onClick={()=>handleCompChange("all")}
+            style={{padding:"4px 12px",borderRadius:16,border:"none",fontSize:11,fontWeight:600,
+              cursor:"pointer",transition:"all 0.15s",
+              background:comp==="all"?areaColor(area):"#F3F4F6",
+              color:comp==="all"?"#fff":"#6B7280"}}
+          >すべて（{compCount("all")}）</button>
+          {compOptions.map(c=>(
+            <button key={c}
+              onClick={()=>handleCompChange(c)}
+              style={{padding:"4px 12px",borderRadius:16,border:"none",fontSize:11,fontWeight:600,
+                cursor:"pointer",transition:"all 0.15s",
+                background:comp===c?areaColor(area):"#F3F4F6",
+                color:comp===c?"#fff":"#6B7280"}}
+            >{c}（{compCount(c)}）</button>
+          ))}
+        </div>
+      )}
+
+      {/* 件数 */}
+      <div style={{fontSize:11,color:"#9CA3AF",marginBottom:10}}>
+        {filtered.length}件表示
+      </div>
+
+      {/* カードリスト */}
+      <div style={{display:"flex",flexDirection:"column",gap:8}}>
+        {filtered.map(p=>{
+          const isOpen = expanded===p.id;
+          const c  = areaColor(p.area);
+          const bg = areaBg(p.area);
+          return (
+            <div key={p.id}
+              onClick={()=>setExpanded(isOpen?null:p.id)}
+              style={{background:"#fff",borderRadius:14,
+                border:isOpen?`2px solid ${c}`:"1.5px solid #E5E7EB",
+                overflow:"hidden",cursor:"pointer",
+                boxShadow:isOpen?`0 4px 20px ${c}25`:"0 1px 3px rgba(0,0,0,0.04)",
+                transition:"all 0.2s"}}
+            >
+              {/* ── カードヘッダー ── */}
+              <div style={{padding:"13px 16px",display:"flex",alignItems:"center",gap:11}}>
+                {/* ID バッジ */}
+                <div style={{width:38,height:38,borderRadius:10,background:bg,color:c,
+                  display:"flex",alignItems:"center",justifyContent:"center",
+                  fontSize:11,fontWeight:800,flexShrink:0,letterSpacing:"0.05em"}}>
+                  {p.id}
+                </div>
+                {/* タイトル */}
+                <div style={{flex:1,minWidth:0}}>
+                  <div style={{fontSize:15,fontWeight:700,marginBottom:2}}>{p.name}</div>
+                  <div style={{fontSize:10,color:"#9CA3AF",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>
+                    {p.en}
+                  </div>
+                </div>
+                {/* ラベル群 */}
+                <div style={{display:"flex",flexDirection:"column",alignItems:"flex-end",gap:3,flexShrink:0}}>
+                  <span style={{fontSize:10,fontWeight:600,padding:"2px 8px",borderRadius:10,background:bg,color:c}}>
+                    {p.areaName}
+                  </span>
+                  <span style={{fontSize:10,color:"#9CA3AF"}}>{p.comp}</span>
+                </div>
+                {/* 展開矢印 */}
+                <span style={{color:"#9CA3AF",fontSize:13,flexShrink:0,
+                  transition:"transform 0.2s",transform:isOpen?"rotate(180deg)":"none"}}>▼</span>
+              </div>
+
+              {/* ── 展開パネル ── */}
+              {isOpen && (
+                <div style={{padding:"0 16px 16px",animation:"fadeIn 0.2s ease"}}>
+                  <div style={{display:"flex",flexDirection:"column",gap:9}}>
+
+                    {/* 文脈 */}
+                    <div style={{background:"#F9FAFB",borderRadius:10,padding:"10px 13px",borderLeft:`3px solid ${c}`}}>
+                      <div style={{fontSize:10,fontWeight:700,color:"#6B7280",marginBottom:3,letterSpacing:"0.1em"}}>
+                        📍 文脈 — Context
+                      </div>
+                      <div style={{fontSize:13,lineHeight:1.75}}>{p.context}</div>
+                    </div>
+
+                    {/* 問題 */}
+                    <div style={{background:"#FEF2F2",borderRadius:10,padding:"10px 13px",borderLeft:"3px solid #EF4444"}}>
+                      <div style={{fontSize:10,fontWeight:700,color:"#DC2626",marginBottom:3,letterSpacing:"0.1em"}}>
+                        ⚡ 問題・葛藤 — Problem
+                      </div>
+                      <div style={{fontSize:13,lineHeight:1.75}}>{p.problem}</div>
+                    </div>
+
+                    {/* 解決策 */}
+                    <div style={{background:"#F0FDF4",borderRadius:10,padding:"10px 13px",borderLeft:"3px solid #22C55E"}}>
+                      <div style={{fontSize:10,fontWeight:700,color:"#16A34A",marginBottom:3,letterSpacing:"0.1em"}}>
+                        ✦ 解決策 — Solution
+                      </div>
+                      <div style={{fontSize:13,lineHeight:1.75}}>{p.solution}</div>
+                    </div>
+
+                    {/* 結果 */}
+                    <div style={{background:bg,borderRadius:10,padding:"10px 13px",borderLeft:`3px solid ${c}`}}>
+                      <div style={{fontSize:10,fontWeight:700,color:c,marginBottom:3,letterSpacing:"0.1em"}}>
+                        🌱 結果 — Result
+                      </div>
+                      <div style={{fontSize:13,lineHeight:1.75}}>{p.result}</div>
+                    </div>
+
+                    {/* 関連パターン */}
+                    {p.related && p.related.length>0 && (
+                      <div style={{paddingTop:4,display:"flex",alignItems:"center",gap:6,flexWrap:"wrap"}}>
+                        <span style={{fontSize:10,color:"#9CA3AF",fontWeight:600,letterSpacing:"0.1em"}}>
+                          🔗 関連：
+                        </span>
+                        {p.related.map(r=>{
+                          const rp = PATTERNS.find(x=>x.id===r);
+                          return rp ? (
+                            <span key={r}
+                              onClick={e=>{e.stopPropagation();setExpanded(rp.id);}}
+                              style={{fontSize:11,padding:"3px 10px",borderRadius:20,cursor:"pointer",
+                                background:areaBg(rp.area),color:areaColor(rp.area),fontWeight:600,
+                                border:`1px solid ${areaColor(rp.area)}33`,transition:"all 0.15s"}}
+                            >{r}「{rp.name}」</span>
+                          ):null;
+                        })}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {filtered.length===0 && (
+        <div style={{textAlign:"center",color:"#9CA3AF",padding:"40px 0",fontSize:13}}>
+          該当するパターンが見つかりませんでした。
+        </div>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>
