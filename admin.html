@@ -623,8 +623,32 @@ textarea { min-height: 100px; resize: vertical; }
 
 <script>
 // ===== 設定 =====
-const TOKEN = "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";
-const REPO  = "smiyachi/socialrd-cookpad";
+// トークンは Netlify 環境変数で管理。フロントには一切出ない。
+const PROXY = "/.netlify/functions/github-proxy";
+const REPO  = "smiyachi/socialrd-cookpad"; // 参照用（関数側でも定義済み）
+
+// プロキシ経由のGitHub API呼び出しヘルパー
+async function ghGet(filename) {
+  const r = await fetch(PROXY, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action: "get", filename })
+  });
+  const data = await r.json();
+  if (!r.ok) throw new Error(data.error || "取得失敗");
+  return data; // GitHub API レスポンスそのまま
+}
+
+async function ghPut(filename, message, content, sha) {
+  const r = await fetch(PROXY, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action: "put", filename, payload: { message, content, sha } })
+  });
+  const data = await r.json();
+  if (!r.ok) throw new Error(data.error || "書き込み失敗");
+  return data;
+}
 
 // ===== データ定義 =====
 // コーディネーター（cross-border）パターン - cross-border-patterns.jsonから
@@ -765,14 +789,13 @@ async function loadPatternList() {
     state.allPatterns = CB_PATTERNS;
     renderPatternList(CB_PATTERNS);
   } else if (state.category === 'si') {
-    // Cookpad: GitHubから取得
+    // Cookpad: プロキシ経由で取得
     document.getElementById('pattern-list').innerHTML = '<div style="padding:1rem;font-size:0.8rem;color:#999">読み込み中...</div>';
     try {
-      const r = await fetch(`https://api.github.com/repos/${REPO}/contents/patterns.json`, {
-        headers: {'Authorization': `token ${TOKEN}`, 'Accept': 'application/vnd.github.v3+json'}
-      });
-      const file = await r.json();
-      const data = JSON.parse(atob(file.content.replace(/\n/g,'')));
+      const file = await ghGet('patterns.json');
+      if (!file.content) throw new Error(file.message || 'ファイル取得失敗');
+      const decoded = decodeURIComponent(escape(atob(file.content.replace(/[\r\n\s]/g, ''))));
+      const data = JSON.parse(decoded);
       state.allPatterns = data.map(p => ({id: p.id, name: p.name, phase: p.layer, summary: `層:${p.layer} ステージ:${p.stage||'-'}`}));
       renderPatternList(state.allPatterns);
     } catch(e) {
@@ -877,19 +900,14 @@ async function submitEntry() {
 }
 
 async function submitCaseLink(title, desc, url, author) {
-  // GitHubのJSONファイルを更新
   const filename = state.category === 'co' ? 'cross-border-patterns.json' : 'patterns.json';
 
-  const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${filename}`, {
-    headers: {'Authorization': `token ${TOKEN}`, 'Accept': 'application/vnd.github.v3+json'}
-  });
-  if (!r.ok) throw new Error(`ファイル取得失敗: ${filename}`);
-  const file = await r.json();
-  const sha  = file.sha;
+  const file = await ghGet(filename);
+  if (!file.content) throw new Error(file.message || 'ファイル取得失敗');
+  const sha = file.sha;
 
-  let data = JSON.parse(atob(file.content.replace(/\n/g,'')));
+  let data = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/[\r\n\s]/g, '')))));
 
-  // cross-borderはネスト構造
   let patterns = Array.isArray(data) ? data : (data.patterns || data);
   const target = patterns.find(p => p.id === state.selectedPattern.id);
   if (!target) throw new Error('パターンが見つかりません');
@@ -897,24 +915,7 @@ async function submitCaseLink(title, desc, url, author) {
   target.jp_cases.push({ title, desc, url: url||null, author: author||null, date: today() });
 
   const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-  const put = await fetch(`https://api.github.com/repos/${REPO}/contents/${filename}`, {
-    method: 'PUT',
-    headers: {
-      'Authorization': `token ${TOKEN}`,
-      'Accept': 'application/vnd.github.v3+json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      message: `事例追加: #${target.id} ${target.name} — ${title}`,
-      content: encoded,
-      sha
-    })
-  });
-
-  if (!put.ok) {
-    const e = await put.json();
-    throw new Error(e.message);
-  }
+  await ghPut(filename, `事例追加: #${target.id} ${target.name} — ${title}`, encoded, sha);
 
   showStatus('success', `✅ 登録完了！「#${target.id} ${target.name}」に事例を追加しました。`);
   resetForm();
@@ -923,7 +924,6 @@ async function submitCaseLink(title, desc, url, author) {
 }
 
 async function submitNewPattern(title, desc, url, author) {
-  // new-patterns.json に蓄積
   const filename = 'new-patterns.json';
   const newEntry = {
     id: `new_${Date.now()}`,
@@ -941,40 +941,19 @@ async function submitNewPattern(title, desc, url, author) {
     status: 'pending'
   };
 
-  // new-patterns.json 取得 or 新規作成
   let sha = null;
   let existingData = [];
   try {
-    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${filename}`, {
-      headers: {'Authorization': `token ${TOKEN}`, 'Accept': 'application/vnd.github.v3+json'}
-    });
-    if (r.ok) {
-      const file = await r.json();
+    const file = await ghGet(filename);
+    if (file.content) {
       sha = file.sha;
-      existingData = JSON.parse(atob(file.content.replace(/\n/g,'')));
+      existingData = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/[\r\n\s]/g, '')))));
     }
   } catch(e) { /* 新規作成 */ }
 
   existingData.push(newEntry);
   const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(existingData, null, 2))));
-
-  const body = { message: `新パターン候補: ${title}`, content: encoded };
-  if (sha) body.sha = sha;
-
-  const put = await fetch(`https://api.github.com/repos/${REPO}/contents/${filename}`, {
-    method: 'PUT',
-    headers: {
-      'Authorization': `token ${TOKEN}`,
-      'Accept': 'application/vnd.github.v3+json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
-  });
-
-  if (!put.ok) {
-    const e = await put.json();
-    throw new Error(e.message);
-  }
+  await ghPut(filename, `新パターン候補: ${title}`, encoded, sha);
 
   showStatus('success', `✅ 新パターン候補「${title}」を登録しました。管理者による確認後、正式パターンに追加されます。`);
   resetForm();
