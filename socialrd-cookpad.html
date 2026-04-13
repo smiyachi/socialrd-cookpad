@@ -11,6 +11,52 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#F8F7F4;font-family:'Helvetica Neue','Noto Sans JP',sans-serif;color:#1A1A1A}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+footer {
+  text-align: center;
+  padding: 32px 16px 40px;
+  margin-top: 40px;
+  border-top: 1px solid #E5E7EB;
+  font-size: 11px;
+  color: #9CA3AF;
+  letter-spacing: 0.05em;
+}
+.footer-sources {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.source-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+  transition: all 0.15s;
+  letter-spacing: 0.03em;
+}
+.source-badge:hover {
+  background: #F3F4F6;
+  border-color: #D1D5DB;
+  color: #111827;
+}
+.source-badge.back {
+  background: #EFF6FF;
+  border-color: #BFDBFE;
+  color: #1D4ED8;
+}
+.source-badge.back:hover {
+  background: #DBEAFE;
+}
+
 </style>
 </head>
 <body>
@@ -263,12 +309,12 @@ ReactDOM.render(React.createElement(App),document.getElementById("root"));
 </script>
 
 <footer>
-  ソーシャルR&D Cookpad / Open Book — 試作版
+  ソーシャルR&D Cookpad — 350 パターン
   <div class="footer-sources">
     <a class="source-badge" href="https://www.nesta.org.uk/report/the-open-book-of-social-innovation/" target="_blank" rel="noopener">
-      📄 原典：The Open Book of Social Innovation (Nesta / Young Foundation, 2010)
+      📄 The Open Book of Social Innovation — Nesta / Young Foundation, 2010
     </a>
-    <a class="source-badge" href="./index.html">← ツール一覧に戻る</a>
+    <a class="source-badge back" href="./index.html">← ツール一覧に戻る</a>
   </div>
 </footer>
   
