@@ -3,326 +3,1041 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>事例登録 — ソーシャルR&D Cookpad</title>
+<title>Admin — パターン登録</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#F8F7F4;font-family:'Helvetica Neue','Noto Sans JP',sans-serif;color:#1A1A1A;padding:32px 16px}
-.wrap{max-width:640px;margin:0 auto}
-.badge{font-size:10px;font-weight:700;letter-spacing:0.1em;color:#D97706;text-transform:uppercase;margin-bottom:8px}
-h1{font-size:20px;font-weight:800;margin-bottom:4px}
-.sub{font-size:12px;color:#6B7280;margin-bottom:32px}
-.card{background:#fff;border-radius:14px;border:1px solid #E5E7EB;padding:24px;margin-bottom:16px}
-.card h2{font-size:12px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:16px}
-label{display:block;font-size:12px;font-weight:600;color:#374151;margin-bottom:6px}
-input,textarea,select{width:100%;padding:10px 12px;border:1px solid #E5E7EB;border-radius:8px;font-size:13px;font-family:inherit;outline:none;background:#fff;transition:border 0.15s}
-input:focus,textarea:focus,select:focus{border-color:#059669;box-shadow:0 0 0 3px #D1FAE5}
-textarea{min-height:90px;resize:vertical;line-height:1.6}
-.field{margin-bottom:16px}
-.hint{font-size:11px;color:#9CA3AF;margin-top:4px}
-.btn{padding:12px 24px;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.15s}
-.btn-primary{background:#059669;color:#fff;width:100%}
-.btn-primary:hover{background:#047857}
-.btn-primary:disabled{background:#D1D5DB;color:#9CA3AF;cursor:not-allowed}
-.btn-sm{padding:8px 14px;font-size:12px;background:#F3F4F6;color:#374151;border-radius:8px}
-.btn-sm:hover{background:#E5E7EB}
-.status{margin-top:12px;padding:12px 16px;border-radius:10px;font-size:13px;line-height:1.6;display:none}
-.status.success{background:#D1FAE5;color:#065F46;display:block}
-.status.error{background:#FEE2E2;color:#991B1B;display:block}
-.status.loading{background:#EDE9FE;color:#5B21B6;display:block}
-.none-msg{background:#FEF3C7;border-radius:8px;padding:12px 14px;font-size:13px;color:#92400E;display:none}
-.unclassified-box{background:#FFFBEB;border:1px solid #FDE68A;border-radius:14px;padding:20px}
-.unclassified-item{background:#fff;border-radius:8px;padding:10px 12px;margin-bottom:8px;font-size:12px;border:1px solid #FDE68A}
-.back-link{font-size:12px;color:#6B7280;text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:24px}
-.back-link:hover{color:#1A1A1A}
-hr{border:none;border-top:1px solid #E5E7EB;margin:24px 0}
+:root {
+  --bg: #F7F5F0;
+  --surface: #FFFFFF;
+  --border: #E2DDD6;
+  --border-focus: #8B7355;
+  --text: #1C1A17;
+  --text-muted: #7A7469;
+  --accent-si: #2D6A4F;      /* ソーシャルイノベーション: 深緑 */
+  --accent-co: #1D4E8F;      /* コーディネーター: 深青 */
+  --accent-pr: #7B3F00;      /* プロデューサー: 深茶 */
+  --accent-none: #6B4E8A;    /* 未分類: 紫 */
+  --success: #2D6A4F;
+  --error: #C0392B;
+  --warning: #D4720A;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  line-height: 1.8;
+  min-height: 100vh;
+}
+
+/* ヘッダー */
+.header {
+  background: var(--text);
+  color: #F7F5F0;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.header-left { display: flex; align-items: center; gap: 1rem; }
+.header-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.15);
+  padding: 0.3rem 0.7rem;
+  border-radius: 2rem;
+}
+.header h1 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.back-link {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+.back-link:hover { color: #fff; }
+
+/* メインレイアウト */
+.main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+/* ステップ表示 */
+.steps {
+  display: flex;
+  gap: 0;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.step {
+  flex: 1;
+  padding: 0.7rem 1rem;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--surface);
+  letter-spacing: 0.05em;
+  border-right: 1px solid var(--border);
+  transition: all 0.3s;
+  position: relative;
+}
+.step:last-child { border-right: none; }
+.step.active {
+  background: var(--text);
+  color: #fff;
+  font-weight: 700;
+}
+.step.done {
+  background: #F0F7F4;
+  color: var(--success);
+}
+.step .step-num {
+  display: block;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.1rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+
+/* カード */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.8rem;
+  margin-bottom: 1.2rem;
+}
+.card-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1.2rem;
+}
+
+/* フォーム要素 */
+.field { margin-bottom: 1.2rem; }
+.field:last-child { margin-bottom: 0; }
+label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.03em;
+}
+label .req { color: var(--error); margin-left: 3px; }
+label .hint-inline {
+  font-weight: 400;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  margin-left: 0.4rem;
+}
+input[type="text"], input[type="url"], textarea, select {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  line-height: 1.6;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(139,115,85,0.12);
+  background: #fff;
+}
+textarea { min-height: 100px; resize: vertical; }
+.field-hint { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.35rem; }
+
+/* 区分選択ボタン */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+.cat-btn {
+  padding: 1rem 1.2rem;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+.cat-btn:hover { border-color: #999; transform: translateY(-1px); }
+.cat-btn.active-si { border-color: var(--accent-si); background: #F0F7F4; }
+.cat-btn.active-co { border-color: var(--accent-co); background: #EFF4FB; }
+.cat-btn.active-pr { border-color: var(--accent-pr); background: #FBF5EF; }
+.cat-btn.active-none { border-color: var(--accent-none); background: #F5F0FA; }
+.cat-btn .cat-icon { font-size: 1.4rem; display: block; margin-bottom: 0.3rem; }
+.cat-btn .cat-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: block;
+  color: var(--text);
+}
+.cat-btn .cat-desc {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 0.15rem;
+  line-height: 1.5;
+}
+
+/* 登録種別ラジオ */
+.type-row {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+.type-opt {
+  flex: 1;
+  min-width: 180px;
+  padding: 0.9rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
+.type-opt:hover { border-color: #aaa; }
+.type-opt.active { border-color: var(--text); background: var(--surface); }
+.type-opt input[type="radio"] { margin-top: 3px; accent-color: var(--text); flex-shrink: 0; }
+.type-opt-body {}
+.type-opt-label { font-size: 0.82rem; font-weight: 700; display: block; }
+.type-opt-desc { font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 0.1rem; }
+
+/* パターン選択 */
+.pattern-search-wrap { position: relative; }
+.pattern-search-wrap input { padding-left: 2.2rem; }
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+.pattern-list {
+  max-height: 260px;
+  overflow-y: auto;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  background: var(--surface);
+}
+.pattern-item {
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+.pattern-item:last-child { border-bottom: none; }
+.pattern-item:hover { background: var(--bg); }
+.pattern-item.selected { background: #F7F5EE; }
+.pattern-item .p-num {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  min-width: 2rem;
+  margin-top: 2px;
+}
+.pattern-item .p-body {}
+.pattern-item .p-name { font-size: 0.85rem; font-weight: 600; }
+.pattern-item .p-summary { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.1rem; }
+.pattern-item .p-phase {
+  font-size: 0.62rem;
+  font-weight: 500;
+  padding: 0.15rem 0.5rem;
+  border-radius: 1rem;
+  background: #F0EDE8;
+  color: var(--text-muted);
+  margin-left: auto;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.selected-pattern-box {
+  padding: 0.9rem 1rem;
+  border: 1.5px solid var(--border-focus);
+  border-radius: 8px;
+  background: #FDFCF9;
+  display: none;
+}
+.selected-pattern-box .sp-label { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.3rem; }
+.selected-pattern-box .sp-name { font-size: 0.95rem; font-weight: 700; }
+.selected-pattern-box .sp-meta { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem; }
+.change-btn {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.2rem 0.6rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+.change-btn:hover { background: var(--bg); }
+
+/* 新パターンフォーム */
+.new-pattern-fields { display: none; }
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+.phase-opt {
+  padding: 0.55rem 0.5rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  cursor: pointer;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 500;
+  transition: all 0.15s;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+.phase-opt:hover { border-color: #aaa; }
+.phase-opt.active { border-color: var(--text); background: var(--text); color: #fff; }
+
+/* 送信ボタン */
+.submit-area { margin-top: 1.5rem; }
+.btn-submit {
+  width: 100%;
+  padding: 1rem;
+  background: var(--text);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: 'Noto Sans JP', sans-serif;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+}
+.btn-submit:hover { background: #333; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.btn-submit:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* ステータス */
+.status {
+  margin-top: 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  display: none;
+}
+.status.success { background: #EDFBF3; border: 1px solid #A8DFBF; color: #1A5C38; display: block; }
+.status.error   { background: #FEF0EE; border: 1px solid #F5BCB6; color: #8B1A11; display: block; }
+.status.loading { background: #EEF3FB; border: 1px solid #B6C8F0; color: #1A3A8B; display: block; }
+
+/* 未分類ボックス */
+.uc-section { margin-top: 2.5rem; }
+.uc-box {
+  background: #FFFCF0;
+  border: 1.5px solid #E8D98A;
+  border-radius: 14px;
+  padding: 1.5rem;
+}
+.uc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.uc-title { font-size: 0.85rem; font-weight: 700; color: #7A5F00; }
+.uc-count-badge {
+  background: #E8D98A;
+  color: #5A4400;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 1rem;
+}
+.btn-export {
+  font-size: 0.75rem;
+  padding: 0.4rem 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  cursor: pointer;
+  font-family: 'Noto Sans JP', sans-serif;
+  transition: background 0.15s;
+}
+.btn-export:hover { background: var(--bg); }
+.uc-item {
+  background: var(--surface);
+  border: 1px solid #E8D98A;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.8rem;
+}
+.uc-item:last-child { margin-bottom: 0; }
+.uc-item .uc-item-title { font-weight: 700; margin-bottom: 0.2rem; }
+.uc-item .uc-item-meta { color: var(--text-muted); font-size: 0.7rem; margin-bottom: 0.25rem; }
+.uc-item .uc-item-desc { color: var(--text-muted); font-size: 0.75rem; line-height: 1.6; }
+
+/* セクション見出し */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 2rem 0 1.2rem;
+}
+.section-divider::before, .section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.section-divider span {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* 非表示 */
+.hidden { display: none !important; }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <a class="back-link" href="./index.html">← Cookpadに戻る</a>
+<header class="header">
+  <div class="header-left">
+    <span class="header-badge">Admin</span>
+    <h1>パターン・事例登録</h1>
+  </div>
+  <a class="back-link" href="./index.html">← トップに戻る</a>
+</header>
 
-  <div class="badge">Admin — 事例登録</div>
-  <h1>🏷 新しい事例を登録する</h1>
-  <p class="sub">日本の現場事例をパターンに紐付けて登録します。登録後1〜2分でサイトに反映されます。</p>
+<main class="main">
 
-  <!-- 事例情報 -->
-  <div class="card">
-    <h2>事例の情報</h2>
-    <div class="field">
-      <label>事例タイトル <span style="color:#EF4444">*</span></label>
-      <input type="text" id="case-title" placeholder="例：○○市の参加型予算プロジェクト">
+  <!-- ステップ表示 -->
+  <div class="steps" id="steps">
+    <div class="step active" id="step1">
+      <span class="step-num">1</span>区分を選ぶ
     </div>
-    <div class="field">
-      <label>概要・内容 <span style="color:#EF4444">*</span></label>
-      <textarea id="case-desc" placeholder="どんな取り組みか、どんな成果があったかなど。"></textarea>
+    <div class="step" id="step2">
+      <span class="step-num">2</span>種別を選ぶ
     </div>
-    <div class="field">
-      <label>参照URL（任意）</label>
-      <input type="url" id="case-url" placeholder="https://...">
+    <div class="step" id="step3">
+      <span class="step-num">3</span>内容を入力
     </div>
-    <div class="field">
-      <label>投稿者名（任意）</label>
-      <input type="text" id="case-author" placeholder="例：宮地俊一">
+    <div class="step" id="step4">
+      <span class="step-num">4</span>登録完了
     </div>
   </div>
 
-  <!-- パターン選択 -->
-  <div class="card">
-    <h2>パターンを選ぶ</h2>
-
-    <div class="field">
-      <label>① 層を選ぶ <span style="color:#EF4444">*</span></label>
-      <select id="sel-layer">
-        <option value="">選択してください</option>
-        <option value="proc">①プロセス（178パターン）</option>
-        <option value="conn">②つなぎ方（29パターン）</option>
-        <option value="supp">③支え方（143パターン）</option>
-        <option value="none">当てはまるパターンがない</option>
-      </select>
-    </div>
-
-    <div class="field" id="field-sub" style="display:none">
-      <label>② カテゴリを選ぶ</label>
-      <select id="sel-sub">
-      </select>
-    </div>
-
-    <div class="field" id="field-pattern" style="display:none">
-      <label>③ パターンを選ぶ <span style="color:#EF4444">*</span></label>
-      <select id="sel-pattern">
-        <option value="">パターンを選択...</option>
-      </select>
-      <div class="hint">上の層・カテゴリで絞り込まれます</div>
-    </div>
-
-    <div class="none-msg" id="none-msg">
-      📦 「未分類ボックス」に保存します。後でClaudeと一緒に整理できます。
+  <!-- STEP 1: 区分選択 -->
+  <div id="phase-category" class="card">
+    <div class="card-title">Step 1 — どの区分に属しますか？</div>
+    <div class="category-grid">
+      <button class="cat-btn" data-cat="si" onclick="selectCategory('si')">
+        <span class="cat-icon">🌍</span>
+        <span class="cat-label">ソーシャルイノベーション</span>
+        <span class="cat-desc">Cookpad / Open Book 系<br>350＋527パターン</span>
+      </button>
+      <button class="cat-btn" data-cat="co" onclick="selectCategory('co')">
+        <span class="cat-icon">🤝</span>
+        <span class="cat-label">コーディネーター</span>
+        <span class="cat-desc">伴走者パターンランゲージ<br>38パターン</span>
+      </button>
+      <button class="cat-btn" data-cat="pr" onclick="selectCategory('pr')">
+        <span class="cat-icon">🚀</span>
+        <span class="cat-label">プロデューサー</span>
+        <span class="cat-desc">EntreComp / 起業家的行動<br>EU・日本版</span>
+      </button>
+      <button class="cat-btn" data-cat="none" onclick="selectCategory('none')">
+        <span class="cat-icon">📦</span>
+        <span class="cat-label">どれにも当てはまらない</span>
+        <span class="cat-desc">未分類として保存<br>後で整理できます</span>
+      </button>
     </div>
   </div>
 
-  <button class="btn btn-primary" id="submit-btn" onclick="submitCase()">登録する</button>
-  <div class="status" id="status"></div>
+  <!-- STEP 2: 種別選択（区分選択後に表示） -->
+  <div id="phase-type" class="card hidden">
+    <div class="card-title">Step 2 — どの種別で登録しますか？</div>
+    <div class="type-row">
+      <label class="type-opt" id="type-link">
+        <input type="radio" name="reg-type" value="link" onchange="selectType('link')">
+        <span class="type-opt-body">
+          <span class="type-opt-label">🔗 既存パターンに事例を紐づける</span>
+          <span class="type-opt-desc">すでにあるパターンに、日本の現場事例・実践例を追加します</span>
+        </span>
+      </label>
+      <label class="type-opt" id="type-new">
+        <input type="radio" name="reg-type" value="new" onchange="selectType('new')">
+        <span class="type-opt-body">
+          <span class="type-opt-label">✨ 新しいパターンを提案する</span>
+          <span class="type-opt-desc">既存パターンにない新しいパターン候補として登録します（審査後に正式化）</span>
+        </span>
+      </label>
+    </div>
+  </div>
 
-  <hr>
+  <!-- STEP 3: 内容入力 -->
+  <div id="phase-form" class="hidden">
+
+    <!-- 事例情報（共通） -->
+    <div class="card">
+      <div class="card-title">事例・パターンの情報</div>
+
+      <div class="field">
+        <label>タイトル <span class="req">*</span></label>
+        <input type="text" id="case-title" placeholder="例：○○市の参加型予算プロジェクト / 「帰り道の灯」の実践事例">
+      </div>
+
+      <div class="field">
+        <label>概要・内容 <span class="req">*</span></label>
+        <textarea id="case-desc" placeholder="どんな取り組みか、何が起きたか、どんな成果があったかなど。新パターンの場合は「なぜこのパターンが必要か」も書いてください。"></textarea>
+      </div>
+
+      <div class="field">
+        <label>参照URL <span class="hint-inline">任意</span></label>
+        <input type="url" id="case-url" placeholder="https://...">
+      </div>
+
+      <div class="field">
+        <label>投稿者名 <span class="hint-inline">任意</span></label>
+        <input type="text" id="case-author" placeholder="例：宮地俊一">
+      </div>
+    </div>
+
+    <!-- 既存パターン紐づけ -->
+    <div id="link-section" class="card hidden">
+      <div class="card-title">紐づけるパターンを選ぶ</div>
+      <div id="pattern-search-area">
+        <div class="pattern-search-wrap field">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="pattern-search" placeholder="パターン名・キーワードで絞り込み..." oninput="filterPatterns()">
+        </div>
+        <div class="pattern-list" id="pattern-list"></div>
+      </div>
+      <div class="selected-pattern-box" id="selected-pattern-box">
+        <div class="sp-label">選択中のパターン</div>
+        <div class="sp-name" id="sp-name"></div>
+        <div class="sp-meta" id="sp-meta"></div>
+        <button class="change-btn" onclick="resetPatternSelection()">変更する</button>
+      </div>
+    </div>
+
+    <!-- 新パターン詳細 -->
+    <div id="new-section" class="card hidden new-pattern-fields">
+      <div class="card-title">新パターンの詳細（任意・書けるだけでOK）</div>
+
+      <div class="field">
+        <label>パターン名（案）</label>
+        <input type="text" id="new-name" placeholder="例：「試しの余白」「問いの返し方」">
+        <div class="field-hint">思い浮かばなければ空欄でもOK。タイトルから命名します。</div>
+      </div>
+
+      <div class="field">
+        <label>フェーズ（該当するもの）</label>
+        <div class="phase-grid" id="phase-grid">
+          <button class="phase-opt" data-phase="before" onclick="togglePhase('before', this)">越境前</button>
+          <button class="phase-opt" data-phase="during" onclick="togglePhase('during', this)">越境中</button>
+          <button class="phase-opt" data-phase="after" onclick="togglePhase('after', this)">越境後</button>
+          <button class="phase-opt" data-phase="cross" onclick="togglePhase('cross', this)">フェーズ横断</button>
+          <button class="phase-opt" data-phase="meta" onclick="togglePhase('meta', this)">伴走の構え</button>
+          <button class="phase-opt" data-phase="other" onclick="togglePhase('other', this)">その他・不明</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>状況（Context）<span class="hint-inline">どんな場面で起きるか</span></label>
+        <textarea id="new-context" placeholder="どんな状況・文脈でこのパターンが必要になるか"></textarea>
+      </div>
+
+      <div class="field">
+        <label>問題（Problem）<span class="hint-inline">何が起きるか・何が欠けているか</span></label>
+        <textarea id="new-problem" placeholder="パターンがない場合に何が起こるか"></textarea>
+      </div>
+
+      <div class="field">
+        <label>解決（Solution）<span class="hint-inline">どう対処するか</span></label>
+        <textarea id="new-solution" placeholder="具体的にどう行動するか・どう設計するか"></textarea>
+      </div>
+    </div>
+
+    <div class="submit-area">
+      <button class="btn-submit" id="submit-btn" onclick="submitEntry()">登録する →</button>
+      <div class="status" id="status"></div>
+    </div>
+  </div>
 
   <!-- 未分類ボックス -->
-  <div id="unclassified-section" style="display:none">
-    <div class="unclassified-box">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+  <div id="uc-section" class="uc-section hidden">
+    <div class="section-divider"><span>未分類ボックス</span></div>
+    <div class="uc-box">
+      <div class="uc-header">
         <div>
-          <div style="font-size:13px;font-weight:700;color:#92400E">📦 未分類ボックス（<span id="uc-count">0</span>件）</div>
-          <div style="font-size:11px;color:#92400E;margin-top:2px">Claudeに渡してパターン候補を整理できます</div>
+          <span class="uc-title">📦 未整理の投稿</span>
+          <span class="uc-count-badge" id="uc-count">0件</span>
+          <div style="font-size:0.7rem;color:#7A5F00;margin-top:0.2rem">Claudeに渡してパターン候補を整理できます</div>
         </div>
-        <button class="btn-sm" onclick="exportCSV()">📥 CSVエクスポート</button>
+        <button class="btn-export" onclick="exportCSV()">📥 CSVエクスポート</button>
       </div>
       <div id="uc-list"></div>
     </div>
   </div>
 
-</div>
-<script>
-const TOKEN = "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";
-const REPO = "smiyachi/socialrd-cookpad";
-const ALL = [{"id":1,"name":"綻びの利用","layer":"proc","stage":1,"sub":null},{"id":2,"name":"都市の鍼治療","layer":"proc","stage":1,"sub":null},{"id":3,"name":"技術と事実の翻訳","layer":"proc","stage":1,"sub":null},{"id":4,"name":"余白と水脈のマッピング","layer":"proc","stage":1,"sub":null},{"id":5,"name":"当事者の目への憑依","layer":"proc","stage":1,"sub":null},{"id":6,"name":"還流する悲鳴","layer":"proc","stage":1,"sub":null},{"id":7,"name":"市民の手にデータを取り戻す","layer":"proc","stage":1,"sub":null},{"id":8,"name":"行動のスクリプト書き換え","layer":"proc","stage":1,"sub":null},{"id":9,"name":"異物の意図的な混入","layer":"proc","stage":1,"sub":null},{"id":10,"name":"スポットライトと拡声器","layer":"proc","stage":1,"sub":null},{"id":11,"name":"ユーザーという名の共同設計者","layer":"proc","stage":2,"sub":null},{"id":12,"name":"演じるプロトタイプ","layer":"proc","stage":2,"sub":null},{"id":13,"name":"現場からの絶え間ない改善","layer":"proc","stage":2,"sub":null},{"id":14,"name":"眠れる知見と素材の転用","layer":"proc","stage":2,"sub":null},{"id":15,"name":"内なる成功者の発見","layer":"proc","stage":2,"sub":null},{"id":16,"name":"極限からの逆輸入","layer":"proc","stage":2,"sub":null},{"id":17,"name":"廃墟の再定義","layer":"proc","stage":2,"sub":null},{"id":18,"name":"アイデアの公開市場","layer":"proc","stage":2,"sub":null},{"id":19,"name":"デジタル武装した対話","layer":"proc","stage":2,"sub":null},{"id":20,"name":"市民の声を編む仕組み","layer":"proc","stage":2,"sub":null},{"id":21,"name":"出会いと余白の祭典","layer":"proc","stage":2,"sub":null},{"id":22,"name":"まぜこぜの座席配置","layer":"proc","stage":2,"sub":null},{"id":23,"name":"走りながら直す","layer":"proc","stage":3,"sub":null},{"id":24,"name":"凍結された公開実験","layer":"proc","stage":3,"sub":null},{"id":25,"name":"失敗も共有する公開テスト","layer":"proc","stage":3,"sub":null},{"id":26,"name":"段階式の応援","layer":"proc","stage":3,"sub":null},{"id":27,"name":"伴走するインキュベーション","layer":"proc","stage":3,"sub":null},{"id":28,"name":"時間を買い取る","layer":"proc","stage":3,"sub":null},{"id":29,"name":"知識共有を条件とした資金","layer":"proc","stage":3,"sub":null},{"id":30,"name":"結果への入札による市場創出","layer":"proc","stage":3,"sub":null},{"id":31,"name":"データを統合して一人の人間を見る","layer":"proc","stage":1,"sub":null},{"id":32,"name":"知識を組織の壁越しに流す","layer":"proc","stage":1,"sub":null},{"id":33,"name":"症状の下にある原因を診断する","layer":"proc","stage":1,"sub":null},{"id":34,"name":"思考の癖を意図的に壊す","layer":"proc","stage":2,"sub":null},{"id":35,"name":"現場に足を運んで見る","layer":"proc","stage":2,"sub":null},{"id":36,"name":"考えることと動くことを一体化する場","layer":"proc","stage":2,"sub":null},{"id":37,"name":"新しい能力が育つまで待つ試作","layer":"proc","stage":3,"sub":null},{"id":38,"name":"仲間を集めながら実験する","layer":"proc","stage":3,"sub":null},{"id":39,"name":"選ぶ力を当事者に渡す","layer":"proc","stage":3,"sub":null},{"id":40,"name":"集合知で何を育てるかを決める","layer":"proc","stage":3,"sub":null},{"id":41,"name":"使命とビジネスモデルを一緒に育てる","layer":"proc","stage":4,"sub":null},{"id":42,"name":"セクターの地図を読んで陣地を取る","layer":"proc","stage":4,"sub":null},{"id":43,"name":"資産を分解して収入源を増やす","layer":"proc","stage":4,"sub":null},{"id":44,"name":"計画は地図ではなく羅針盤として使う","layer":"proc","stage":4,"sub":null},{"id":45,"name":"組織の弱いリンクを可視化する","layer":"proc","stage":4,"sub":null},{"id":46,"name":"法人格を持たない強さ","layer":"proc","stage":4,"sub":null},{"id":47,"name":"株式会社という器に使命の鍵をかける","layer":"proc","stage":4,"sub":null},{"id":48,"name":"柔軟な共同所有の器","layer":"proc","stage":4,"sub":null},{"id":49,"name":"仲間のために動く組合の力","layer":"proc","stage":4,"sub":null},{"id":50,"name":"みんなのものにする相互組合","layer":"proc","stage":4,"sub":null},{"id":51,"name":"合意を形にする覚書","layer":"proc","stage":4,"sub":null},{"id":52,"name":"使命を法的に守る器を選ぶ","layer":"proc","stage":4,"sub":null},{"id":53,"name":"理事会を使命と革新の回路にする","layer":"proc","stage":4,"sub":null},{"id":54,"name":"総会を使命の更新装置にする","layer":"proc","stage":4,"sub":null},{"id":55,"name":"ステークホルダーを構造に組み込む","layer":"proc","stage":4,"sub":null},{"id":56,"name":"ガバナンスの選び方を可視化する","layer":"proc","stage":4,"sub":null},{"id":57,"name":"支援者に株を持ってもらう","layer":"proc","stage":4,"sub":null},{"id":58,"name":"使命を守るゴールデンシェア","layer":"proc","stage":4,"sub":null},{"id":59,"name":"ヒエラルキーには生き残る理由がある","layer":"proc","stage":4,"sub":null},{"id":60,"name":"現場チームに権限を渡す","layer":"proc","stage":4,"sub":null},{"id":61,"name":"細胞分裂で広がる組織","layer":"proc","stage":4,"sub":null},{"id":62,"name":"段階に合わせてリーダーシップを変える","layer":"proc","stage":4,"sub":null},{"id":63,"name":"革新と日常業務を構造的に分離する","layer":"proc","stage":4,"sub":null},{"id":64,"name":"仕入れから販売まで使命を一本通す","layer":"proc","stage":4,"sub":null},{"id":65,"name":"バックオフィスを複数組織で共有する","layer":"proc","stage":4,"sub":null},{"id":66,"name":"現場の制約に合わせて技術を再設計する","layer":"proc","stage":4,"sub":null},{"id":67,"name":"外に開き続けることを経営資源にする","layer":"proc","stage":4,"sub":null},{"id":68,"name":"利用者の声を経営の背骨にする","layer":"proc","stage":4,"sub":null},{"id":69,"name":"ウェブを関係資本の窓にする","layer":"proc","stage":4,"sub":null},{"id":70,"name":"ブランドを存在を知らせる炎にする","layer":"proc","stage":4,"sub":null},{"id":71,"name":"体験できる場が最も深く伝える","layer":"proc","stage":4,"sub":null},{"id":72,"name":"知識を手放して信頼を得る","layer":"proc","stage":4,"sub":null},{"id":73,"name":"共に学ぶ文化を育てる研修を設計する","layer":"proc","stage":4,"sub":null},{"id":74,"name":"給与と評価に使命を刻む","layer":"proc","stage":4,"sub":null},{"id":75,"name":"ボランティアに役割と意味を設計する","layer":"proc","stage":4,"sub":null},{"id":76,"name":"使命に共鳴する資金を組み合わせる","layer":"proc","stage":4,"sub":null},{"id":77,"name":"政策・プログラムに乗って生き延びる","layer":"proc","stage":4,"sub":null},{"id":78,"name":"アイコンになって広がる","layer":"proc","stage":5,"sub":null},{"id":79,"name":"社会運動として広がる","layer":"proc","stage":5,"sub":null},{"id":80,"name":"情報で需要を作る","layer":"proc","stage":5,"sub":null},{"id":81,"name":"ユーザーグループが需要を動かす","layer":"proc","stage":5,"sub":null},{"id":82,"name":"行動変容をマーケティングする","layer":"proc","stage":5,"sub":null},{"id":83,"name":"ブランドとマークで質を保証する","layer":"proc","stage":5,"sub":null},{"id":84,"name":"インセンティブで行動を引き出す","layer":"proc","stage":5,"sub":null},{"id":85,"name":"社会目標を設定して革新を引き出す","layer":"proc","stage":5,"sub":null},{"id":86,"name":"政策と標準で一気に広げる","layer":"proc","stage":5,"sub":null},{"id":87,"name":"規制当局の承認で普及を加速する","layer":"proc","stage":5,"sub":null},{"id":88,"name":"専門職を通じて中間需要を作る","layer":"proc","stage":5,"sub":null},{"id":89,"name":"ベストプラクティスを賞で伝える","layer":"proc","stage":5,"sub":null},{"id":90,"name":"グローバルに普及を促す","layer":"proc","stage":5,"sub":null},{"id":91,"name":"委託を革新の入口にする","layer":"proc","stage":5,"sub":null},{"id":92,"name":"成果で発注する","layer":"proc","stage":5,"sub":null},{"id":93,"name":"政府が最初の顧客になる","layer":"proc","stage":5,"sub":null},{"id":94,"name":"競争で革新の多様性を生む","layer":"proc","stage":5,"sub":null},{"id":95,"name":"現場の専門職に委託権限を渡す","layer":"proc","stage":5,"sub":null},{"id":96,"name":"結果に対して固定料金を払う","layer":"proc","stage":5,"sub":null},{"id":97,"name":"発見のための探索的契約","layer":"proc","stage":5,"sub":null},{"id":98,"name":"調達の仕組み自体を革新する","layer":"proc","stage":5,"sub":null},{"id":99,"name":"購入の約束が革新を引き出す","layer":"proc","stage":5,"sub":null},{"id":100,"name":"複数機関が共同で委託する","layer":"proc","stage":5,"sub":null},{"id":101,"name":"節約分を革新者に還元する","layer":"proc","stage":5,"sub":null},{"id":102,"name":"予算を当事者に直接渡す","layer":"proc","stage":5,"sub":null},{"id":103,"name":"組織から革新を切り出す","layer":"proc","stage":5,"sub":null},{"id":104,"name":"人を育てて広げる","layer":"proc","stage":5,"sub":null},{"id":105,"name":"既存組織の力を使って広げる","layer":"proc","stage":5,"sub":null},{"id":106,"name":"移転と適応の支援構造を作る","layer":"proc","stage":5,"sub":null},{"id":107,"name":"供給チェーンを成長に合わせる","layer":"proc","stage":5,"sub":null},{"id":108,"name":"モデルを削ぎ落としてコストを下げる","layer":"proc","stage":5,"sub":null},{"id":109,"name":"オープンブランドで一緒に広げる","layer":"proc","stage":5,"sub":null},{"id":110,"name":"プラットフォームで自己組織化を支援する","layer":"proc","stage":5,"sub":null},{"id":111,"name":"集まる場が普及と出会いを生む","layer":"proc","stage":5,"sub":null},{"id":112,"name":"メディアを通じて拡散する","layer":"proc","stage":5,"sub":null},{"id":113,"name":"専門家団体が知識を循環させる","layer":"proc","stage":5,"sub":null},{"id":114,"name":"知識を手放して橋渡しをする人","layer":"proc","stage":5,"sub":null},{"id":115,"name":"ウェブとバイラルで拡散する","layer":"proc","stage":5,"sub":null},{"id":116,"name":"ハンドブックで知識を届ける","layer":"proc","stage":5,"sub":null},{"id":117,"name":"組織を大きくして広げる","layer":"proc","stage":5,"sub":null},{"id":118,"name":"協働で能力と影響力を増やす","layer":"proc","stage":5,"sub":null},{"id":119,"name":"大きなシステムの中に小さなユニットを置く","layer":"proc","stage":5,"sub":null},{"id":120,"name":"コンソルティアで中小が協働する","layer":"proc","stage":5,"sub":null},{"id":121,"name":"核心だけ共有して現地が自律する","layer":"proc","stage":5,"sub":null},{"id":122,"name":"ライセンスで革新を知的財産にする","layer":"proc","stage":5,"sub":null},{"id":123,"name":"合併・買収で規模と能力を得る","layer":"proc","stage":5,"sub":null},{"id":124,"name":"標準的な投資評価を使う","layer":"proc","stage":5,"sub":null},{"id":125,"name":"費用便益分析で社会的価値を示す","layer":"proc","stage":5,"sub":null},{"id":126,"name":"人々の意向を価格にする","layer":"proc","stage":5,"sub":null},{"id":127,"name":"行動から価値を推計する","layer":"proc","stage":5,"sub":null},{"id":128,"name":"GDPを超える指標で社会を測る","layer":"proc","stage":5,"sub":null},{"id":129,"name":"QALYで医療の費用対効果を測る","layer":"proc","stage":5,"sub":null},{"id":130,"name":"患者自身が健康状態を報告する","layer":"proc","stage":5,"sub":null},{"id":131,"name":"学校の付加価値を測る","layer":"proc","stage":5,"sub":null},{"id":132,"name":"社会的インパクトを総合評価する","layer":"proc","stage":5,"sub":null},{"id":133,"name":"社会的投資収益率で価値を示す","layer":"proc","stage":5,"sub":null},{"id":134,"name":"社会勘定で組織の社会的影響を可視化する","layer":"proc","stage":5,"sub":null},{"id":135,"name":"社会的・経済的リターンを混ぜた価値を測る","layer":"proc","stage":5,"sub":null},{"id":136,"name":"公共価値を測る","layer":"proc","stage":5,"sub":null},{"id":137,"name":"生活満足度で政策を比較する","layer":"proc","stage":5,"sub":null},{"id":138,"name":"建築環境の価値を多手法で測る","layer":"proc","stage":5,"sub":null},{"id":139,"name":"運用データから改善の契機を掴む","layer":"proc","stage":5,"sub":null},{"id":140,"name":"比較することで学ぶ","layer":"proc","stage":5,"sub":null},{"id":141,"name":"バランスト・スコアカードで戦略と現場をつなぐ","layer":"proc","stage":5,"sub":null},{"id":142,"name":"評価に利用者の声と経験を組み込む","layer":"proc","stage":5,"sub":null},{"id":143,"name":"地域の成果を地域で測る","layer":"proc","stage":5,"sub":null},{"id":144,"name":"評価を学びのプロセスにする","layer":"proc","stage":5,"sub":null},{"id":145,"name":"生産を分散させる","layer":"proc","stage":6,"sub":null},{"id":146,"name":"台本を書き直すことがシステムを変える","layer":"proc","stage":6,"sub":null},{"id":147,"name":"今の投資が将来を変える","layer":"proc","stage":6,"sub":null},{"id":148,"name":"サポート経済の新しいモデル","layer":"proc","stage":6,"sub":null},{"id":149,"name":"低炭素・ゼロ炭素の生活様式","layer":"proc","stage":6,"sub":null},{"id":150,"name":"分断されたサービスを人を中心に統合する","layer":"proc","stage":6,"sub":null},{"id":151,"name":"市民のエネルギーを動かす支援モデル","layer":"proc","stage":6,"sub":null},{"id":152,"name":"周辺化されたグループを主役にする","layer":"proc","stage":6,"sub":null},{"id":153,"name":"民主主義を新しい空間に広げる","layer":"proc","stage":6,"sub":null},{"id":154,"name":"信頼を作るデバイスを設計する","layer":"proc","stage":6,"sub":null},{"id":155,"name":"新しいシステムを動かすインフラを先に作る","layer":"proc","stage":6,"sub":null},{"id":156,"name":"経済を再配線する","layer":"proc","stage":6,"sub":null},{"id":157,"name":"チェーンの急所に技術革新を入れる","layer":"proc","stage":6,"sub":null},{"id":158,"name":"革新のアカデミーを作る","layer":"proc","stage":6,"sub":null},{"id":159,"name":"当事者が担い手になるシステムを作る","layer":"proc","stage":6,"sub":null},{"id":160,"name":"証拠の争いに新しい事実を作る","layer":"proc","stage":6,"sub":null},{"id":161,"name":"新しいシステムの動くプロトタイプを作る","layer":"proc","stage":6,"sub":null},{"id":162,"name":"システム革新を促すプラットフォームを設計する","layer":"proc","stage":6,"sub":null},{"id":163,"name":"包括的なパイロットでシステムを試す","layer":"proc","stage":6,"sub":null},{"id":164,"name":"古いシステムへの投資を止める","layer":"proc","stage":6,"sub":null},{"id":165,"name":"フレーミングで変革を加速する","layer":"proc","stage":6,"sub":null},{"id":166,"name":"新しい権利を作る","layer":"proc","stage":6,"sub":null},{"id":167,"name":"新しい責任を作る","layer":"proc","stage":6,"sub":null},{"id":168,"name":"財産の新しいかたちを作る","layer":"proc","stage":6,"sub":null},{"id":169,"name":"法的禁止でシステムを変える","layer":"proc","stage":6,"sub":null},{"id":170,"name":"法律を本気で執行する","layer":"proc","stage":6,"sub":null},{"id":171,"name":"分類を変えてシステムを変える","layer":"proc","stage":6,"sub":null},{"id":172,"name":"義務とペナルティでシステムを動かす","layer":"proc","stage":6,"sub":null},{"id":173,"name":"税制と財政でシステムを再調整する","layer":"proc","stage":6,"sub":null},{"id":174,"name":"何を測るかがシステムの論理を決める","layer":"proc","stage":6,"sub":null},{"id":175,"name":"自発的な社会運動が生活様式を変える","layer":"proc","stage":6,"sub":null},{"id":176,"name":"明確な目標を持つ公式連合を組む","layer":"proc","stage":6,"sub":null},{"id":177,"name":"財政の流れを変革の方向に向け直す","layer":"proc","stage":6,"sub":null},{"id":178,"name":"予防への投資を可能にする財政","layer":"proc","stage":6,"sub":null},{"id":179,"name":"革新を発見して広める人","layer":"conn","stage":null,"sub":"people"},{"id":180,"name":"革新を組織に埋め込む人","layer":"conn","stage":null,"sub":"people"},{"id":181,"name":"大組織の内側から社会変革を動かす人","layer":"conn","stage":null,"sub":"people"},{"id":182,"name":"通常業務から切り離した革新専用の空間を作る","layer":"conn","stage":null,"sub":"people"},{"id":183,"name":"地域に根ざした革新チーム","layer":"conn","stage":null,"sub":"people"},{"id":184,"name":"横断的専門革新ユニット","layer":"conn","stage":null,"sub":"people"},{"id":185,"name":"革新者が集まる場所がエコシステムを生む","layer":"conn","stage":null,"sub":"people"},{"id":186,"name":"革新を政府の公式な仕事にする機関を作る","layer":"conn","stage":null,"sub":"people"},{"id":187,"name":"専門分野の革新機関","layer":"conn","stage":null,"sub":"people"},{"id":188,"name":"革新ファンド","layer":"conn","stage":null,"sub":"people"},{"id":189,"name":"革新インキュベーター","layer":"conn","stage":null,"sub":"people"},{"id":190,"name":"課題と解決策の間に橋をかける専門的仲介","layer":"conn","stage":null,"sub":"people"},{"id":191,"name":"専門誌・業界誌が革新を流通させる","layer":"conn","stage":null,"sub":"people"},{"id":192,"name":"研究と実践を統合した革新の学習拠点","layer":"conn","stage":null,"sub":"people"},{"id":193,"name":"革新学習ラボ","layer":"conn","stage":null,"sub":"people"},{"id":194,"name":"分野特化の専門機関","layer":"conn","stage":null,"sub":"people"},{"id":195,"name":"デモンストレーションセンター","layer":"conn","stage":null,"sub":"network"},{"id":196,"name":"革新アクセラレーター","layer":"conn","stage":null,"sub":"network"},{"id":197,"name":"革新ネットワーク","layer":"conn","stage":null,"sub":"network"},{"id":198,"name":"花粉を運ぶネットワーク","layer":"conn","stage":null,"sub":"network"},{"id":199,"name":"協働ネットワーク","layer":"conn","stage":null,"sub":"network"},{"id":200,"name":"サービス協働体","layer":"conn","stage":null,"sub":"network"},{"id":201,"name":"実践しながら仲間と学ぶ継続的な場","layer":"conn","stage":null,"sub":"network"},{"id":202,"name":"会員組織が革新を育てる","layer":"conn","stage":null,"sub":"network"},{"id":203,"name":"情報と資源を必要な人につなぐプラットフォーム","layer":"conn","stage":null,"sub":"platform"},{"id":204,"name":"集合行動プラットフォーム","layer":"conn","stage":null,"sub":"platform"},{"id":205,"name":"専門家と市民の壁を溶かして共同制作する","layer":"conn","stage":null,"sub":"platform"},{"id":206,"name":"オンラインラボ","layer":"conn","stage":null,"sub":"platform"},{"id":207,"name":"P2Pプラットフォーム","layer":"conn","stage":null,"sub":"platform"},{"id":208,"name":"革新を戦略の中心に置く","layer":"supp","stage":null,"sub":"public"},{"id":209,"name":"トップが失敗を歓迎すると宣言する","layer":"supp","stage":null,"sub":"public"},{"id":210,"name":"革新をブロックしているものを取り除く","layer":"supp","stage":null,"sub":"public"},{"id":211,"name":"リスクをポートフォリオで管理する","layer":"supp","stage":null,"sub":"public"},{"id":212,"name":"革新を個人の成長に組み込む","layer":"supp","stage":null,"sub":"public"},{"id":213,"name":"現場の声が組織を学ばせる回路を作る","layer":"supp","stage":null,"sub":"public"},{"id":214,"name":"ユーザーをサービス設計者にする","layer":"supp","stage":null,"sub":"public"},{"id":215,"name":"実験のための安全な空間を作る","layer":"supp","stage":null,"sub":"public"},{"id":216,"name":"革新のための専用の財布を作る","layer":"supp","stage":null,"sub":"public"},{"id":217,"name":"使途を委ねるほど革新が生まれる","layer":"supp","stage":null,"sub":"public"},{"id":218,"name":"革新の利益を革新者に還元する","layer":"supp","stage":null,"sub":"public"},{"id":219,"name":"市民がオンラインで予算を設定する","layer":"supp","stage":null,"sub":"public"},{"id":220,"name":"段階的に資金と説明責任を整える","layer":"supp","stage":null,"sub":"public"},{"id":221,"name":"革新連動報酬を設計する","layer":"supp","stage":null,"sub":"public"},{"id":222,"name":"公共契約に社会条項を入れる","layer":"supp","stage":null,"sub":"public"},{"id":223,"name":"市民が政策・行政に直接関与できる場を作る","layer":"supp","stage":null,"sub":"public"},{"id":224,"name":"市民のアイデアを立法化する議会構造","layer":"supp","stage":null,"sub":"public"},{"id":225,"name":"資源配分を市民が決める","layer":"supp","stage":null,"sub":"public"},{"id":226,"name":"市民社会による影の予算プロセス","layer":"supp","stage":null,"sub":"public"},{"id":227,"name":"コミュニティが自分のサービスを設計・運営する権利","layer":"supp","stage":null,"sub":"public"},{"id":228,"name":"公的財政を透明にして市民の信頼を生む","layer":"supp","stage":null,"sub":"public"},{"id":229,"name":"革新を支援する監査・検査体制","layer":"supp","stage":null,"sub":"public"},{"id":230,"name":"政府の革新度を測る指標","layer":"supp","stage":null,"sub":"public"},{"id":231,"name":"使途を指定した税・義務","layer":"supp","stage":null,"sub":"public"},{"id":232,"name":"参加に応じた税優遇","layer":"supp","stage":null,"sub":"public"},{"id":233,"name":"自発的な追加税","layer":"supp","stage":null,"sub":"public"},{"id":234,"name":"一時税で大きな目的に投資する","layer":"supp","stage":null,"sub":"public"},{"id":235,"name":"コミュニティ共同誓約","layer":"supp","stage":null,"sub":"public"},{"id":236,"name":"行動に連動した料金・手数料の設計","layer":"supp","stage":null,"sub":"public"},{"id":237,"name":"公共の宝くじ・抽選・コンテストで資金を集める","layer":"supp","stage":null,"sub":"public"},{"id":238,"name":"リスクを社会化する","layer":"supp","stage":null,"sub":"public"},{"id":239,"name":"個人が自分のサービスを設計できる直接支払い","layer":"supp","stage":null,"sub":"public"},{"id":240,"name":"特定の行動に連動した報酬設計","layer":"supp","stage":null,"sub":"public"},{"id":241,"name":"デジタル技術で公共サービスを再設計する","layer":"supp","stage":null,"sub":"public"},{"id":242,"name":"地域債券と事業改善地区","layer":"supp","stage":null,"sub":"public"},{"id":243,"name":"公共投資からの収益を地域に還元する","layer":"supp","stage":null,"sub":"public"},{"id":244,"name":"社会的目的の組織に専用の投資資金を届ける","layer":"supp","stage":null,"sub":"public"},{"id":245,"name":"財団型基金","layer":"supp","stage":null,"sub":"public"},{"id":246,"name":"異なる資金を組み合わせて大きな投資を実現する","layer":"supp","stage":null,"sub":"public"},{"id":247,"name":"保険で不確実性を定量化する","layer":"supp","stage":null,"sub":"public"},{"id":248,"name":"保証付き投資で公共機関のリスクを下げる","layer":"supp","stage":null,"sub":"public"},{"id":249,"name":"将来の収益を証券化して今の投資に変える","layer":"supp","stage":null,"sub":"public"},{"id":250,"name":"予防への投資を今の財源から可能にする","layer":"supp","stage":null,"sub":"public"},{"id":251,"name":"成果連動のボーナス支払い","layer":"supp","stage":null,"sub":"public"},{"id":252,"name":"社会革新成長戦略への公的投資","layer":"supp","stage":null,"sub":"public"},{"id":253,"name":"官民連携によるインフラ整備","layer":"supp","stage":null,"sub":"public"},{"id":254,"name":"税制と法的地位を社会的革新の後押しに使う","layer":"supp","stage":null,"sub":"public"},{"id":255,"name":"実験区域を設ける","layer":"supp","stage":null,"sub":"public"},{"id":256,"name":"市場を再設計する政策手段","layer":"supp","stage":null,"sub":"public"},{"id":257,"name":"新しい法的形態と要件を作る","layer":"supp","stage":null,"sub":"public"},{"id":258,"name":"革新を促進する法的義務","layer":"supp","stage":null,"sub":"public"},{"id":259,"name":"創造的経済を促進する計画・税制ルール","layer":"supp","stage":null,"sub":"public"},{"id":260,"name":"資産移転プログラム","layer":"supp","stage":null,"sub":"public"},{"id":261,"name":"革新を評価・可視化して説明責任を作る","layer":"supp","stage":null,"sub":"public"},{"id":262,"name":"革新アワードで模範を示す","layer":"supp","stage":null,"sub":"public"},{"id":263,"name":"公務員組合を革新の推進者にする","layer":"supp","stage":null,"sub":"public"},{"id":264,"name":"フロントラインワーカーを革新者として支援する","layer":"supp","stage":null,"sub":"public"},{"id":265,"name":"日常業務から革新のための時間を切り出す","layer":"supp","stage":null,"sub":"public"},{"id":266,"name":"指定エリアでの革新の自由度拡大","layer":"supp","stage":null,"sub":"public"},{"id":267,"name":"革新アニメーター","layer":"supp","stage":null,"sub":"public"},{"id":268,"name":"失敗と雇用を切り離す革新モデル","layer":"supp","stage":null,"sub":"public"},{"id":269,"name":"革新者の認定・採用","layer":"supp","stage":null,"sub":"public"},{"id":270,"name":"内と外を混ぜると両方が強くなる","layer":"supp","stage":null,"sub":"public"},{"id":271,"name":"公共部門でのボランティア活用","layer":"supp","stage":null,"sub":"public"},{"id":272,"name":"地域公共通貨","layer":"supp","stage":null,"sub":"public"},{"id":273,"name":"高割引率投資家を先に満たす","layer":"supp","stage":null,"sub":"public"},{"id":274,"name":"協働的な構造でサービスを革新する","layer":"supp","stage":null,"sub":"grant"},{"id":275,"name":"最初の一歩に資金を届ける","layer":"supp","stage":null,"sub":"grant"},{"id":276,"name":"事後の表彰・認識賞","layer":"supp","stage":null,"sub":"grant"},{"id":277,"name":"素早いグラント","layer":"supp","stage":null,"sub":"grant"},{"id":278,"name":"期限付き慈善組織","layer":"supp","stage":null,"sub":"grant"},{"id":279,"name":"コンペとチャレンジファンド","layer":"supp","stage":null,"sub":"grant"},{"id":280,"name":"専門的な配分仲介者","layer":"supp","stage":null,"sub":"grant"},{"id":281,"name":"非営利組織のIPO","layer":"supp","stage":null,"sub":"grant"},{"id":282,"name":"助成を投資として設計する","layer":"supp","stage":null,"sub":"grant"},{"id":283,"name":"ギビング・サークルとソーシャル投資サークル","layer":"supp","stage":null,"sub":"grant"},{"id":284,"name":"企業の非現金資源を社会革新に届ける","layer":"supp","stage":null,"sub":"grant"},{"id":285,"name":"善意と資金を効率よくつなぐデジタルプラットフォーム","layer":"supp","stage":null,"sub":"grant"},{"id":286,"name":"資金を特定の変革目標に集中させる","layer":"supp","stage":null,"sub":"grant"},{"id":287,"name":"フィランソロピーのミューチュアルファンド","layer":"supp","stage":null,"sub":"grant"},{"id":288,"name":"受益者を意思決定と評価の中心に置く","layer":"supp","stage":null,"sub":"grant"},{"id":289,"name":"会員・準会員を革新と評価の源泉にする","layer":"supp","stage":null,"sub":"grant"},{"id":290,"name":"ベンチャーフィランソロピーのための指標","layer":"supp","stage":null,"sub":"grant"},{"id":291,"name":"フィランソロピーを透明化して効果を高める","layer":"supp","stage":null,"sub":"grant"},{"id":292,"name":"革新者へのサポートサービス","layer":"supp","stage":null,"sub":"grant"},{"id":293,"name":"社会的組織の経営能力を体系的に強化する","layer":"supp","stage":null,"sub":"grant"},{"id":294,"name":"個人のリーダーシップ・起業家精神評価ツール","layer":"supp","stage":null,"sub":"grant"},{"id":295,"name":"社会セクターの人材を専門的に育成する","layer":"supp","stage":null,"sub":"grant"},{"id":296,"name":"セクター間の役割交換","layer":"supp","stage":null,"sub":"grant"},{"id":297,"name":"社会的目的組織のための法的形態と場所の確保","layer":"supp","stage":null,"sub":"grant"},{"id":298,"name":"コモンズを財産化して収益を社会に還元する","layer":"supp","stage":null,"sub":"grant"},{"id":299,"name":"グローバルネットワーク","layer":"supp","stage":null,"sub":"grant"},{"id":300,"name":"全国ネットワーク","layer":"supp","stage":null,"sub":"grant"},{"id":301,"name":"受給者ネットワークで知識を共有する","layer":"supp","stage":null,"sub":"grant"},{"id":302,"name":"インスピレーションと接続を提供するネットワーク","layer":"supp","stage":null,"sub":"grant"},{"id":303,"name":"社会的企業として市場で活動する","layer":"supp","stage":null,"sub":"market"},{"id":304,"name":"所有することで市場の論理に対抗する協同の形","layer":"supp","stage":null,"sub":"market"},{"id":305,"name":"所有とガバナンスで使命を守る","layer":"supp","stage":null,"sub":"market"},{"id":306,"name":"社会的モデルの営利開発","layer":"supp","stage":null,"sub":"market"},{"id":307,"name":"企業の資源と責任を社会的目的に向ける","layer":"supp","stage":null,"sub":"market"},{"id":308,"name":"フェアトレードのような市場コミットメント","layer":"supp","stage":null,"sub":"market"},{"id":309,"name":"企業の資源（技術・費用）を社会的目的に転用する","layer":"supp","stage":null,"sub":"market"},{"id":310,"name":"投資を社会的価値・使命と整合させる","layer":"supp","stage":null,"sub":"market"},{"id":311,"name":"社会的企業・ベンチャーに段階に応じたエクイティを届ける","layer":"supp","stage":null,"sub":"market"},{"id":312,"name":"通常の金融が届かない人・組織への融資","layer":"supp","stage":null,"sub":"market"},{"id":313,"name":"慈善と投資を組み合わせる金融商品","layer":"supp","stage":null,"sub":"market"},{"id":314,"name":"投資準備支援","layer":"supp","stage":null,"sub":"market"},{"id":315,"name":"起業前のR&Dメンタードファンディング","layer":"supp","stage":null,"sub":"market"},{"id":316,"name":"社会的価値を優先する銀行・金融機関","layer":"supp","stage":null,"sub":"market"},{"id":317,"name":"金融保証協同組合","layer":"supp","stage":null,"sub":"market"},{"id":318,"name":"投資家と社会的プロジェクトを直接つなぐ","layer":"supp","stage":null,"sub":"market"},{"id":319,"name":"社会的企業への銀行融資","layer":"supp","stage":null,"sub":"market"},{"id":320,"name":"ビジネスエンジェルによる社会的ベンチャー投資","layer":"supp","stage":null,"sub":"market"},{"id":321,"name":"社会的卸売銀行","layer":"supp","stage":null,"sub":"market"},{"id":322,"name":"ビジネス能力と社会的使命を組み合わせたハイブリッドビジネスモデル","layer":"supp","stage":null,"sub":"market"},{"id":323,"name":"社会的サービスの非営利的企業管理","layer":"supp","stage":null,"sub":"market"},{"id":324,"name":"社会的価値を認証・マークで見えるようにする","layer":"supp","stage":null,"sub":"informal"},{"id":325,"name":"消費者ガイドとレビュー","layer":"supp","stage":null,"sub":"informal"},{"id":326,"name":"企業行動に対する社会運動キャンペーン","layer":"supp","stage":null,"sub":"informal"},{"id":327,"name":"国家通貨では届かない価値を循環させる代替システム","layer":"supp","stage":null,"sub":"informal"},{"id":328,"name":"社会経済を担う人材を育成する","layer":"supp","stage":null,"sub":"informal"},{"id":329,"name":"相互支援ネットワーク","layer":"supp","stage":null,"sub":"informal"},{"id":330,"name":"余暇時間の社会的市場","layer":"supp","stage":null,"sub":"informal"},{"id":331,"name":"市場の価格設計で悪を減らし善を増やす","layer":"supp","stage":null,"sub":"informal"},{"id":332,"name":"ソーシャルストック取引所","layer":"supp","stage":null,"sub":"informal"},{"id":333,"name":"社会的指標","layer":"supp","stage":null,"sub":"informal"},{"id":334,"name":"バーチャル市民社会","layer":"supp","stage":null,"sub":"informal"},{"id":335,"name":"個人の小さな行動を集めて大きな力にする","layer":"supp","stage":null,"sub":"informal"},{"id":336,"name":"共同制作プラットフォーム（インフォーマル経済版）","layer":"supp","stage":null,"sub":"informal"},{"id":337,"name":"オンラインガイドとモデレーター","layer":"supp","stage":null,"sub":"informal"},{"id":338,"name":"知識・情報をオープンにしながら創造者も守る","layer":"supp","stage":null,"sub":"informal"},{"id":339,"name":"コミュニティによる資産の新しい所有形態","layer":"supp","stage":null,"sub":"informal"},{"id":340,"name":"家庭・コミュニティの無償労働を社会が認め守る","layer":"supp","stage":null,"sub":"informal"},{"id":341,"name":"ボランティアへの研修とネットワーク","layer":"supp","stage":null,"sub":"informal"},{"id":342,"name":"ストリートを革新とサービスの単位にする","layer":"supp","stage":null,"sub":"informal"},{"id":343,"name":"公共空間をコミュニティの活動・生産に開放する","layer":"supp","stage":null,"sub":"informal"},{"id":344,"name":"活動を通じた抗議","layer":"supp","stage":null,"sub":"informal"},{"id":345,"name":"家庭活動に溶け込むコミュニティセンター","layer":"supp","stage":null,"sub":"informal"},{"id":346,"name":"近隣ウェブサイトとメディア","layer":"supp","stage":null,"sub":"informal"},{"id":347,"name":"ユーザーが生産者になる","layer":"supp","stage":null,"sub":"informal"},{"id":348,"name":"生産者・消費者協働","layer":"supp","stage":null,"sub":"informal"},{"id":349,"name":"家の枠を超えてコミュニティが支え合う住まいを作る","layer":"supp","stage":null,"sub":"informal"},{"id":350,"name":"ケア・支援の新しいモデルを開発する","layer":"supp","stage":null,"sub":"informal"}];
+</main>
 
-const SUBS = {
-  proc: [
-    {v:"all",l:"全段階（絞り込まない）"},
-    {v:"1",l:"第1段階：気づきと診断"},
-    {v:"2",l:"第2段階：アイデアと提案"},
-    {v:"3",l:"第3段階：試作と検証"},
-    {v:"4",l:"第4段階：持続化"},
-    {v:"5",l:"第5段階：スケール"},
-    {v:"6",l:"第6段階：システム変革"},
-  ],
-  conn: [
-    {v:"all",l:"全カテゴリ"},
-    {v:"people",l:"人・組織"},
-    {v:"network",l:"ネットワーク"},
-    {v:"platform",l:"プラットフォーム"},
-  ],
-  supp: [
-    {v:"all",l:"全カテゴリ"},
-    {v:"public",l:"公共セクター"},
-    {v:"grant",l:"助成経済"},
-    {v:"market",l:"市場経済"},
-    {v:"informal",l:"家庭・インフォーマル経済"},
-  ]
+<script>
+// ===== 設定 =====
+const TOKEN = "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";
+const REPO  = "smiyachi/socialrd-cookpad";
+
+// ===== データ定義 =====
+// コーディネーター（cross-border）パターン - cross-border-patterns.jsonから
+// ※ GitHubに cross-border-patterns.json をアップしたら fetch に変更可能
+// 暫定としてインライン定義
+const CB_PHASE_LABELS = {
+  before:"越境前", during:"越境中", after:"越境後", cross:"フェーズ横断", meta:"伴走の構え"
 };
 
-// 層を変えたとき
-document.getElementById('sel-layer').addEventListener('change', function() {
-  const layer = this.value;
-  const fieldSub = document.getElementById('field-sub');
-  const fieldPat = document.getElementById('field-pattern');
-  const noneMsg = document.getElementById('none-msg');
+// パターンデータ（cross-border由来38パターン）
+const CB_PATTERNS = [
+  {id:1,phase:"before",name:"想いの言語化",summary:"「何を変えたいのか」を本人の言葉で紡ぎ出す"},
+  {id:2,phase:"before",name:"期待の地ならし",summary:"三者の期待値を可視化し、ズレを事前に埋める"},
+  {id:3,phase:"before",name:"不安の正体を見せる",summary:"漠然とした不安を分解し、対処可能にする"},
+  {id:4,phase:"before",name:"先輩の轍",summary:"経験者の生の体験談に触れ、「自分にもできる」と感じる"},
+  {id:5,phase:"before",name:"帰り道の灯",summary:"「戻った後の世界」の見通しを示し、越境中の集中力を守る"},
+  {id:6,phase:"before",name:"送り出しの根回し",summary:"周囲を味方にし、越境を組織ぐるみで支える態勢をつくる"},
+  {id:7,phase:"before",name:"越境先の下見",summary:"事前情報を共有し、スタートダッシュを切れるようにする"},
+  {id:8,phase:"before",name:"契約の見える化",summary:"業務内容・条件・評価基準を曖昧にせず文書化する"},
+  {id:9,phase:"during",name:"葛藤を味わう",summary:"違和感を「解消すべき問題」ではなく「学びの種」として掘り下げる"},
+  {id:10,phase:"during",name:"見守りの距離感",summary:"手を出すべき場面と見守るべき場面を見極める"},
+  {id:11,phase:"during",name:"混乱期間の肯定",summary:"戸惑いの渦中にこそ最も深い学びがあると知る"},
+  {id:12,phase:"during",name:"小さな橋渡し",summary:"日常的な小さな接点で孤立を防ぐ"},
+  {id:13,phase:"during",name:"攻めの業務設計",summary:"「お客さま扱い」を脱し、責任ある仕事で成長させる"},
+  {id:14,phase:"during",name:"揺れの傾聴",summary:"解決策を急がず、本人の揺れをまず受け止める"},
+  {id:15,phase:"during",name:"進捗の温度計",summary:"定期的に状況を可視化し、早期に軌道修正する"},
+  {id:16,phase:"during",name:"文化の通訳",summary:"暗黙のルールを言語化して越境者に伝える"},
+  {id:17,phase:"during",name:"創発の場づくり",summary:"外部視点を活かし、新しい企画が生まれる場を設計する"},
+  {id:18,phase:"during",name:"所属との架け橋",summary:"越境先にいる間も所属組織とのつながりを維持する"},
+  {id:19,phase:"after",name:"学びの翻訳",summary:"越境先の言葉を所属組織が理解できる言葉に変換する"},
+  {id:20,phase:"after",name:"苛立ちの錬金術",summary:"「うちの組織は遅い」という怒りを改革提案に転化する"},
+  {id:21,phase:"after",name:"試しの場",summary:"小規模な実証実験で、新しいアイデアを試す余白をつくる"},
+  {id:22,phase:"after",name:"風化を防ぐ種まき",summary:"学びを繰り返し共有し、組織の記憶に定着させる"},
+  {id:23,phase:"after",name:"帰任後の居場所設計",summary:"越境経験を活かせる役割・配置を意図的につくる"},
+  {id:24,phase:"after",name:"二重のギャップ活用",summary:"ホームとアウェイの両方へのギャップを発見の原動力にする"},
+  {id:25,phase:"after",name:"越境先との糸を紡ぐ",summary:"帰任後も越境先との関係を継続し、協業の芽を育てる"},
+  {id:26,phase:"after",name:"経営層への翻訳プレゼン",summary:"帰任者の提案を意思決定者に届く形で届ける"},
+  {id:27,phase:"cross",name:"観察の解像度",summary:"言葉にならない変化を、些細な兆候から察知する"},
+  {id:28,phase:"cross",name:"資源の仲介者",summary:"必要な人・情報・機会を適時につなぐ"},
+  {id:29,phase:"cross",name:"複数の選択肢を示す",summary:"行き詰まりに対して一つの正解ではなく、複数の道を提案する"},
+  {id:30,phase:"cross",name:"成果の翻訳者",summary:"異なる文脈の間で、成果の意味を変換して伝える"},
+  {id:31,phase:"cross",name:"伴走者も学ぶ",summary:"「教える人」ではなく「共に学ぶ人」として対等に関わる"},
+  {id:32,phase:"cross",name:"伴走者チームの役割分担",summary:"複数の伴走者が重複せず、かつ隙間をつくらず支える"},
+  {id:33,phase:"meta",name:"課題をゼロにしない",summary:"課題の全消去ではなく「健全に向き合う」を支える"},
+  {id:34,phase:"meta",name:"先回りの誘惑に抗う",summary:"善意の過保護が学びを奪うことに気づく"},
+  {id:35,phase:"meta",name:"チェックリストの罠",summary:"ガイドラインを形骸化させず、目の前の人に向き合う"},
+  {id:36,phase:"meta",name:"伴走者自身の越境",summary:"伴走者自身が異なる環境を経験し、支援の質を高める"},
+  {id:37,phase:"meta",name:"フィードバックの循環",summary:"伴走の質を伴走者自身にもフィードバックする仕組みをつくる"},
+  {id:38,phase:"meta",name:"美学としての伴走",summary:"なぜ伴走するのかという「自分自身の問い」を持ち続ける"}
+];
 
-  // 全部リセット
-  fieldSub.style.display = 'none';
-  fieldPat.style.display = 'none';
-  noneMsg.style.display = 'none';
-  document.getElementById('sel-pattern').innerHTML = '<option value="">パターンを選択...</option>';
+// ソーシャルイノベーション（Cookpad）パターン - admin.htmlから350件
+// ※長大なので layer/stage のみ保持。パターン一覧はGitHubから動的取得
+const SI_COLLECTION = "patterns.json"; // GitHub上のファイル名
 
-  if (layer === 'none') {
-    noneMsg.style.display = 'block';
-    return;
-  }
-  if (!layer) return;
+// ===== 状態管理 =====
+let state = {
+  category: null,    // 'si' | 'co' | 'pr' | 'none'
+  regType: null,     // 'link' | 'new'
+  selectedPattern: null,
+  selectedPhase: null,
+  allPatterns: []    // 現在の区分のパターン一覧
+};
 
-  // サブカテゴリを設定
-  const subSel = document.getElementById('sel-sub');
-  subSel.innerHTML = SUBS[layer].map(s => `<option value="${s.v}">${s.l}</option>`).join('');
-  fieldSub.style.display = 'block';
-
-  // パターン一覧（全件）を設定
-  fillPatterns(layer, 'all');
-  fieldPat.style.display = 'block';
-});
-
-// カテゴリを変えたとき
-document.getElementById('sel-sub').addEventListener('change', function() {
-  const layer = document.getElementById('sel-layer').value;
-  fillPatterns(layer, this.value);
-});
-
-function fillPatterns(layer, subVal) {
-  let list = ALL.filter(p => p.layer === layer);
-
-  if (subVal !== 'all') {
-    if (layer === 'proc') {
-      list = list.filter(p => p.stage === parseInt(subVal));
-    } else {
-      list = list.filter(p => p.sub === subVal);
-    }
-  }
-
-  const sel = document.getElementById('sel-pattern');
-  sel.innerHTML = `<option value="">パターンを選択... (${list.length}件)</option>` +
-    list.map(p => `<option value="${p.id}">#${p.id} ${p.name}</option>`).join('');
+// ===== ステップ更新 =====
+function updateSteps(active) {
+  ['step1','step2','step3','step4'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.className = 'step';
+    if (i + 1 < active) el.classList.add('done');
+    else if (i + 1 === active) el.classList.add('active');
+  });
 }
 
-async function submitCase() {
-  const title = document.getElementById('case-title').value.trim();
-  const desc  = document.getElementById('case-desc').value.trim();
-  const url   = document.getElementById('case-url').value.trim();
-  const author= document.getElementById('case-author').value.trim();
-  const layer = document.getElementById('sel-layer').value;
-  const patId = parseInt(document.getElementById('sel-pattern').value);
+// ===== STEP 1: 区分選択 =====
+function selectCategory(cat) {
+  state.category = cat;
+  state.regType = null;
+  state.selectedPattern = null;
+
+  // ボタンのactive更新
+  document.querySelectorAll('.cat-btn').forEach(btn => {
+    btn.className = 'cat-btn';
+  });
+  const activeBtn = document.querySelector(`.cat-btn[data-cat="${cat}"]`);
+  activeBtn.classList.add(`active-${cat}`);
+
+  if (cat === 'none') {
+    // 未分類：直接フォームへ
+    document.getElementById('phase-type').classList.add('hidden');
+    showUnclassifiedForm();
+    updateSteps(3);
+  } else {
+    // 種別選択へ
+    document.getElementById('phase-type').classList.remove('hidden');
+    document.getElementById('phase-form').classList.add('hidden');
+    // ラジオリセット
+    document.querySelectorAll('input[name="reg-type"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.type-opt').forEach(o => o.classList.remove('active'));
+    updateSteps(2);
+    // スクロール
+    document.getElementById('phase-type').scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+}
+
+function showUnclassifiedForm() {
+  document.getElementById('phase-form').classList.remove('hidden');
+  document.getElementById('link-section').classList.add('hidden');
+  document.getElementById('new-section').classList.add('hidden');
+  document.getElementById('phase-form').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// ===== STEP 2: 種別選択 =====
+function selectType(type) {
+  state.regType = type;
+  document.querySelectorAll('.type-opt').forEach(o => o.classList.remove('active'));
+  document.getElementById(`type-${type}`).classList.add('active');
+
+  document.getElementById('phase-form').classList.remove('hidden');
+  const linkSec = document.getElementById('link-section');
+  const newSec  = document.getElementById('new-section');
+
+  if (type === 'link') {
+    linkSec.classList.remove('hidden');
+    newSec.classList.add('hidden');
+    loadPatternList();
+  } else {
+    linkSec.classList.add('hidden');
+    newSec.classList.remove('hidden');
+  }
+  updateSteps(3);
+  document.getElementById('phase-form').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// ===== パターン一覧ロード =====
+async function loadPatternList() {
+  if (state.category === 'co') {
+    state.allPatterns = CB_PATTERNS;
+    renderPatternList(CB_PATTERNS);
+  } else if (state.category === 'si') {
+    // Cookpad: GitHubから取得
+    document.getElementById('pattern-list').innerHTML = '<div style="padding:1rem;font-size:0.8rem;color:#999">読み込み中...</div>';
+    try {
+      const r = await fetch(`https://api.github.com/repos/${REPO}/contents/patterns.json`, {
+        headers: {'Authorization': `token ${TOKEN}`, 'Accept': 'application/vnd.github.v3+json'}
+      });
+      const file = await r.json();
+      const data = JSON.parse(atob(file.content.replace(/\n/g,'')));
+      state.allPatterns = data.map(p => ({id: p.id, name: p.name, phase: p.layer, summary: `層:${p.layer} ステージ:${p.stage||'-'}`}));
+      renderPatternList(state.allPatterns);
+    } catch(e) {
+      document.getElementById('pattern-list').innerHTML = '<div style="padding:1rem;font-size:0.8rem;color:#c00">読み込みエラー: ' + e.message + '</div>';
+    }
+  } else {
+    // pr: 暫定メッセージ
+    document.getElementById('pattern-list').innerHTML = '<div style="padding:1rem;font-size:0.8rem;color:#999">EntreCompパターンは準備中です。新パターン提案をお使いください。</div>';
+  }
+}
+
+function renderPatternList(list) {
+  const el = document.getElementById('pattern-list');
+  if (!list.length) {
+    el.innerHTML = '<div style="padding:1rem;font-size:0.8rem;color:#999">該当なし</div>';
+    return;
+  }
+  el.innerHTML = list.map(p => {
+    const phaseLabel = CB_PHASE_LABELS[p.phase] || p.phase || '';
+    return `<div class="pattern-item" onclick="selectPattern(${p.id})">
+      <span class="p-num">#${p.id}</span>
+      <span class="p-body">
+        <span class="p-name">${p.name}</span>
+        <span class="p-summary">${p.summary || ''}</span>
+      </span>
+      ${phaseLabel ? `<span class="p-phase">${phaseLabel}</span>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function filterPatterns() {
+  const q = document.getElementById('pattern-search').value.trim();
+  if (!q) { renderPatternList(state.allPatterns); return; }
+  const filtered = state.allPatterns.filter(p =>
+    p.name.includes(q) || (p.summary||'').includes(q)
+  );
+  renderPatternList(filtered);
+}
+
+function selectPattern(id) {
+  const p = state.allPatterns.find(x => x.id === id);
+  if (!p) return;
+  state.selectedPattern = p;
+
+  const phaseLabel = CB_PHASE_LABELS[p.phase] || p.phase || '';
+  document.getElementById('sp-name').textContent = `#${p.id} ${p.name}`;
+  document.getElementById('sp-meta').textContent = (phaseLabel ? `${phaseLabel} / ` : '') + (p.summary || '');
+  document.getElementById('selected-pattern-box').style.display = 'block';
+  document.getElementById('pattern-search-area').style.display = 'none';
+}
+
+function resetPatternSelection() {
+  state.selectedPattern = null;
+  document.getElementById('selected-pattern-box').style.display = 'none';
+  document.getElementById('pattern-search-area').style.display = 'block';
+}
+
+// ===== フェーズ選択（新パターン） =====
+function togglePhase(phase, el) {
+  el.classList.toggle('active');
+  state.selectedPhase = phase;
+}
+
+// ===== 登録処理 =====
+async function submitEntry() {
+  const title  = document.getElementById('case-title').value.trim();
+  const desc   = document.getElementById('case-desc').value.trim();
+  const url    = document.getElementById('case-url').value.trim();
+  const author = document.getElementById('case-author').value.trim();
 
   if (!title || !desc) { showStatus('error', 'タイトルと概要は必須です。'); return; }
-  if (!layer)           { showStatus('error', '層を選択してください。'); return; }
 
-  if (layer === 'none') {
-    saveUC({title, desc, url, author, date: today()});
-    showStatus('success', '📦 未分類ボックスに保存しました。');
+  const btn = document.getElementById('submit-btn');
+
+  // 未分類の場合
+  if (state.category === 'none') {
+    saveUC({ type:'unclassified', category: 'none', title, desc, url: url||null, author: author||null, date: today() });
+    showStatus('success', '📦 未分類ボックスに保存しました。後でClaudeと一緒に整理できます。');
     resetForm();
+    updateSteps(4);
     return;
   }
 
-  if (!patId) { showStatus('error', 'パターンを選択してください。'); return; }
+  if (!state.regType) { showStatus('error', '登録種別を選択してください。'); return; }
 
-  const btn = document.getElementById('submit-btn');
   btn.disabled = true;
   showStatus('loading', 'GitHubに登録中...');
 
   try {
-    // patterns.json を取得
-    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/patterns.json`, {
-      headers: {'Authorization': `token ${TOKEN}`, 'Accept': 'application/vnd.github.v3+json'}
-    });
-    const file = await r.json();
-    const sha  = file.sha;
-    const data = JSON.parse(atob(file.content.replace(/\n/g,'')));
-
-    // 対象パターンに jp_cases を追加
-    const target = data.find(p => p.id === patId);
-    if (!target) throw new Error('パターンが見つかりません');
-    if (!Array.isArray(target.jp_cases)) target.jp_cases = [];
-    target.jp_cases.push({ title, desc, url: url||null, author: author||null, date: today() });
-
-    // 保存
-    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-    const put = await fetch(`https://api.github.com/repos/${REPO}/contents/patterns.json`, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `token ${TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        message: `事例追加: #${patId} ${target.name} — ${title}`,
-        content: encoded,
-        sha
-      })
-    });
-
-    if (put.ok) {
-      showStatus('success', `✅ 登録完了！「#${patId} ${target.name}」に追加。1〜2分でサイトに反映されます。`);
-      resetForm();
+    if (state.regType === 'link') {
+      // 既存パターンへの事例紐づけ
+      if (!state.selectedPattern) throw new Error('紐づけるパターンを選択してください');
+      await submitCaseLink(title, desc, url, author);
     } else {
-      const e = await put.json();
-      throw new Error(e.message);
+      // 新パターン提案
+      await submitNewPattern(title, desc, url, author);
     }
   } catch(e) {
     showStatus('error', 'エラー: ' + e.message);
-  } finally {
     btn.disabled = false;
   }
 }
 
+async function submitCaseLink(title, desc, url, author) {
+  // GitHubのJSONファイルを更新
+  const filename = state.category === 'co' ? 'cross-border-patterns.json' : 'patterns.json';
+
+  const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${filename}`, {
+    headers: {'Authorization': `token ${TOKEN}`, 'Accept': 'application/vnd.github.v3+json'}
+  });
+  if (!r.ok) throw new Error(`ファイル取得失敗: ${filename}`);
+  const file = await r.json();
+  const sha  = file.sha;
+
+  let data = JSON.parse(atob(file.content.replace(/\n/g,'')));
+
+  // cross-borderはネスト構造
+  let patterns = Array.isArray(data) ? data : (data.patterns || data);
+  const target = patterns.find(p => p.id === state.selectedPattern.id);
+  if (!target) throw new Error('パターンが見つかりません');
+  if (!Array.isArray(target.jp_cases)) target.jp_cases = [];
+  target.jp_cases.push({ title, desc, url: url||null, author: author||null, date: today() });
+
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+  const put = await fetch(`https://api.github.com/repos/${REPO}/contents/${filename}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `token ${TOKEN}`,
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      message: `事例追加: #${target.id} ${target.name} — ${title}`,
+      content: encoded,
+      sha
+    })
+  });
+
+  if (!put.ok) {
+    const e = await put.json();
+    throw new Error(e.message);
+  }
+
+  showStatus('success', `✅ 登録完了！「#${target.id} ${target.name}」に事例を追加しました。`);
+  resetForm();
+  updateSteps(4);
+  document.getElementById('submit-btn').disabled = false;
+}
+
+async function submitNewPattern(title, desc, url, author) {
+  // new-patterns.json に蓄積
+  const filename = 'new-patterns.json';
+  const newEntry = {
+    id: `new_${Date.now()}`,
+    category: state.category,
+    title,
+    desc,
+    url: url||null,
+    author: author||null,
+    date: today(),
+    proposed_name: document.getElementById('new-name').value.trim() || null,
+    proposed_phase: [...document.querySelectorAll('.phase-opt.active')].map(el => el.dataset.phase),
+    context:  document.getElementById('new-context').value.trim() || null,
+    problem:  document.getElementById('new-problem').value.trim() || null,
+    solution: document.getElementById('new-solution').value.trim() || null,
+    status: 'pending'
+  };
+
+  // new-patterns.json 取得 or 新規作成
+  let sha = null;
+  let existingData = [];
+  try {
+    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${filename}`, {
+      headers: {'Authorization': `token ${TOKEN}`, 'Accept': 'application/vnd.github.v3+json'}
+    });
+    if (r.ok) {
+      const file = await r.json();
+      sha = file.sha;
+      existingData = JSON.parse(atob(file.content.replace(/\n/g,'')));
+    }
+  } catch(e) { /* 新規作成 */ }
+
+  existingData.push(newEntry);
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(existingData, null, 2))));
+
+  const body = { message: `新パターン候補: ${title}`, content: encoded };
+  if (sha) body.sha = sha;
+
+  const put = await fetch(`https://api.github.com/repos/${REPO}/contents/${filename}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `token ${TOKEN}`,
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+
+  if (!put.ok) {
+    const e = await put.json();
+    throw new Error(e.message);
+  }
+
+  showStatus('success', `✅ 新パターン候補「${title}」を登録しました。管理者による確認後、正式パターンに追加されます。`);
+  resetForm();
+  updateSteps(4);
+  document.getElementById('submit-btn').disabled = false;
+}
+
+// ===== ユーティリティ =====
 function showStatus(type, msg) {
   const el = document.getElementById('status');
   el.className = 'status ' + type;
   el.textContent = msg;
+  el.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
 
 function resetForm() {
-  ['case-title','case-desc','case-url','case-author'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('sel-layer').value = '';
-  document.getElementById('field-sub').style.display = 'none';
-  document.getElementById('field-pattern').style.display = 'none';
-  document.getElementById('none-msg').style.display = 'none';
+  ['case-title','case-desc','case-url','case-author','new-name','new-context','new-problem','new-solution'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.querySelectorAll('.phase-opt').forEach(o => o.classList.remove('active'));
+  resetPatternSelection();
 }
 
 function today() {
   return new Date().toLocaleDateString('ja-JP');
 }
 
-// 未分類
+// ===== 未分類ボックス =====
 function saveUC(item) {
-  const list = JSON.parse(localStorage.getItem('uc')||'[]');
+  const list = JSON.parse(localStorage.getItem('pl-uc') || '[]');
   list.push(item);
-  localStorage.setItem('uc', JSON.stringify(list));
+  localStorage.setItem('pl-uc', JSON.stringify(list));
   renderUC();
 }
 
 function renderUC() {
-  const list = JSON.parse(localStorage.getItem('uc')||'[]');
-  const sec = document.getElementById('unclassified-section');
-  if (list.length === 0) { sec.style.display='none'; return; }
-  sec.style.display = 'block';
-  document.getElementById('uc-count').textContent = list.length;
-  document.getElementById('uc-list').innerHTML = list.map(item => `
-    <div class="unclassified-item">
-      <div style="font-weight:600;margin-bottom:2px">${item.title}</div>
-      <div style="color:#6B7280;font-size:11px">${item.date}${item.author?' / '+item.author:''}</div>
-      <div style="margin-top:4px;font-size:11px">${item.desc.slice(0,80)}${item.desc.length>80?'...':''}</div>
+  const list = JSON.parse(localStorage.getItem('pl-uc') || '[]');
+  const sec = document.getElementById('uc-section');
+  if (!list.length) { sec.classList.add('hidden'); return; }
+  sec.classList.remove('hidden');
+  document.getElementById('uc-count').textContent = `${list.length}件`;
+  document.getElementById('uc-list').innerHTML = list.map((item, i) => `
+    <div class="uc-item">
+      <div class="uc-item-title">${item.title}</div>
+      <div class="uc-item-meta">${item.date}${item.author ? ' / ' + item.author : ''}${item.category ? ' / ' + item.category : ''}</div>
+      <div class="uc-item-desc">${item.desc.slice(0, 100)}${item.desc.length > 100 ? '...' : ''}</div>
     </div>
   `).join('');
 }
 
 function exportCSV() {
-  const list = JSON.parse(localStorage.getItem('uc')||'[]');
+  const list = JSON.parse(localStorage.getItem('pl-uc') || '[]');
   if (!list.length) return;
-  const csv = '\uFEFF' + 'タイトル,概要,URL,投稿者,日付\n' +
-    list.map(i=>`"${i.title}","${i.desc}","${i.url||''}","${i.author||''}","${i.date}"`).join('\n');
+  const csv = '\uFEFF' + 'タイトル,概要,URL,投稿者,区分,日付\n' +
+    list.map(i => `"${i.title}","${i.desc}","${i.url||''}","${i.author||''}","${i.category||''}","${i.date}"`).join('\n');
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
-  a.download = `未分類事例_${today().replace(/\//g,'-')}.csv`;
+  a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8'}));
+  a.download = `未分類パターン_${today().replace(/\//g,'-')}.csv`;
   a.click();
 }
 
+// 初期化
 renderUC();
 </script>
 </body>
