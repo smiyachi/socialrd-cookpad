@@ -293,7 +293,68 @@ footer {
   color: #555;
   border-top: 1px solid var(--border);
   letter-spacing: 0.1em;
+  line-height: 2;
 }
+footer a {
+  color: var(--accent-before);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201,169,110,0.4);
+  transition: border-color 0.2s;
+}
+footer a:hover { border-color: var(--accent-before); }
+.source-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(201,169,110,0.1);
+  border: 1px solid rgba(201,169,110,0.25);
+  border-radius: 2rem;
+  padding: 0.35rem 0.9rem;
+  margin: 0.3rem 0.2rem;
+  font-size: 0.7rem;
+  color: var(--accent-before);
+  text-decoration: none;
+  transition: all 0.2s;
+  letter-spacing: 0.05em;
+}
+.source-badge:hover {
+  background: rgba(201,169,110,0.2);
+  border-color: var(--accent-before);
+  transform: translateY(-1px);
+}
+.footer-sources {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: center;
+}
+.case-badge {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 1rem;
+  background: rgba(110,165,201,0.15);
+  color: var(--accent-during);
+  margin-top: 0.4rem;
+  letter-spacing: 0.05em;
+}
+.cases-list { margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.case-item {
+  display: block;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.2s;
+}
+.case-item:hover { border-color: var(--accent-cross); transform: translateX(3px); }
+.case-item-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.2rem; }
+.case-item-meta { font-size: 0.68rem; color: var(--text-muted); margin-bottom: 0.25rem; }
+.case-item-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.6; }
 </style>
 </head>
 <body>
@@ -323,8 +384,15 @@ footer {
 </div>
 
 <footer>
-  パターン・ランゲージ試作版 — 出典：経済産業省「越境学習を支える伴走者のための実践ガイドライン」(2025)<br>
-  井庭崇『パターン・ランゲージ』の方法論に基づき構造化
+  パターン・ランゲージ試作版 — 井庭崇『パターン・ランゲージ』の方法論に基づき構造化
+  <div class="footer-sources">
+    <a class="source-badge" href="https://www.meti.go.jp/policy/economy/jinzai/shukkokigyo/gaidorain.pdf" target="_blank" rel="noopener">
+      📄 原典：経済産業省 越境学習伴走者ガイドライン (2025)
+    </a>
+    <a class="source-badge" href="./index.html">
+      ← ツール一覧に戻る
+    </a>
+  </div>
 </footer>
 
 <script>
@@ -549,12 +617,33 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   if (p !== 'all' && phaseCounts[p]) btn.textContent = `${phaseLabels[p]}（${phaseCounts[p]}）`;
 });
 
+// ===== 事例データ読み込み =====
+let casesData = {};
+let currentFilter = 'all';
+
+async function loadCases() {
+  try {
+    const r = await fetch('./cross-border-patterns.json?_=' + Date.now());
+    if (!r.ok) return;
+    const data = await r.json();
+    const list = data.patterns || data;
+    list.forEach(p => {
+      if (Array.isArray(p.jp_cases) && p.jp_cases.length > 0) {
+        casesData[p.id] = p.jp_cases;
+      }
+    });
+    renderCards(currentFilter);
+  } catch(e) { /* 事例なしで続行 */ }
+}
+
 // Render cards
 const grid = document.getElementById('grid');
 function renderCards(filter) {
+  currentFilter = filter;
   grid.innerHTML = '';
   const filtered = filter === 'all' ? patterns : patterns.filter(p => p.phase === filter);
   filtered.forEach((p, i) => {
+    const cases = casesData[p.id] || [];
     const card = document.createElement('div');
     card.className = 'card';
     card.dataset.phase = p.phase;
@@ -564,12 +653,14 @@ function renderCards(filter) {
       <span class="phase-tag">${phaseLabels[p.phase]}</span>
       <div class="name">${p.name}</div>
       <div class="summary">${p.summary}</div>
+      ${cases.length > 0 ? `<div class="case-badge">事例 ${cases.length}件</div>` : ''}
     `;
     card.onclick = () => openModal(p);
     grid.appendChild(card);
   });
 }
 renderCards('all');
+loadCases();
 
 // Filter
 document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -585,6 +676,20 @@ const overlay = document.getElementById('overlay');
 const modal = document.getElementById('modal');
 function openModal(p) {
   const color = phaseColors[p.phase];
+  const cases = casesData[p.id] || [];
+  const casesHtml = cases.length > 0 ? `
+    <div class="section-label" style="color:var(--accent-cross);margin-top:1.5rem">事例 — Cases（${cases.length}件）</div>
+    <div class="cases-list">
+      ${cases.map((c, i) => `
+        <a class="case-item" href="./cases.html?collection=cross-border&patternId=${p.id}&caseIndex=${i}" target="_blank">
+          <div class="case-item-title">${c.title}</div>
+          <div class="case-item-meta">${c.date || ''}${c.author ? ' / ' + c.author : ''}</div>
+          <div class="case-item-desc">${(c.desc||'').slice(0,80)}${(c.desc||'').length > 80 ? '...' : ''}</div>
+        </a>
+      `).join('')}
+    </div>
+  ` : '';
+
   modal.innerHTML = `
     <button class="close-btn" onclick="closeModal()">✕</button>
     <span class="m-phase" style="background:${color}22;color:${color}">${phaseLabels[p.phase]} #${String(p.id).padStart(2,'0')}</span>
@@ -597,6 +702,7 @@ function openModal(p) {
     <p>${p.solution}</p>
     <div class="section-label social">社会起業家支援への読み替え</div>
     <p>${p.social}</p>
+    ${casesHtml}
   `;
   overlay.classList.add('open');
 }

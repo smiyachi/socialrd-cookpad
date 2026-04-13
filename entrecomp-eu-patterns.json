@@ -1,0 +1,557 @@
+{
+  "collection": "entrecomp-eu",
+  "label": "EU EntreComp パターン",
+  "category": "producer",
+  "source_url": "https://publications.jrc.ec.europa.eu/repository/handle/JRC109128?mode=full",
+  "patterns": [
+    {
+      "id": "P01",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "機会を見つける",
+      "name": "まだ名前のない課題を掴む",
+      "en": "Naming the Unnamed",
+      "jp_cases": []
+    },
+    {
+      "id": "P02",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "機会を見つける",
+      "name": "課題の焦点を絞る",
+      "en": "Reframing the Problem",
+      "jp_cases": []
+    },
+    {
+      "id": "P04",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "機会を見つける",
+      "name": "見えないニーズを掘る",
+      "en": "Surfacing Silent Needs",
+      "jp_cases": []
+    },
+    {
+      "id": "P05",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "機会を見つける",
+      "name": "社会的文脈を読む",
+      "en": "Reading the System",
+      "jp_cases": []
+    },
+    {
+      "id": "P06",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "創造性",
+      "name": "好奇心を火種にする",
+      "en": "Curiosity as Fuel",
+      "jp_cases": []
+    },
+    {
+      "id": "P07",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "創造性",
+      "name": "アイデアを育てる畑を作る",
+      "en": "Creating a Field for Ideas",
+      "jp_cases": []
+    },
+    {
+      "id": "P08",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "創造性",
+      "name": "問いを組み直す",
+      "en": "Recomposing the Question",
+      "jp_cases": []
+    },
+    {
+      "id": "P09",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "創造性",
+      "name": "価値の試作品を作る",
+      "en": "Prototyping Value",
+      "jp_cases": []
+    },
+    {
+      "id": "P10",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "創造性",
+      "name": "イノベーションの文脈を語る",
+      "en": "Narrating the Innovation",
+      "jp_cases": []
+    },
+    {
+      "id": "P11",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "ビジョン",
+      "name": "可能性の絵を描く",
+      "en": "Painting Possibilities",
+      "jp_cases": []
+    },
+    {
+      "id": "P12",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "ビジョン",
+      "name": "戦略的に未来を設計する",
+      "en": "Designing the Future Backward",
+      "jp_cases": []
+    },
+    {
+      "id": "P13",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "ビジョン",
+      "name": "変化のロードマップを引く",
+      "en": "Mapping the Change",
+      "jp_cases": []
+    },
+    {
+      "id": "P14",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "アイデアの価値",
+      "name": "価値の多層性を見る",
+      "en": "Seeing Value in Layers",
+      "jp_cases": []
+    },
+    {
+      "id": "P15",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "アイデアの価値",
+      "name": "知的財産を守る戦略",
+      "en": "Sharing and Protecting",
+      "jp_cases": []
+    },
+    {
+      "id": "P16",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "倫理と持続可能な思考",
+      "name": "誠実さを行動で示す",
+      "en": "Integrity in Action",
+      "jp_cases": []
+    },
+    {
+      "id": "P17",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "倫理と持続可能な思考",
+      "name": "持続可能性を事業設計に織り込む",
+      "en": "Sustainability by Design",
+      "jp_cases": []
+    },
+    {
+      "id": "P18",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "倫理と持続可能な思考",
+      "name": "インパクトを可視化する",
+      "en": "Making Impact Visible",
+      "jp_cases": []
+    },
+    {
+      "id": "P19",
+      "area": "area1",
+      "areaName": "アイデアと機会",
+      "comp": "倫理と持続可能な思考",
+      "name": "説明責任を設計する",
+      "en": "Designing Accountability",
+      "jp_cases": []
+    },
+    {
+      "id": "P20",
+      "area": "area2",
+      "areaName": "リソース",
+      "comp": "自己認識と自己効力感",
+      "name": "自分の軸を持つ",
+      "en": "Knowing Your Center",
+      "jp_cases": []
+    },
+    {
+      "id": "P21",
+      "area": "area2",
+      "areaName": "リソース",
+      "comp": "自己認識と自己効力感",
+      "name": "強みと限界を把握する",
+      "en": "Knowing Your Edges",
+      "jp_cases": []
+    },
+    {
+      "id": "P22",
+      "area": "area2",
+      "areaName": "リソース",
+      "comp": "自己認識と自己効力感",
+      "name": "自分の影響力を信じる",
+      "en": "Believing in Your Reach",
+      "jp_cases": []
+    },
+    {
+      "id": "P23",
+      "area": "area2",
+      "areaName": "リソース",
+      "comp": "自己認識と自己効力感",
+      "name": "キャリアを自分で設計する",
+      "en": "Authoring Your Career",
+      "jp_cases": []
+    },
+    {
+      "id": "P24",
+      "area": "area2",
+      "areaName": "リソース",
+      "comp": "動機と粘り強さ",
+      "name": "内発動機の火を守る",
+      "en": "Keeping the Inner Fire",
+      "jp_cases": []
+    },
+    {
+      "id": "P25",
+      "area": "area2",
+      "areaName": "リソース",
+      "comp": "動機と粘り強さ",
+      "name": "挑戦を楽しむ姿勢を持つ",
+      "en": "Embracing the Challenge",
+      "jp_cases": []
+    },
+    {
+      "id": "P26",
+      "area": "area2",
+      "areaName": "リソース",
+      "comp": "動機と粘り強さ",
+      "name": "動機の源泉を知る",
+      "en": "Understanding Your Drive",
+      "jp_cases": []
+    },
+    {
+      "id": "P27",
+      "area": "area2",
+      "areaName": "リソース",
+      "comp": "動機と粘り強さ",
+      "name": "折れずに続ける姿勢を持つ",
+      "en": "Resilience as Practice",
+      "jp_cases": []
+    },
+    {
+      "id": "P28",
+      "area": "area2",
+      "areaName": "リソース",
+      "comp": "動機と粘り強さ",
+      "name": "あきらめない方法を持つ",
+      "en": "The Art of Not Quitting",
+      "jp_cases": []
+    },
+    {
+      "id": "P29",
+      "area": "area2",
+      "areaName": "リソース",
+      "comp": "リソースの動員",
+      "name": "資源の組み合わせを設計する",
+      "en": "Designing Resource Combinations",
+      "jp_cases": []
+    },
+    {
+      "id": "P30",
+      "area": "area2",
+      "areaName": "リソース",
+      "comp": "リソースの動員",
+      "name": "資源を責任持って使う",
+      "en": "Stewardship of Resources",
+      "jp_cases": []
+    },
+    {
+      "id": "P31",
+      "area": "area2",
+      "areaName": "リソース",
+      "comp": "リソースの動員",
+      "name": "時間を価値に変える",
+      "en": "Time as Value",
+      "jp_cases": []
+    },
+    {
+      "id": "P32",
+      "area": "area2",
+      "areaName": "リソース",
+      "comp": "リソースの動員",
+      "name": "助けを求める力を養う",
+      "en": "The Power of Asking for Help",
+      "jp_cases": []
+    },
+    {
+      "id": "P33",
+      "area": "area2",
+      "areaName": "リソース",
+      "comp": "財務・経済リテラシー",
+      "name": "お金の言語を共有する",
+      "en": "Speaking the Language of Money",
+      "jp_cases": []
+    },
+    {
+      "id": "P34",
+      "area": "area2",
+      "areaName": "リソース",
+      "comp": "財務・経済リテラシー",
+      "name": "予算を計画の地図にする",
+      "en": "Budget as a Map",
+      "jp_cases": []
+    },
+    {
+      "id": "P35",
+      "area": "area2",
+      "areaName": "リソース",
+      "comp": "財務・経済リテラシー",
+      "name": "資金調達の多様性を設計する",
+      "en": "Designing Funding Diversity",
+      "jp_cases": []
+    },
+    {
+      "id": "P36",
+      "area": "area2",
+      "areaName": "リソース",
+      "comp": "財務・経済リテラシー",
+      "name": "税と制度を味方につける",
+      "en": "Turning Regulation into Resource",
+      "jp_cases": []
+    },
+    {
+      "id": "P37",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "他者を動員する",
+      "name": "共感の場を演出する",
+      "en": "Staging Empathy",
+      "jp_cases": []
+    },
+    {
+      "id": "P38",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "他者を動員する",
+      "name": "証拠で納得させる",
+      "en": "Persuading with Evidence",
+      "jp_cases": []
+    },
+    {
+      "id": "P39",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "他者を動員する",
+      "name": "感情に訴える",
+      "en": "Reaching the Heart",
+      "jp_cases": []
+    },
+    {
+      "id": "P40",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "他者を動員する",
+      "name": "価値の翻訳者になる",
+      "en": "Becoming a Value Translator",
+      "jp_cases": []
+    },
+    {
+      "id": "P41",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "他者を動員する",
+      "name": "メディアを使いこなす",
+      "en": "Mastering Media",
+      "jp_cases": []
+    },
+    {
+      "id": "P42",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "主体的に動く",
+      "name": "責任を取る覚悟を育てる",
+      "en": "Growing into Ownership",
+      "jp_cases": []
+    },
+    {
+      "id": "P43",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "主体的に動く",
+      "name": "自分のペースで動く",
+      "en": "Moving at Your Own Pace",
+      "jp_cases": []
+    },
+    {
+      "id": "P44",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "主体的に動く",
+      "name": "行動から始める",
+      "en": "Start Before You're Ready",
+      "jp_cases": []
+    },
+    {
+      "id": "P45",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "計画と管理",
+      "name": "目標を生きた地図にする",
+      "en": "Goals as Living Maps",
+      "jp_cases": []
+    },
+    {
+      "id": "P46",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "計画と管理",
+      "name": "行動計画を組み立てる",
+      "en": "Building an Action Plan",
+      "jp_cases": []
+    },
+    {
+      "id": "P47",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "計画と管理",
+      "name": "持続可能な事業モデルを描く",
+      "en": "Drawing a Sustainable Model",
+      "jp_cases": []
+    },
+    {
+      "id": "P48",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "計画と管理",
+      "name": "優先順位を守り続ける",
+      "en": "Holding Your Priorities",
+      "jp_cases": []
+    },
+    {
+      "id": "P49",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "計画と管理",
+      "name": "進捗をモニタリングする",
+      "en": "Monitoring What Matters",
+      "jp_cases": []
+    },
+    {
+      "id": "P50",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "計画と管理",
+      "name": "変化に柔軟に対応する",
+      "en": "Adapting with Agility",
+      "jp_cases": []
+    },
+    {
+      "id": "P51",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "不確かさへの対処",
+      "name": "不確かさを受け入れる",
+      "en": "Embracing Uncertainty",
+      "jp_cases": []
+    },
+    {
+      "id": "P52",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "不確かさへの対処",
+      "name": "リスクを計算する",
+      "en": "Calculating Risk",
+      "jp_cases": []
+    },
+    {
+      "id": "P53",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "不確かさへの対処",
+      "name": "リスクを管理する",
+      "en": "Managing Risk",
+      "jp_cases": []
+    },
+    {
+      "id": "P54",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "他者との協働",
+      "name": "違いを触媒にする",
+      "en": "Diversity as Catalyst",
+      "jp_cases": []
+    },
+    {
+      "id": "P55",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "他者との協働",
+      "name": "感情知性を育てる",
+      "en": "Developing Emotional Intelligence",
+      "jp_cases": []
+    },
+    {
+      "id": "P56",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "他者との協働",
+      "name": "当事者の声を聴く",
+      "en": "Listening to the Source",
+      "jp_cases": []
+    },
+    {
+      "id": "P57",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "他者との協働",
+      "name": "チームをデザインする",
+      "en": "Designing the Team",
+      "jp_cases": []
+    },
+    {
+      "id": "P58",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "他者との協働",
+      "name": "協働の場を設計する",
+      "en": "Designing for Collaboration",
+      "jp_cases": []
+    },
+    {
+      "id": "P59",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "他者との協働",
+      "name": "ネットワークを耕す",
+      "en": "Cultivating Networks",
+      "jp_cases": []
+    },
+    {
+      "id": "P60",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "経験から学ぶ",
+      "name": "失敗を問い直す",
+      "en": "Reexamining Failure",
+      "jp_cases": []
+    },
+    {
+      "id": "P61",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "経験から学ぶ",
+      "name": "学び続ける力を育てる",
+      "en": "Growing as a Learner",
+      "jp_cases": []
+    },
+    {
+      "id": "P62",
+      "area": "area3",
+      "areaName": "行動へ",
+      "comp": "経験から学ぶ",
+      "name": "経験を知識に変える",
+      "en": "Turning Experience into Knowledge",
+      "jp_cases": []
+    }
+  ]
+}

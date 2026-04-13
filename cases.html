@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>事例詳細</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F5F0;
+  --surface: #FFFFFF;
+  --border: #E2DDD6;
+  --text: #1C1A17;
+  --text-muted: #7A7469;
+  --accent: #8B7355;
+  --error: #C0392B;
+  --success: #2D6A4F;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  line-height: 1.8;
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+}
+.wrap { max-width: 680px; margin: 0 auto; }
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--text); }
+
+.loading {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* パターン情報 */
+.pattern-box {
+  background: var(--text);
+  color: #F7F5F0;
+  border-radius: 14px;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1.5rem;
+}
+.pattern-box .p-phase {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 0.4rem;
+}
+.pattern-box .p-name {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.pattern-box .p-summary {
+  font-size: 0.82rem;
+  opacity: 0.65;
+  margin-top: 0.3rem;
+}
+
+/* 事例カード */
+.case-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.8rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.case-num {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.6rem;
+}
+.case-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.case-meta {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+.case-desc {
+  font-size: 0.88rem;
+  line-height: 1.9;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+.case-url {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(139,115,85,0.3);
+  transition: border-color 0.2s;
+}
+.case-url:hover { border-color: var(--accent); }
+
+/* 削除ボタン */
+.delete-area {
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+}
+.delete-toggle {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  font-family: 'Noto Sans JP', sans-serif;
+  transition: all 0.2s;
+}
+.delete-toggle:hover { color: var(--error); border-color: var(--error); }
+.delete-form {
+  display: none;
+  margin-top: 0.8rem;
+  background: #FEF0EE;
+  border: 1px solid #F5BCB6;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+}
+.delete-form.open { display: block; }
+.delete-form label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #8B1A11;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.delete-form input {
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #F5BCB6;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  outline: none;
+  margin-bottom: 0.6rem;
+  background: #fff;
+}
+.delete-form input:focus { border-color: var(--error); }
+.delete-form .hint { font-size: 0.68rem; color: #C0392B; margin-bottom: 0.8rem; }
+.btn-delete {
+  padding: 0.5rem 1.2rem;
+  background: var(--error);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Noto Sans JP', sans-serif;
+  transition: background 0.2s;
+}
+.btn-delete:hover { background: #9B1B10; }
+.btn-delete:disabled { background: #ccc; cursor: not-allowed; }
+.delete-status {
+  margin-top: 0.6rem;
+  font-size: 0.78rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  display: none;
+}
+.delete-status.error { background: #FEE2E2; color: #8B1A11; display: block; }
+.delete-status.success { background: #EDFBF3; color: #1A5C38; display: block; }
+.delete-status.loading { background: #EEF3FB; color: #1A3A8B; display: block; }
+
+/* 空・エラー */
+.empty { text-align: center; padding: 3rem; color: var(--text-muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-link" id="back-link" href="javascript:history.back()">← 戻る</a>
+  <div id="content"><div class="loading">読み込み中...</div></div>
+</div>
+
+<script>
+const PROXY = "/.netlify/functions/github-proxy";
+
+// URLパラメータ取得
+const params = new URLSearchParams(location.search);
+const collection  = params.get('collection');  // 'cross-border' | 'si' etc.
+const patternId   = parseInt(params.get('patternId'));
+const caseIndex   = parseInt(params.get('caseIndex'));
+
+// コレクション設定
+const COLLECTIONS = {
+  'cross-border': {
+    file: 'cross-border-patterns.json',
+    backUrl: './cross-border.html',
+    backLabel: '← 伴走者パターンに戻る',
+    phaseLabels: { before:"越境前", during:"越境中", after:"越境後", cross:"フェーズ横断", meta:"伴走の構え" }
+  },
+  'si': {
+    file: 'patterns.json',
+    backUrl: './socialrd-cookpad.html',
+    backLabel: '← Cookpadに戻る',
+    phaseLabels: {}
+  },
+  'entrecomp-eu': {
+    file: 'entrecomp-eu-patterns.json',
+    backUrl: './entrecomp-pattern-eu.html',
+    backLabel: '← EU EntreCompに戻る',
+    phaseLabels: {}
+  }
+};
+
+const col = COLLECTIONS[collection] || COLLECTIONS['cross-border'];
+document.getElementById('back-link').href = col.backUrl;
+document.getElementById('back-link').textContent = col.backLabel;
+
+// データ読み込み
+async function loadData() {
+  try {
+    // cross-borderは静的JSONから直接取得（軽量・高速）
+    const r = await fetch(`./${col.file}?_=` + Date.now());
+    if (!r.ok) throw new Error('データ取得失敗');
+    const data = await r.json();
+    const list = Array.isArray(data) ? data : (data.patterns || data);
+    const pattern = list.find(p => p.id === patternId);
+    if (!pattern) throw new Error('パターンが見つかりません');
+    const cases = pattern.jp_cases || [];
+    render(pattern, cases);
+  } catch(e) {
+    document.getElementById('content').innerHTML = `<div class="empty">⚠️ ${e.message}</div>`;
+  }
+}
+
+function render(pattern, cases) {
+  const phaseLabel = col.phaseLabels[pattern.phase] || pattern.phase || '';
+
+  // 表示対象：指定indexがあればその1件、なければ全件
+  const targetCases = (!isNaN(caseIndex) && caseIndex >= 0)
+    ? (cases[caseIndex] ? [{ ...cases[caseIndex], _index: caseIndex }] : [])
+    : cases.map((c, i) => ({ ...c, _index: i }));
+
+  if (targetCases.length === 0) {
+    document.getElementById('content').innerHTML = `<div class="empty">事例が見つかりません。</div>`;
+    return;
+  }
+
+  const html = `
+    <div class="pattern-box">
+      <div class="p-phase">${phaseLabel} #${String(pattern.id).padStart(2,'0')}</div>
+      <div class="p-name">${pattern.name}</div>
+      <div class="p-summary">${pattern.summary || ''}</div>
+    </div>
+    ${targetCases.map(c => `
+      <div class="case-card" id="case-${c._index}">
+        <div class="case-num">事例 ${c._index + 1}</div>
+        <div class="case-title">${c.title}</div>
+        <div class="case-meta">
+          ${c.date ? `<span>📅 ${c.date}</span>` : ''}
+          ${c.author ? `<span>👤 ${c.author}</span>` : ''}
+        </div>
+        <div class="case-desc">${c.desc || ''}</div>
+        ${c.url ? `<a class="case-url" href="${c.url}" target="_blank" rel="noopener">🔗 参照リンク</a>` : ''}
+        <div class="delete-area">
+          <button class="delete-toggle" onclick="toggleDeleteForm(${c._index})">🗑 この事例を削除する</button>
+          <div class="delete-form" id="del-form-${c._index}">
+            <label>管理者パスワード</label>
+            <input type="password" id="del-pw-${c._index}" placeholder="パスワードを入力">
+            <div class="hint">※削除すると元に戻せません</div>
+            <button class="btn-delete" onclick="deleteCase(${c._index}, ${pattern.id})">削除する</button>
+            <div class="delete-status" id="del-status-${c._index}"></div>
+          </div>
+        </div>
+      </div>
+    `).join('')}
+  `;
+  document.getElementById('content').innerHTML = html;
+}
+
+function toggleDeleteForm(idx) {
+  const form = document.getElementById(`del-form-${idx}`);
+  form.classList.toggle('open');
+}
+
+async function deleteCase(caseIdx, patternId) {
+  const pw = document.getElementById(`del-pw-${caseIdx}`).value;
+  const statusEl = document.getElementById(`del-status-${caseIdx}`);
+
+  if (pw !== 'rdcooking') {
+    statusEl.className = 'delete-status error';
+    statusEl.textContent = 'パスワードが違います';
+    return;
+  }
+
+  const btn = document.querySelector(`#case-${caseIdx} .btn-delete`);
+  btn.disabled = true;
+  statusEl.className = 'delete-status loading';
+  statusEl.textContent = '削除中...';
+
+  try {
+    // ファイル取得
+    const getRes = await fetch(PROXY, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'get', filename: col.file })
+    });
+    const file = await getRes.json();
+    if (!file.content) throw new Error(file.error || '取得失敗');
+
+    const sha = file.sha;
+    let data = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/[\r\n\s]/g, '')))));
+    let list = Array.isArray(data) ? data : (data.patterns || data);
+
+    const target = list.find(p => p.id === patternId);
+    if (!target || !Array.isArray(target.jp_cases)) throw new Error('パターンが見つかりません');
+
+    // 該当事例を削除
+    target.jp_cases.splice(caseIdx, 1);
+
+    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+    const putRes = await fetch(PROXY, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'put',
+        filename: col.file,
+        payload: {
+          message: `事例削除: #${patternId} index=${caseIdx}`,
+          content: encoded,
+          sha
+        }
+      })
+    });
+    const putData = await putRes.json();
+    if (!putRes.ok) throw new Error(putData.error || '削除失敗');
+
+    statusEl.className = 'delete-status success';
+    statusEl.textContent = '✅ 削除しました。ページを閉じてください。';
+    document.getElementById(`case-${caseIdx}`).style.opacity = '0.4';
+    btn.disabled = true;
+  } catch(e) {
+    statusEl.className = 'delete-status error';
+    statusEl.textContent = 'エラー: ' + e.message;
+    btn.disabled = false;
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>

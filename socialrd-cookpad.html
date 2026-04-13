@@ -58,7 +58,7 @@ const suppStr  = s => ({public:"公共セクター",grant:"助成経済",market:
 const subLabel = p => p.layer==="conn"?connStr(p.sub):p.layer==="supp"?suppStr(p.sub):stageStr(p.stage);
 
 // 日本事例コンポーネント
-function JpCases({cases, color, bg}) {
+function JpCases({cases, color, bg, patternId}) {
   const [open, setOpen] = useState(false);
   if (!cases || cases.length === 0) return null;
   return React.createElement("div", {style:{marginTop:10}},
@@ -84,13 +84,21 @@ function JpCases({cases, color, bg}) {
         }
       },
         React.createElement("div", {style:{fontSize:13, fontWeight:700, marginBottom:3}}, c.title),
-        c.desc && React.createElement("div", {style:{fontSize:12, color:"#374151", lineHeight:1.6, marginBottom:4}}, c.desc),
+        c.desc && React.createElement("div", {style:{fontSize:12, color:"#374151", lineHeight:1.6, marginBottom:4}},
+          c.desc.slice(0,100) + (c.desc.length > 100 ? "..." : "")
+        ),
         React.createElement("div", {style:{display:"flex", gap:8, flexWrap:"wrap", alignItems:"center"}},
+          React.createElement("a", {
+            href: "./cases.html?collection=si&patternId="+patternId+"&caseIndex="+i,
+            target:"_blank",
+            onClick: e => e.stopPropagation(),
+            style:{fontSize:11, color: color, textDecoration:"underline", fontWeight:600}
+          }, "📄 詳細・削除"),
           c.url && React.createElement("a", {
             href: c.url, target:"_blank", rel:"noopener",
             onClick: e => e.stopPropagation(),
             style:{fontSize:11, color: color, textDecoration:"underline"}
-          }, "🔗 詳細を見る"),
+          }, "🔗 参照リンク"),
           c.date && React.createElement("span", {style:{fontSize:11, color:"#9CA3AF"}}, c.date),
           c.author && React.createElement("span", {style:{fontSize:11, color:"#9CA3AF"}}, `by ${c.author}`)
         )
@@ -243,7 +251,7 @@ function App(){
               p.notes&&React.createElement("div",{style:{background:"#FFFBEB",borderRadius:10,padding:"10px 14px",borderLeft:"3px solid #F59E0B"}},
                 React.createElement("div",{style:{fontSize:10,fontWeight:700,color:"#D97706",marginBottom:3}},"📝 メモ・追記"),
                 React.createElement("div",{style:{fontSize:13,lineHeight:1.7,whiteSpace:"pre-wrap"}},p.notes)),
-              React.createElement(JpCases, {cases: p.jp_cases, color: c, bg: bg})
+              React.createElement(JpCases, {cases: p.jp_cases, color: c, bg: bg, patternId: p.id})
             ))
         );
       })

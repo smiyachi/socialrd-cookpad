@@ -717,6 +717,13 @@ function App(){
                   </span>
                   <span style={{fontSize:10,color:"#9CA3AF"}}>{p.comp}</span>
                 </div>
+                {/* 事例バッジ */}
+                {p.jp_cases && p.jp_cases.length > 0 && (
+                  <span style={{fontSize:10,fontWeight:700,padding:"2px 7px",borderRadius:10,
+                    background:"#EEF2FF",color:"#4F46E5",flexShrink:0}}>
+                    事例{p.jp_cases.length}件
+                  </span>
+                )}
                 {/* 展開矢印 */}
                 <span style={{color:"#9CA3AF",fontSize:13,flexShrink:0,
                   transition:"transform 0.2s",transform:isOpen?"rotate(180deg)":"none"}}>▼</span>
@@ -776,6 +783,34 @@ function App(){
                             >{r}「{rp.name}」</span>
                           ):null;
                         })}
+                      </div>
+                    )}
+
+                    {/* 事例 */}
+                    {p.jp_cases && p.jp_cases.length > 0 && (
+                      <div style={{background:"#F0F4FF",borderRadius:10,padding:"10px 13px",borderLeft:"3px solid #6366F1"}}>
+                        <div style={{fontSize:10,fontWeight:700,color:"#4F46E5",marginBottom:8,letterSpacing:"0.1em"}}>
+                          🏷 日本の事例（{p.jp_cases.length}件）
+                        </div>
+                        <div style={{display:"flex",flexDirection:"column",gap:6}}>
+                          {p.jp_cases.map((c,i)=>(
+                            <a key={i}
+                              href={"./cases.html?collection=entrecomp-eu&patternId="+p.id+"&caseIndex="+i}
+                              target="_blank"
+                              onClick={e=>e.stopPropagation()}
+                              style={{display:"block",background:"#fff",borderRadius:8,padding:"8px 12px",
+                                border:"1px solid #C7D2FE",textDecoration:"none",color:"inherit",transition:"all 0.15s"}}
+                            >
+                              <div style={{fontSize:12,fontWeight:700,marginBottom:2}}>{c.title}</div>
+                              <div style={{fontSize:11,color:"#6B7280",marginBottom:3}}>
+                                {c.desc ? c.desc.slice(0,80)+(c.desc.length>80?"...":"") : ""}
+                              </div>
+                              <div style={{fontSize:10,color:"#9CA3AF"}}>
+                                {c.date}{c.author?" / "+c.author:""} →詳細・削除
+                              </div>
+                            </a>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </div>
