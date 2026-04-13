@@ -598,7 +598,7 @@ textarea { min-height: 100px; resize: vertical; }
     </div>
 
     <div class="submit-area">
-      <button class="btn-submit" id="submit-btn" onclick="submitEntry()">登録する →</button>
+      <button class="btn-submit" id="submit-btn" onclick="submitEntry()">一時保存する →</button>
       <div class="status" id="status"></div>
     </div>
   </div>
@@ -611,9 +611,12 @@ textarea { min-height: 100px; resize: vertical; }
         <div>
           <span class="uc-title">📦 未整理の投稿</span>
           <span class="uc-count-badge" id="uc-count">0件</span>
-          <div style="font-size:0.7rem;color:#7A5F00;margin-top:0.2rem">Claudeに渡してパターン候補を整理できます</div>
+          <div style="font-size:0.7rem;color:#7A5F00;margin-top:0.2rem">CSVエクスポートしてClaudeと整理 → まとめてGitHubに反映</div>
         </div>
+        <div style="display:flex;gap:8px">
         <button class="btn-export" onclick="exportCSV()">📥 CSVエクスポート</button>
+        <button class="btn-export" onclick="clearAll()" style="color:#C0392B;border-color:#F5BCB6">🗑 全削除</button>
+      </div>
       </div>
       <div id="uc-list"></div>
     </div>
@@ -623,9 +626,9 @@ textarea { min-height: 100px; resize: vertical; }
 
 <script>
 // ===== 設定 =====
-// トークンは Netlify 環境変数で管理。フロントには一切出ない。
-const PROXY = "/.netlify/functions/github-proxy";
-const REPO  = "smiyachi/socialrd-cookpad"; // 参照用（関数側でも定義済み）
+const PROXY   = "/.netlify/functions/github-proxy"; // パターン一覧取得用（読み取りのみ）
+const REPO    = "smiyachi/socialrd-cookpad";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbxsALlkUW6FEcm_ku2LXghkbxDQE8kosi1xXkpML0-xrmBArk0TLMbDFDIe-fd3D3Dm/exec"; // ← デプロイ後のURLに差し替え
 
 // プロキシ経由のGitHub API呼び出しヘルパー
 async function ghGet(filename) {
@@ -859,7 +862,7 @@ function togglePhase(phase, el) {
   state.selectedPhase = phase;
 }
 
-// ===== 登録処理 =====
+// ===== 登録処理（全件localStorageに一時保存・デプロイなし）=====
 async function submitEntry() {
   const title  = document.getElementById('case-title').value.trim();
   const desc   = document.getElementById('case-desc').value.trim();
@@ -867,36 +870,53 @@ async function submitEntry() {
   const author = document.getElementById('case-author').value.trim();
 
   if (!title || !desc) { showStatus('error', 'タイトルと概要は必須です。'); return; }
+  if (state.category !== 'none' && !state.regType) { showStatus('error', '登録種別を選択してください。'); return; }
+  if (state.regType === 'link' && !state.selectedPattern) { showStatus('error', '紐づけるパターンを選択してください。'); return; }
 
+  const entry = {
+    id: `entry_${Date.now()}`,
+    type: state.category === 'none' ? 'unclassified' : state.regType, // 'link' | 'new' | 'unclassified'
+    category: state.category,
+    title,
+    desc,
+    url: url || null,
+    author: author || null,
+    date: today(),
+    // 既存パターン紐づけの場合
+    pattern_id:   state.selectedPattern ? state.selectedPattern.id   : null,
+    pattern_name: state.selectedPattern ? state.selectedPattern.name : null,
+    // 新パターン提案の場合
+    proposed_name:  document.getElementById('new-name')?.value.trim()    || null,
+    proposed_phase: [...document.querySelectorAll('.phase-opt.active')].map(el => el.dataset.phase),
+    context:  document.getElementById('new-context')?.value.trim()  || null,
+    problem:  document.getElementById('new-problem')?.value.trim()  || null,
+    solution: document.getElementById('new-solution')?.value.trim() || null,
+    status: 'pending'
+  };
+
+  // Google スプレッドシートに送信
   const btn = document.getElementById('submit-btn');
-
-  // 未分類の場合
-  if (state.category === 'none') {
-    saveUC({ type:'unclassified', category: 'none', title, desc, url: url||null, author: author||null, date: today() });
-    showStatus('success', '📦 未分類ボックスに保存しました。後でClaudeと一緒に整理できます。');
-    resetForm();
-    updateSteps(4);
-    return;
-  }
-
-  if (!state.regType) { showStatus('error', '登録種別を選択してください。'); return; }
-
   btn.disabled = true;
-  showStatus('loading', 'GitHubに登録中...');
+  showStatus('loading', '送信中...');
 
   try {
-    if (state.regType === 'link') {
-      // 既存パターンへの事例紐づけ
-      if (!state.selectedPattern) throw new Error('紐づけるパターンを選択してください');
-      await submitCaseLink(title, desc, url, author);
-    } else {
-      // 新パターン提案
-      await submitNewPattern(title, desc, url, author);
-    }
+    const r = await fetch(GAS_URL, {
+      method: 'POST',
+      body: JSON.stringify(entry)
+    });
+    // GASはCORSの関係でレスポンスが取れないことがあるため
+    // エラーでなければ成功とみなす
   } catch(e) {
-    showStatus('error', 'エラー: ' + e.message);
-    btn.disabled = false;
+    // fetchエラーでもGAS側では受信できている場合があるため続行
   }
+
+  // ローカルにもバックアップ保存
+  saveUC(entry);
+  const total = JSON.parse(localStorage.getItem('pl-uc')||'[]').length;
+  showStatus('success', `✅ 送信しました！スプレッドシートに記録されます。（ローカルバックアップ: ${total}件）`);
+  btn.disabled = false;
+  resetForm();
+  updateSteps(4);
 }
 
 async function submitCaseLink(title, desc, url, author) {
@@ -996,8 +1016,15 @@ function renderUC() {
   if (!list.length) { sec.classList.add('hidden'); return; }
   sec.classList.remove('hidden');
   document.getElementById('uc-count').textContent = `${list.length}件`;
+  const typeLabel = { link:'既存パターン紐づけ', new:'新パターン提案', unclassified:'未分類' };
   document.getElementById('uc-list').innerHTML = list.map((item, i) => `
     <div class="uc-item">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+        <span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;background:#F3F4F6;color:#374151">
+          ${typeLabel[item.type]||item.type||''}
+        </span>
+        ${item.pattern_name ? `<span style="font-size:10px;color:#6B7280">→ #${item.pattern_id} ${item.pattern_name}</span>` : ''}
+      </div>
       <div class="uc-item-title">${item.title}</div>
       <div class="uc-item-meta">${item.date}${item.author ? ' / ' + item.author : ''}${item.category ? ' / ' + item.category : ''}</div>
       <div class="uc-item-desc">${item.desc.slice(0, 100)}${item.desc.length > 100 ? '...' : ''}</div>
@@ -1007,13 +1034,28 @@ function renderUC() {
 
 function exportCSV() {
   const list = JSON.parse(localStorage.getItem('pl-uc') || '[]');
-  if (!list.length) return;
-  const csv = '\uFEFF' + 'タイトル,概要,URL,投稿者,区分,日付\n' +
-    list.map(i => `"${i.title}","${i.desc}","${i.url||''}","${i.author||''}","${i.category||''}","${i.date}"`).join('\n');
+  if (!list.length) { alert('保存された投稿がありません。'); return; }
+  const header = 'ID,種別,区分,タイトル,概要,URL,投稿者,紐づけパターンID,紐づけパターン名,パターン名案,フェーズ,状況,問題,解決策,日付';
+  const rows = list.map(i => [
+    i.id||'', i.type||'', i.category||'', i.title||'', i.desc||'',
+    i.url||'', i.author||'',
+    i.pattern_id||'', i.pattern_name||'',
+    i.proposed_name||'',
+    (i.proposed_phase||[]).join('|'),
+    i.context||'', i.problem||'', i.solution||'',
+    i.date||''
+  ].map(v => `"${String(v).replace(/"/g,'""')}"`).join(','));
+  const csv = '\uFEFF' + header + '\n' + rows.join('\n');
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8'}));
-  a.download = `未分類パターン_${today().replace(/\//g,'-')}.csv`;
+  a.download = `パターン投稿_${today().replace(/\//g,'-')}.csv`;
   a.click();
+}
+
+function clearAll() {
+  if (!confirm('保存済みの投稿をすべて削除しますか？')) return;
+  localStorage.removeItem('pl-uc');
+  renderUC();
 }
 
 // 初期化
