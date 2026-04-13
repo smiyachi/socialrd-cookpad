@@ -900,12 +900,14 @@ async function submitEntry() {
   showStatus('loading', '送信中...');
 
   try {
-    const r = await fetch(GAS_URL, {
+    // GASはCORSの制限があるためno-corsモードで送信
+    // レスポンスは取得できないが、GAS側では受信・処理される
+    await fetch(GAS_URL, {
       method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify(entry)
     });
-    // GASはCORSの関係でレスポンスが取れないことがあるため
-    // エラーでなければ成功とみなす
   } catch(e) {
     // fetchエラーでもGAS側では受信できている場合があるため続行
   }
