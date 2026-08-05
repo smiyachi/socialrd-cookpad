@@ -2,7 +2,7 @@
   "collection": "cross-border",
   "label": "伴走者のパターン・ランゲージ",
   "category": "coordinator",
-  "version": "0.3-draft",
+  "version": "0.4-draft",
   "updated": "2026-08-05",
   "source_url": "https://www.meti.go.jp/policy/economy/jinzai/shukkokigyo/gaidorain.pdf",
   "source_label": "経済産業省「越境学習を支える伴走者のための実践ガイドライン」(2025)",
@@ -17,7 +17,9 @@
     "verified は全件 false。原典から機械的に導いた未検証の仮説のため。",
     "transfer の『要組み替え』は、所属組織に帰任する前提に依存する10枚。",
     "jp_cases は既存サイト（cross-border.html）が読み込む事例の受け皿。名称はサイト側に合わせている。",
-    "パターン本文の正本は現状 cross-border.html 内のJS配列。本ファイルとの二重管理に注意。"
+    "tension（板挟み）は原典から推論した仮説。全件 verified:false。インタビューで本人に当てて、否定・修正されることを前提に置いている。",
+    "板挟みを書き出した結果、重複が露出した。overlap_candidates を参照。板挟みが同じカードは、名前が違っても同じパターンである可能性が高い。",
+    "正本はこのJSON。cross-border.html は fetch('./cross-border-patterns.json') で読み込む。ファイル名を変えないこと。"
   ],
   "cycle_stages": [
     {
@@ -213,7 +215,12 @@
         3
       ],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "本人の言葉が出るまで待ちたい",
+        "b": "期限までに方向を決めないと動き出せない",
+        "verified": false
+      }
     },
     {
       "id": 2,
@@ -232,7 +239,12 @@
         8
       ],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "期待を明確にして事故を防ぎたい",
+        "b": "決めすぎると想定外の学びの余地が消える",
+        "verified": false
+      }
     },
     {
       "id": 3,
@@ -251,7 +263,12 @@
         1
       ],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "不安を取り除いて安心させたい",
+        "b": "不安は挑戦の燃料でもあり、消すと緊張感が失われる",
+        "verified": false
+      }
     },
     {
       "id": 4,
@@ -268,7 +285,12 @@
       "social": "先輩起業家との対話セッション、ロールモデル紹介。成功談だけでなく「こう苦しんだ」という話が最も力になる。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "成功例で背中を押したい",
+        "b": "前例をなぞらせると本人固有の問いが立たない",
+        "verified": false
+      }
     },
     {
       "id": 5,
@@ -285,7 +307,12 @@
       "social": "社会起業家が「この事業が終わった後の人生」を不安に思うとき、次のキャリアパスやスキルの可搬性を一緒に考える。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "戻った後の見通しを示して安心させたい",
+        "b": "戻る前提を強調すると越境先に没入できない",
+        "verified": false
+      }
     },
     {
       "id": 6,
@@ -302,7 +329,12 @@
       "social": "起業家が前職を離れる、あるいは本業との両立を始めるとき、周囲の理解を得るプロセスそのもの。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "組織を巻き込んで支援態勢をつくりたい",
+        "b": "巻き込むほど期待と監視が増え、本人が動きにくくなる",
+        "verified": false
+      }
     },
     {
       "id": 7,
@@ -319,7 +351,12 @@
       "social": "新しい活動フィールド（地域・セクター）に入る前の事前リサーチやキーパーソンへの事前挨拶。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "事前情報を渡して立ち上がりを速くしたい",
+        "b": "先入観を与えると現場での発見が鈍る",
+        "verified": false
+      }
     },
     {
       "id": 8,
@@ -338,7 +375,12 @@
         2
       ],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "曖昧さを排して双方を守りたい",
+        "b": "決めすぎると現場の裁量と偶発的な機会が失われる",
+        "verified": false
+      }
     },
     {
       "id": 9,
@@ -358,7 +400,12 @@
         14
       ],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "苦しんでいる本人を早く楽にしたい",
+        "b": "違和感が消えると学びの種も消える",
+        "verified": false
+      }
     },
     {
       "id": 10,
@@ -378,7 +425,12 @@
         11
       ],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "失敗させたくない",
+        "b": "失敗からしか育たない",
+        "verified": false
+      }
     },
     {
       "id": 11,
@@ -398,7 +450,12 @@
         33
       ],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "混乱を収束させて成果を出したい",
+        "b": "混乱の渦中にこそ最も深い学びがある",
+        "verified": false
+      }
     },
     {
       "id": 12,
@@ -415,7 +472,12 @@
       "social": "起業家が新しいコミュニティに入ったとき、キーパーソンとの「最初の一杯」をセッティングする。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "孤立させたくない",
+        "b": "構いすぎると自力で関係を築く機会を奪う",
+        "verified": false
+      }
     },
     {
       "id": 13,
@@ -432,7 +494,12 @@
       "social": "社会起業家に「安全な小さい仕事」ばかり回さず、本気の案件を任せることで真の力を引き出す。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "責任ある仕事を任せて成長させたい",
+        "b": "短期の外部者に任せるリスクを越境先が負えない",
+        "verified": false
+      }
     },
     {
       "id": 14,
@@ -452,7 +519,12 @@
         27
       ],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "解決策を示して前に進めたい",
+        "b": "示すと本人の揺れが止まり、考えが浅くなる",
+        "verified": false
+      }
     },
     {
       "id": 15,
@@ -471,7 +543,12 @@
         27
       ],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "定期的に把握して早く手を打ちたい",
+        "b": "報告が増えるほど本人の負荷と監視される感覚が増す",
+        "verified": false
+      }
     },
     {
       "id": 16,
@@ -488,7 +565,12 @@
       "social": "地域の文化・商慣習・人間関係の力学を起業家に「翻訳」して伝える。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "暗黙のルールを教えて摩擦を減らしたい",
+        "b": "教えると「よそ者の目」で気づく力を奪う",
+        "verified": false
+      }
     },
     {
       "id": 17,
@@ -505,7 +587,12 @@
       "social": "起業家と地域の人々が一緒にアイデアを出す場を設計する。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "外部視点を活かした新しい企画を出したい",
+        "b": "現業の都合と噛み合わないと絵に描いた餅になる",
+        "verified": false
+      }
     },
     {
       "id": 18,
@@ -522,7 +609,12 @@
       "social": "起業家が活動現場に没入しすぎて支援者・資金提供者との関係が切れることを防ぐ。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "所属組織とのつながりを保ちたい",
+        "b": "つながり続けると越境先に没入できない",
+        "verified": false
+      }
     },
     {
       "id": 19,
@@ -542,7 +634,12 @@
         30
       ],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "所属組織に伝わる言葉に直したい",
+        "b": "直すほど生々しさという価値の源が薄まる",
+        "verified": false
+      }
     },
     {
       "id": 20,
@@ -559,7 +656,12 @@
       "social": "現場のフラストレーションを政策提言やアドボカシーに転化する支援。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "怒りをエネルギーに変えたい",
+        "b": "怒りのまま出すと組織に拒絶され、本人が孤立する",
+        "verified": false
+      }
     },
     {
       "id": 21,
@@ -576,7 +678,12 @@
       "social": "社会起業家のアイデアを小さくプロトタイプする場（PoC支援）。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "小さく試して学ばせたい",
+        "b": "小さすぎると本気度が出ず、大きくすると失敗コストを組織が負う",
+        "verified": false
+      }
     },
     {
       "id": 22,
@@ -593,7 +700,12 @@
       "social": "起業家の成果発信を一回きりのイベントで終わらせず、継続的なストーリーテリングとして設計する。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "繰り返し共有して組織に定着させたい",
+        "b": "繰り返すほど「またあの話」と飽きられる",
+        "verified": false
+      }
     },
     {
       "id": 23,
@@ -610,7 +722,12 @@
       "social": "起業家が事業を次のフェーズに進める際の「次の舞台」を一緒に探す。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "経験を活かせる配置をつくりたい",
+        "b": "特別扱いは周囲の納得を損ない、本人も浮く",
+        "verified": false
+      }
     },
     {
       "id": 24,
@@ -627,7 +744,12 @@
       "social": "異なるセクター間（NPO・行政・企業）を渡り歩いた人の「複眼的な視点」を事業設計に活かす。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "違和感を保持させたい",
+        "b": "保持し続けるとどちらにも馴染めず消耗する",
+        "verified": false
+      }
     },
     {
       "id": 25,
@@ -644,7 +766,12 @@
       "social": "支援先同士のネットワーク形成、アルムナイコミュニティの運営。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "越境先との関係を継続したい",
+        "b": "個人の関係のままでは組織の資産にならず、組織に移すと熱が冷める",
+        "verified": false
+      }
     },
     {
       "id": 26,
@@ -663,7 +790,12 @@
         19
       ],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "意思決定者に届く形に整えたい",
+        "b": "整えるほど現場のリアリティが落ちる",
+        "verified": false
+      }
     },
     {
       "id": 27,
@@ -683,7 +815,12 @@
         15
       ],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "兆候を早く察知したい",
+        "b": "見すぎると解釈が先行し、本人の言葉を待てなくなる",
+        "verified": false
+      }
     },
     {
       "id": 28,
@@ -700,7 +837,12 @@
       "social": "中間支援組織の最大の価値は「つなぐ」力。人・資金・ノウハウの仲介。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "必要な人・機会をつなぎたい",
+        "b": "つなぐほど本人が自分で開拓する力がつかない",
+        "verified": false
+      }
     },
     {
       "id": 29,
@@ -719,7 +861,12 @@
         32
       ],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "選択肢を広げて視野を開きたい",
+        "b": "広げすぎると決められず、推しを言えば誘導になる",
+        "verified": false
+      }
     },
     {
       "id": 30,
@@ -738,7 +885,12 @@
         19
       ],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "相手の文脈に合わせて成果を語りたい",
+        "b": "合わせるほど実態から離れ、後で齟齬が出る",
+        "verified": false
+      }
     },
     {
       "id": 31,
@@ -755,7 +907,12 @@
       "social": "コーディネーター自身が「答えを持っている人」ではなく「一緒に探求する人」であるというスタンス。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "対等な学び手として関わりたい",
+        "b": "頼られる専門性も示さないと信頼されない",
+        "verified": false
+      }
     },
     {
       "id": 32,
@@ -774,7 +931,12 @@
         29
       ],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "役割を分けて隙間をなくしたい",
+        "b": "分けるほど相手から見て窓口が増え、文脈が分断される",
+        "verified": false
+      }
     },
     {
       "id": 33,
@@ -794,7 +956,12 @@
         11
       ],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "課題を解消して前に進めたい",
+        "b": "全部消すと向き合う力が育たない",
+        "verified": false
+      }
     },
     {
       "id": 34,
@@ -814,7 +981,12 @@
         33
       ],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "転ばせたくない",
+        "b": "転ばないと学ばない",
+        "verified": false
+      }
     },
     {
       "id": 35,
@@ -831,7 +1003,12 @@
       "social": "助成金の報告書を書くことが目的化して、本来の支援の質が落ちる現象への警鐘。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "型を守って質を担保したい",
+        "b": "型を守るほど目の前の個別性が見えなくなる",
+        "verified": false
+      }
     },
     {
       "id": 36,
@@ -848,7 +1025,12 @@
       "social": "中間支援者自身が起業家の立場を経験する機会（起業体験プログラムなど）。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "自分も外に出て学びたい",
+        "b": "現業の時間を削ることになる",
+        "verified": false
+      }
     },
     {
       "id": 37,
@@ -865,7 +1047,12 @@
       "social": "コーディネーター同士の振り返り会、支援先からの360度フィードバック。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "伴走の質を評価して改善したい",
+        "b": "評価されると安全策に寄り、挑戦的な伴走をしなくなる",
+        "verified": false
+      }
     },
     {
       "id": 38,
@@ -882,8 +1069,62 @@
       "social": "「なぜ社会起業家を支援するのか」という問いを自分の中に持ち続けること。それが支援の質の最も深い土台になる。",
       "related": [],
       "verified": false,
-      "jp_cases": []
+      "jp_cases": [],
+      "tension": {
+        "a": "自分の問いを持ち続けたい",
+        "b": "美学が強いほど相手に自分の答えを押し付けやすい",
+        "verified": false
+      }
     }
   ],
-  "cycle_overview": "コーディネーター自身の仕事の流れ。①情報収集から⑧情報の補足まで進んだら、また①に戻る循環になっている。出典は虎の巻2018「コーディネーターの支援サイクル」。"
+  "cycle_overview": "コーディネーター自身の仕事の流れ。①情報収集から⑧情報の補足まで進んだら、また①に戻る循環になっている。出典は虎の巻2018「コーディネーターの支援サイクル」。",
+  "field_labels": {
+    "context": "状況",
+    "tension": "板挟み",
+    "solution": "解決",
+    "result": "結果",
+    "social": "ソーシャル文脈への翻訳"
+  },
+  "terminology": {
+    "板挟み": "パターンランゲージでいう force。「両方とも正しいのに同時に立たない2つの要求」。『フォース』『葛藤』は使わない（聞く側・答える側に伝わらない／内面の話に狭まる）。",
+    "問い方": "「その時、何と何の板挟みでしたか?」"
+  },
+  "overlap_candidates": [
+    {
+      "ids": [
+        10,
+        34
+      ],
+      "note": "板挟みがほぼ同一（失敗させたくない↔失敗から学ぶ）。統合候補。"
+    },
+    {
+      "ids": [
+        9,
+        11
+      ],
+      "note": "違和感・混乱を保持する構え。統合または上位下位の整理が必要。"
+    },
+    {
+      "ids": [
+        5,
+        18
+      ],
+      "note": "どちらも「戻る前提が没入を妨げる」。統合候補。"
+    },
+    {
+      "ids": [
+        19,
+        26,
+        30
+      ],
+      "note": "翻訳系3枚。相手（所属組織／経営層／異文脈）の違いだけなら上位1枚に畳める。"
+    },
+    {
+      "ids": [
+        14,
+        27
+      ],
+      "note": "待つ／観る。板挟みが近く、境界が曖昧。"
+    }
+  ]
 }

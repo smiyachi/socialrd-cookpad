@@ -264,6 +264,38 @@ body {
 .modal .section-label.prob { color: var(--accent-meta); }
 .modal .section-label.sol { color: var(--accent-after); }
 .modal .section-label.social { color: var(--accent-cross); }
+.modal .unverified {
+  display: inline-block;
+  margin-left: 0.6rem;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  vertical-align: 0.1em;
+}
+.modal .tension-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0.5rem 0 0.5rem;
+  padding: 0.9rem 1rem;
+  background: var(--surface2);
+  border-left: 2px solid var(--accent-meta);
+}
+.modal .tension-side {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+.modal .tension-vs {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--accent-meta);
+  padding-left: 0.1rem;
+}
+.modal .tension-vs::before { content: '↕ '; }
 .modal p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.9; }
 
 .stats {
@@ -651,6 +683,14 @@ function openModal(p) {
     <div class="section-label sol">結果 — Result</div>
     <p>${p.result}</p>` : '';
 
+  const tensionHtml = (p.tension && p.tension.a) ? `
+    <div class="section-label prob">板挟み<span class="unverified">未検証</span></div>
+    <div class="tension-box">
+      <div class="tension-side">${p.tension.a}</div>
+      <div class="tension-vs">両立しない</div>
+      <div class="tension-side">${p.tension.b}</div>
+    </div>` : '';
+
   const cycleTag = p.cycle ? `<span class="m-phase" style="background:${cyColor}22;color:${cyColor};margin-left:0.4rem">${cycleLabels[p.cycle] || p.cycle}</span>` : '';
 
   const related = Array.isArray(p.related) && p.related.length
@@ -669,6 +709,7 @@ function openModal(p) {
     <p>${p.context}</p>
     <div class="section-label prob">問題 — Problem</div>
     <p>${p.problem}</p>
+    ${tensionHtml}
     <div class="section-label sol">解決 — Solution</div>
     <p>${p.solution}</p>
     ${resultHtml}
