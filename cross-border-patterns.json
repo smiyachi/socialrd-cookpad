@@ -2,7 +2,7 @@
   "collection": "cross-border",
   "label": "伴走者のパターン・ランゲージ",
   "category": "coordinator",
-  "version": "0.2.1-draft",
+  "version": "0.3-draft",
   "updated": "2026-08-05",
   "source_url": "https://www.meti.go.jp/policy/economy/jinzai/shukkokigyo/gaidorain.pdf",
   "source_label": "経済産業省「越境学習を支える伴走者のための実践ガイドライン」(2025)",
@@ -24,65 +24,85 @@
       "id": "collect",
       "order": 1,
       "label": "① 情報収集",
-      "pattern_count": 3
+      "pattern_count": 3,
+      "description": "「いま何が起きているか」を集める段階。本人・組織の状況、業界や市場の情報を、できるだけ主観を挟まずに観察する。ここではまだ判断しない。",
+      "origin": "虎の巻2018"
     },
     {
       "id": "immerse",
       "order": 2,
       "label": "② 没入",
       "note": "パターン空白",
-      "pattern_count": 0
+      "pattern_count": 0,
+      "description": "相手の置かれた状況から、その人の心理状態を想像して入り込む段階。数字や事実の外側にある温度を感じ取る。",
+      "origin": "虎の巻2018"
     },
     {
       "id": "analyze",
       "order": 3,
       "label": "③ 洞察・分析",
       "note": "パターン空白（虎の巻・勉強会に素材あり）",
-      "pattern_count": 0
+      "pattern_count": 0,
+      "description": "「なぜ起きているのか」「根本的な課題は何か」を考える段階。ここは主観に基づいて判断してよい。フレームワークがいちばん効く場所。",
+      "origin": "虎の巻2018"
     },
     {
       "id": "assess_issue",
       "order": 4,
       "label": "④ 課題の見立て",
       "note": "最大の空白。需要は最大",
-      "pattern_count": 0
+      "pattern_count": 0,
+      "description": "集めた情報と洞察から、取り組むべき課題の仮説を立てる段階。虎の巻が「コーディネーターの核となる役割であり強み」と呼んだところ。ただし見立ては診断書ではなく仮説で、相手と一緒に見立て直していく。",
+      "origin": "虎の巻2018 ＋ 勉強会6/17で更新"
     },
     {
       "id": "consider",
       "order": 5,
       "label": "⑤ 支援策の検討",
-      "pattern_count": 2
+      "pattern_count": 2,
+      "description": "打てる手の選択肢を広げる段階。コーチング・コンサルティング・メンタリングの使い分け、社内カンファレンス、資源の接続。",
+      "origin": "虎の巻2018"
     },
     {
       "id": "assess_action",
       "order": 6,
       "label": "⑥ 支援策の見立て",
-      "pattern_count": 1
+      "pattern_count": 1,
+      "description": "選択肢のひとつひとつを相手になりきって「試着」し、どれが効くかを決める段階。どこまで手を出すかという介入の度合いも、ここで決まる。",
+      "origin": "虎の巻2018"
     },
     {
       "id": "execute",
       "order": 7,
       "label": "⑦ 実行",
       "note": "過密",
-      "pattern_count": 22
+      "pattern_count": 22,
+      "description": "決めた支援を実際に行う段階。相手の行動と学習のサイクルが回るように支える。",
+      "origin": "虎の巻2018"
     },
     {
       "id": "followup",
       "order": 8,
       "label": "⑧ 情報の補足 → ①へ戻る",
-      "pattern_count": 1
+      "pattern_count": 1,
+      "description": "やってみた結果を受け取り、見立てを更新する段階。支援策が合わないときは、たいてい課題の見立てのほうが違っている。①へ戻る。",
+      "origin": "虎の巻2018"
     },
     {
       "id": "stance",
       "order": 99,
       "label": "サイクル全体を貫く構え",
-      "pattern_count": 7
+      "pattern_count": 7,
+      "description": "どの段階にいても効いている、伴走者の立ち位置と姿勢。手順ではないので、サイクルの順番の中には置けない。",
+      "origin": "今回の仕分けで追加"
     },
     {
       "id": "growth",
       "order": 100,
       "label": "サイクルの外：伴走者自身の育ち",
-      "pattern_count": 2
+      "pattern_count": 2,
+      "description": "案件そのものではなく、伴走者が伴走者として育つための営み。振り返り、カンファレンス、自身の越境。",
+      "origin": "今回の仕分けで追加"
     }
   ],
   "unassigned_material": {
@@ -864,5 +884,6 @@
       "verified": false,
       "jp_cases": []
     }
-  ]
+  ],
+  "cycle_overview": "コーディネーター自身の仕事の流れ。①情報収集から⑧情報の補足まで進んだら、また①に戻る循環になっている。出典は虎の巻2018「コーディネーターの支援サイクル」。"
 }

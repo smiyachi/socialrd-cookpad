@@ -380,6 +380,16 @@ footer a:hover { border-color: var(--accent-before); }
 }
 .empty-state .es-title { font-size: 1rem; color: var(--text); margin-bottom: 0.4rem; }
 .empty-state .es-sub { font-size: 0.8rem; color: var(--text-muted); }
+
+.stage-desc {
+  max-width: 860px; margin: 0 auto; padding: 1.75rem 2rem 0;
+}
+.stage-desc .sd-inner {
+  border-left: 2px solid var(--border); padding: 0.2rem 0 0.2rem 1.25rem;
+}
+.stage-desc .sd-title { font-size: 1.05rem; font-weight: 500; margin-bottom: 0.45rem; }
+.stage-desc .sd-body { font-size: 0.86rem; color: var(--text); opacity: 0.82; line-height: 2; }
+.stage-desc .sd-meta { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.6rem; letter-spacing: 0.03em; }
 </style>
 </head>
 <body>
@@ -402,6 +412,8 @@ footer a:hover { border-color: var(--accent-before); }
 <div class="cycle-note" id="axisNote"></div>
 
 <nav class="controls" id="controls"></nav>
+
+<div class="stage-desc" id="stageDesc"></div>
 
 <div class="grid" id="grid"></div>
 
@@ -449,6 +461,8 @@ const axisNotes = {
 let patterns = [];
 let cycleStages = [];
 let cycleLabels = {};
+let cycleStageById = {};
+let cycleOverview = '';
 let casesData = {};
 let currentAxis = 'phase';
 let currentFilter = 'all';
@@ -457,6 +471,7 @@ const grid = document.getElementById('grid');
 const statsEl = document.getElementById('stats');
 const controlsEl = document.getElementById('controls');
 const axisNoteEl = document.getElementById('axisNote');
+const stageDescEl = document.getElementById('stageDesc');
 
 async function boot() {
   try {
@@ -465,7 +480,8 @@ async function boot() {
     const data = await r.json();
     patterns = data.patterns || data;
     cycleStages = (data.cycle_stages || []).slice().sort((a,b) => a.order - b.order);
-    cycleStages.forEach(s => { cycleLabels[s.id] = s.label; });
+    cycleStages.forEach(s => { cycleLabels[s.id] = s.label; cycleStageById[s.id] = s; });
+    cycleOverview = data.cycle_overview || '';
     if (!Array.isArray(patterns) || patterns.length === 0) throw new Error('empty');
   } catch (e) {
     grid.innerHTML = '<div class="empty-state"><div class="es-title">パターンデータを読み込めませんでした</div>'
@@ -551,8 +567,28 @@ function renderFilters() {
 }
 
 // ===== カード描画 =====
+function renderStageDesc(filter) {
+  if (currentAxis !== 'cycle') { stageDescEl.innerHTML = ''; return; }
+  if (filter === 'all') {
+    stageDescEl.innerHTML = `<div class="sd-inner">
+      <div class="sd-title">支援サイクルとは</div>
+      <div class="sd-body">${cycleOverview}</div>
+    </div>`;
+    return;
+  }
+  const s = cycleStageById[filter];
+  if (!s) { stageDescEl.innerHTML = ''; return; }
+  const c = colorOf('cycle', filter);
+  stageDescEl.innerHTML = `<div class="sd-inner" style="border-left-color:${c}">
+    <div class="sd-title" style="color:${c}">${s.label}</div>
+    <div class="sd-body">${s.description || ''}</div>
+    <div class="sd-meta">${s.origin ? '出典：' + s.origin : ''}${s.note ? '　／　' + s.note : ''}</div>
+  </div>`;
+}
+
 function renderCards(filter) {
   currentFilter = filter;
+  renderStageDesc(filter);
   grid.innerHTML = '';
   const filtered = filter === 'all' ? patterns : patterns.filter(p => p[currentAxis] === filter);
 
