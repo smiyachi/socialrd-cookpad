@@ -4,725 +4,366 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>伴走者のパターン・ランゲージ</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0d0d0d;
-  --surface: #1a1a1a;
-  --surface2: #242424;
-  --border: #333;
-  --text: #e8e4df;
-  --text-muted: #999;
-  --accent-before: #c9a96e;
-  --accent-during: #6ea5c9;
-  --accent-after: #7bc96e;
-  --accent-cross: #c96eb8;
-  --accent-meta: #c96e6e;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Noto Sans JP', sans-serif;
-  font-weight: 300;
-  line-height: 1.8;
-  overflow-x: hidden;
-}
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(ellipse at 30% 50%, rgba(201,169,110,0.06) 0%, transparent 50%),
-              radial-gradient(ellipse at 70% 50%, rgba(110,165,201,0.04) 0%, transparent 50%);
-  animation: drift 20s ease-in-out infinite;
-}
-@keyframes drift {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(-3%, 2%); }
-}
-.hero h1 {
-  font-family: 'Noto Serif JP', serif;
-  font-weight: 900;
-  font-size: clamp(2rem, 5vw, 4rem);
-  letter-spacing: 0.15em;
-  position: relative;
-  z-index: 1;
-  background: linear-gradient(135deg, var(--accent-before), var(--text), var(--accent-during));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.hero .subtitle {
-  font-size: clamp(0.9rem, 2vw, 1.2rem);
-  color: var(--text-muted);
-  margin-top: 1.5rem;
-  position: relative;
-  z-index: 1;
-  max-width: 640px;
-  letter-spacing: 0.05em;
-}
-.hero .count {
-  font-family: 'Noto Serif JP', serif;
-  font-size: clamp(3rem, 8vw, 7rem);
-  font-weight: 900;
-  color: var(--accent-before);
-  opacity: 0.15;
-  position: relative;
-  z-index: 1;
-  margin-top: 2rem;
-}
-.hero .scroll-hint {
-  position: absolute;
-  bottom: 2rem;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  letter-spacing: 0.3em;
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#F5F4F0;font-family:'Helvetica Neue','Hiragino Sans','Noto Sans JP',sans-serif;color:#1A1A1A}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 
-.controls {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(13,13,13,0.92);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  padding: 1rem 2rem;
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.filter-btn {
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 500;
-  padding: 0.4rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: 2rem;
-  background: transparent;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: all 0.3s;
-  letter-spacing: 0.05em;
-}
-.filter-btn:hover { border-color: var(--text); color: var(--text); }
-.filter-btn.active { background: var(--text); color: var(--bg); border-color: var(--text); }
-.filter-btn[data-phase="before"].active { background: var(--accent-before); border-color: var(--accent-before); color: var(--bg); }
-.filter-btn[data-phase="during"].active { background: var(--accent-during); border-color: var(--accent-during); color: var(--bg); }
-.filter-btn[data-phase="after"].active { background: var(--accent-after); border-color: var(--accent-after); color: var(--bg); }
-.filter-btn[data-phase="cross"].active { background: var(--accent-cross); border-color: var(--accent-cross); color: var(--bg); }
-.filter-btn[data-phase="meta"].active { background: var(--accent-meta); border-color: var(--accent-meta); color: var(--bg); }
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
 
-.grid {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 1.5rem;
-}
+/* Header */
+.header{padding:24px 0 14px}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.15em;color:#D97706;text-transform:uppercase;margin-bottom:5px}
+h1{font-size:20px;font-weight:800;line-height:1.3;margin-bottom:3px}
+.subtitle{font-size:12px;color:#6B7280;line-height:1.7}
 
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.8rem;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  overflow: hidden;
-}
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 4px;
-  height: 100%;
-  transition: width 0.3s;
-}
-.card[data-phase="before"]::before { background: var(--accent-before); }
-.card[data-phase="during"]::before { background: var(--accent-during); }
-.card[data-phase="after"]::before { background: var(--accent-after); }
-.card[data-phase="cross"]::before { background: var(--accent-cross); }
-.card[data-phase="meta"]::before { background: var(--accent-meta); }
-.card:hover { transform: translateY(-4px); border-color: #555; }
-.card:hover::before { width: 6px; }
+/* Legend */
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:10px 12px;background:#fff;border-radius:10px;border:1px solid #E9E8E4;margin:12px 0;font-size:11px}
+.legend-item{display:flex;align-items:center;gap:6px}
+.legend-dot{width:8px;height:8px;border-radius:50%}
+.legend-label{color:#374151;font-weight:500}
+.legend-desc{color:#9CA3AF}
 
-.card .num {
-  font-family: 'Noto Serif JP', serif;
-  font-weight: 900;
-  font-size: 2rem;
-  opacity: 0.12;
-  position: absolute;
-  top: 0.8rem;
-  right: 1.2rem;
-}
-.card .phase-tag {
-  display: inline-block;
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  padding: 0.2rem 0.6rem;
-  border-radius: 1rem;
-  margin-bottom: 0.8rem;
-}
-.card[data-phase="before"] .phase-tag { background: rgba(201,169,110,0.15); color: var(--accent-before); }
-.card[data-phase="during"] .phase-tag { background: rgba(110,165,201,0.15); color: var(--accent-during); }
-.card[data-phase="after"] .phase-tag { background: rgba(123,201,110,0.15); color: var(--accent-after); }
-.card[data-phase="cross"] .phase-tag { background: rgba(201,110,184,0.15); color: var(--accent-cross); }
-.card[data-phase="meta"] .phase-tag { background: rgba(201,110,110,0.15); color: var(--accent-meta); }
+/* Search */
+.search-wrap{position:relative;margin:12px 0 10px}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#9CA3AF;pointer-events:none;font-size:14px}
+.search-bar{width:100%;padding:10px 14px 10px 36px;border:1.5px solid #E5E7EB;border-radius:10px;font-size:13px;background:#fff;outline:none;font-family:inherit;transition:border .15s}
+.search-bar:focus{border-color:#6B7280}
 
-.card .name {
-  font-family: 'Noto Serif JP', serif;
-  font-weight: 700;
-  font-size: 1.25rem;
-  margin-bottom: 0.6rem;
-  letter-spacing: 0.05em;
-}
-.card .summary {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-}
+/* Filters */
+.filter-groups{display:flex;flex-direction:column;gap:8px}
+.fg-label{font-size:9.5px;font-weight:700;color:#9CA3AF;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
+.fg-row{display:flex;gap:4px;flex-wrap:wrap}
+.fbtn{padding:5px 11px;border-radius:20px;border:1.5px solid #E5E7EB;font-size:11px;font-weight:600;cursor:pointer;background:#fff;color:#374151;transition:all .15s;white-space:nowrap;font-family:inherit}
+.fbtn:hover{border-color:#9CA3AF;background:#F9FAFB}
+.fbtn.active{border-color:transparent;color:#fff;background:#1A1A1A}
+.fbtn.empty{opacity:.5}
 
-/* Modal */
-.overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.8);
-  z-index: 200;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-}
-.overlay.open { display: flex; }
-.modal {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  max-width: 700px;
-  width: 100%;
-  max-height: 85vh;
-  overflow-y: auto;
-  padding: 2.5rem;
-  position: relative;
-  animation: modalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-@keyframes modalIn { from { opacity: 0; transform: translateY(30px) scale(0.96); } }
-.modal .close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1.2rem;
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-.modal .m-phase {
-  display: inline-block;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  padding: 0.25rem 0.8rem;
-  border-radius: 1rem;
-  margin-bottom: 1rem;
-}
-.modal .m-name {
-  font-family: 'Noto Serif JP', serif;
-  font-weight: 900;
-  font-size: 1.6rem;
-  margin-bottom: 1.5rem;
-  letter-spacing: 0.05em;
-}
-.modal .section-label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-.modal .section-label.ctx { color: var(--accent-before); }
-.modal .section-label.prob { color: var(--accent-meta); }
-.modal .section-label.sol { color: var(--accent-after); }
-.modal .section-label.social { color: var(--accent-cross); }
-.modal .unverified {
-  display: inline-block;
-  margin-left: 0.6rem;
-  padding: 0.1rem 0.5rem;
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-  vertical-align: 0.1em;
-}
-.modal .tension-box {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  margin: 0.5rem 0 0.5rem;
-  padding: 0.9rem 1rem;
-  background: var(--surface2);
-  border-left: 2px solid var(--accent-meta);
-}
-.modal .tension-side {
-  font-size: 0.92rem;
-  line-height: 1.6;
-  color: var(--text);
-}
-.modal .tension-vs {
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  color: var(--accent-meta);
-  padding-left: 0.1rem;
-}
-.modal .tension-vs::before { content: '↕ '; }
-.modal p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.9; }
+.sub-filter-wrap{min-height:0;margin:8px 0 4px}
+.sfbtn{padding:3px 10px;border-radius:14px;border:1.5px solid #E5E7EB;font-size:10.5px;font-weight:600;cursor:pointer;background:#fff;color:#374151;transition:all .15s;white-space:nowrap;font-family:inherit}
+.sfbtn:hover{border-color:#9CA3AF}
+.sfbtn.active{color:#fff;border-color:transparent;background:#1A1A1A}
 
-.stats {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem 2rem 4rem;
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.stat-box {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.2rem 1.8rem;
-  text-align: center;
-  min-width: 140px;
-}
-.stat-box .stat-num { font-family: 'Noto Serif JP'; font-weight: 900; font-size: 2rem; }
-.stat-box .stat-label { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.3rem; letter-spacing: 0.1em; }
+/* Stage description */
+.stage-desc{margin:10px 0 2px}
+.sd-inner{background:#fff;border:1px solid #E9E8E4;border-left-width:3px;border-radius:10px;padding:11px 14px;animation:fadeIn .2s}
+.sd-title{font-size:12.5px;font-weight:700;margin-bottom:4px}
+.sd-body{font-size:11.5px;line-height:1.85;color:#374151}
+.sd-meta{font-size:10px;color:#9CA3AF;margin-top:6px;letter-spacing:.03em}
 
-footer {
-  text-align: center;
-  padding: 3rem 2rem;
-  font-size: 0.75rem;
-  color: #555;
-  border-top: 1px solid var(--border);
-  letter-spacing: 0.1em;
-  line-height: 2;
-}
-footer a {
-  color: var(--accent-before);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(201,169,110,0.4);
-  transition: border-color 0.2s;
-}
-footer a:hover { border-color: var(--accent-before); }
-.source-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: rgba(201,169,110,0.1);
-  border: 1px solid rgba(201,169,110,0.25);
-  border-radius: 2rem;
-  padding: 0.35rem 0.9rem;
-  margin: 0.3rem 0.2rem;
-  font-size: 0.7rem;
-  color: var(--accent-before);
-  text-decoration: none;
-  transition: all 0.2s;
-  letter-spacing: 0.05em;
-}
-.source-badge:hover {
-  background: rgba(201,169,110,0.2);
-  border-color: var(--accent-before);
-  transform: translateY(-1px);
-}
-.footer-sources {
-  margin-top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  justify-content: center;
-}
-.case-badge {
-  display: inline-block;
-  font-size: 0.62rem;
-  font-weight: 600;
-  padding: 0.2rem 0.6rem;
-  border-radius: 1rem;
-  background: rgba(110,165,201,0.15);
-  color: var(--accent-during);
-  margin-top: 0.4rem;
-  letter-spacing: 0.05em;
-}
-.cases-list { margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
-.case-item {
-  display: block;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 0.8rem 1rem;
-  text-decoration: none;
-  color: var(--text);
-  transition: all 0.2s;
-}
-.case-item:hover { border-color: var(--accent-cross); transform: translateX(3px); }
-.case-item-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.2rem; }
-.case-item-meta { font-size: 0.68rem; color: var(--text-muted); margin-bottom: 0.25rem; }
-.case-item-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.6; }
+.stats{font-size:11px;color:#9CA3AF;font-weight:500;margin:8px 0}
+.list{display:flex;flex-direction:column;gap:5px;padding-bottom:24px}
 
-.axis-switch {
-  display: flex; justify-content: center; gap: 0; margin: 0 auto;
-  padding: 1.4rem 2rem 0; 
-}
-.axis-switch .inner {
-  display: inline-flex; border: 1px solid var(--border); border-radius: 2rem; padding: 0.25rem; gap: 0.25rem;
-}
-.axis-btn {
-  font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; font-weight: 500;
-  padding: 0.35rem 1.1rem; border: none; border-radius: 2rem; background: transparent;
-  color: var(--text-muted); cursor: pointer; transition: all 0.3s; letter-spacing: 0.05em;
-}
-.axis-btn:hover { color: var(--text); }
-.axis-btn.active { background: var(--surface2); color: var(--text); }
-.cycle-note {
-  text-align: center; font-size: 0.72rem; color: var(--text-muted);
-  padding: 0.5rem 2rem 0; letter-spacing: 0.03em;
-}
-.empty-state {
-  grid-column: 1 / -1; text-align: center; padding: 4rem 1.5rem;
-  border: 1px dashed var(--border); border-radius: 0.75rem; line-height: 2;
-}
-.empty-state .es-title { font-size: 1rem; color: var(--text); margin-bottom: 0.4rem; }
-.empty-state .es-sub { font-size: 0.8rem; color: var(--text-muted); }
+/* Card */
+.card{background:#fff;border-radius:13px;border:1px solid #E9E8E4;overflow:hidden;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);transition:box-shadow .18s,border-color .18s}
+.card:hover{border-color:#D1D0CB;box-shadow:0 3px 12px rgba(0,0,0,0.07)}
+.card.open{border-width:2px;box-shadow:0 5px 20px rgba(0,0,0,0.09)}
+.ch{padding:11px 14px;display:flex;align-items:center;gap:10px}
+.nbadge{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
+.cm{flex:1;min-width:0}
+.ct-ja{font-size:13.5px;font-weight:700;line-height:1.3;color:#111827}
+.ct-en{font-size:11px;color:#6B7280;margin-top:2px;line-height:1.5}
+.ct-sub{font-size:10px;color:#C4C3BF;margin-top:2px}
+.sbadge{font-size:10px;font-weight:700;padding:2px 9px;border-radius:7px;white-space:nowrap;flex-shrink:0;background:#F3F4F6;color:#9CA3AF}
+.chev{color:#C4C3BF;font-size:12px;flex-shrink:0;transition:transform .2s;margin-left:2px}
+.card.open .chev{transform:rotate(180deg)}
 
-.stage-desc {
-  max-width: 860px; margin: 0 auto; padding: 1.75rem 2rem 0;
-}
-.stage-desc .sd-inner {
-  border-left: 2px solid var(--border); padding: 0.2rem 0 0.2rem 1.25rem;
-}
-.stage-desc .sd-title { font-size: 1.05rem; font-weight: 500; margin-bottom: 0.45rem; }
-.stage-desc .sd-body { font-size: 0.86rem; color: var(--text); opacity: 0.82; line-height: 2; }
-.stage-desc .sd-meta { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.6rem; letter-spacing: 0.03em; }
+/* Body */
+.cbody{padding:0 14px 14px;animation:fadeIn .18s ease}
+.cbinner{display:flex;flex-direction:column;gap:7px}
+.iblock{border-radius:9px;padding:10px 12px;background:#FAFAF9;border:1px solid #EDECEB}
+.ilabel{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.itext{font-size:12px;line-height:1.85;color:#374151}
+.unverified{font-size:8.5px;font-weight:700;padding:1px 6px;border-radius:5px;background:#F3F4F6;color:#9CA3AF;margin-left:6px;letter-spacing:.05em}
+
+/* Tension */
+.tension-box{display:flex;flex-direction:column;gap:5px}
+.tension-side{background:#fff;border:1px solid #E9E8E4;border-radius:7px;padding:8px 10px;font-size:12px;line-height:1.7;color:#374151}
+.tension-vs{font-size:9.5px;font-weight:700;color:#9CA3AF;text-align:center;letter-spacing:.1em}
+
+/* Related / cases */
+.chip-row{display:flex;flex-wrap:wrap;gap:4px}
+.chip{font-size:11px;padding:3px 9px;border-radius:7px;background:#fff;border:1px solid #E9E8E4;color:#374151;cursor:pointer;transition:all .15s}
+.chip:hover{background:#F3F2F0;border-color:#D1D0CB}
+.case-item{display:block;padding:7px 10px;border-radius:8px;border:1px solid #F0EFED;background:#fff;margin-bottom:3px;text-decoration:none}
+.case-item:hover{background:#F3F2F0}
+.case-item-title{font-size:11.5px;font-weight:700;color:#111827}
+.case-item-meta{font-size:10px;color:#9CA3AF;margin-top:1px}
+.case-item-desc{font-size:11px;color:#6B7280;margin-top:2px;line-height:1.6}
+
+.no-results{text-align:center;padding:48px 20px;color:#9CA3AF;font-size:13px;line-height:1.9;background:#fff;border:1px dashed #E5E7EB;border-radius:13px}
+.no-results strong{display:block;font-size:14px;color:#6B7280;margin-bottom:6px}
+
+footer{text-align:center;padding:32px 16px 40px;margin-top:20px;border-top:1px solid #E5E7EB;font-size:11px;color:#9CA3AF;letter-spacing:.05em}
+.footer-sources{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.source-badge{display:inline-flex;align-items:center;gap:5px;background:#F9FAFB;border:1px solid #E5E7EB;border-radius:20px;padding:5px 14px;font-size:11px;font-weight:500;color:#374151;text-decoration:none;transition:all .15s;letter-spacing:.03em}
+.source-badge:hover{background:#F3F4F6;border-color:#D1D5DB;color:#111827}
+.source-badge.back{background:#EFF6FF;border-color:#BFDBFE;color:#1D4ED8}
+.source-badge.back:hover{background:#DBEAFE}
 </style>
 </head>
 <body>
+<div class="wrap">
 
-<section class="hero">
+<div class="header">
+  <div class="eyebrow">経済産業省 越境学習伴走者ガイドライン (2025) ＋ ETIC. 虎の巻 / 勉強会</div>
   <h1>伴走者のパターン・ランゲージ</h1>
-  <p class="subtitle">越境学習の伴走者ガイドライン（経済産業省 2025）の知見を<br>パターン・ランゲージの形式で構造化した 試作版</p>
-  <div class="count">38</div>
-  <div class="scroll-hint">▼ SCROLL</div>
-</section>
+  <p class="subtitle"><span id="totalCount">–</span>パターンを2つの軸で整理。板挟み（force）を明示した試作版。カードをタップで詳細・関連パターンを表示。</p>
+</div>
 
-<div class="stats" id="stats"></div>
+<div class="legend" id="legend"></div>
 
-<div class="axis-switch">
-  <div class="inner">
-    <button class="axis-btn active" data-axis="phase">越境学習の旅</button>
-    <button class="axis-btn" data-axis="cycle">支援サイクル</button>
+<div class="search-wrap">
+  <span class="search-icon">🔍</span>
+  <input class="search-bar" type="text" id="searchInput" placeholder="パターン名・要約・状況・解決で検索...">
+</div>
+
+<div class="filter-groups">
+  <div>
+    <div class="fg-label">軸 — Axis</div>
+    <div class="fg-row" id="axisRow">
+      <button class="fbtn active" data-axis="phase">越境学習の旅</button>
+      <button class="fbtn" data-axis="cycle">支援サイクル</button>
+    </div>
+  </div>
+  <div>
+    <div class="fg-label" id="filterLabel">フェーズ</div>
+    <div class="fg-row" id="controls"></div>
   </div>
 </div>
-<div class="cycle-note" id="axisNote"></div>
-
-<nav class="controls" id="controls"></nav>
 
 <div class="stage-desc" id="stageDesc"></div>
-
-<div class="grid" id="grid"></div>
-
-<div class="overlay" id="overlay">
-  <div class="modal" id="modal"></div>
-</div>
+<div class="stats" id="stats"></div>
+<div class="list" id="list"></div>
 
 <footer>
   パターン・ランゲージ試作版 — 井庭崇『パターン・ランゲージ』の方法論に基づき構造化
   <div class="footer-sources">
-    <a class="source-badge" href="https://www.meti.go.jp/policy/economy/jinzai/shukkokigyo/gaidorain.pdf" target="_blank" rel="noopener">
-      📄 原典：経済産業省 越境学習伴走者ガイドライン (2025)
-    </a>
-    <a class="source-badge" href="./index.html">
-      ← ツール一覧に戻る
-    </a>
+    <a class="source-badge" href="https://www.meti.go.jp/policy/economy/jinzai/shukkokigyo/gaidorain.pdf" target="_blank">📄 原典：経済産業省 越境学習伴走者ガイドライン (2025)</a>
+    <a class="source-badge back" href="./">← ツール一覧に戻る</a>
   </div>
 </footer>
 
+</div>
+
 <script>
-// ===== データ読み込み =====
-// パターン本文の正本は cross-border-patterns.json。
 const DATA_URL = './cross-border-patterns.json';
 
-const phaseLabels = {
-  before: "越境前", during: "越境中", after: "越境後", cross: "フェーズ横断", meta: "伴走の構え"
+let phaseLabels = {before:"越境前",during:"越境中",after:"越境後",cross:"フェーズ横断",meta:"伴走の構え",own:"ETIC.の現場から"};
+const phaseDesc = {
+  before:"送り出す前の準備", during:"越境の只中での支え", after:"戻ってからの定着",
+  cross:"全期間に効くもの", meta:"伴走者自身の姿勢", own:"ETIC.の実践から起こした草案"
 };
-const phaseColors = {
-  before:'var(--accent-before)', during:'var(--accent-during)', after:'var(--accent-after)',
-  cross:'var(--accent-cross)', meta:'var(--accent-meta)'
-};
-// 支援サイクルの色（既存アクセント色を流用）
+const phaseColors = {before:'#D97706',during:'#2563EB',after:'#65A30D',cross:'#7C3AED',meta:'#DC2626',own:'#0891B2'};
 const cycleColors = {
-  collect:'var(--accent-before)', immerse:'var(--accent-before)',
-  analyze:'var(--accent-cross)', assess_issue:'var(--accent-cross)',
-  consider:'var(--accent-during)', assess_action:'var(--accent-during)',
-  execute:'var(--accent-after)', followup:'var(--accent-after)',
-  stance:'var(--accent-meta)', growth:'var(--accent-meta)'
+  collect:'#D97706', immerse:'#D97706',
+  analyze:'#7C3AED', assess_issue:'#7C3AED',
+  consider:'#2563EB', assess_action:'#2563EB',
+  execute:'#65A30D', followup:'#65A30D',
+  stance:'#DC2626', growth:'#DC2626'
 };
-const axisNotes = {
-  phase: '原典（経済産業省ガイドライン）の軸 — 越境学習者の旅にそった分類',
-  cycle: 'コーディネーターの支援サイクル（虎の巻2018）の軸 — 空白の段階はそのまま表示しています'
-};
+const axisLabel = {phase:'フェーズ', cycle:'支援サイクルの段階'};
 
-let patterns = [];
-let cycleStages = [];
-let cycleLabels = {};
-let cycleStageById = {};
-let cycleOverview = '';
-let casesData = {};
-let currentAxis = 'phase';
-let currentFilter = 'all';
+let patterns = [], cycleStages = [], cycleLabels = {}, cycleStageById = {}, cycleOverview = '';
+let fieldLabels = {};
+let currentAxis = 'phase', currentFilter = 'all', query = '', openId = null;
 
-const grid = document.getElementById('grid');
+const listEl = document.getElementById('list');
 const statsEl = document.getElementById('stats');
 const controlsEl = document.getElementById('controls');
-const axisNoteEl = document.getElementById('axisNote');
 const stageDescEl = document.getElementById('stageDesc');
+const legendEl = document.getElementById('legend');
+const filterLabelEl = document.getElementById('filterLabel');
 
-async function boot() {
-  try {
+async function boot(){
+  try{
     const r = await fetch(DATA_URL + '?_=' + Date.now());
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    const data = await r.json();
-    patterns = data.patterns || data;
-    cycleStages = (data.cycle_stages || []).slice().sort((a,b) => a.order - b.order);
-    cycleStages.forEach(s => { cycleLabels[s.id] = s.label; cycleStageById[s.id] = s; });
-    cycleOverview = data.cycle_overview || '';
-    if (!Array.isArray(patterns) || patterns.length === 0) throw new Error('empty');
-  } catch (e) {
-    grid.innerHTML = '<div class="empty-state"><div class="es-title">パターンデータを読み込めませんでした</div>'
-      + '<div class="es-sub">cross-border-patterns.json が同じ階層にあるか確認してください。'
-      + '<br>ローカルでファイルを直接開いた場合は読み込めません（簡易サーバー経由で開いてください）。</div></div>';
+    if(!r.ok) throw new Error('HTTP ' + r.status);
+    const d = await r.json();
+    patterns = d.patterns || d;
+    if(!Array.isArray(patterns) || !patterns.length) throw new Error('empty');
+    cycleStages = (d.cycle_stages || []).slice().sort((a,b)=>a.order-b.order);
+    cycleStages.forEach(s=>{ cycleLabels[s.id]=s.label; cycleStageById[s.id]=s; });
+    cycleOverview = d.cycle_overview || '';
+    fieldLabels = d.field_labels || {};
+    if(d.phase_labels) phaseLabels = d.phase_labels;
+  }catch(e){
+    listEl.innerHTML = '<div class="no-results"><strong>パターンデータを読み込めませんでした</strong>'
+      + 'cross-border-patterns.json が同じ階層にあるか確認してください。<br>'
+      + 'ローカルでファイルを直接開いた場合は読み込めません（簡易サーバー経由で開いてください）。</div>';
     return;
   }
-
-  patterns.forEach(p => {
-    if (Array.isArray(p.jp_cases) && p.jp_cases.length > 0) casesData[p.id] = p.jp_cases;
-  });
-
-  renderStats();
+  document.getElementById('totalCount').textContent = patterns.length;
+  renderLegend();
   setAxis('phase');
 }
 
-function labelOf(axis, key) {
-  return axis === 'phase' ? (phaseLabels[key] || key) : (cycleLabels[key] || key);
-}
-function colorOf(axis, key) {
-  const c = axis === 'phase' ? phaseColors[key] : cycleColors[key];
-  return c || 'var(--text-muted)';
-}
-function countBy(axis) {
-  const c = {};
-  patterns.forEach(p => { const k = p[axis]; if (k) c[k] = (c[k]||0) + 1; });
-  return c;
-}
+function labelOf(axis,key){ return axis==='phase' ? (phaseLabels[key]||key) : (cycleLabels[key]||key); }
+function colorOf(axis,key){ return (axis==='phase'?phaseColors[key]:cycleColors[key]) || '#9CA3AF'; }
+function countBy(axis){ const c={}; patterns.forEach(p=>{ const k=p[axis]; if(k) c[k]=(c[k]||0)+1; }); return c; }
 
-// ===== 統計（フェーズ軸で固定表示） =====
-function renderStats() {
+function renderLegend(){
   const counts = countBy('phase');
-  statsEl.innerHTML = '';
-  Object.keys(phaseLabels).forEach(phase => {
-    if (!counts[phase]) return;
-    statsEl.innerHTML += `<div class="stat-box"><div class="stat-num" style="color:${phaseColors[phase]}">${counts[phase]}</div><div class="stat-label">${phaseLabels[phase]}</div></div>`;
-  });
-  const heroCount = document.querySelector('.hero .count');
-  if (heroCount) heroCount.textContent = patterns.length;
+  legendEl.innerHTML = Object.keys(phaseLabels).filter(k=>counts[k]).map(k=>
+    `<div class="legend-item"><div class="legend-dot" style="background:${phaseColors[k]}"></div>`
+    + `<span class="legend-label">${phaseLabels[k]}（${counts[k]}）</span>`
+    + `<span class="legend-desc">${phaseDesc[k]||''}</span></div>`
+  ).join('');
 }
 
-// ===== 軸の切り替え =====
-function setAxis(axis) {
+function setAxis(axis){
   currentAxis = axis;
-  axisNoteEl.textContent = axisNotes[axis];
-  document.querySelectorAll('.axis-btn').forEach(b => b.classList.toggle('active', b.dataset.axis === axis));
+  document.querySelectorAll('#axisRow .fbtn').forEach(b=>b.classList.toggle('active', b.dataset.axis===axis));
+  filterLabelEl.textContent = axisLabel[axis];
   renderFilters();
-  renderCards('all');
+  applyFilter('all');
 }
 
-function renderFilters() {
+function renderFilters(){
   const counts = countBy(currentAxis);
-  const keys = currentAxis === 'phase'
-    ? Object.keys(phaseLabels)
-    : cycleStages.map(s => s.id);
-
+  const keys = currentAxis==='phase' ? Object.keys(phaseLabels) : cycleStages.map(s=>s.id);
   controlsEl.innerHTML = '';
-  const all = document.createElement('button');
-  all.className = 'filter-btn active';
-  all.dataset.key = 'all';
-  if (currentAxis === 'phase') all.dataset.phase = 'all';
-  all.textContent = `すべて（${patterns.length}）`;
-  controlsEl.appendChild(all);
-
-  keys.forEach(k => {
-    const n = counts[k] || 0;
-    const btn = document.createElement('button');
-    btn.className = 'filter-btn';
-    btn.dataset.key = k;
-    if (currentAxis === 'phase') btn.dataset.phase = k;
-    btn.textContent = `${labelOf(currentAxis, k)}（${n}）`;
-    if (n === 0) btn.style.opacity = '0.5';
-    controlsEl.appendChild(btn);
-  });
-
-  controlsEl.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.onclick = () => {
-      controlsEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderCards(btn.dataset.key);
-    };
-  });
+  const mk = (key,text,n)=>{
+    const b=document.createElement('button');
+    b.className = currentAxis==='phase' ? 'fbtn' : 'sfbtn';
+    b.dataset.key=key; b.textContent=text;
+    if(n===0) b.classList.add('empty');
+    b.onclick=()=>applyFilter(key);
+    controlsEl.appendChild(b);
+  };
+  mk('all', `すべて（${patterns.length}）`, patterns.length);
+  keys.forEach(k=> mk(k, `${labelOf(currentAxis,k)}（${counts[k]||0}）`, counts[k]||0));
 }
 
-// ===== カード描画 =====
-function renderStageDesc(filter) {
-  if (currentAxis !== 'cycle') { stageDescEl.innerHTML = ''; return; }
-  if (filter === 'all') {
-    stageDescEl.innerHTML = `<div class="sd-inner">
+function applyFilter(key){
+  currentFilter = key;
+  controlsEl.querySelectorAll('button').forEach(b=>b.classList.toggle('active', b.dataset.key===key));
+  renderStageDesc();
+  render();
+}
+
+function renderStageDesc(){
+  if(currentAxis!=='cycle'){ stageDescEl.innerHTML=''; return; }
+  if(currentFilter==='all'){
+    stageDescEl.innerHTML = `<div class="sd-inner" style="border-left-color:#1A1A1A">
       <div class="sd-title">支援サイクルとは</div>
-      <div class="sd-body">${cycleOverview}</div>
-    </div>`;
+      <div class="sd-body">${cycleOverview}</div></div>`;
     return;
   }
-  const s = cycleStageById[filter];
-  if (!s) { stageDescEl.innerHTML = ''; return; }
-  const c = colorOf('cycle', filter);
+  const s = cycleStageById[currentFilter];
+  if(!s){ stageDescEl.innerHTML=''; return; }
+  const c = colorOf('cycle',currentFilter);
   stageDescEl.innerHTML = `<div class="sd-inner" style="border-left-color:${c}">
     <div class="sd-title" style="color:${c}">${s.label}</div>
-    <div class="sd-body">${s.description || ''}</div>
-    <div class="sd-meta">${s.origin ? '出典：' + s.origin : ''}${s.note ? '　／　' + s.note : ''}</div>
-  </div>`;
+    <div class="sd-body">${s.description||''}</div>
+    <div class="sd-meta">${s.origin?'出典：'+s.origin:''}${s.note?'　／　'+s.note:''}</div></div>`;
 }
 
-function renderCards(filter) {
-  currentFilter = filter;
-  renderStageDesc(filter);
-  grid.innerHTML = '';
-  const filtered = filter === 'all' ? patterns : patterns.filter(p => p[currentAxis] === filter);
+function matches(p){
+  if(!query) return true;
+  const q = query.toLowerCase();
+  return [p.name,p.summary,p.context,p.problem,p.solution,p.result,p.caution,p.social]
+    .filter(Boolean).some(t=>String(t).toLowerCase().includes(q));
+}
 
-  if (filtered.length === 0) {
-    const stage = cycleStages.find(s => s.id === filter);
-    grid.innerHTML = `<div class="empty-state">
-      <div class="es-title">${labelOf(currentAxis, filter)} — まだカードがありません</div>
-      <div class="es-sub">${stage && stage.note ? stage.note + '<br>' : ''}この段階の知恵は、虎の巻や勉強会に素材があります。ここを埋めるのが次の一手です。</div>
-    </div>`;
+function render(){
+  const filtered = patterns
+    .filter(p=> currentFilter==='all' || p[currentAxis]===currentFilter)
+    .filter(matches);
+
+  statsEl.textContent = `${filtered.length}件を表示` + (query?`（検索：${query}）`:'');
+  listEl.innerHTML = '';
+
+  if(!filtered.length){
+    const s = cycleStageById[currentFilter];
+    listEl.innerHTML = `<div class="no-results">
+      <strong>${currentFilter==='all'?'該当するパターンがありません':labelOf(currentAxis,currentFilter)+' — まだカードがありません'}</strong>
+      ${s&&s.note?s.note+'<br>':''}${query?'検索語を変えてお試しください。':'この段階の知恵は、虎の巻や勉強会に素材があります。ここを埋めるのが次の一手です。'}</div>`;
     return;
   }
 
-  filtered.forEach((p, i) => {
-    const cases = casesData[p.id] || [];
+  filtered.forEach((p,i)=>{
     const key = p[currentAxis];
+    const col = colorOf(currentAxis,key);
     const card = document.createElement('div');
-    card.className = 'card';
-    card.dataset.phase = p.phase;
-    card.style.animationDelay = `${i * 0.04}s`;
-    const tagStyle = currentAxis === 'cycle'
-      ? ` style="background:${colorOf('cycle', key)}22;color:${colorOf('cycle', key)}"` : '';
+    card.className = 'card' + (openId===p.id?' open':'');
+    card.style.animationDelay = `${i*0.03}s`;
+    if(openId===p.id) card.style.borderColor = col;
+
     card.innerHTML = `
-      <div class="num">${String(p.id).padStart(2,'0')}</div>
-      <span class="phase-tag"${tagStyle}>${labelOf(currentAxis, key)}</span>
-      <div class="name">${p.name}</div>
-      <div class="summary">${p.summary}</div>
-      ${cases.length > 0 ? `<div class="case-badge">事例 ${cases.length}件</div>` : ''}
-    `;
-    card.onclick = () => openModal(p);
-    grid.appendChild(card);
+      <div class="ch">
+        <div class="nbadge" style="background:${col}18;color:${col}">${String(p.id).padStart(2,'0')}</div>
+        <div class="cm">
+          <div class="ct-ja">${p.name}</div>
+          <div class="ct-en">${p.summary||''}</div>
+          <div class="ct-sub">${phaseLabels[p.phase]||p.phase}${p.cycle?' ／ '+(cycleLabels[p.cycle]||p.cycle):''}${p.form&&p.form!=='パターン'?' ／ '+p.form:''}</div>
+        </div>
+        ${p.verified?'':'<span class="sbadge">未検証</span>'}
+        ${(p.jp_cases&&p.jp_cases.length)?`<span class="sbadge" style="background:${col}18;color:${col}">事例 ${p.jp_cases.length}</span>`:''}
+        <span class="chev">▾</span>
+      </div>
+      ${openId===p.id?body(p):''}`;
+
+    card.querySelector('.ch').onclick = ()=>{ openId = (openId===p.id?null:p.id); render(); };
+    listEl.appendChild(card);
   });
 }
 
-document.querySelectorAll('.axis-btn').forEach(b => {
-  b.onclick = () => setAxis(b.dataset.axis);
+function blk(label,color,html){
+  return `<div class="iblock"><div class="ilabel" style="color:${color}">${label}</div>${html}</div>`;
+}
+
+function body(p){
+  let h = '';
+  h += blk(`${fieldLabels.context||'状況'} — Context`,'#D97706',`<div class="itext">${p.context||''}</div>`);
+  if(p.problem) h += blk('問題 — Problem','#DC2626',`<div class="itext">${p.problem}</div>`);
+  if(p.tension&&p.tension.a) h += blk(
+    `${fieldLabels.tension||'板挟み'} — Force${p.tension.verified?'':'<span class="unverified">未検証</span>'}`,'#7C3AED',
+    `<div class="tension-box"><div class="tension-side">${p.tension.a}</div>
+     <div class="tension-vs">両立しない</div><div class="tension-side">${p.tension.b}</div></div>`);
+  h += blk(`${fieldLabels.solution||'解決'} — Solution`,'#65A30D',`<div class="itext">${p.solution||''}</div>`);
+  if(p.result) h += blk(`${fieldLabels.result||'結果'} — Result`,'#0891B2',`<div class="itext">${p.result}</div>`);
+  if(p.caution) h += blk('使うときの注意 — Caution','#DC2626',`<div class="itext">${p.caution}</div>`);
+  if(p.social) h += blk(fieldLabels.social||'ソーシャル文脈への翻訳','#2563EB',`<div class="itext">${p.social}</div>`);
+
+  if(Array.isArray(p.related)&&p.related.length){
+    const chips = p.related.map(id=>{
+      const t = patterns.find(x=>x.id===id);
+      return `<span class="chip" data-goto="${id}">#${String(id).padStart(2,'0')} ${t?t.name:''}</span>`;
+    }).join('');
+    h += blk('関連するパターン — Related','#6B7280',`<div class="chip-row">${chips}</div>`);
+  }
+
+  if(p.jp_cases&&p.jp_cases.length){
+    const items = p.jp_cases.map((c,i)=>
+      `<a class="case-item" href="./cases.html?collection=cross-border&patternId=${p.id}&caseIndex=${i}" target="_blank">
+        <div class="case-item-title">${c.title||''}</div>
+        <div class="case-item-meta">${c.date||''}${c.author?' / '+c.author:''}</div>
+        <div class="case-item-desc">${(c.desc||'').slice(0,80)}${(c.desc||'').length>80?'…':''}</div></a>`).join('');
+    h += blk(`事例 — Cases（${p.jp_cases.length}件）`,'#7C3AED',items);
+  }
+
+  if(p.source) h += `<div class="sd-meta" style="padding:2px 4px">出所：${p.source}${p.verified?'':'（未検証の草案）'}</div>`;
+  return `<div class="cbody"><div class="cbinner">${h}</div></div>`;
+}
+
+listEl.addEventListener('click', e=>{
+  const chip = e.target.closest('.chip[data-goto]');
+  if(!chip) return;
+  e.stopPropagation();
+  const id = Number(chip.dataset.goto);
+  const t = patterns.find(x=>x.id===id);
+  if(!t) return;
+  query=''; document.getElementById('searchInput').value='';
+  if(currentFilter!=='all' && t[currentAxis]!==currentFilter) applyFilter('all');
+  openId = id;
+  render();
+  const el = [...listEl.querySelectorAll('.card')].find(c=>c.querySelector('.nbadge').textContent===String(id).padStart(2,'0'));
+  if(el) el.scrollIntoView({behavior:'smooth',block:'center'});
 });
 
-// ===== モーダル =====
-const overlay = document.getElementById('overlay');
-const modal = document.getElementById('modal');
-function openModal(p) {
-  const color = phaseColors[p.phase] || 'var(--text)';
-  const cyColor = colorOf('cycle', p.cycle);
-  const cases = casesData[p.id] || [];
-
-  const casesHtml = cases.length > 0 ? `
-    <div class="section-label" style="color:var(--accent-cross);margin-top:1.5rem">事例 — Cases（${cases.length}件）</div>
-    <div class="cases-list">
-      ${cases.map((c, i) => `
-        <a class="case-item" href="./cases.html?collection=cross-border&patternId=${p.id}&caseIndex=${i}" target="_blank">
-          <div class="case-item-title">${c.title}</div>
-          <div class="case-item-meta">${c.date || ''}${c.author ? ' / ' + c.author : ''}</div>
-          <div class="case-item-desc">${(c.desc||'').slice(0,80)}${(c.desc||'').length > 80 ? '...' : ''}</div>
-        </a>
-      `).join('')}
-    </div>
-  ` : '';
-
-  const resultHtml = p.result ? `
-    <div class="section-label sol">結果 — Result</div>
-    <p>${p.result}</p>` : '';
-
-  const tensionHtml = (p.tension && p.tension.a) ? `
-    <div class="section-label prob">板挟み<span class="unverified">未検証</span></div>
-    <div class="tension-box">
-      <div class="tension-side">${p.tension.a}</div>
-      <div class="tension-vs">両立しない</div>
-      <div class="tension-side">${p.tension.b}</div>
-    </div>` : '';
-
-  const cycleTag = p.cycle ? `<span class="m-phase" style="background:${cyColor}22;color:${cyColor};margin-left:0.4rem">${cycleLabels[p.cycle] || p.cycle}</span>` : '';
-
-  const related = Array.isArray(p.related) && p.related.length
-    ? `<div class="section-label" style="color:var(--text-muted);margin-top:1.5rem">関連するパターン</div>
-       <p>${p.related.map(id => {
-            const t = patterns.find(x => x.id === id);
-            return t ? `#${String(id).padStart(2,'0')} ${t.name}` : `#${id}`;
-          }).join(' ／ ')}</p>` : '';
-
-  modal.innerHTML = `
-    <button class="close-btn" onclick="closeModal()">✕</button>
-    <span class="m-phase" style="background:${color}22;color:${color}">${phaseLabels[p.phase] || p.phase} #${String(p.id).padStart(2,'0')}</span>
-    ${cycleTag}
-    <div class="m-name">${p.name}</div>
-    <div class="section-label ctx">状況 — Context</div>
-    <p>${p.context}</p>
-    <div class="section-label prob">問題 — Problem</div>
-    <p>${p.problem}</p>
-    ${tensionHtml}
-    <div class="section-label sol">解決 — Solution</div>
-    <p>${p.solution}</p>
-    ${resultHtml}
-    <div class="section-label social">社会起業家支援への読み替え</div>
-    <p>${p.social}</p>
-    ${related}
-    ${casesHtml}
-  `;
-  overlay.classList.add('open');
-}
-function closeModal() { overlay.classList.remove('open'); }
-overlay.onclick = (e) => { if (e.target === overlay) closeModal(); };
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+document.querySelectorAll('#axisRow .fbtn').forEach(b=> b.onclick = ()=> setAxis(b.dataset.axis));
+document.getElementById('searchInput').addEventListener('input', e=>{ query = e.target.value.trim(); render(); });
 
 boot();
 </script>
