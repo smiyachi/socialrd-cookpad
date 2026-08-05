@@ -2,7 +2,7 @@
   "collection": "cross-border",
   "label": "伴走者のパターン・ランゲージ",
   "category": "coordinator",
-  "version": "0.2-draft",
+  "version": "0.2.1-draft",
   "updated": "2026-08-05",
   "source_url": "https://www.meti.go.jp/policy/economy/jinzai/shukkokigyo/gaidorain.pdf",
   "source_label": "経済産業省「越境学習を支える伴走者のための実践ガイドライン」(2025)",
@@ -15,7 +15,9 @@
     "related は暫定の提案。現場で検証して増減させる前提。",
     "result / cases は意図的に空。つくれぽ（実践報告）で埋めていく欄。",
     "verified は全件 false。原典から機械的に導いた未検証の仮説のため。",
-    "transfer の『要組み替え』は、所属組織に帰任する前提に依存する10枚。"
+    "transfer の『要組み替え』は、所属組織に帰任する前提に依存する10枚。",
+    "jp_cases は既存サイト（cross-border.html）が読み込む事例の受け皿。名称はサイト側に合わせている。",
+    "パターン本文の正本は現状 cross-border.html 内のJS配列。本ファイルとの二重管理に注意。"
   ],
   "cycle_stages": [
     {
@@ -190,8 +192,8 @@
       "related": [
         3
       ],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 2,
@@ -209,8 +211,8 @@
       "related": [
         8
       ],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 3,
@@ -228,8 +230,8 @@
       "related": [
         1
       ],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 4,
@@ -245,8 +247,8 @@
       "result": "",
       "social": "先輩起業家との対話セッション、ロールモデル紹介。成功談だけでなく「こう苦しんだ」という話が最も力になる。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 5,
@@ -262,8 +264,8 @@
       "result": "",
       "social": "社会起業家が「この事業が終わった後の人生」を不安に思うとき、次のキャリアパスやスキルの可搬性を一緒に考える。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 6,
@@ -279,8 +281,8 @@
       "result": "",
       "social": "起業家が前職を離れる、あるいは本業との両立を始めるとき、周囲の理解を得るプロセスそのもの。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 7,
@@ -296,8 +298,8 @@
       "result": "",
       "social": "新しい活動フィールド（地域・セクター）に入る前の事前リサーチやキーパーソンへの事前挨拶。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 8,
@@ -315,8 +317,8 @@
       "related": [
         2
       ],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 9,
@@ -335,8 +337,8 @@
         11,
         14
       ],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 10,
@@ -355,8 +357,8 @@
         34,
         11
       ],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 11,
@@ -375,8 +377,8 @@
         9,
         33
       ],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 12,
@@ -392,8 +394,8 @@
       "result": "",
       "social": "起業家が新しいコミュニティに入ったとき、キーパーソンとの「最初の一杯」をセッティングする。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 13,
@@ -409,8 +411,8 @@
       "result": "",
       "social": "社会起業家に「安全な小さい仕事」ばかり回さず、本気の案件を任せることで真の力を引き出す。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 14,
@@ -429,8 +431,8 @@
         9,
         27
       ],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 15,
@@ -448,8 +450,8 @@
       "related": [
         27
       ],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 16,
@@ -465,8 +467,8 @@
       "result": "",
       "social": "地域の文化・商慣習・人間関係の力学を起業家に「翻訳」して伝える。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 17,
@@ -482,8 +484,8 @@
       "result": "",
       "social": "起業家と地域の人々が一緒にアイデアを出す場を設計する。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 18,
@@ -499,8 +501,8 @@
       "result": "",
       "social": "起業家が活動現場に没入しすぎて支援者・資金提供者との関係が切れることを防ぐ。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 19,
@@ -519,8 +521,8 @@
         26,
         30
       ],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 20,
@@ -536,8 +538,8 @@
       "result": "",
       "social": "現場のフラストレーションを政策提言やアドボカシーに転化する支援。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 21,
@@ -553,8 +555,8 @@
       "result": "",
       "social": "社会起業家のアイデアを小さくプロトタイプする場（PoC支援）。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 22,
@@ -570,8 +572,8 @@
       "result": "",
       "social": "起業家の成果発信を一回きりのイベントで終わらせず、継続的なストーリーテリングとして設計する。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 23,
@@ -587,8 +589,8 @@
       "result": "",
       "social": "起業家が事業を次のフェーズに進める際の「次の舞台」を一緒に探す。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 24,
@@ -604,8 +606,8 @@
       "result": "",
       "social": "異なるセクター間（NPO・行政・企業）を渡り歩いた人の「複眼的な視点」を事業設計に活かす。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 25,
@@ -621,8 +623,8 @@
       "result": "",
       "social": "支援先同士のネットワーク形成、アルムナイコミュニティの運営。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 26,
@@ -640,8 +642,8 @@
       "related": [
         19
       ],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 27,
@@ -660,8 +662,8 @@
         14,
         15
       ],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 28,
@@ -677,8 +679,8 @@
       "result": "",
       "social": "中間支援組織の最大の価値は「つなぐ」力。人・資金・ノウハウの仲介。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 29,
@@ -696,8 +698,8 @@
       "related": [
         32
       ],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 30,
@@ -715,8 +717,8 @@
       "related": [
         19
       ],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 31,
@@ -732,8 +734,8 @@
       "result": "",
       "social": "コーディネーター自身が「答えを持っている人」ではなく「一緒に探求する人」であるというスタンス。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 32,
@@ -751,8 +753,8 @@
       "related": [
         29
       ],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 33,
@@ -771,8 +773,8 @@
         34,
         11
       ],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 34,
@@ -791,8 +793,8 @@
         10,
         33
       ],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 35,
@@ -808,8 +810,8 @@
       "result": "",
       "social": "助成金の報告書を書くことが目的化して、本来の支援の質が落ちる現象への警鐘。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 36,
@@ -825,8 +827,8 @@
       "result": "",
       "social": "中間支援者自身が起業家の立場を経験する機会（起業体験プログラムなど）。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 37,
@@ -842,8 +844,8 @@
       "result": "",
       "social": "コーディネーター同士の振り返り会、支援先からの360度フィードバック。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     },
     {
       "id": 38,
@@ -859,8 +861,8 @@
       "result": "",
       "social": "「なぜ社会起業家を支援するのか」という問いを自分の中に持ち続けること。それが支援の質の最も深い土台になる。",
       "related": [],
-      "cases": [],
-      "verified": false
+      "verified": false,
+      "jp_cases": []
     }
   ]
 }
