@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>コーディネーター育成 評価指標</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#F5F4F0;font-family:'Helvetica Neue','Hiragino Sans','Noto Sans JP',sans-serif;color:#1A1A1A}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+
+.header{padding:24px 0 14px}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.15em;color:#D97706;text-transform:uppercase;margin-bottom:5px}
+h1{font-size:20px;font-weight:800;line-height:1.3;margin-bottom:3px}
+.subtitle{font-size:12px;color:#6B7280;line-height:1.7}
+
+.levelbar{display:flex;gap:8px;flex-wrap:wrap;padding:12px 14px;background:#fff;border-radius:10px;border:1px solid #E9E8E4;margin:12px 0;font-size:11px;align-items:center}
+.lv{display:flex;align-items:center;gap:6px}
+.lvnum{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;background:#F3F4F6;color:#6B7280;flex-shrink:0}
+.lvname{color:#374151;font-weight:600}
+.lvarrow{color:#C4C3BF;font-size:11px}
+.lvmid{color:#C4C3BF;font-size:10px}
+
+.search-wrap{position:relative;margin:12px 0 10px}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#9CA3AF;pointer-events:none;font-size:14px}
+.search-bar{width:100%;padding:10px 14px 10px 36px;border:1.5px solid #E5E7EB;border-radius:10px;font-size:13px;background:#fff;outline:none;font-family:inherit;transition:border .15s}
+.search-bar:focus{border-color:#6B7280}
+
+.filter-groups{display:flex;flex-direction:column;gap:8px}
+.fg-label{font-size:9.5px;font-weight:700;color:#9CA3AF;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
+.fg-row{display:flex;gap:4px;flex-wrap:wrap}
+.fbtn{padding:5px 11px;border-radius:20px;border:1.5px solid #E5E7EB;font-size:11px;font-weight:600;cursor:pointer;background:#fff;color:#374151;transition:all .15s;white-space:nowrap;font-family:inherit}
+.fbtn:hover{border-color:#9CA3AF;background:#F9FAFB}
+.fbtn.active{border-color:transparent;color:#fff;background:#1A1A1A}
+
+.stats{font-size:11px;color:#9CA3AF;font-weight:500;margin:10px 0 8px}
+.list{display:flex;flex-direction:column;gap:5px;padding-bottom:24px}
+
+.card{background:#fff;border-radius:13px;border:1px solid #E9E8E4;overflow:hidden;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.04);transition:box-shadow .18s,border-color .18s}
+.card:hover{border-color:#D1D0CB;box-shadow:0 3px 12px rgba(0,0,0,0.07)}
+.card.open{border-width:2px;box-shadow:0 5px 20px rgba(0,0,0,0.09)}
+.ch{padding:12px 14px;display:flex;align-items:center;gap:11px}
+.nbadge{min-width:52px;height:32px;padding:0 8px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;text-align:center;line-height:1.2}
+.cm{flex:1;min-width:0}
+.ct-ja{font-size:13.5px;font-weight:700;line-height:1.3;color:#111827}
+.ct-en{font-size:11px;color:#6B7280;margin-top:2px;line-height:1.5}
+.ladder{display:flex;align-items:center;gap:5px;margin-top:4px;flex-wrap:wrap}
+.rung{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:6px}
+.rungsep{font-size:10px;color:#C4C3BF}
+.newbadge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:6px;background:#FEF3C7;color:#B45309;flex-shrink:0}
+.chev{color:#C4C3BF;font-size:12px;flex-shrink:0;transition:transform .2s}
+.card.open .chev{transform:rotate(180deg)}
+
+.cbody{padding:0 14px 14px;animation:fadeIn .18s ease}
+.cbinner{display:flex;flex-direction:column;gap:7px}
+.iblock{border-radius:9px;padding:10px 12px;background:#FAFAF9;border:1px solid #EDECEB}
+.ilabel{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.itext{font-size:12px;line-height:1.85;color:#374151}
+
+.lvblock{border-radius:9px;padding:11px 13px;background:#fff;border:1px solid #E9E8E4;margin-bottom:5px}
+.lvhead{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.lvchip{font-size:10px;font-weight:800;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lvnick{font-size:13px;font-weight:700}
+.lvcap{font-size:10px;color:#9CA3AF}
+.lvq{font-size:12px;line-height:1.9;color:#374151;white-space:pre-line}
+
+.chip-row{display:flex;flex-wrap:wrap;gap:4px}
+.chip{font-size:11px;padding:3px 9px;border-radius:7px;background:#fff;border:1px solid #E9E8E4;color:#374151}
+.chip.kw{background:#F9FAFB;color:#6B7280}
+.meta{font-size:10px;color:#9CA3AF;margin-top:6px;letter-spacing:.03em;padding:2px 4px}
+.no-results{text-align:center;padding:48px 20px;color:#9CA3AF;font-size:13px;line-height:1.9;background:#fff;border:1px dashed #E5E7EB;border-radius:13px}
+.no-results strong{display:block;font-size:14px;color:#6B7280;margin-bottom:6px}
+
+footer{text-align:center;padding:32px 16px 40px;margin-top:20px;border-top:1px solid #E5E7EB;font-size:11px;color:#9CA3AF;letter-spacing:.05em;line-height:1.9}
+.footer-sources{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.source-badge{display:inline-flex;align-items:center;gap:5px;background:#F9FAFB;border:1px solid #E5E7EB;border-radius:20px;padding:5px 14px;font-size:11px;font-weight:500;color:#374151;text-decoration:none;transition:all .15s;letter-spacing:.03em}
+.source-badge:hover{background:#F3F4F6;border-color:#D1D5DB;color:#111827}
+.source-badge.back{background:#EFF6FF;border-color:#BFDBFE;color:#1D4ED8}
+.source-badge.back:hover{background:#DBEAFE}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="header">
+  <div class="eyebrow">ETIC. 地域コーディネーター育成プログラム評価指標</div>
+  <h1>コーディネーター育成 評価指標</h1>
+  <p class="subtitle">スキルセットとマインドセットを5段階で。評価基準はすべて「問い」の形で書かれています。査定の物差しではなく、自分に向ける問いとして使うもの。カードをタップで各段階と関連パターンを表示。</p>
+</div>
+
+<div class="levelbar" id="levelbar"></div>
+
+<div class="search-wrap">
+  <span class="search-icon">🔍</span>
+  <input class="search-bar" type="text" id="searchInput" placeholder="項目名・説明・問い・キーワードで検索...">
+</div>
+
+<div class="filter-groups">
+  <div>
+    <div class="fg-label">分類 — Category</div>
+    <div class="fg-row" id="controls"></div>
+  </div>
+</div>
+
+<div class="stats" id="stats"></div>
+<div class="list" id="list"></div>
+
+<footer>
+  ETIC. ゴールドマン・サックス中小企業経営革新プログラム 地域コーディネーター育成評価指標をもとに構成<br>
+  スキル7項目・マインド5項目は原文のまま。「見立て（診断）」のみ今回の追加提案。
+  <div class="footer-sources">
+    <a class="source-badge" href="./cross-border.html">🤝 伴走者のパターン・ランゲージ</a>
+    <a class="source-badge back" href="./">← ツール一覧に戻る</a>
+  </div>
+</footer>
+
+</div>
+
+<script>
+const DATA_URL = './coordinator-competency.json';
+const catColors = {
+  '基盤':'#D97706','対個別性':'#2563EB','対関係性':'#7C3AED',
+  '対発展性':'#65A30D','マインドセット':'#DC2626'
+};
+const lvColors = {'1':'#9CA3AF','3':'#2563EB','5':'#65A30D'};
+
+let doc = null, items = [], currentCat = 'all', query = '', openId = null;
+
+const listEl = document.getElementById('list');
+const statsEl = document.getElementById('stats');
+const controlsEl = document.getElementById('controls');
+const levelbarEl = document.getElementById('levelbar');
+
+async function boot(){
+  try{
+    const r = await fetch(DATA_URL + '?_=' + Date.now());
+    if(!r.ok) throw new Error('HTTP ' + r.status);
+    doc = await r.json();
+    items = [...(doc.skills||[]), ...(doc.mindsets||[])].map((x,i)=>({...x, _id:'c'+i}));
+    if(!items.length) throw new Error('empty');
+  }catch(e){
+    listEl.innerHTML = '<div class="no-results"><strong>評価指標を読み込めませんでした</strong>'
+      + 'coordinator-competency.json が同じ階層にあるか確認してください。<br>'
+      + 'ローカルでファイルを直接開いた場合は読み込めません（簡易サーバー経由で開いてください）。</div>';
+    return;
+  }
+  renderLevelbar();
+  renderFilters();
+  render();
+}
+
+function renderLevelbar(){
+  const L = (doc.level_framework||{}).levels || {};
+  const parts = [];
+  ['1','2','3','4','5'].forEach((k,i)=>{
+    if(i) parts.push('<span class="lvarrow">›</span>');
+    if(k==='2'||k==='4'){
+      parts.push(`<span class="lvmid">${k}</span>`);
+    }else{
+      parts.push(`<span class="lv"><span class="lvnum" style="background:${lvColors[k]}1e;color:${lvColors[k]}">${k}</span>`
+        + `<span class="lvname">${(L[k]||{}).label||''}</span></span>`);
+    }
+  });
+  parts.push(`<span style="margin-left:auto;color:#9CA3AF;font-size:10px">${(doc.level_framework||{}).note||''}</span>`);
+  levelbarEl.innerHTML = parts.join('');
+}
+
+function cats(){
+  const seen = [];
+  items.forEach(it=>{ if(it.category && !seen.includes(it.category)) seen.push(it.category); });
+  return seen;
+}
+function countCat(c){ return items.filter(it=>it.category===c).length; }
+
+function renderFilters(){
+  controlsEl.innerHTML = '';
+  const mk = (key,text)=>{
+    const b = document.createElement('button');
+    b.className = 'fbtn' + (key===currentCat?' active':'');
+    b.dataset.key = key; b.textContent = text;
+    b.onclick = ()=>{ currentCat = key; openId = null; renderFilters(); render(); };
+    controlsEl.appendChild(b);
+  };
+  mk('all', `すべて（${items.length}）`);
+  cats().forEach(c=> mk(c, `${c}（${countCat(c)}）`));
+}
+
+function matches(it){
+  if(!query) return true;
+  const q = query.toLowerCase();
+  const bag = [it.name, it.description, ...(it.keywords||[]),
+    ...Object.values(it.levels||{}).flatMap(v=>[v.nickname, v.question])];
+  return bag.filter(Boolean).some(t=>String(t).toLowerCase().includes(q));
+}
+
+function render(){
+  const list = items.filter(it=> currentCat==='all' || it.category===currentCat).filter(matches);
+  statsEl.textContent = `${list.length}件を表示` + (query?`（検索：${query}）`:'');
+  listEl.innerHTML = '';
+  if(!list.length){
+    listEl.innerHTML = '<div class="no-results"><strong>該当する項目がありません</strong>検索語を変えてお試しください。</div>';
+    return;
+  }
+  list.forEach((it,i)=>{
+    const col = catColors[it.category] || '#9CA3AF';
+    const card = document.createElement('div');
+    card.className = 'card' + (openId===it._id?' open':'');
+    card.style.animationDelay = `${i*0.03}s`;
+    if(openId===it._id) card.style.borderColor = col;
+
+    const ladder = ['1','3','5'].map(k=>{
+      const n = ((it.levels||{})[k]||{}).nickname || '';
+      return `<span class="rung" style="background:${lvColors[k]}18;color:${lvColors[k]}">${n}</span>`;
+    }).join('<span class="rungsep">→</span>');
+
+    card.innerHTML = `
+      <div class="ch">
+        <div class="nbadge" style="background:${col}18;color:${col}">${it.category||''}</div>
+        <div class="cm">
+          <div class="ct-ja">${it.name}${it.added?'<span class="newbadge" style="margin-left:6px">追加提案</span>':''}</div>
+          <div class="ct-en">${it.description||''}</div>
+          <div class="ladder">${ladder}</div>
+        </div>
+        <span class="chev">▾</span>
+      </div>
+      ${openId===it._id?bodyHtml(it,col):''}`;
+    card.querySelector('.ch').onclick = ()=>{ openId = (openId===it._id?null:it._id); render(); };
+    listEl.appendChild(card);
+  });
+}
+
+function bodyHtml(it,col){
+  const L = (doc.level_framework||{}).levels || {};
+  let lv = '';
+  ['1','3','5'].forEach(k=>{
+    const v = (it.levels||{})[k] || {};
+    lv += `<div class="lvblock" style="border-left:3px solid ${lvColors[k]}">
+      <div class="lvhead">
+        <span class="lvchip" style="background:${lvColors[k]}1e;color:${lvColors[k]}">${k}</span>
+        <span class="lvnick" style="color:${lvColors[k]}">${v.nickname||''}</span>
+        <span class="lvcap">${(L[k]||{}).label||''}</span>
+      </div>
+      <div class="lvq">${v.question||''}</div>
+    </div>`;
+  });
+
+  const kw = (it.keywords||[]).length
+    ? `<div class="iblock"><div class="ilabel" style="color:#6B7280">キーワード — Keywords</div>
+       <div class="chip-row">${it.keywords.map(k=>`<span class="chip kw">${k}</span>`).join('')}</div></div>` : '';
+
+  const pr = (it.pattern_refs||[]).length
+    ? `<div class="iblock"><div class="ilabel" style="color:${col}">関連するパターン — Patterns（${it.pattern_refs.length}）</div>
+       <div class="chip-row">${it.pattern_refs.map(p=>
+         `<a class="chip" href="./cross-border.html" style="text-decoration:none">#${String(p.id).padStart(2,'0')} ${p.name}</a>`).join('')}</div></div>` : '';
+
+  const note = it.note
+    ? `<div class="iblock" style="background:#FFFBEB;border-color:#FDE68A">
+       <div class="ilabel" style="color:#B45309">この項目について — Note</div>
+       <div class="itext">${it.note}</div></div>` : '';
+
+  return `<div class="cbody"><div class="cbinner">
+    <div class="iblock" style="background:transparent;border:none;padding:0">${lv}</div>
+    ${kw}${pr}${note}
+    <div class="meta">出所：${it.origin||''}</div>
+  </div></div>`;
+}
+
+document.getElementById('searchInput').addEventListener('input', e=>{
+  query = e.target.value.trim(); openId = null; render();
+});
+
+boot();
+</script>
+</body>
+</html>
