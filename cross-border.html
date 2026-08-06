@@ -120,13 +120,20 @@ footer{text-align:center;padding:32px 16px 40px;margin-top:20px;border-top:1px s
 
 <div class="filter-groups">
   <div>
+    <div class="fg-label">表示 — View</div>
+    <div class="fg-row" id="modeRow">
+      <button class="fbtn active" data-mode="patterns">パターン</button>
+      <button class="fbtn" data-mode="frameworks">フレームワーク</button>
+    </div>
+  </div>
+  <div id="axisGroup">
     <div class="fg-label">軸 — Axis</div>
     <div class="fg-row" id="axisRow">
       <button class="fbtn active" data-axis="phase">越境学習の旅</button>
       <button class="fbtn" data-axis="cycle">支援サイクル</button>
     </div>
   </div>
-  <div>
+  <div id="filterGroup">
     <div class="fg-label" id="filterLabel">フェーズ</div>
     <div class="fg-row" id="controls"></div>
     <div class="sub-filter-wrap" id="subControls"></div>
@@ -165,6 +172,7 @@ const axisLabel = {phase:'フェーズ', cycle:'支援サイクル（虎の巻20
 let patterns = [], cycleGroups = [], groupById = {}, stepById = {}, cycleOverview = '';
 let fieldLabels = {};
 let currentAxis = 'phase', currentFilter = 'all', currentStep = null, query = '', openId = null;
+let currentMode = 'patterns', frameworks = [], openFw = null;
 
 const listEl = document.getElementById('list');
 const statsEl = document.getElementById('stats');
@@ -173,6 +181,8 @@ const stageDescEl = document.getElementById('stageDesc');
 const legendEl = document.getElementById('legend');
 const filterLabelEl = document.getElementById('filterLabel');
 const subControlsEl = document.getElementById('subControls');
+const axisGroupEl = document.getElementById('axisGroup');
+const filterGroupEl = document.getElementById('filterGroup');
 
 async function boot(){
   try{
@@ -185,6 +195,7 @@ async function boot(){
     cycleGroups.forEach(g=>{ groupById[g.id]=g; (g.steps||[]).forEach(s=>{ stepById[s.id]={...s, group:g.id}; }); });
     cycleOverview = d.cycle_overview || '';
     fieldLabels = d.field_labels || {};
+    frameworks = d.frameworks || [];
     if(d.phase_labels) phaseLabels = d.phase_labels;
   }catch(e){
     listEl.innerHTML = '<div class="no-results"><strong>パターンデータを読み込めませんでした</strong>'
@@ -193,6 +204,8 @@ async function boot(){
     return;
   }
   document.getElementById('totalCount').textContent = patterns.length;
+  document.querySelector('#modeRow [data-mode="patterns"]').textContent = `パターン（${patterns.length}）`;
+  document.querySelector('#modeRow [data-mode="frameworks"]').textContent = `フレームワーク（${frameworks.length}）`;
   renderLegend();
   setAxis('phase');
 }
@@ -220,6 +233,25 @@ function renderLegend(){
     + `<span class="legend-label">${phaseLabels[k]}（${counts[k]}）</span>`
     + `<span class="legend-desc">${phaseDesc[k]||''}</span></div>`
   ).join('');
+}
+
+function setMode(mode){
+  currentMode = mode;
+  openId = null; openFw = null;
+  document.querySelectorAll('#modeRow .fbtn').forEach(b=>b.classList.toggle('active', b.dataset.mode===mode));
+  const isFw = mode==='frameworks';
+  axisGroupEl.style.display = isFw ? 'none' : '';
+  filterGroupEl.style.display = isFw ? 'none' : '';
+  legendEl.style.display = isFw ? 'none' : '';
+  if(isFw){
+    stageDescEl.innerHTML = `<div class="sd-inner" style="border-left-color:#1A1A1A">
+      <div class="sd-title">フレームワークとは</div>
+      <div class="sd-body">パターンではない知。状況ごとの勘所ではなく、ものの見方・段階の区別・プロセスの型。
+      「状況→板挟み→解決」の形に押し込むと痩せるため、別立てにしている。使いどころだけを添えてある。</div></div>`;
+    renderFrameworks();
+  }else{
+    renderStageDesc(); render();
+  }
 }
 
 function setAxis(axis){
@@ -413,7 +445,11 @@ listEl.addEventListener('click', e=>{
 });
 
 document.querySelectorAll('#axisRow .fbtn').forEach(b=> b.onclick = ()=> setAxis(b.dataset.axis));
-document.getElementById('searchInput').addEventListener('input', e=>{ query = e.target.value.trim(); render(); });
+document.querySelectorAll('#modeRow .fbtn').forEach(b=> b.onclick = ()=> setMode(b.dataset.mode));
+document.getElementById('searchInput').addEventListener('input', e=>{
+  query = e.target.value.trim();
+  currentMode==='frameworks' ? renderFrameworks() : render();
+});
 
 boot();
 </script>
