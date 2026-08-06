@@ -129,6 +129,7 @@ footer{text-align:center;padding:32px 16px 40px;margin-top:20px;border-top:1px s
   <div>
     <div class="fg-label" id="filterLabel">フェーズ</div>
     <div class="fg-row" id="controls"></div>
+    <div class="sub-filter-wrap" id="subControls"></div>
   </div>
 </div>
 
@@ -155,18 +156,15 @@ const phaseDesc = {
   cross:"全期間に効くもの", meta:"伴走者自身の姿勢", own:"ETIC.の実践から起こした草案"
 };
 const phaseColors = {before:'#D97706',during:'#2563EB',after:'#65A30D',cross:'#7C3AED',meta:'#DC2626',own:'#0891B2'};
-const cycleColors = {
-  collect:'#D97706', immerse:'#D97706',
-  analyze:'#7C3AED', assess_issue:'#7C3AED',
-  consider:'#2563EB', assess_action:'#2563EB',
-  execute:'#65A30D', followup:'#65A30D',
-  stance:'#DC2626', growth:'#DC2626'
+const groupColors = {
+  assess_issue:'#7C3AED', assess_action:'#2563EB', execute:'#65A30D',
+  stance:'#DC2626', growth:'#D97706'
 };
-const axisLabel = {phase:'フェーズ', cycle:'支援サイクルの段階'};
+const axisLabel = {phase:'フェーズ', cycle:'支援サイクル（虎の巻2018）'};
 
-let patterns = [], cycleStages = [], cycleLabels = {}, cycleStageById = {}, cycleOverview = '';
+let patterns = [], cycleGroups = [], groupById = {}, stepById = {}, cycleOverview = '';
 let fieldLabels = {};
-let currentAxis = 'phase', currentFilter = 'all', query = '', openId = null;
+let currentAxis = 'phase', currentFilter = 'all', currentStep = null, query = '', openId = null;
 
 const listEl = document.getElementById('list');
 const statsEl = document.getElementById('stats');
@@ -174,6 +172,7 @@ const controlsEl = document.getElementById('controls');
 const stageDescEl = document.getElementById('stageDesc');
 const legendEl = document.getElementById('legend');
 const filterLabelEl = document.getElementById('filterLabel');
+const subControlsEl = document.getElementById('subControls');
 
 async function boot(){
   try{
@@ -182,8 +181,8 @@ async function boot(){
     const d = await r.json();
     patterns = d.patterns || d;
     if(!Array.isArray(patterns) || !patterns.length) throw new Error('empty');
-    cycleStages = (d.cycle_stages || []).slice().sort((a,b)=>a.order-b.order);
-    cycleStages.forEach(s=>{ cycleLabels[s.id]=s.label; cycleStageById[s.id]=s; });
+    cycleGroups = (d.cycle_groups || []).slice().sort((a,b)=>a.order-b.order);
+    cycleGroups.forEach(g=>{ groupById[g.id]=g; (g.steps||[]).forEach(s=>{ stepById[s.id]={...s, group:g.id}; }); });
     cycleOverview = d.cycle_overview || '';
     fieldLabels = d.field_labels || {};
     if(d.phase_labels) phaseLabels = d.phase_labels;
@@ -198,12 +197,24 @@ async function boot(){
   setAxis('phase');
 }
 
-function labelOf(axis,key){ return axis==='phase' ? (phaseLabels[key]||key) : (cycleLabels[key]||key); }
-function colorOf(axis,key){ return (axis==='phase'?phaseColors[key]:cycleColors[key]) || '#9CA3AF'; }
-function countBy(axis){ const c={}; patterns.forEach(p=>{ const k=p[axis]; if(k) c[k]=(c[k]||0)+1; }); return c; }
+function labelOf(axis,key){
+  if(axis==='phase') return phaseLabels[key]||key;
+  return (groupById[key]&&groupById[key].label) || (stepById[key]&&stepById[key].label) || key;
+}
+function colorOf(axis,key){
+  if(axis==='phase') return phaseColors[key]||'#9CA3AF';
+  const g = groupById[key] ? key : (stepById[key]&&stepById[key].group);
+  return groupColors[g] || '#9CA3AF';
+}
+function groupColorOfPattern(p){
+  return currentAxis==='phase' ? (phaseColors[p.phase]||'#9CA3AF') : (groupColors[p.cycle_group]||'#9CA3AF');
+}
+function countGroup(id){ return patterns.filter(p=>p.cycle_group===id).length; }
+function countStep(id){ return patterns.filter(p=>p.cycle_step===id).length; }
+function countPhase(k){ return patterns.filter(p=>p.phase===k).length; }
 
 function renderLegend(){
-  const counts = countBy('phase');
+  const counts = {}; Object.keys(phaseLabels).forEach(k=>counts[k]=countPhase(k));
   legendEl.innerHTML = Object.keys(phaseLabels).filter(k=>counts[k]).map(k=>
     `<div class="legend-item"><div class="legend-dot" style="background:${phaseColors[k]}"></div>`
     + `<span class="legend-label">${phaseLabels[k]}（${counts[k]}）</span>`
@@ -220,24 +231,46 @@ function setAxis(axis){
 }
 
 function renderFilters(){
-  const counts = countBy(currentAxis);
-  const keys = currentAxis==='phase' ? Object.keys(phaseLabels) : cycleStages.map(s=>s.id);
   controlsEl.innerHTML = '';
   const mk = (key,text,n)=>{
     const b=document.createElement('button');
-    b.className = currentAxis==='phase' ? 'fbtn' : 'sfbtn';
-    b.dataset.key=key; b.textContent=text;
+    b.className='fbtn'; b.dataset.key=key; b.textContent=text;
     if(n===0) b.classList.add('empty');
     b.onclick=()=>applyFilter(key);
     controlsEl.appendChild(b);
   };
   mk('all', `すべて（${patterns.length}）`, patterns.length);
-  keys.forEach(k=> mk(k, `${labelOf(currentAxis,k)}（${counts[k]||0}）`, counts[k]||0));
+  if(currentAxis==='phase'){
+    Object.keys(phaseLabels).forEach(k=> mk(k, `${phaseLabels[k]}（${countPhase(k)}）`, countPhase(k)));
+  }else{
+    cycleGroups.forEach(g=> mk(g.id, `${g.label}（${countGroup(g.id)}）`, countGroup(g.id)));
+  }
+}
+
+function renderSubFilters(){
+  subControlsEl.innerHTML = '';
+  if(currentAxis!=='cycle' || currentFilter==='all') return;
+  const g = groupById[currentFilter];
+  if(!g || !(g.steps||[]).length) return;
+  const row = document.createElement('div');
+  row.className = 'sub-filter-row';
+  const mk = (key,text,n,active)=>{
+    const b=document.createElement('button');
+    b.className='sfbtn'+(active?' active':''); b.textContent=text;
+    if(n===0) b.classList.add('empty');
+    b.onclick=()=>{ currentStep = key; renderSubFilters(); renderStageDesc(); render(); };
+    row.appendChild(b);
+  };
+  mk(null, `この枠すべて（${countGroup(g.id)}）`, countGroup(g.id), currentStep===null);
+  g.steps.forEach(s=> mk(s.id, `${s.label}（${countStep(s.id)}）`, countStep(s.id), currentStep===s.id));
+  subControlsEl.appendChild(row);
 }
 
 function applyFilter(key){
   currentFilter = key;
+  currentStep = null;
   controlsEl.querySelectorAll('button').forEach(b=>b.classList.toggle('active', b.dataset.key===key));
+  renderSubFilters();
   renderStageDesc();
   render();
 }
@@ -250,13 +283,25 @@ function renderStageDesc(){
       <div class="sd-body">${cycleOverview}</div></div>`;
     return;
   }
-  const s = cycleStageById[currentFilter];
-  if(!s){ stageDescEl.innerHTML=''; return; }
-  const c = colorOf('cycle',currentFilter);
+  const g = groupById[currentFilter];
+  if(!g){ stageDescEl.innerHTML=''; return; }
+  const c = groupColors[g.id]||'#1A1A1A';
+  if(currentStep){
+    const s = (g.steps||[]).find(x=>x.id===currentStep);
+    if(s){
+      stageDescEl.innerHTML = `<div class="sd-inner" style="border-left-color:${c}">
+        <div class="sd-title" style="color:${c}">${g.label} ／ ${s.label}</div>
+        <div class="sd-body">${s.description||''}</div>
+        <div class="sd-meta">${g.origin?'出典：'+g.origin:''}</div></div>`;
+      return;
+    }
+  }
   stageDescEl.innerHTML = `<div class="sd-inner" style="border-left-color:${c}">
-    <div class="sd-title" style="color:${c}">${s.label}</div>
-    <div class="sd-body">${s.description||''}</div>
-    <div class="sd-meta">${s.origin?'出典：'+s.origin:''}${s.note?'　／　'+s.note:''}</div></div>`;
+    <div class="sd-title" style="color:${c}">${g.label}${(g.steps||[]).length?'（'+g.steps.map(s=>s.label).join(' → ')+'）':''}</div>
+    <div class="sd-body">${g.description||''}</div>
+    ${g.input?`<div class="sd-body" style="margin-top:6px;color:#6B7280">↳ ${g.input}</div>`:''}
+    ${g.note?`<div class="sd-body" style="margin-top:6px;color:#6B7280">※ ${g.note}</div>`:''}
+    <div class="sd-meta">${g.origin?'出典：'+g.origin:''}</div></div>`;
 }
 
 function matches(p){
@@ -267,24 +312,26 @@ function matches(p){
 }
 
 function render(){
-  const filtered = patterns
-    .filter(p=> currentFilter==='all' || p[currentAxis]===currentFilter)
-    .filter(matches);
+  const filtered = patterns.filter(p=>{
+    if(currentFilter==='all') return true;
+    if(currentAxis==='phase') return p.phase===currentFilter;
+    if(currentStep) return p.cycle_step===currentStep;
+    return p.cycle_group===currentFilter;
+  }).filter(matches);
 
   statsEl.textContent = `${filtered.length}件を表示` + (query?`（検索：${query}）`:'');
   listEl.innerHTML = '';
 
   if(!filtered.length){
-    const s = cycleStageById[currentFilter];
+    const lbl = currentStep ? labelOf('cycle',currentStep) : labelOf(currentAxis,currentFilter);
     listEl.innerHTML = `<div class="no-results">
-      <strong>${currentFilter==='all'?'該当するパターンがありません':labelOf(currentAxis,currentFilter)+' — まだカードがありません'}</strong>
-      ${s&&s.note?s.note+'<br>':''}${query?'検索語を変えてお試しください。':'この段階の知恵は、虎の巻や勉強会に素材があります。ここを埋めるのが次の一手です。'}</div>`;
+      <strong>${currentFilter==='all'?'該当するパターンがありません':lbl+' — まだカードがありません'}</strong>
+      ${query?'検索語を変えてお試しください。':'この段階の知恵は、虎の巻や勉強会に素材があります。ここを埋めるのが次の一手です。'}</div>`;
     return;
   }
 
   filtered.forEach((p,i)=>{
-    const key = p[currentAxis];
-    const col = colorOf(currentAxis,key);
+    const col = groupColorOfPattern(p);
     const card = document.createElement('div');
     card.className = 'card' + (openId===p.id?' open':'');
     card.style.animationDelay = `${i*0.03}s`;
@@ -296,7 +343,7 @@ function render(){
         <div class="cm">
           <div class="ct-ja">${p.name}</div>
           <div class="ct-en">${p.summary||''}</div>
-          <div class="ct-sub">${phaseLabels[p.phase]||p.phase}${p.cycle?' ／ '+(cycleLabels[p.cycle]||p.cycle):''}${p.form&&p.form!=='パターン'?' ／ '+p.form:''}</div>
+          <div class="ct-sub">${phaseLabels[p.phase]||p.phase}${p.cycle_group?' ／ '+labelOf('cycle',p.cycle_group):''}${p.cycle_step?' → '+labelOf('cycle',p.cycle_step):''}${p.form&&p.form!=='パターン'?' ／ '+p.form:''}</div>
         </div>
         ${p.verified?'':'<span class="sbadge">未検証</span>'}
         ${(p.jp_cases&&p.jp_cases.length)?`<span class="sbadge" style="background:${col}18;color:${col}">事例 ${p.jp_cases.length}</span>`:''}
@@ -355,7 +402,10 @@ listEl.addEventListener('click', e=>{
   const t = patterns.find(x=>x.id===id);
   if(!t) return;
   query=''; document.getElementById('searchInput').value='';
-  if(currentFilter!=='all' && t[currentAxis]!==currentFilter) applyFilter('all');
+  const inView = currentFilter==='all'
+    || (currentAxis==='phase' ? t.phase===currentFilter
+        : (currentStep ? t.cycle_step===currentStep : t.cycle_group===currentFilter));
+  if(!inView) applyFilter('all');
   openId = id;
   render();
   const el = [...listEl.querySelectorAll('.card')].find(c=>c.querySelector('.nbadge').textContent===String(id).padStart(2,'0'));

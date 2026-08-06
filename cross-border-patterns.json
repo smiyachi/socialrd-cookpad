@@ -2,16 +2,15 @@
   "collection": "cross-border",
   "label": "伴走者のパターン・ランゲージ",
   "category": "coordinator",
-  "version": "0.5-draft",
+  "version": "0.6-draft",
   "updated": "2026-08-05",
   "source_url": "https://www.meti.go.jp/policy/economy/jinzai/shukkokigyo/gaidorain.pdf",
   "source_label": "経済産業省「越境学習を支える伴走者のための実践ガイドライン」(2025)",
   "axes": {
     "phase": "越境学習者の旅（原典の軸）：before / during / after / cross / meta",
-    "cycle": "コーディネーターの支援サイクル（虎の巻2018 スライド20 由来）"
+    "cycle": "コーディネーターの支援サイクル（虎の巻2018 スライド20）。3つの枠と、その中の小段階の2層構造。"
   },
   "notes": [
-    "cycle は今回の仕分け結果。空白の段階は空白のまま残している。",
     "related は暫定の提案。現場で検証して増減させる前提。",
     "result / cases は意図的に空。つくれぽ（実践報告）で埋めていく欄。",
     "verified は全件 false。原典から機械的に導いた未検証の仮説のため。",
@@ -22,93 +21,9 @@
     "正本はこのJSON。cross-border.html は fetch('./cross-border-patterns.json') で読み込む。ファイル名を変えないこと。",
     "id39-47 は虎の巻2018と勉強会(6/17・7/3)から起こした草案。phase='own'（ETIC.の現場から）。全件未検証。",
     "39-47 の social は空。もともとソーシャルの文脈で生まれた知なので、翻訳が不要。",
-    "caution（使うときの注意）は39-47のみ。型を渡したときに起きる誤用を書く欄。不要なら削除可。"
-  ],
-  "cycle_stages": [
-    {
-      "id": "collect",
-      "order": 1,
-      "label": "① 情報収集",
-      "pattern_count": 3,
-      "description": "「いま何が起きているか」を集める段階。本人・組織の状況、業界や市場の情報を、できるだけ主観を挟まずに観察する。ここではまだ判断しない。",
-      "origin": "虎の巻2018"
-    },
-    {
-      "id": "immerse",
-      "order": 2,
-      "label": "② 没入",
-      "note": "パターン空白",
-      "pattern_count": 0,
-      "description": "相手の置かれた状況から、その人の心理状態を想像して入り込む段階。数字や事実の外側にある温度を感じ取る。",
-      "origin": "虎の巻2018"
-    },
-    {
-      "id": "analyze",
-      "order": 3,
-      "label": "③ 洞察・分析",
-      "note": "パターン空白（虎の巻・勉強会に素材あり）",
-      "pattern_count": 3,
-      "description": "「なぜ起きているのか」「根本的な課題は何か」を考える段階。ここは主観に基づいて判断してよい。フレームワークがいちばん効く場所。",
-      "origin": "虎の巻2018"
-    },
-    {
-      "id": "assess_issue",
-      "order": 4,
-      "label": "④ 課題の見立て",
-      "note": "最大の空白。需要は最大",
-      "pattern_count": 2,
-      "description": "集めた情報と洞察から、取り組むべき課題の仮説を立てる段階。虎の巻が「コーディネーターの核となる役割であり強み」と呼んだところ。ただし見立ては診断書ではなく仮説で、相手と一緒に見立て直していく。",
-      "origin": "虎の巻2018 ＋ 勉強会6/17で更新"
-    },
-    {
-      "id": "consider",
-      "order": 5,
-      "label": "⑤ 支援策の検討",
-      "pattern_count": 2,
-      "description": "打てる手の選択肢を広げる段階。コーチング・コンサルティング・メンタリングの使い分け、社内カンファレンス、資源の接続。",
-      "origin": "虎の巻2018"
-    },
-    {
-      "id": "assess_action",
-      "order": 6,
-      "label": "⑥ 支援策の見立て",
-      "pattern_count": 3,
-      "description": "選択肢のひとつひとつを相手になりきって「試着」し、どれが効くかを決める段階。どこまで手を出すかという介入の度合いも、ここで決まる。",
-      "origin": "虎の巻2018"
-    },
-    {
-      "id": "execute",
-      "order": 7,
-      "label": "⑦ 実行",
-      "note": "過密",
-      "pattern_count": 23,
-      "description": "決めた支援を実際に行う段階。相手の行動と学習のサイクルが回るように支える。",
-      "origin": "虎の巻2018"
-    },
-    {
-      "id": "followup",
-      "order": 8,
-      "label": "⑧ 情報の補足 → ①へ戻る",
-      "pattern_count": 1,
-      "description": "やってみた結果を受け取り、見立てを更新する段階。支援策が合わないときは、たいてい課題の見立てのほうが違っている。①へ戻る。",
-      "origin": "虎の巻2018"
-    },
-    {
-      "id": "stance",
-      "order": 99,
-      "label": "サイクル全体を貫く構え",
-      "pattern_count": 7,
-      "description": "どの段階にいても効いている、伴走者の立ち位置と姿勢。手順ではないので、サイクルの順番の中には置けない。",
-      "origin": "今回の仕分けで追加"
-    },
-    {
-      "id": "growth",
-      "order": 100,
-      "label": "サイクルの外：伴走者自身の育ち",
-      "pattern_count": 3,
-      "description": "案件そのものではなく、伴走者が伴走者として育つための営み。振り返り、カンファレンス、自身の越境。",
-      "origin": "今回の仕分けで追加"
-    }
+    "caution（使うときの注意）は39-47のみ。型を渡したときに起きる誤用を書く欄。不要なら削除可。",
+    "cycle_group / cycle_step は虎の巻スライド20の図の2層構造に対応。cycle（旧・平坦な8段階）は誤読だったため廃止。",
+    "「情報の補足」は段階ではなく、課題の見立てへの入力（図では円の外の箱）。段階としては置いていない。"
   ],
   "unassigned_material": {
     "note": "カード化されていない素材。出所別に保持。パターンではないもの（フレームワーク・構え）を含む。",
@@ -206,7 +121,6 @@
       "name": "想いの言語化",
       "summary": "「何を変えたいのか」を本人の言葉で紡ぎ出す",
       "phase": "before",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "越境学習者（または社会起業家）が「何かを変えたい」という漠然とした動機を持っている。しかしその想いは言葉になっておらず、行動の方向が定まらない。",
@@ -225,14 +139,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 2,
       "name": "期待の地ならし",
       "summary": "三者の期待値を可視化し、ズレを事前に埋める",
       "phase": "before",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "送り出す側（所属組織）、受け入れる側（越境先）、本人がそれぞれ異なる期待を持っている。",
@@ -251,14 +166,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 3,
       "name": "不安の正体を見せる",
       "summary": "漠然とした不安を分解し、対処可能にする",
       "phase": "before",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "新しい環境に飛び込む前に、「なじめるだろうか」「評価されなくなるのでは」という漠然とした恐れがある。",
@@ -277,14 +193,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 4,
       "name": "先輩の轍",
       "summary": "経験者の生の体験談に触れ、「自分にもできる」と感じる",
       "phase": "before",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "先例のない挑戦に踏み出そうとしているが、具体的なイメージが湧かず不安が大きい。",
@@ -301,14 +218,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 5,
       "name": "帰り道の灯",
       "summary": "「戻った後の世界」の見通しを示し、越境中の集中力を守る",
       "phase": "before",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "要組み替え",
       "context": "越境後のキャリアや事業の見通しが不透明で、「行きっぱなし」になる恐れがある。",
@@ -325,14 +243,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 6,
       "name": "送り出しの根回し",
       "summary": "周囲を味方にし、越境を組織ぐるみで支える態勢をつくる",
       "phase": "before",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "要組み替え",
       "context": "越境学習者が組織から離れることで、残されるメンバーに負荷が偏る。",
@@ -349,14 +268,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 7,
       "name": "越境先の下見",
       "summary": "事前情報を共有し、スタートダッシュを切れるようにする",
       "phase": "before",
-      "cycle": "collect",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "越境先の文化・業務・ツールがまったく未知の状態で飛び込もうとしている。",
@@ -373,14 +293,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "assess_issue",
+      "cycle_step": "collect"
     },
     {
       "id": 8,
       "name": "契約の見える化",
       "summary": "業務内容・条件・評価基準を曖昧にせず文書化する",
       "phase": "before",
-      "cycle": "execute",
       "form": "手順",
       "transfer": "翻訳が必要",
       "context": "越境学習者と越境先の間で、具体的な業務内容や評価基準が口約束レベルにとどまっている。",
@@ -399,14 +320,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 9,
       "name": "葛藤を味わう",
       "summary": "違和感を「解消すべき問題」ではなく「学びの種」として掘り下げる",
       "phase": "during",
-      "cycle": "stance",
       "form": "構え",
       "transfer": "翻訳が必要",
       "context": "越境先の文化やルールの中で強い違和感やストレスを感じている。",
@@ -426,14 +348,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "stance",
+      "cycle_step": null
     },
     {
       "id": 10,
       "name": "見守りの距離感",
       "summary": "手を出すべき場面と見守るべき場面を見極める",
       "phase": "during",
-      "cycle": "assess_action",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "伴走者が熱心に支援しようとしている。越境学習者が壁にぶつかっている。",
@@ -453,14 +376,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "assess_action",
+      "cycle_step": null
     },
     {
       "id": 11,
       "name": "混乱期間の肯定",
       "summary": "戸惑いの渦中にこそ最も深い学びがあると知る",
       "phase": "during",
-      "cycle": "stance",
       "form": "構え",
       "transfer": "翻訳が必要",
       "context": "越境先の業務やコミュニケーション手法がまるで違い、戸惑いが大きい。",
@@ -480,14 +404,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "stance",
+      "cycle_step": null
     },
     {
       "id": 12,
       "name": "小さな橋渡し",
       "summary": "日常的な小さな接点で孤立を防ぐ",
       "phase": "during",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "越境先で知り合いがおらず、短期間の滞在で人間関係が深まりにくい。",
@@ -504,14 +429,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 13,
       "name": "攻めの業務設計",
       "summary": "「お客さま扱い」を脱し、責任ある仕事で成長させる",
       "phase": "during",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "越境先が越境学習者を短期メンバーとして「お客さま扱い」し、表面的な業務しか任せない。",
@@ -528,14 +454,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 14,
       "name": "揺れの傾聴",
       "summary": "解決策を急がず、本人の揺れをまず受け止める",
       "phase": "during",
-      "cycle": "collect",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "越境学習者が「うまくいかない」「自分はできない」と精神的に揺れている。",
@@ -555,14 +482,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "assess_issue",
+      "cycle_step": "collect"
     },
     {
       "id": 15,
       "name": "進捗の温度計",
       "summary": "定期的に状況を可視化し、早期に軌道修正する",
       "phase": "during",
-      "cycle": "followup",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "越境中の業務が進んでいるが、成長機会と負荷のバランスが見えにくい。",
@@ -581,14 +509,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "assess_issue",
+      "cycle_step": "collect"
     },
     {
       "id": 16,
       "name": "文化の通訳",
       "summary": "暗黙のルールを言語化して越境者に伝える",
       "phase": "during",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "越境先に独自の企業文化・暗黙の了解がある。",
@@ -605,14 +534,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 17,
       "name": "創発の場づくり",
       "summary": "外部視点を活かし、新しい企画が生まれる場を設計する",
       "phase": "during",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "越境学習者が外部から持ち込む視点がある一方、それを活かす場がない。",
@@ -629,14 +559,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 18,
       "name": "所属との架け橋",
       "summary": "越境先にいる間も所属組織とのつながりを維持する",
       "phase": "during",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "要組み替え",
       "context": "越境学習者が越境先に没入し、所属組織との接点が途切れている。",
@@ -653,14 +584,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 19,
       "name": "学びの翻訳",
       "summary": "越境先の言葉を所属組織が理解できる言葉に変換する",
       "phase": "after",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "要組み替え",
       "context": "越境先で得た知見が、所属組織の文脈やフレームに合わない。",
@@ -680,14 +612,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 20,
       "name": "苛立ちの錬金術",
       "summary": "「うちの組織は遅い」という怒りを改革提案に転化する",
       "phase": "after",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "要組み替え",
       "context": "越境先でスピード感ある働き方を体感した帰任者が、元の組織に強い違和感を持っている。",
@@ -704,14 +637,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 21,
       "name": "試しの場",
       "summary": "小規模な実証実験で、新しいアイデアを試す余白をつくる",
       "phase": "after",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "要組み替え",
       "context": "越境学習者が新しいアイデアを持ち帰ったが、組織内にそれを試す場がない。",
@@ -728,14 +662,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 22,
       "name": "風化を防ぐ種まき",
       "summary": "学びを繰り返し共有し、組織の記憶に定着させる",
       "phase": "after",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "要組み替え",
       "context": "帰任後しばらくすると、越境経験への注目が薄れていく。",
@@ -752,14 +687,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 23,
       "name": "帰任後の居場所設計",
       "summary": "越境経験を活かせる役割・配置を意図的につくる",
       "phase": "after",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "要組み替え",
       "context": "帰任者を「元の仕事に戻す」以外の選択肢が用意されていない。",
@@ -776,14 +712,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 24,
       "name": "二重のギャップ活用",
       "summary": "ホームとアウェイの両方へのギャップを発見の原動力にする",
       "phase": "after",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "越境先と所属組織の両方に対するギャップを経験した帰任者がいる。",
@@ -800,14 +737,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 25,
       "name": "越境先との糸を紡ぐ",
       "summary": "帰任後も越境先との関係を継続し、協業の芽を育てる",
       "phase": "after",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "要組み替え",
       "context": "越境期間が終わり、越境先との関係が自然消滅しかけている。",
@@ -824,14 +762,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 26,
       "name": "経営層への翻訳プレゼン",
       "summary": "帰任者の提案を意思決定者に届く形で届ける",
       "phase": "after",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "要組み替え",
       "context": "帰任者が革新的な提案を持っているが、経営層に伝える言語・フォーマットが噛み合わない。",
@@ -850,14 +789,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 27,
       "name": "観察の解像度",
       "summary": "言葉にならない変化を、些細な兆候から察知する",
       "phase": "cross",
-      "cycle": "collect",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "越境学習者の心理状態は日々変化するが、本人が自覚していない場合もある。",
@@ -877,14 +817,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "assess_issue",
+      "cycle_step": "collect"
     },
     {
       "id": 28,
       "name": "資源の仲介者",
       "summary": "必要な人・情報・機会を適時につなぐ",
       "phase": "cross",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "越境学習者が一人で問題を抱え込んでいる。必要なリソースは存在するが、本人にはアクセス手段がない。",
@@ -901,14 +842,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 29,
       "name": "複数の選択肢を示す",
       "summary": "行き詰まりに対して一つの正解ではなく、複数の道を提案する",
       "phase": "cross",
-      "cycle": "consider",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "越境学習者の思考が煮詰まり、一つの方法に固執している。",
@@ -927,14 +869,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "assess_action",
+      "cycle_step": "consider"
     },
     {
       "id": 30,
       "name": "成果の翻訳者",
       "summary": "異なる文脈の間で、成果の意味を変換して伝える",
       "phase": "cross",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "越境先と所属組織では、成果の測り方・評価基準・言語が異なる。",
@@ -953,14 +896,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 31,
       "name": "伴走者も学ぶ",
       "summary": "「教える人」ではなく「共に学ぶ人」として対等に関わる",
       "phase": "cross",
-      "cycle": "stance",
       "form": "構え",
       "transfer": "翻訳が必要",
       "context": "伴走者が越境学習者を「育成対象」としてのみ捉えている。",
@@ -977,14 +921,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "stance",
+      "cycle_step": null
     },
     {
       "id": 32,
       "name": "伴走者チームの役割分担",
       "summary": "複数の伴走者が重複せず、かつ隙間をつくらず支える",
       "phase": "cross",
-      "cycle": "consider",
       "form": "パターン",
       "transfer": "翻訳が必要",
       "context": "所属組織・越境先・第三者の複数の伴走者が関わっている。",
@@ -1003,14 +948,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "assess_action",
+      "cycle_step": "consider"
     },
     {
       "id": 33,
       "name": "課題をゼロにしない",
       "summary": "課題の全消去ではなく「健全に向き合う」を支える",
       "phase": "meta",
-      "cycle": "stance",
       "form": "構え",
       "transfer": "翻訳が必要",
       "context": "越境学習にはさまざまな課題がある。伴走者は課題を減らしたいと思っている。",
@@ -1030,14 +976,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "stance",
+      "cycle_step": null
     },
     {
       "id": 34,
       "name": "先回りの誘惑に抗う",
       "summary": "善意の過保護が学びを奪うことに気づく",
       "phase": "meta",
-      "cycle": "stance",
       "form": "構え",
       "transfer": "翻訳が必要",
       "context": "伴走者が「失敗させたくない」「越境先にも迷惑をかけたくない」と思っている。",
@@ -1057,14 +1004,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "stance",
+      "cycle_step": null
     },
     {
       "id": 35,
       "name": "チェックリストの罠",
       "summary": "ガイドラインを形骸化させず、目の前の人に向き合う",
       "phase": "meta",
-      "cycle": "stance",
       "form": "構え",
       "transfer": "翻訳が必要",
       "context": "伴走のポイントがガイドラインとして体系化されている。",
@@ -1081,14 +1029,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "stance",
+      "cycle_step": null
     },
     {
       "id": 36,
       "name": "伴走者自身の越境",
       "summary": "伴走者自身が異なる環境を経験し、支援の質を高める",
       "phase": "meta",
-      "cycle": "growth",
       "form": "自己研鑽",
       "transfer": "翻訳が必要",
       "context": "伴走者が越境経験を持たない場合、学習者の葛藤を本当には理解できない。",
@@ -1105,14 +1054,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "growth",
+      "cycle_step": null
     },
     {
       "id": 37,
       "name": "フィードバックの循環",
       "summary": "伴走の質を伴走者自身にもフィードバックする仕組みをつくる",
       "phase": "meta",
-      "cycle": "growth",
       "form": "仕組み",
       "transfer": "翻訳が必要",
       "context": "伴走者の支援が越境学習者にとって適切かどうか、検証する機会がない。",
@@ -1129,14 +1079,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "growth",
+      "cycle_step": null
     },
     {
       "id": 38,
       "name": "美学としての伴走",
       "summary": "なぜ伴走するのかという「自分自身の問い」を持ち続ける",
       "phase": "meta",
-      "cycle": "stance",
       "form": "構え",
       "transfer": "翻訳が必要",
       "context": "伴走者が日々の業務に追われ、「なぜこの仕事をしているのか」を問い直す余裕がない。",
@@ -1153,14 +1104,15 @@
         "verified": false
       },
       "caution": "",
-      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成"
+      "source": "経済産業省 越境学習伴走者ガイドライン(2025)より生成",
+      "cycle_group": "stance",
+      "cycle_step": null
     },
     {
       "id": 39,
       "name": "事業規模から組織の実態を読む",
       "summary": "金額を「何人が動いているか」に翻訳して読む",
       "phase": "own",
-      "cycle": "analyze",
       "form": "パターン",
       "transfer": "そのまま",
       "context": "相談や助成金の申請で、事業規模や予算の数字を目にする。相手の組織の中を直接見る機会は限られている。",
@@ -1180,14 +1132,15 @@
         "a": "現場を見ないと組織の実力は分からない",
         "b": "限られた情報で、いま判断しなければならない",
         "verified": false
-      }
+      },
+      "cycle_group": "assess_issue",
+      "cycle_step": "analyze"
     },
     {
       "id": 40,
       "name": "書かれていないことから仮説を立てる",
       "summary": "限られた情報の周辺から、確かめるべき仮説を立てる",
       "phase": "own",
-      "cycle": "analyze",
       "form": "パターン",
       "transfer": "そのまま",
       "context": "申請書や相談メモには、限られた情報しか書かれていない。確認すべきことは山ほどある。",
@@ -1207,14 +1160,15 @@
         "a": "確認しないまま決めつけたくない",
         "b": "確認を待っていては話が前に進まない",
         "verified": false
-      }
+      },
+      "cycle_group": "assess_issue",
+      "cycle_step": "analyze"
     },
     {
       "id": 41,
       "name": "いいモヤモヤと悪いモヤモヤを見分ける",
       "summary": "行き先が見えている迷いか、そうでないかで分ける",
       "phase": "own",
-      "cycle": "analyze",
       "form": "パターン",
       "transfer": "そのまま",
       "context": "相手が迷い、揺れている。何かがはっきりしない状態が続いている。",
@@ -1235,14 +1189,15 @@
         "a": "本人が向き合うべき迷いは取り上げたくない",
         "b": "行き先のない停滞は放っておけない",
         "verified": false
-      }
+      },
+      "cycle_group": "assess_issue",
+      "cycle_step": "analyze"
     },
     {
       "id": 42,
       "name": "見立ては仮説として持つ",
       "summary": "事前に見立て、場ではこだわらず一緒に見立て直す",
       "phase": "own",
-      "cycle": "assess_issue",
       "form": "パターン",
       "transfer": "そのまま",
       "context": "相手と会う前に、状況を調べて課題の当たりをつけている。",
@@ -1263,14 +1218,15 @@
         "a": "見立てを持たないと大事なことを取りこぼす",
         "b": "見立てを持ち込むと相手が考える機会を奪う",
         "verified": false
-      }
+      },
+      "cycle_group": "assess_issue",
+      "cycle_step": null
     },
     {
       "id": 43,
       "name": "ひとりで見立てない",
       "summary": "見立てを場に投げ、複数の見方を重ねる",
       "phase": "own",
-      "cycle": "assess_issue",
       "form": "パターン",
       "transfer": "そのまま",
       "context": "相手の状況をつかみ、課題の仮説を立てようとしている。",
@@ -1290,14 +1246,15 @@
         "a": "担当者として自分の見立てを持たなければならない",
         "b": "ひとりの視点では、いつも同じ型を繰り返してしまう",
         "verified": false
-      }
+      },
+      "cycle_group": "assess_issue",
+      "cycle_step": null
     },
     {
       "id": 44,
       "name": "相手になりきって試着する",
       "summary": "選択肢を相手の立場で着てみてから選ぶ",
       "phase": "own",
-      "cycle": "assess_action",
       "form": "パターン",
       "transfer": "そのまま",
       "context": "打てる手の選択肢が複数あり、どれを勧めるか決めようとしている。",
@@ -1317,14 +1274,15 @@
         "a": "客観的に見て正しい選択肢を選びたい",
         "b": "相手が動かせない案では意味がない",
         "verified": false
-      }
+      },
+      "cycle_group": "assess_action",
+      "cycle_step": "consider"
     },
     {
       "id": 45,
       "name": "ギリギリの負荷を保つ",
       "summary": "向き合い続けられる限界の手前で負荷を調整する",
       "phase": "own",
-      "cycle": "assess_action",
       "form": "パターン",
       "transfer": "そのまま",
       "context": "相手が課題に直面して苦しんでいる。手を貸すこともできるし、見守ることもできる。",
@@ -1345,14 +1303,15 @@
         "a": "苦しんでいる相手を助けたい",
         "b": "助けると本人が乗り越える機会を奪う",
         "verified": false
-      }
+      },
+      "cycle_group": "assess_action",
+      "cycle_step": null
     },
     {
       "id": 46,
       "name": "重点課題を握る",
       "summary": "期間を区切り、取り組む課題を絞って合意する",
       "phase": "own",
-      "cycle": "execute",
       "form": "パターン",
       "transfer": "そのまま",
       "context": "相手の組織に、取り組むべきことが山ほどある。あれもこれも大事に見える。",
@@ -1371,14 +1330,15 @@
         "a": "見えている課題は全部伝えたい",
         "b": "全部同時には実行できず、どれも進まなくなる",
         "verified": false
-      }
+      },
+      "cycle_group": "execute",
+      "cycle_step": null
     },
     {
       "id": 47,
       "name": "自分のものさしを持つ",
       "summary": "どこまで実感を持って見立てられるかを自覚する",
       "phase": "own",
-      "cycle": "growth",
       "form": "パターン",
       "transfer": "そのまま",
       "context": "伴走の場では、規模も分野も違う組織に次々と出会う。",
@@ -1398,10 +1358,12 @@
         "a": "分からない領域でも見立てを求められる",
         "b": "実感のない見立ては当たらない",
         "verified": false
-      }
+      },
+      "cycle_group": "growth",
+      "cycle_step": null
     }
   ],
-  "cycle_overview": "コーディネーター自身の仕事の流れ。①情報収集から⑧情報の補足まで進んだら、また①に戻る循環になっている。出典は虎の巻2018「コーディネーターの支援サイクル」。",
+  "cycle_overview": "虎の巻2018 スライド20「コーディネーターの支援サイクル」。「課題の見立て（情報収集→洞察・分析）」→「支援策の見立て（没入→支援策の検討）」→「実行」の3つの枠が円環になっている。枠の外にある「情報の補足」（本人・組織の状況／業界・市場の情報）が課題の見立てへの入力で、実行の結果もそこへ戻る。",
   "field_labels": {
     "context": "状況",
     "tension": "板挟み",
@@ -1477,5 +1439,90 @@
     "cross": "フェーズ横断",
     "meta": "伴走の構え",
     "own": "ETIC.の現場から"
-  }
+  },
+  "cycle_groups": [
+    {
+      "id": "assess_issue",
+      "order": 1,
+      "label": "課題の見立て",
+      "kind": "cycle",
+      "description": "起業家の状況と課題を診断する段階。「情報収集」で観察し、「洞察・分析」で判断する2つの小段階からなる。虎の巻が「ETIC.コーディネーターの核となる役割であり、強み」と呼んだところ。ただし見立ては診断書ではなく仮説で、相手と一緒に見立て直していく。",
+      "input": "「情報の補足」（本人・組織の状況／業界・市場の情報）が、ここへの入力として外から入ってくる。実行の結果もここへ戻る。",
+      "origin": "虎の巻2018 スライド20 ＋ 勉強会6/17で更新",
+      "steps": [
+        {
+          "id": "collect",
+          "label": "情報収集",
+          "description": "「何が起きてるか？」「いまどんな状況か？」主観を排除して観察する。",
+          "pattern_count": 4
+        },
+        {
+          "id": "analyze",
+          "label": "洞察・分析",
+          "description": "「なぜ起きてるか？」「根本的な課題は何か？」主観に基づいて判断する。",
+          "pattern_count": 3
+        }
+      ],
+      "pattern_count": 9,
+      "direct_count": 2
+    },
+    {
+      "id": "assess_action",
+      "order": 2,
+      "label": "支援策の見立て",
+      "kind": "cycle",
+      "description": "打てる手を選ぶ段階。診断に対する処方にあたる。「没入」と「支援策の検討」の2つの小段階からなる。",
+      "note": "没入がこの枠の中にあることに注意。相手を知るためというより、その人がこの手を打ったらどうなるかを想像するために置かれている。",
+      "origin": "虎の巻2018 スライド20",
+      "steps": [
+        {
+          "id": "immerse",
+          "label": "没入",
+          "description": "置かれている状況から、相手の心理状態を想像し入り込む。",
+          "pattern_count": 0
+        },
+        {
+          "id": "consider",
+          "label": "支援策の検討",
+          "description": "様々な選択肢の一つ一つを相手になりきって「試着」する。理屈に頼り切らず、右脳も使う。",
+          "pattern_count": 3
+        }
+      ],
+      "pattern_count": 5,
+      "direct_count": 2
+    },
+    {
+      "id": "execute",
+      "order": 3,
+      "label": "実行",
+      "kind": "cycle",
+      "description": "決めた支援を実際に行う段階。支援策がフィットしないのは「課題の見立て」が間違っている可能性が高い（課題の見立てから再スタート）。",
+      "origin": "虎の巻2018 スライド20",
+      "steps": [],
+      "pattern_count": 23,
+      "direct_count": 23
+    },
+    {
+      "id": "stance",
+      "order": 90,
+      "label": "サイクル全体を貫く構え",
+      "kind": "outside",
+      "description": "どの段階にいても効いている、伴走者の立ち位置と姿勢。手順ではないので、サイクルの中には置けない。",
+      "origin": "今回の仕分けで追加（虎の巻の図にはない）",
+      "steps": [],
+      "pattern_count": 7,
+      "direct_count": 7
+    },
+    {
+      "id": "growth",
+      "order": 91,
+      "label": "サイクルの外：伴走者自身の育ち",
+      "kind": "outside",
+      "description": "案件そのものではなく、伴走者が伴走者として育つための営み。振り返り、カンファレンス、自身の越境。",
+      "origin": "今回の仕分けで追加（虎の巻の図にはない）",
+      "steps": [],
+      "pattern_count": 3,
+      "direct_count": 3
+    }
+  ]
 }
