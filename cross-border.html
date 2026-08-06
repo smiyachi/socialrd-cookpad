@@ -426,6 +426,52 @@ function body(p){
   return `<div class="cbody"><div class="cbinner">${h}</div></div>`;
 }
 
+// ===== フレームワーク =====
+const kindColors = {'見方':'#7C3AED','段階':'#2563EB','プロセス':'#65A30D'};
+const useLabels = {collect:'情報収集',analyze:'洞察・分析',assess_issue:'課題の見立て',
+  immerse:'没入',consider:'支援策の検討',assess_action:'支援策の見立て',
+  setup:'環境を整える',goal:'目標を握る',monitor:'進捗を見る',dialogue:'対話を促す',meaning:'意味づけて返す',
+  execute:'実行',stance:'構え',growth:'伴走者自身の育ち'};
+
+function renderFrameworks(){
+  const q = query.toLowerCase();
+  const list = frameworks.filter(f=> !q ||
+    [f.name,f.summary,f.description,f.origin].filter(Boolean).some(t=>String(t).toLowerCase().includes(q)));
+  statsEl.textContent = `${list.length}件を表示` + (query?`（検索：${query}）`:'');
+  listEl.innerHTML = '';
+  if(!list.length){
+    listEl.innerHTML = '<div class="no-results"><strong>該当するフレームワークがありません</strong>検索語を変えてお試しください。</div>';
+    return;
+  }
+  list.forEach((f,i)=>{
+    const col = kindColors[f.kind] || '#9CA3AF';
+    const card = document.createElement('div');
+    card.className = 'card' + (openFw===f.id?' open':'');
+    card.style.animationDelay = `${i*0.03}s`;
+    if(openFw===f.id) card.style.borderColor = col;
+    const uses = (f.use||[]).map(u=>`<span class="chip">${useLabels[u]||u}</span>`).join('');
+    card.innerHTML = `
+      <div class="ch">
+        <div class="nbadge" style="background:${col}18;color:${col};font-size:10px">${f.kind||''}</div>
+        <div class="cm">
+          <div class="ct-ja">${f.name}</div>
+          <div class="ct-en">${f.summary||''}</div>
+          <div class="ct-sub">使いどころ：${(f.use||[]).map(u=>useLabels[u]||u).join('・')}</div>
+        </div>
+        <span class="chev">▾</span>
+      </div>
+      ${openFw===f.id?`<div class="cbody"><div class="cbinner">
+        <div class="iblock"><div class="ilabel" style="color:${col}">中身 — What</div>
+          <div class="itext">${f.description||''}</div></div>
+        <div class="iblock"><div class="ilabel" style="color:#6B7280">使いどころ — Where</div>
+          <div class="chip-row">${uses}</div></div>
+        <div class="sd-meta" style="padding:2px 4px">出所：${f.origin||''}</div>
+      </div></div>`:''}`;
+    card.querySelector('.ch').onclick = ()=>{ openFw = (openFw===f.id?null:f.id); renderFrameworks(); };
+    listEl.appendChild(card);
+  });
+}
+
 listEl.addEventListener('click', e=>{
   const chip = e.target.closest('.chip[data-goto]');
   if(!chip) return;
