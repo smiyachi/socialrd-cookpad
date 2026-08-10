@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>インタビュー記録 — social R&D</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#F8F7F4;font-family:'Helvetica Neue','Noto Sans JP',sans-serif;color:#1A1A1A;
+  font-size:14px;line-height:1.75;padding:32px 16px 80px}
+.wrap{max-width:900px;margin:0 auto}
+.header{margin-bottom:22px}
+.badge0{font-size:10px;font-weight:700;letter-spacing:.12em;color:#0F766E;text-transform:uppercase;margin-bottom:8px}
+h1{font-size:20px;font-weight:800;line-height:1.5;margin-bottom:6px}
+.sub{font-size:12.5px;color:#6B7280;line-height:1.7}
+.back{font-size:11px;color:#9CA3AF;text-decoration:none;letter-spacing:.06em}
+.back:hover{color:#374151}
+
+nav{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 20px}
+nav button{background:#fff;border:1px solid #E5E7EB;border-radius:20px;padding:7px 15px;
+  font-size:12px;color:#6B7280;cursor:pointer;font-family:inherit;transition:all .18s}
+nav button:hover{border-color:#9CA3AF;color:#374151}
+nav button.on{background:#0F766E;border-color:#0F766E;color:#fff;font-weight:700}
+
+.panel{display:none}.panel.on{display:block}
+.box{background:#fff;border:1px solid #E5E7EB;border-radius:16px;padding:20px 22px;margin-bottom:14px;
+  box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.box h2{font-size:13px;font-weight:800;color:#0F766E;letter-spacing:.04em;margin-bottom:12px}
+.box h2 .n{display:inline-block;background:#CCFBF1;color:#0F766E;border-radius:6px;
+  padding:1px 7px;margin-right:7px;font-size:11px}
+label{display:block;font-size:11.5px;font-weight:700;color:#6B7280;margin:12px 0 4px}
+label:first-child{margin-top:0}
+.hint{font-weight:400;color:#9CA3AF;margin-left:.4em}
+input[type=text],input[type=date],select,textarea{width:100%;padding:8px 10px;border:1px solid #E5E7EB;
+  border-radius:9px;font-family:inherit;font-size:13px;background:#FCFCFB;color:#1A1A1A}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#0F766E;background:#fff}
+textarea{resize:vertical;line-height:1.7}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>div{flex:1;min-width:150px}
+.note{background:#F3F4F6;border-radius:10px;padding:10px 13px;font-size:11.5px;color:#6B7280;margin:10px 0 0;line-height:1.7}
+.note.warn{background:#FEF2F2;color:#B91C1C;border:1px solid #FECACA}
+.note.acc{background:#F0FDFA;color:#0F766E;border:1px solid #99F6E4}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px}
+button.act{background:#0F766E;color:#fff;border:0;border-radius:20px;padding:9px 20px;
+  font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit}
+button.act:hover{background:#115E59}
+button.gh{background:#fff;border:1px solid #E5E7EB;color:#6B7280;border-radius:20px;
+  padding:8px 16px;font-size:12px;cursor:pointer;font-family:inherit}
+button.gh:hover{border-color:#9CA3AF;color:#374151}
+button.gh.dg{border-color:#FECACA;color:#DC2626}
+.msg{font-size:11.5px;color:#0F766E;font-weight:700}
+
+.tension{background:#F0FDFA;border-radius:11px;padding:12px 14px;border:1px solid #99F6E4}
+.tension .vs{text-align:center;color:#0F766E;font-size:10.5px;letter-spacing:.14em;margin:6px 0}
+.radios{display:flex;gap:14px;flex-wrap:wrap;margin-top:2px}
+.radios label{margin:0;font-weight:400;font-size:12.5px;color:#1A1A1A;display:inline-flex;align-items:center;gap:5px}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:3px}
+.chips label{margin:0;font-weight:400;font-size:11px;color:#374151;background:#F9FAFB;
+  border:1px solid #E5E7EB;border-radius:20px;padding:3px 9px;cursor:pointer;display:inline-flex;gap:4px;align-items:center}
+.chips label:hover{border-color:#0F766E}
+.edcg{margin-top:8px}.edcg>span{font-size:10.5px;color:#0F766E;font-weight:700}
+.sceneinfo{font-size:11.5px;color:#0F766E;margin-top:6px;min-height:1.1em;line-height:1.6}
+.sceneinfo .im{color:#DC2626;font-weight:700}
+
+.stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:10px;margin-bottom:14px}
+.stat div{background:#fff;border:1px solid #E5E7EB;border-radius:13px;padding:13px 14px}
+.stat b{display:block;font-size:21px;font-weight:800;line-height:1.2}
+.stat span{font-size:10.5px;color:#9CA3AF}
+.barrow{display:flex;align-items:center;gap:9px;margin-bottom:5px;font-size:11.5px}
+.barrow .lb{width:112px;flex-shrink:0;color:#6B7280}
+.barrow .tr{flex:1;background:#F3F4F6;border-radius:5px;height:15px;overflow:hidden}
+.barrow .fl{background:#0F766E;height:100%;border-radius:5px}
+.barrow .vv{width:30px;text-align:right;color:#374151;font-weight:700}
+.barrow.zero .lb,.barrow.zero .vv{color:#DC2626}
+
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.filters select,.filters input{width:auto;flex:0 1 auto;min-width:130px;font-size:12px;padding:6px 9px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:12px}
+.rc{background:#fff;border:1px solid #E5E7EB;border-radius:14px;padding:15px 16px;cursor:pointer;
+  transition:all .18s;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.rc:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.09)}
+.rc .no{font-size:10px;color:#9CA3AF;letter-spacing:.06em}
+.rc .ti{font-size:13.5px;font-weight:700;line-height:1.45;margin:3px 0 8px}
+.rc .tn{font-size:11.5px;color:#374151;line-height:1.6;background:#F0FDFA;border-radius:8px;padding:7px 9px}
+.rc .tn i{color:#0F766E;font-style:normal}
+.rc .bs{display:flex;gap:4px;flex-wrap:wrap;margin-top:9px}
+.bg{font-size:9.5px;padding:2px 7px;border-radius:20px;border:1px solid #E5E7EB;color:#6B7280}
+.bg.p{border-color:#DDD6FE;background:#F5F3FF;color:#7C3AED}
+.bg.a{border-color:#E5E7EB;background:#F9FAFB;color:#9CA3AF}
+.bg.n{border-color:#FECACA;background:#FEF2F2;color:#DC2626}
+.bg.o{border-color:#99F6E4;background:#F0FDFA;color:#0F766E}
+.empty{background:#fff;border:1px dashed #E5E7EB;border-radius:14px;padding:38px;text-align:center;color:#9CA3AF;font-size:12.5px}
+
+table{width:100%;border-collapse:collapse;background:#fff;font-size:12px;border-radius:12px;overflow:hidden}
+th,td{border-bottom:1px solid #F3F4F6;padding:9px 11px;text-align:left;vertical-align:top}
+th{background:#F9FAFB;font-size:10.5px;color:#6B7280;font-weight:700;letter-spacing:.04em}
+pre{background:#1F2937;color:#E5E7EB;padding:13px;border-radius:11px;overflow:auto;
+  font-size:10.5px;line-height:1.6;max-height:330px;white-space:pre-wrap;word-break:break-all}
+
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.42);display:none;align-items:flex-start;
+  justify-content:center;padding:40px 16px;z-index:50;overflow-y:auto}
+.modal.on{display:flex}
+.mc{background:#fff;border-radius:18px;padding:26px 28px;max-width:640px;width:100%}
+.mc h3{font-size:17px;font-weight:800;margin-bottom:4px}
+.mc .lbl{font-size:10px;font-weight:700;color:#0F766E;letter-spacing:.08em;margin:15px 0 3px}
+.mc p{font-size:13px;line-height:1.8;color:#374151;white-space:pre-wrap}
+.mc .close{float:right;background:none;border:0;font-size:20px;color:#9CA3AF;cursor:pointer;line-height:1}
+h3.sec{font-size:13px;font-weight:800;margin:22px 0 8px;color:#374151}
+ul.tips{font-size:12.5px;color:#6B7280;padding-left:20px;line-height:1.85}
+ul.tips b{color:#374151}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <div class="badge0">Social R&D / Internal</div>
+    <h1>インタビュー記録</h1>
+    <p class="sub">コーディネーターに聞いた話を貯める場所。文字起こしを原本として残し、生成AIで下書きして、確認しながら整える。<br>
+    データはこのブラウザの中だけに保存され、サーバには送られません。</p>
+    <div style="margin-top:10px"><a class="back" href="./index.html">← ツール一覧に戻る</a></div>
+  </div>
+
+  <div class="note warn" id="warn" style="display:none"></div>
+
+  <nav>
+    <button class="on" data-p="log">① 文字起こしを貯める</button>
+    <button data-p="ai">② AIで下書き</button>
+    <button data-p="view">③ 記録を見る</button>
+    <button data-p="rec">手で記録する</button>
+    <button data-p="sess">セッション記録</button>
+    <button data-p="out">書き出し</button>
+    <button data-p="help">使い方</button>
+  </nav>
+
+<!-- ============ ① 文字起こし ============ -->
+<section class="panel on" id="p-log">
+  <div class="note acc">
+    <b>ここが原本。</b>構造化した記録はあとから作り直せるが、文字起こしを捨てると二度と作り直せない。
+    まずは整理せずに、聞いたものをどんどん貯めていく。
+  </div>
+  <div class="box">
+    <h2><span class="n">貯める</span>文字起こしを保存する</h2>
+    <div class="row">
+      <div><label>話し手</label><input type="text" id="l_speaker"></div>
+      <div><label>日付</label><input type="date" id="l_date"></div>
+      <div><label>タイトル<span class="hint">任意</span></label><input type="text" id="l_title" placeholder="例：奈月さん 1回目"></div>
+    </div>
+    <label>文字起こし<span class="hint">整形しなくてよい。話者ラベル付きのままでよい</span></label>
+    <textarea id="l_text" rows="9" placeholder="(A) それで、あのときは…"></textarea>
+    <label>聞き手メモ<span class="hint">その場で気づいたこと、本人の言い回しなど</span></label>
+    <textarea id="l_memo" rows="2"></textarea>
+    <div class="bar">
+      <button class="act" id="l_save">保存する</button>
+      <button class="gh" id="l_clear">クリア</button>
+      <span class="msg" id="l_msg"></span>
+    </div>
+  </div>
+  <h3 class="sec">貯まっている文字起こし</h3>
+  <div id="logtbl"></div>
+</section>
+
+<!-- ============ ② AI下書き ============ -->
+<section class="panel" id="p-ai">
+  <div class="note">
+    <b>API連携はしていない。</b>プロンプトをコピーして生成AIに貼り、返ってきたJSONを貼り戻すだけ。<br>
+    1本の文字起こしから場面が3〜8件まとめて下書きされる。人の仕事は確認と修正だけ。
+  </div>
+  <div class="box">
+    <h2><span class="n">STEP 1</span>どの文字起こしを処理するか</h2>
+    <label>貯めたものから選ぶ</label>
+    <select id="pick"><option value="">— 選択 —</option></select>
+    <label>または直接貼る</label>
+    <textarea id="tr" rows="5" placeholder="文字起こしを貼る（上で選んだ場合は自動で入る）"></textarea>
+    <div class="row" style="margin-top:8px">
+      <div><label>話し手</label><input type="text" id="ai_speaker"></div>
+      <div><label>日付</label><input type="date" id="ai_date"></div>
+    </div>
+  </div>
+  <div class="box">
+    <h2><span class="n">STEP 2</span>プロンプトをコピーして生成AIに貼る</h2>
+    <div class="bar" style="margin-top:0">
+      <button class="act" id="cp-prompt">プロンプト＋文字起こしをコピー</button>
+      <button class="gh" id="see-prompt">プロンプトを見る</button>
+      <span class="msg" id="pmsg"></span>
+    </div>
+    <div class="note">場面リスト182件とEDC45項目が埋め込まれている。長いのでコピーはボタンから。</div>
+    <pre id="promptview" style="display:none;margin-top:10px"></pre>
+  </div>
+  <div class="box">
+    <h2><span class="n">STEP 3</span>返ってきたJSONを貼る</h2>
+    <textarea id="aijson" rows="6" placeholder='[ { "scene_no": "111", ... } ]'></textarea>
+    <div class="bar">
+      <button class="act" id="ingest">取り込む</button>
+      <span class="msg" id="imsg"></span>
+    </div>
+  </div>
+  <div class="box">
+    <h2><span class="n">STEP 4</span>板挟みを確認する（ここが人の仕事）</h2>
+    <div class="note warn">
+      AIが最も間違えるのは<b>板挟み</b>。文字起こしに明言がないと、もっともらしいものを作ってしまう。<br>
+      推測されたものには「要確認」が付く。本人に当てて、直すか消すこと。
+    </div>
+    <div id="checklist" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<!-- ============ ③ 記録を見る ============ -->
+<section class="panel" id="p-view">
+  <div class="stat" id="stats"></div>
+  <div class="box">
+    <h2>どこに溜まって、どこが空いているか</h2>
+    <div id="bars"></div>
+    <div class="note" id="gapnote"></div>
+  </div>
+  <div class="filters">
+    <input type="text" id="fq" placeholder="フリーワード">
+    <select id="farea"><option value="">領域すべて</option></select>
+    <select id="flayer"><option value="">層すべて</option>
+      <option>コツ・TIPS</option><option>教訓</option><option>パターン候補</option><option>判定保留</option></select>
+    <select id="fconf"><option value="">確認状態すべて</option>
+      <option>未確認</option><option>依頼中</option><option>確認済み</option><option>取り下げ</option></select>
+    <select id="ften"><option value="">板挟みすべて</option>
+      <option value="has">板挟みあり</option><option value="none">板挟みなし</option><option value="need">要確認のみ</option></select>
+    <select id="fsp"><option value="">話し手すべて</option></select>
+  </div>
+  <div id="gallery"></div>
+</section>
+
+<!-- ============ 手で記録 ============ -->
+<section class="panel" id="p-rec">
+  <div class="note">手入力なら<b>①場面・②状況・③板挟みだけ</b>で十分。あとから足せる。全部埋めようとしないこと。</div>
+  <form id="f">
+    <input type="hidden" id="rid">
+    <div class="box">
+      <h2><span class="n">1</span>どの場面か</h2>
+      <label>場面を選ぶ<span class="hint">場面リストv4。なければ「その他」</span></label>
+      <select id="scene_no"><option value="">— 選択 —</option><option value="other">その他（リストにない場面）</option></select>
+      <div class="sceneinfo" id="sceneinfo"></div>
+      <label>場面（言い方は変えてよい）</label>
+      <input type="text" id="scene_text">
+      <label>繰り返し性<span class="hint">パターン候補かを分ける唯一の軸。必ず口で聞く</span></label>
+      <div class="radios">
+        <label><input type="radio" name="repeat" value="よくある">よくある</label>
+        <label><input type="radio" name="repeat" value="時々">時々</label>
+        <label><input type="radio" name="repeat" value="今回だけ">今回だけ</label>
+        <label><input type="radio" name="repeat" value="未確認" checked>未確認</label>
+      </div>
+    </div>
+    <div class="box">
+      <h2><span class="n">2</span>具体的な一回</h2>
+      <label>状況<span class="hint">いつ・誰と・何をしようとしていた場面か</span></label>
+      <textarea id="context" rows="3"></textarea>
+    </div>
+    <div class="box">
+      <h2><span class="n">3</span>板挟み</h2>
+      <div class="tension">
+        <input type="text" id="t_a" placeholder="A：〜したい／〜しなければならない">
+        <div class="vs">↕ 両立しない</div>
+        <input type="text" id="t_b" placeholder="B：しかし〜になってしまう">
+      </div>
+      <div class="radios" style="margin-top:10px">
+        <label><input type="checkbox" id="t_checked">この板挟みを本人に確認した</label>
+      </div>
+      <label>捨てた選択肢とその理由<span class="hint">判断基準が出るところ</span></label>
+      <textarea id="dropped" rows="2"></textarea>
+      <div class="note">出ないときは、①聞き手が仮説を当てる ②「慣れていない人がやりがちなこと」を聞く。</div>
+    </div>
+    <div class="box">
+      <h2><span class="n">4</span>やったこと・その後</h2>
+      <label>解決（実際にどうしたか）</label><textarea id="solution" rows="3"></textarea>
+      <label>その裏にあった考え方<span class="hint">聞き手が仮に置く。本人確認をとる</span></label><textarea id="principle" rows="2"></textarea>
+      <label>結果</label><textarea id="result" rows="2"></textarea>
+      <label>副作用・新たに生まれた状況</label><textarea id="caution" rows="2"></textarea>
+    </div>
+    <div class="box">
+      <h2><span class="n">5</span>本人の言葉</h2>
+      <label>逐語で。1行1つ<span class="hint">名前の種になる</span></label><textarea id="own_words" rows="3"></textarea>
+      <label>仮の名前<span class="hint">空欄でよい</span></label><input type="text" id="name">
+    </div>
+    <div class="box">
+      <h2><span class="n">6</span>整理用のタグ</h2>
+      <label>層<span class="hint">判定は聞き手の仕事。話し手に聞かない</span></label>
+      <div class="radios">
+        <label><input type="radio" name="layer" value="コツ・TIPS" checked>コツ・TIPS</label>
+        <label><input type="radio" name="layer" value="教訓">教訓</label>
+        <label><input type="radio" name="layer" value="パターン候補">パターン候補</label>
+        <label><input type="radio" name="layer" value="判定保留">判定保留</label>
+      </div>
+      <label>EDCコード<span class="hint">複数可・迷ったら多めに</span></label>
+      <div id="edc"></div>
+    </div>
+    <div class="box">
+      <h2><span class="n">7</span>管理</h2>
+      <div class="row">
+        <div><label>話し手</label><input type="text" id="speaker"></div>
+        <div><label>聞き手</label><input type="text" id="asker" value="宮地"></div>
+        <div><label>日付</label><input type="date" id="date"></div>
+      </div>
+      <label>本人確認</label>
+      <div class="radios">
+        <label><input type="radio" name="confirm" value="未確認" checked>未確認</label>
+        <label><input type="radio" name="confirm" value="依頼中">依頼中</label>
+        <label><input type="radio" name="confirm" value="確認済み">確認済み</label>
+        <label><input type="radio" name="confirm" value="取り下げ">取り下げ</label>
+      </div>
+      <label>公開範囲</label>
+      <div class="radios">
+        <label><input type="radio" name="scope" value="内部のみ" checked>内部のみ</label>
+        <label><input type="radio" name="scope" value="共有可">共有可</label>
+      </div>
+      <label>聞き手メモ</label><textarea id="memo" rows="2"></textarea>
+      <div class="bar">
+        <button type="submit" class="act">保存する</button>
+        <button type="button" class="gh" id="clear">クリア</button>
+        <span class="msg" id="msg"></span>
+      </div>
+      <div class="note">本人確認が済むまで共有しない。一度でも飛ばすと、以後だれも本音を話さなくなる。</div>
+    </div>
+  </form>
+</section>
+
+<!-- ============ セッション ============ -->
+<section class="panel" id="p-sess">
+  <div class="box">
+    <h2>セッションの振り返り<span class="hint" style="font-weight:400">1回につき1件。隔週定例に出す土産になる</span></h2>
+    <form id="sf">
+      <div class="row">
+        <div><label>話し手</label><input type="text" id="s_speaker"></div>
+        <div><label>日付</label><input type="date" id="s_date"></div>
+        <div><label>所要（分）</label><input type="text" id="s_min" placeholder="30"></div>
+      </div>
+      <label>1. 場面リストから選ぶ形式で、実際に思い出せたか</label><textarea id="s_q1" rows="2"></textarea>
+      <label>2. 板挟みが言葉になったか。ならない場合、どのルートなら出そうか</label><textarea id="s_q2" rows="2"></textarea>
+      <label>3. 採れたものはどの層か。パターン候補はあったか</label><textarea id="s_q3" rows="2"></textarea>
+      <label>4. 場面リストに何が追加されたか／外れていた場面はどれか</label><textarea id="s_q4" rows="2"></textarea>
+      <label>5. 名前の種になりそうな本人の言葉はあったか</label><textarea id="s_q5" rows="2"></textarea>
+      <label>6. 時間は長すぎ・短すぎなかったか</label><textarea id="s_q6" rows="2"></textarea>
+      <label>次に聞くとよさそうな人</label><input type="text" id="s_next">
+      <div class="bar"><button type="submit" class="act">保存する</button><span class="msg" id="smsg"></span></div>
+    </form>
+  </div>
+  <h3 class="sec">保存済み</h3>
+  <div id="stbl"></div>
+</section>
+
+<!-- ============ 書き出し ============ -->
+<section class="panel" id="p-out">
+  <div class="box">
+    <h2>全部まとめて書き出す</h2>
+    <div class="note acc"><b>定期的にダウンロードしてバックアップを。</b>ブラウザのデータを消すと失われる。</div>
+    <div class="bar">
+      <button class="gh" id="dl-json">すべてJSON（文字起こし＋記録）</button>
+      <button class="gh" id="dl-csv">記録CSV</button>
+      <button class="gh" id="dl-logs">文字起こしのみJSON</button>
+    </div>
+  </div>
+  <div class="box">
+    <h2>一括で再整理する</h2>
+    <div class="note">プロンプトを改良したら、貯めた文字起こしを全部まとめて出し直せる。
+    構造化データは派生物なので、捨てて作り直してよい。</div>
+    <div class="bar">
+      <button class="gh" id="cp-bulk">全文字起こし＋プロンプトをコピー</button>
+      <button class="gh" id="dl-pat">パターン草案JSON</button>
+      <span class="msg" id="omsg"></span>
+    </div>
+  </div>
+  <div class="box">
+    <h2>読み込み</h2>
+    <label>JSONを貼って読み込む<span class="hint">既存に追加される</span></label>
+    <textarea id="imp" rows="4"></textarea>
+    <div class="bar">
+      <button class="gh" id="do-imp">読み込む</button>
+      <button class="gh dg" id="wipe">すべて削除</button>
+    </div>
+  </div>
+  <div class="box"><h2>プレビュー</h2><pre id="pv">（記録がありません）</pre></div>
+</section>
+
+<!-- ============ 使い方 ============ -->
+<section class="panel" id="p-help">
+  <div class="box">
+    <h2>おすすめの流れ</h2>
+    <ul class="tips">
+      <li><b>まず文字起こしだけ貯める。</b>構造化はあとでよい。1本ごとに律儀に処理しようとすると、そこが新しい負担になる。</li>
+      <li>5本ほど溜まったら、②のタブでまとめて下書きする。プロンプトをコピーして生成AIに貼り、返ってきたJSONを貼り戻すだけ。</li>
+      <li>1本から3〜8件の場面が出る。人の仕事は<b>確認と修正</b>。</li>
+      <li>プロンプトを改良したら、書き出しタブから全文字起こしを出して再処理する。記録は作り直せる。</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h2>原本と派生</h2>
+    <ul class="tips">
+      <li><b>文字起こし＝原本。</b>これだけは失ってはいけない。</li>
+      <li><b>記録・パターン＝派生物。</b>いつでも捨てて作り直せる。だから完璧に整えようとしなくてよい。</li>
+      <li>この区別があるから、雑に始められる。</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h2>やってはいけないこと</h2>
+    <ul class="tips">
+      <li>インタビュー中にパターンの形へ整えようとする（話し手を型に押し込むと、想定外が採れない）。</li>
+      <li>本人確認を飛ばして共有する。</li>
+      <li>「良いコーディネートか」で選別する。判定は繰り返し性と板挟みの有無だけ。</li>
+      <li>AIが推測した板挟みを、確認せずに確定する。</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h2>他のページとの関係</h2>
+    <ul class="tips">
+      <li><b>このページ＝採取用。</b>聞いたものを貯める。</li>
+      <li><b>admin.html＝登録用。</b>パターンが確定してから事例を紐づける。</li>
+      <li><b>cross-border.html＝閲覧用。</b>整ったパターンを見る。</li>
+      <li>10件以上溜めて束ね直したら、パターン草案JSONを出して cross-border-patterns.json に反映する。</li>
+    </ul>
+  </div>
+</section>
+</div>
+
+<div class="modal" id="modal"><div class="mc" id="mcbody"></div></div>
+<script>
+const D = {"scenes": [{"no": "101", "text": "初回訪問で「特に困っていることはない」と言われたとき", "group": "出会ったばかりの頃", "code": 100, "area": "100 対人コーディネーション", "stage": "情報収集"}, {"no": "102", "text": "相手が用意した資料が、想定よりずっと薄かったとき", "group": "出会ったばかりの頃", "code": 100, "area": "100 対人コーディネーション", "stage": "情報収集"}, {"no": "103", "text": "事業計画書の内容と、話を聞いた印象がずれているとき", "group": "出会ったばかりの頃", "code": 100, "area": "100 対人コーディネーション", "stage": "情報収集"}, {"no": "104", "text": "ウェブサイトに書いてある事業と、実際にやっていることが違ったとき", "group": "出会ったばかりの頃", "code": 100, "area": "100 対人コーディネーション", "stage": "情報収集"}, {"no": "105", "text": "面談に、想定していなかった人が同席していたとき", "group": "出会ったばかりの頃", "code": 100, "area": "100 対人コーディネーション", "stage": "情報収集"}, {"no": "106", "text": "「うちは他とは違うんです」と言われたとき", "group": "出会ったばかりの頃", "code": 100, "area": "100 対人コーディネーション", "stage": "情報収集"}, {"no": "107", "text": "決算の数字を見て、この規模なら何人が動いているのかを考えたとき", "group": "出会ったばかりの頃", "code": 100, "area": "100 対人コーディネーション", "stage": "情報収集"}, {"no": "108", "text": "会う前に、何を調べていくか決めたとき", "group": "出会ったばかりの頃", "code": 100, "area": "100 対人コーディネーション", "stage": "情報収集"}, {"no": "109", "text": "「人が足りない」と言われたが、本当の問題は別だと感じたとき", "group": "話を聞きながら、頭の中で考えていること", "code": 100, "area": "100 対人コーディネーション", "stage": "洞察・分析"}, {"no": "110", "text": "資料が数枚しかないのに、来週提案しないといけないとき", "group": "話を聞きながら、頭の中で考えていること", "code": 100, "area": "100 対人コーディネーション", "stage": "洞察・分析"}, {"no": "111", "text": "相手が同じ話を繰り返していて、前進なのか停滞なのか迷ったとき", "group": "話を聞きながら、頭の中で考えていること", "code": 100, "area": "100 対人コーディネーション", "stage": "洞察・分析"}, {"no": "112", "text": "代表個人の資質の問題か、組織の仕組みの問題かを切り分けたとき", "group": "話を聞きながら、頭の中で考えていること", "code": 100, "area": "100 対人コーディネーション", "stage": "洞察・分析"}, {"no": "113", "text": "創業期のつもりで話していたら、実は別の段階だったとき", "group": "話を聞きながら、頭の中で考えていること", "code": 100, "area": "100 対人コーディネーション", "stage": "洞察・分析"}, {"no": "114", "text": "課題が5つ見えていて、どれから手をつけるか決めたとき", "group": "話を聞きながら、頭の中で考えていること", "code": 100, "area": "100 対人コーディネーション", "stage": "洞察・分析"}, {"no": "115", "text": "事前に立てた見立てが、会って5分で崩れたとき", "group": "見立てを持つ・扱う", "code": 100, "area": "100 対人コーディネーション", "stage": "見立ての扱い"}, {"no": "116", "text": "自分の見立てに自信が持てず、他のコーディネーターに聞いたとき", "group": "見立てを持つ・扱う", "code": 100, "area": "100 対人コーディネーション", "stage": "見立ての扱い"}, {"no": "117", "text": "見立てを伝えたら、相手が黙ってしまったとき", "group": "見立てを持つ・扱う", "code": 100, "area": "100 対人コーディネーション", "stage": "見立ての扱い"}, {"no": "118", "text": "半年後に、最初の見立てが外れていたと分かったとき", "group": "見立てを持つ・扱う", "code": 100, "area": "100 対人コーディネーション", "stage": "見立ての扱い"}, {"no": "119", "text": "相手が「それはちょっと」と言葉を濁したとき、何を避けているのかを考えたとき", "group": "相手の内側を想像するとき", "code": 100, "area": "100 対人コーディネーション", "stage": "没入"}, {"no": "120", "text": "この提案を持っていったら、相手が社内で何を言われるかを想像したとき", "group": "相手の内側を想像するとき", "code": 100, "area": "100 対人コーディネーション", "stage": "没入"}, {"no": "121", "text": "代表が、本当は降りたいのではないかと感じたとき", "group": "相手の内側を想像するとき", "code": 100, "area": "100 対人コーディネーション", "stage": "没入"}, {"no": "122", "text": "相手が笑っているのに、進んでいないと感じたとき", "group": "相手の内側を想像するとき", "code": 100, "area": "100 対人コーディネーション", "stage": "没入"}, {"no": "123", "text": "相手の家族やパートナーが反対していると分かったとき", "group": "相手の内側を想像するとき", "code": 100, "area": "100 対人コーディネーション", "stage": "没入"}, {"no": "124", "text": "「で、結局何をすればいいんですか」と言われたとき", "group": "相手の内側を想像するとき", "code": 100, "area": "100 対人コーディネーション", "stage": "没入"}, {"no": "125", "text": "相手の温度が、自分より低いと気づいたとき", "group": "相手の内側を想像するとき", "code": 100, "area": "100 対人コーディネーション", "stage": "没入"}, {"no": "126", "text": "打ち手の候補が3つあって、この人ならどれを実行できるかを考えたとき", "group": "何をするか決めるとき", "code": 100, "area": "100 対人コーディネーション", "stage": "支援策の検討"}, {"no": "127", "text": "明らかに苦しんでいるが、手を出さずに見ていたとき", "group": "何をするか決めるとき", "code": 100, "area": "100 対人コーディネーション", "stage": "支援策の検討"}, {"no": "128", "text": "答えを求められているが、答えを言わないと決めたとき", "group": "何をするか決めるとき", "code": 100, "area": "100 対人コーディネーション", "stage": "支援策の検討"}, {"no": "129", "text": "自分が手を出すか、誰かにつなぐかを決めたとき", "group": "何をするか決めるとき", "code": 100, "area": "100 対人コーディネーション", "stage": "支援策の検討"}, {"no": "130", "text": "教える・一緒に考える・見守るを切り替えたとき", "group": "何をするか決めるとき", "code": 100, "area": "100 対人コーディネーション", "stage": "支援策の検討"}, {"no": "131", "text": "正しい提案をしたはずなのに、相手が動かなかったとき", "group": "何をするか決めるとき", "code": 100, "area": "100 対人コーディネーション", "stage": "支援策の検討"}, {"no": "132", "text": "相手と意見が対立して、譲るか押すか決めたとき", "group": "言いにくいことを言うとき", "code": 100, "area": "100 対人コーディネーション", "stage": "対話を促す"}, {"no": "133", "text": "相手に「それは違う」と言わなければならなかったとき", "group": "言いにくいことを言うとき", "code": 100, "area": "100 対人コーディネーション", "stage": "対話を促す"}, {"no": "134", "text": "相手が約束を守らなかったとき、どう切り出すか考えたとき", "group": "言いにくいことを言うとき", "code": 100, "area": "100 対人コーディネーション", "stage": "対話を促す"}, {"no": "135", "text": "相手が感情的になったとき", "group": "言いにくいことを言うとき", "code": 100, "area": "100 対人コーディネーション", "stage": "対話を促す"}, {"no": "136", "text": "厳しいことを伝えた後、関係を保とうとしたとき", "group": "言いにくいことを言うとき", "code": 100, "area": "100 対人コーディネーション", "stage": "対話を促す"}, {"no": "137", "text": "対立している二者を、同席させるか別々に会うか決めたとき", "group": "言いにくいことを言うとき", "code": 100, "area": "100 対人コーディネーション", "stage": "対話を促す"}, {"no": "138", "text": "「順調です」と言われたが、そうは思えないとき", "group": "走っている途中", "code": 100, "area": "100 対人コーディネーション", "stage": "進捗を見る"}, {"no": "139", "text": "日報や週報が続かなくなったとき", "group": "走っている途中", "code": 100, "area": "100 対人コーディネーション", "stage": "進捗を見る"}, {"no": "140", "text": "報告が来なくなって、催促するか待つか迷ったとき", "group": "走っている途中", "code": 100, "area": "100 対人コーディネーション", "stage": "進捗を見る"}, {"no": "141", "text": "当事者が、周囲に何も相談していないと分かったとき", "group": "走っている途中", "code": 100, "area": "100 対人コーディネーション", "stage": "進捗を見る"}, {"no": "142", "text": "自分が代わりに説明してしまいそうになったとき", "group": "走っている途中", "code": 100, "area": "100 対人コーディネーション", "stage": "進捗を見る"}, {"no": "143", "text": "相手に入れ込みすぎていると感じたとき", "group": "走っている途中", "code": 100, "area": "100 対人コーディネーション", "stage": "進捗を見る"}, {"no": "144", "text": "何年も同じ相手を担当していて、見え方が変わったとき", "group": "走っている途中", "code": 100, "area": "100 対人コーディネーション", "stage": "進捗を見る"}, {"no": "145", "text": "やったことを、本人が「特に何も」と言ったとき", "group": "終わりに近づいた頃", "code": 100, "area": "100 対人コーディネーション", "stage": "意味づけて返す"}, {"no": "146", "text": "相手が言った言葉を、そのまま使うか整えるか迷ったとき", "group": "終わりに近づいた頃", "code": 100, "area": "100 対人コーディネーション", "stage": "意味づけて返す"}, {"no": "147", "text": "終わった後も関係を続けるかどうか決めたとき", "group": "終わりに近づいた頃", "code": 100, "area": "100 対人コーディネーション", "stage": "意味づけて返す"}, {"no": "148", "text": "想いはあるが、事業計画が数字になっていないとき", "group": "起業家・ベンチャーと", "code": 100, "area": "100 対人コーディネーション", "stage": "実行"}, {"no": "149", "text": "このままでは資金が尽きると見えているが、本人が気づいていないとき", "group": "起業家・ベンチャーと", "code": 100, "area": "100 対人コーディネーション", "stage": "実行"}, {"no": "150", "text": "共同創業者との間に緊張があると感じたとき", "group": "起業家・ベンチャーと", "code": 100, "area": "100 対人コーディネーション", "stage": "実行"}, {"no": "151", "text": "代表が全部やってしまっていて、組織になっていないとき", "group": "起業家・ベンチャーと", "code": 100, "area": "100 対人コーディネーション", "stage": "実行"}, {"no": "152", "text": "熱量はあるが、詰めが甘いものが出てきたとき", "group": "学生・若手と", "code": 100, "area": "100 対人コーディネーション", "stage": "実行"}, {"no": "153", "text": "責任のある仕事を任せるか迷ったとき", "group": "学生・若手と", "code": 100, "area": "100 対人コーディネーション", "stage": "実行"}, {"no": "154", "text": "途中で来なくなりそうな兆しを感じたとき", "group": "学生・若手と", "code": 100, "area": "100 対人コーディネーション", "stage": "実行"}, {"no": "201", "text": "プログラムの設計を、前年と同じにするか変えるか決めたとき", "group": "設計するとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "環境を整える"}, {"no": "202", "text": "やりたいことと、予算の枠が噛み合わないとき", "group": "設計するとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "環境を整える"}, {"no": "203", "text": "参加者を何人にするか決めたとき", "group": "設計するとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "環境を整える"}, {"no": "204", "text": "会場かオンラインかを選ぶとき、何を優先したか", "group": "設計するとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "環境を整える"}, {"no": "205", "text": "今回は何がうまくいけば成功なのかを、自分の中で決めたとき", "group": "設計するとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "環境を整える"}, {"no": "206", "text": "集客が想定より集まっていないと分かったとき", "group": "集める・選ぶとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "環境を整える"}, {"no": "207", "text": "告知文の言葉を、誰に向けてどこまで盛るか決めたとき", "group": "集める・選ぶとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "環境を整える"}, {"no": "208", "text": "応募が定員を超えて、誰を通すか決めたとき", "group": "集める・選ぶとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "環境を整える"}, {"no": "209", "text": "迷った応募者を、通すか落とすか決めたとき", "group": "集める・選ぶとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "環境を整える"}, {"no": "210", "text": "お断りの連絡を書くとき", "group": "集める・選ぶとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "環境を整える"}, {"no": "211", "text": "面談で、この人が伸びるかどうかを見立てたとき", "group": "集める・選ぶとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "環境を整える"}, {"no": "212", "text": "登壇者やゲストを誰にするか決めるとき", "group": "集める・選ぶとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "環境を整える"}, {"no": "213", "text": "参加者の名簿を見て、この組み合わせで大丈夫かを考えたとき", "group": "集める・選ぶとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "環境を整える"}, {"no": "214", "text": "初回の場で、参加者の緊張をどう解くか決めたとき", "group": "場を回しているとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "対話を促す"}, {"no": "215", "text": "イベント当日に、進行を変えると判断したとき", "group": "場を回しているとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "対話を促す"}, {"no": "216", "text": "ワークの時間配分を、その場で変えたとき", "group": "場を回しているとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "対話を促す"}, {"no": "217", "text": "場が盛り上がらないまま終わりそうなとき", "group": "場を回しているとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "対話を促す"}, {"no": "218", "text": "誰かの発言で、場が固まったとき", "group": "場を回しているとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "対話を促す"}, {"no": "219", "text": "会議で、発言していない人がいると気づいたとき", "group": "場を回しているとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "対話を促す"}, {"no": "220", "text": "グループ分けを決めるとき", "group": "場を回しているとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "対話を促す"}, {"no": "221", "text": "熱心な参加者が、他の人を萎縮させていたとき", "group": "場を回しているとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "対話を促す"}, {"no": "222", "text": "参加者同士が固まって、こちらが入れなくなったとき", "group": "場を回しているとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "対話を促す"}, {"no": "223", "text": "場の後に、誰に何を伝えるか決めたとき", "group": "場のあとで", "code": 200, "area": "200 場づくりコーディネーション", "stage": "意味づけて返す"}, {"no": "224", "text": "アンケートの結果と、自分の実感が違ったとき", "group": "場のあとで", "code": 200, "area": "200 場づくりコーディネーション", "stage": "意味づけて返す"}, {"no": "225", "text": "コミュニティのチャットが静かになってきたとき", "group": "コミュニティを続けるとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "実行"}, {"no": "226", "text": "古株と新規参加者の温度差が出てきたとき", "group": "コミュニティを続けるとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "実行"}, {"no": "227", "text": "オンラインで顔を出さない参加者に、どう関わるか決めたとき", "group": "コミュニティを続けるとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "実行"}, {"no": "228", "text": "卒業生を次にどう巻き込むか決めたとき", "group": "コミュニティを続けるとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "実行"}, {"no": "229", "text": "参加者の受け入れ先が、直前まで決まらないとき", "group": "コミュニティを続けるとき", "code": 200, "area": "200 場づくりコーディネーション", "stage": "実行"}, {"no": "301", "text": "事業計画の数字が、どう見ても届かないとき", "group": "事業の中身を見るとき", "code": 300, "area": "300 事業コーディネーション", "stage": "洞察・分析"}, {"no": "302", "text": "ビジネスモデルに無理があると感じたとき", "group": "事業の中身を見るとき", "code": 300, "area": "300 事業コーディネーション", "stage": "洞察・分析"}, {"no": "303", "text": "事業の優先順位が、こちらの見立てと違ったとき", "group": "事業の中身を見るとき", "code": 300, "area": "300 事業コーディネーション", "stage": "洞察・分析"}, {"no": "304", "text": "本人が立てた目標が、明らかに的を外していたとき", "group": "事業の中身を見るとき", "code": 300, "area": "300 事業コーディネーション", "stage": "洞察・分析"}, {"no": "305", "text": "課題は多いが、この3ヶ月では1つに絞ると決めたとき", "group": "事業の中身を見るとき", "code": 300, "area": "300 事業コーディネーション", "stage": "洞察・分析"}, {"no": "306", "text": "掲げた目標が、達成できたか判定できない形だったとき", "group": "事業の中身を見るとき", "code": 300, "area": "300 事業コーディネーション", "stage": "洞察・分析"}, {"no": "307", "text": "収益化の話を、どのタイミングで持ち出すか決めたとき", "group": "お金の話をするとき", "code": 300, "area": "300 事業コーディネーション", "stage": "支援策の検討"}, {"no": "308", "text": "補助金頼みの構造を指摘するとき", "group": "お金の話をするとき", "code": 300, "area": "300 事業コーディネーション", "stage": "支援策の検討"}, {"no": "309", "text": "資金繰りが厳しいと分かったとき", "group": "お金の話をするとき", "code": 300, "area": "300 事業コーディネーション", "stage": "支援策の検討"}, {"no": "310", "text": "値付けを相談されたとき", "group": "お金の話をするとき", "code": 300, "area": "300 事業コーディネーション", "stage": "支援策の検討"}, {"no": "311", "text": "助成金を取るべきか、いま取らない方がいいかを考えたとき", "group": "お金の話をするとき", "code": 300, "area": "300 事業コーディネーション", "stage": "支援策の検討"}, {"no": "312", "text": "クラウドファンディングを、やるか止めるか助言したとき", "group": "お金の話をするとき", "code": 300, "area": "300 事業コーディネーション", "stage": "支援策の検討"}, {"no": "313", "text": "企業スポンサーを紹介するか決めたとき", "group": "お金の話をするとき", "code": 300, "area": "300 事業コーディネーション", "stage": "支援策の検討"}, {"no": "314", "text": "お金の話をどこまで踏み込んで聞くか決めたとき", "group": "お金の話をするとき", "code": 300, "area": "300 事業コーディネーション", "stage": "支援策の検討"}, {"no": "315", "text": "決めた目標より、状況のほうが先に変わったとき", "group": "見直し・撤退を扱うとき", "code": 300, "area": "300 事業コーディネーション", "stage": "支援策の検討"}, {"no": "316", "text": "事業を畳む選択肢を出すべきか迷ったとき", "group": "見直し・撤退を扱うとき", "code": 300, "area": "300 事業コーディネーション", "stage": "支援策の検討"}, {"no": "317", "text": "撤退の判断を、誰といつ話すか決めたとき", "group": "見直し・撤退を扱うとき", "code": 300, "area": "300 事業コーディネーション", "stage": "支援策の検討"}, {"no": "318", "text": "インパクト評価の指標を、事業の実態に合わせて決めるとき", "group": "成果を測るとき", "code": 300, "area": "300 事業コーディネーション", "stage": "意味づけて返す"}, {"no": "319", "text": "成果指標が実態と合っていないと気づいたとき", "group": "成果を測るとき", "code": 300, "area": "300 事業コーディネーション", "stage": "意味づけて返す"}, {"no": "320", "text": "インパクト評価を、誰のために作るのか考えたとき", "group": "成果を測るとき", "code": 300, "area": "300 事業コーディネーション", "stage": "意味づけて返す"}, {"no": "321", "text": "成果が出ていない年度末に、何を書くか考えたとき", "group": "成果を測るとき", "code": 300, "area": "300 事業コーディネーション", "stage": "意味づけて返す"}, {"no": "401", "text": "担当者は乗り気だが、稟議で止まっていたとき", "group": "企業と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "402", "text": "「で、御社のメリットは何ですか」と聞かれたとき", "group": "企業と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "403", "text": "CSR部門の話が、事業部門に通っていなかったとき", "group": "企業と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "404", "text": "相手の期末と、こちらの年度がずれていたとき", "group": "企業と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "405", "text": "受け入れ先の上司が、この件を知らないと分かったとき", "group": "企業と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "406", "text": "現場は乗り気だが、決裁権のある人に会えていないとき", "group": "企業と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "407", "text": "仕様書の枠に収めないと成立しないが、収めるとやりたいことが痩せるとき", "group": "行政と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "408", "text": "担当者が異動して、話が最初に戻ったとき", "group": "行政と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "409", "text": "首長が代わって、前の合意が白紙になりかけたとき", "group": "行政と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "410", "text": "議会や予算の都合で、スケジュールが決まってしまうとき", "group": "行政と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "411", "text": "単年度で終わる事業を、続くものとして設計したいとき", "group": "行政と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "412", "text": "前例がないことを通そうとしたとき", "group": "行政と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "413", "text": "行政に前例を作ってもらうために、書き方を工夫したとき", "group": "行政と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "414", "text": "相手の団体にノウハウを渡すとき、どこまで渡すか決めたとき", "group": "中間支援・パートナー団体と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "415", "text": "共同事業で、相手のやり方と自分のやり方が違ったとき", "group": "中間支援・パートナー団体と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "416", "text": "相手の理事会で決まったことが、現場と噛み合っていなかったとき", "group": "中間支援・パートナー団体と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "417", "text": "引き合いを、他の団体に回すか自分で受けるか決めたとき", "group": "中間支援・パートナー団体と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "418", "text": "パートナーが約束した役割を果たしていないとき", "group": "中間支援・パートナー団体と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "419", "text": "共同事業の成果を、どちらの成果として出すか決めたとき", "group": "中間支援・パートナー団体と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "420", "text": "相手の組織の中の対立に、巻き込まれそうなとき", "group": "中間支援・パートナー団体と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "421", "text": "関係者の合意を取りに回ったとき", "group": "座組みをつくるとき", "code": 400, "area": "400 組織間コーディネーション", "stage": "環境を整える"}, {"no": "422", "text": "相手の組織の中で、誰を巻き込むか決めたとき", "group": "座組みをつくるとき", "code": 400, "area": "400 組織間コーディネーション", "stage": "環境を整える"}, {"no": "423", "text": "覚書を交わすか、口約束で進めるか決めたとき", "group": "座組みをつくるとき", "code": 400, "area": "400 組織間コーディネーション", "stage": "環境を整える"}, {"no": "424", "text": "複数の団体を同じ場に集めるとき、誰を呼ぶか決めたとき", "group": "座組みをつくるとき", "code": 400, "area": "400 組織間コーディネーション", "stage": "環境を整える"}, {"no": "425", "text": "相手の担当者が社内で評価されるように、立てたとき", "group": "座組みをつくるとき", "code": 400, "area": "400 組織間コーディネーション", "stage": "環境を整える"}, {"no": "426", "text": "助成元・出資元の意向と、現場の判断が違ったとき", "group": "座組みをつくるとき", "code": 400, "area": "400 組織間コーディネーション", "stage": "環境を整える"}, {"no": "427", "text": "本業が忙しくなって、関わりが薄くなってきたとき", "group": "社会人・副業兼業の人と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "428", "text": "期待していた関わり方と、実際がずれてきたとき", "group": "社会人・副業兼業の人と", "code": 400, "area": "400 組織間コーディネーション", "stage": "実行"}, {"no": "501", "text": "チーム内で、案件の抱え方が偏っていると気づいたとき", "group": "チームの中で", "code": 500, "area": "500 組織コーディネーション", "stage": "実行"}, {"no": "502", "text": "後輩の案件に、どこまで口を出すか決めたとき", "group": "チームの中で", "code": 500, "area": "500 組織コーディネーション", "stage": "実行"}, {"no": "503", "text": "自分のやり方が、チームのやり方と違うと気づいたとき", "group": "チームの中で", "code": 500, "area": "500 組織コーディネーション", "stage": "実行"}, {"no": "504", "text": "チームの誰かが、明らかに疲れていると気づいたとき", "group": "チームの中で", "code": 500, "area": "500 組織コーディネーション", "stage": "実行"}, {"no": "505", "text": "委託・業務委託メンバーとの線引きを決めたとき", "group": "チームの中で", "code": 500, "area": "500 組織コーディネーション", "stage": "実行"}, {"no": "506", "text": "上司や経営に、案件の判断を上げるか決めたとき", "group": "判断を上げる・預けるとき", "code": 500, "area": "500 組織コーディネーション", "stage": "実行"}, {"no": "507", "text": "案件を断る判断を、チームで共有したとき", "group": "判断を上げる・預けるとき", "code": 500, "area": "500 組織コーディネーション", "stage": "実行"}, {"no": "508", "text": "引き合いが来ているが、受けきれないとき", "group": "判断を上げる・預けるとき", "code": 500, "area": "500 組織コーディネーション", "stage": "実行"}, {"no": "509", "text": "予算の中で、何を削るか決めたとき", "group": "判断を上げる・預けるとき", "code": 500, "area": "500 組織コーディネーション", "stage": "実行"}, {"no": "510", "text": "事業の撤退・終了を決めたとき", "group": "判断を上げる・預けるとき", "code": 500, "area": "500 組織コーディネーション", "stage": "実行"}, {"no": "511", "text": "新しく入った人に、言語化していないやり方を渡すとき", "group": "渡す・残すとき", "code": 500, "area": "500 組織コーディネーション", "stage": "意味づけて返す"}, {"no": "512", "text": "引き継ぎの資料を作るとき、何を書くか決めたとき", "group": "渡す・残すとき", "code": 500, "area": "500 組織コーディネーション", "stage": "意味づけて返す"}, {"no": "513", "text": "自分がいなくても回る形にしようとしたとき", "group": "渡す・残すとき", "code": 500, "area": "500 組織コーディネーション", "stage": "意味づけて返す"}, {"no": "514", "text": "成果報告の場に、当事者以外を呼ぶかどうか決めたとき", "group": "渡す・残すとき", "code": 500, "area": "500 組織コーディネーション", "stage": "意味づけて返す"}, {"no": "515", "text": "うまくいかなかった部分を、報告書にどこまで書くか決めたとき", "group": "渡す・残すとき", "code": 500, "area": "500 組織コーディネーション", "stage": "意味づけて返す"}, {"no": "801", "text": "依頼のメールを書くとき", "group": "メール・連絡", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "802", "text": "断りの連絡をするとき", "group": "メール・連絡", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "803", "text": "長いメールを短くするか、丁寧に書くか決めたとき", "group": "メール・連絡", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "804", "text": "相手が返事をくれないとき、催促の書き方を考えたとき", "group": "メール・連絡", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "805", "text": "誰をCCに入れるか決めたとき", "group": "メール・連絡", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "806", "text": "チャットとメールと電話を使い分けたとき", "group": "メール・連絡", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "807", "text": "議事録に、言われていないことを書くかどうか迷ったとき", "group": "記録・議事録", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "808", "text": "議事録を、その場で見せるか後で送るか決めたとき", "group": "記録・議事録", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "809", "text": "議事録や運営表を、どこまで作るか決めたとき", "group": "記録・議事録", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "810", "text": "記録を残すか、あえて残さないか決めたとき", "group": "記録・議事録", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "811", "text": "相手の情報を、どこまでチームに共有するか決めたとき", "group": "記録・議事録", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "812", "text": "助成金の申請書を、相手の言葉から審査に通る言葉に書き換えるとき", "group": "提案・報告", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "813", "text": "報告書の見出しを決めるとき", "group": "提案・報告", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "814", "text": "プレゼンで、どの順に話すか決めたとき", "group": "提案・報告", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "815", "text": "資料を作らず、口頭だけで臨むと決めたとき", "group": "提案・報告", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "816", "text": "相手の言葉を引用するとき、どこを切り取るか決めたとき", "group": "提案・報告", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "817", "text": "数字を、良く見せるか正直に見せるか決めたとき", "group": "提案・報告", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "818", "text": "契約書や覚書の文面を詰めるとき", "group": "提案・報告", "code": 800, "area": "800 道具・成果物", "stage": "実行"}, {"no": "819", "text": "相手の組織図を見て、誰に話すべきかを考えたとき", "group": "調べる・探す", "code": 800, "area": "800 道具・成果物", "stage": "情報収集"}, {"no": "820", "text": "過去の似た案件の資料を探すとき", "group": "調べる・探す", "code": 800, "area": "800 道具・成果物", "stage": "情報収集"}, {"no": "821", "text": "名刺やSNSでつながった人を、どう管理しているか", "group": "調べる・探す", "code": 800, "area": "800 道具・成果物", "stage": "情報収集"}, {"no": "822", "text": "AIやツールに任せるか、自分で書くか決めたとき", "group": "調べる・探す", "code": 800, "area": "800 道具・成果物", "stage": "情報収集"}, {"no": "601", "text": "自分が実感を持って見立てられる範囲を意識したとき", "group": "自分の型に気づくとき", "code": 600, "area": "600 自分のこと", "stage": "構え・育ち"}, {"no": "602", "text": "自分の得意な型に、無理に当てはめようとしたと気づいたとき", "group": "自分の型に気づくとき", "code": 600, "area": "600 自分のこと", "stage": "構え・育ち"}, {"no": "603", "text": "前の案件の成功パターンが、通じなかったとき", "group": "自分の型に気づくとき", "code": 600, "area": "600 自分のこと", "stage": "構え・育ち"}, {"no": "604", "text": "他のコーディネーターのやり方を見て、真似したいと思ったとき", "group": "自分の型に気づくとき", "code": 600, "area": "600 自分のこと", "stage": "構え・育ち"}, {"no": "605", "text": "自分の価値観と、相手の選択がぶつかったとき", "group": "揺れるとき", "code": 600, "area": "600 自分のこと", "stage": "構え・育ち"}, {"no": "606", "text": "分からない分野の相談を受けたとき", "group": "揺れるとき", "code": 600, "area": "600 自分のこと", "stage": "構え・育ち"}, {"no": "607", "text": "相手のほうが専門知識があるとき、どう関わるか決めたとき", "group": "揺れるとき", "code": 600, "area": "600 自分のこと", "stage": "構え・育ち"}, {"no": "608", "text": "自分が判断を間違えたと気づいたとき、どう扱ったか", "group": "揺れるとき", "code": 600, "area": "600 自分のこと", "stage": "構え・育ち"}, {"no": "609", "text": "感情的になっている自分に気づいたとき", "group": "揺れるとき", "code": 600, "area": "600 自分のこと", "stage": "構え・育ち"}, {"no": "610", "text": "成果が出ないまま時間が過ぎているとき", "group": "続けるために", "code": 600, "area": "600 自分のこと", "stage": "構え・育ち"}, {"no": "611", "text": "断りたい仕事を引き受けたとき／断ったとき", "group": "続けるために", "code": 600, "area": "600 自分のこと", "stage": "構え・育ち"}, {"no": "612", "text": "休めていないと気づいたとき", "group": "続けるために", "code": 600, "area": "600 自分のこと", "stage": "構え・育ち"}, {"no": "613", "text": "自分の伴走が良かったのか、分からないまま終わったとき", "group": "続けるために", "code": 600, "area": "600 自分のこと", "stage": "構え・育ち"}], "cards": {"107": "事業規模から組織の実態を読む", "110": "書かれていないことから仮説を立てる", "111": "いいモヤモヤと悪いモヤモヤを見分ける", "115": "見立ては仮説として持つ", "116": "ひとりで見立てない", "126": "相手になりきって試着する", "127": "ギリギリの負荷を保つ", "139": "モニタリングの手を使い分ける", "145": "体験を言葉にして返す", "305": "重点課題を握る", "315": "中間で目標を立て直す", "514": "成果を組織に開く", "601": "自分のものさしを持つ"}, "immerse": ["119", "120", "121", "122", "123", "124", "125"], "edc": [["100 対人", ["110 関係構築", "120 コンフリクト管理", "130 交渉", "140 コラボレーション", "150 コーチング"]], ["200 場づくり", ["210 イベント計画・管理", "220 ファシリテーション", "230 協働環境の創造", "240 ネットワーキング・コミュニティ"]], ["300 事業", ["310 事業計画・開発", "320 マーケティング", "330 財務管理", "340 リソース動員", "350 事業PM", "360 インパクト評価"]], ["400 組織間", ["410 パートナーシップ開発", "420 コラボレーション・協力", "430 ステークホルダー", "440 アドボカシー", "450 パートナー経由営業"]], ["500 組織", ["501 組織アイデンティティ", "510 チーム管理", "520 組織PM", "530 戦略計画", "540 パフォーマンス評価", "550 ガバナンス", "560 ファンドレイジング"]], ["600 世界観・イノベーション", ["610 システム思考", "620 創造的問題解決", "630 適応力・レジリエンス", "640 文化的コンピテンス"]], ["700 対象理解", ["710 社会コンテキスト分析", "720 地域ニーズ評価", "730 起業家行動と動機", "740 市場調査"]], ["800 コミュニケーション", ["810 口頭", "820 書面", "830 デジタル", "840 アクティブリスニング", "850 クロスカルチャー"]], ["900 基礎技能・情報活用", ["910 調査・データ分析", "920 情報技術", "930 タイムマネジメント", "940 継続的学習", "950 ビジネスリテラシー"]]], "stages": ["情報収集", "洞察・分析", "見立ての扱い", "没入", "支援策の検討", "環境を整える", "進捗を見る", "対話を促す", "意味づけて返す", "実行", "構え・育ち"], "areas": {"100": "対人コーディネーション", "200": "場づくりコーディネーション", "300": "事業コーディネーション", "400": "組織間コーディネーション", "500": "組織コーディネーション", "800": "道具・成果物", "600": "自分のこと"}};
+const PROMPT = "あなたはコーディネーターの実践知を整理する編集者です。\n以下のインタビュー文字起こしから、「場面」を単位に情報を抽出してください。\n\n## 前提\n- 集めたいのは立派な成功談ではなく、繰り返し起きる場面での判断です。\n- 「板挟み」とは、両方とも正しいのに同時に立たない2つの要求のことです。\n  例）失敗させたくない ↕ 失敗からしか育たない\n  単なる困りごと（相手が動かなかった、時間がなかった）は板挟みではありません。\n\n## 厳守すること\n1. 文字起こしに根拠がないことは書かない。埋められない項目は空文字にする。\n2. own_words は文字起こしから逐語で抜き出す。要約・言い換えをしない。\n3. 板挟みが本人の言葉として明言されていない場合、推測してよいが tension.guessed を true にする。\n   明言されている場合は false。全体を通じて、もっともらしい板挟みを創作しないこと。\n4. repeat は、文字起こしに「よくある」「毎回」等の言及がなければ \"未確認\" にする。推測しない。\n5. 1つの文字起こしから場面は複数拾う。3〜8件を目安に、無理に増やさない。\n6. 同じ場面の話が離れた場所に出てきたら、1件にまとめる。\n7. 出力はJSON配列のみ。前後に説明文やコードフェンスを付けない。\n\n## 場面番号\n下のリストから最も近い番号を scene_no に入れる。\n該当がなければ \"other\" とし、scene_text に新しい場面の言い方を書く。\n（「〜のとき」の形。具体的な名詞と、できれば相手のセリフを入れる）\n\n## 出力スキーマ（配列の各要素）\n{\n  \"scene_no\": \"111 または other\",\n  \"scene_text\": \"場面の言い方（〜のとき）\",\n  \"repeat\": \"よくある / 時々 / 今回だけ / 未確認\",\n  \"context\": \"具体的な一回。いつ・誰と・何をしようとしていた場面か\",\n  \"tension\": { \"a\": \"両立しない力A\", \"b\": \"両立しない力B\", \"guessed\": true },\n  \"dropped\": \"捨てた選択肢とその理由\",\n  \"solution\": \"実際にどうしたか\",\n  \"principle\": \"その裏にあった考え方\",\n  \"result\": \"その後どうなったか\",\n  \"caution\": \"副作用・新たに生まれた状況\",\n  \"own_words\": [\"逐語の引用\", \"逐語の引用\"],\n  \"name\": \"仮の名前（思い浮かばなければ空文字）\",\n  \"layer\": \"コツ・TIPS / 教訓 / パターン候補 / 判定保留\",\n  \"edc\": [\"110 関係構築\"],\n  \"memo\": \"抽出者としての気づき、確認が必要な点\"\n}\n\n## 層の判定\n- パターン候補：繰り返し起きて、かつ板挟みがある\n- 教訓：一度の経験から得た学び。繰り返し性は未検証\n- コツ・TIPS：状況に紐づいた具体的な工夫。板挟みがないものも含む\n- 判定保留：迷うもの\n\n## EDCコード（複数可・迷ったら多めに）\n100 対人：110 関係構築／120 コンフリクト管理／130 交渉／140 コラボレーション／150 コーチング\n200 場づくり：210 イベント計画・管理／220 ファシリテーション／230 協働環境の創造／240 ネットワーキング・コミュニティ\n300 事業：310 事業計画・開発／320 マーケティング／330 財務管理／340 リソース動員／350 事業PM／360 インパクト評価\n400 組織間：410 パートナーシップ開発／420 コラボレーション・協力／430 ステークホルダー／440 アドボカシー／450 パートナー経由営業\n500 組織：501 組織アイデンティティ／510 チーム管理／520 組織PM／530 戦略計画／540 パフォーマンス評価／550 ガバナンス／560 ファンドレイジング\n600 世界観・イノベーション：610 システム思考／620 創造的問題解決／630 適応力・レジリエンス／640 文化的コンピテンス\n700 対象理解：710 社会コンテキスト分析／720 地域ニーズ評価／730 起業家行動と動機／740 市場調査\n800 コミュニケーション：810 口頭／820 書面／830 デジタル／840 アクティブリスニング／850 クロスカルチャー\n900 基礎技能・情報活用：910 調査・データ分析／920 情報技術／930 タイムマネジメント／940 継続的学習／950 ビジネスリテラシー\n## 場面リスト\n101　初回訪問で「特に困っていることはない」と言われたとき\n102　相手が用意した資料が、想定よりずっと薄かったとき\n103　事業計画書の内容と、話を聞いた印象がずれているとき\n104　ウェブサイトに書いてある事業と、実際にやっていることが違ったとき\n105　面談に、想定していなかった人が同席していたとき\n106　「うちは他とは違うんです」と言われたとき\n107　決算の数字を見て、この規模なら何人が動いているのかを考えたとき\n108　会う前に、何を調べていくか決めたとき\n109　「人が足りない」と言われたが、本当の問題は別だと感じたとき\n110　資料が数枚しかないのに、来週提案しないといけないとき\n111　相手が同じ話を繰り返していて、前進なのか停滞なのか迷ったとき\n112　代表個人の資質の問題か、組織の仕組みの問題かを切り分けたとき\n113　創業期のつもりで話していたら、実は別の段階だったとき\n114　課題が5つ見えていて、どれから手をつけるか決めたとき\n115　事前に立てた見立てが、会って5分で崩れたとき\n116　自分の見立てに自信が持てず、他のコーディネーターに聞いたとき\n117　見立てを伝えたら、相手が黙ってしまったとき\n118　半年後に、最初の見立てが外れていたと分かったとき\n119　相手が「それはちょっと」と言葉を濁したとき、何を避けているのかを考えたとき\n120　この提案を持っていったら、相手が社内で何を言われるかを想像したとき\n121　代表が、本当は降りたいのではないかと感じたとき\n122　相手が笑っているのに、進んでいないと感じたとき\n123　相手の家族やパートナーが反対していると分かったとき\n124　「で、結局何をすればいいんですか」と言われたとき\n125　相手の温度が、自分より低いと気づいたとき\n126　打ち手の候補が3つあって、この人ならどれを実行できるかを考えたとき\n127　明らかに苦しんでいるが、手を出さずに見ていたとき\n128　答えを求められているが、答えを言わないと決めたとき\n129　自分が手を出すか、誰かにつなぐかを決めたとき\n130　教える・一緒に考える・見守るを切り替えたとき\n131　正しい提案をしたはずなのに、相手が動かなかったとき\n132　相手と意見が対立して、譲るか押すか決めたとき\n133　相手に「それは違う」と言わなければならなかったとき\n134　相手が約束を守らなかったとき、どう切り出すか考えたとき\n135　相手が感情的になったとき\n136　厳しいことを伝えた後、関係を保とうとしたとき\n137　対立している二者を、同席させるか別々に会うか決めたとき\n138　「順調です」と言われたが、そうは思えないとき\n139　日報や週報が続かなくなったとき\n140　報告が来なくなって、催促するか待つか迷ったとき\n141　当事者が、周囲に何も相談していないと分かったとき\n142　自分が代わりに説明してしまいそうになったとき\n143　相手に入れ込みすぎていると感じたとき\n144　何年も同じ相手を担当していて、見え方が変わったとき\n145　やったことを、本人が「特に何も」と言ったとき\n146　相手が言った言葉を、そのまま使うか整えるか迷ったとき\n147　終わった後も関係を続けるかどうか決めたとき\n148　想いはあるが、事業計画が数字になっていないとき\n149　このままでは資金が尽きると見えているが、本人が気づいていないとき\n150　共同創業者との間に緊張があると感じたとき\n151　代表が全部やってしまっていて、組織になっていないとき\n152　熱量はあるが、詰めが甘いものが出てきたとき\n153　責任のある仕事を任せるか迷ったとき\n154　途中で来なくなりそうな兆しを感じたとき\n201　プログラムの設計を、前年と同じにするか変えるか決めたとき\n202　やりたいことと、予算の枠が噛み合わないとき\n203　参加者を何人にするか決めたとき\n204　会場かオンラインかを選ぶとき、何を優先したか\n205　今回は何がうまくいけば成功なのかを、自分の中で決めたとき\n206　集客が想定より集まっていないと分かったとき\n207　告知文の言葉を、誰に向けてどこまで盛るか決めたとき\n208　応募が定員を超えて、誰を通すか決めたとき\n209　迷った応募者を、通すか落とすか決めたとき\n210　お断りの連絡を書くとき\n211　面談で、この人が伸びるかどうかを見立てたとき\n212　登壇者やゲストを誰にするか決めるとき\n213　参加者の名簿を見て、この組み合わせで大丈夫かを考えたとき\n214　初回の場で、参加者の緊張をどう解くか決めたとき\n215　イベント当日に、進行を変えると判断したとき\n216　ワークの時間配分を、その場で変えたとき\n217　場が盛り上がらないまま終わりそうなとき\n218　誰かの発言で、場が固まったとき\n219　会議で、発言していない人がいると気づいたとき\n220　グループ分けを決めるとき\n221　熱心な参加者が、他の人を萎縮させていたとき\n222　参加者同士が固まって、こちらが入れなくなったとき\n223　場の後に、誰に何を伝えるか決めたとき\n224　アンケートの結果と、自分の実感が違ったとき\n225　コミュニティのチャットが静かになってきたとき\n226　古株と新規参加者の温度差が出てきたとき\n227　オンラインで顔を出さない参加者に、どう関わるか決めたとき\n228　卒業生を次にどう巻き込むか決めたとき\n229　参加者の受け入れ先が、直前まで決まらないとき\n301　事業計画の数字が、どう見ても届かないとき\n302　ビジネスモデルに無理があると感じたとき\n303　事業の優先順位が、こちらの見立てと違ったとき\n304　本人が立てた目標が、明らかに的を外していたとき\n305　課題は多いが、この3ヶ月では1つに絞ると決めたとき\n306　掲げた目標が、達成できたか判定できない形だったとき\n307　収益化の話を、どのタイミングで持ち出すか決めたとき\n308　補助金頼みの構造を指摘するとき\n309　資金繰りが厳しいと分かったとき\n310　値付けを相談されたとき\n311　助成金を取るべきか、いま取らない方がいいかを考えたとき\n312　クラウドファンディングを、やるか止めるか助言したとき\n313　企業スポンサーを紹介するか決めたとき\n314　お金の話をどこまで踏み込んで聞くか決めたとき\n315　決めた目標より、状況のほうが先に変わったとき\n316　事業を畳む選択肢を出すべきか迷ったとき\n317　撤退の判断を、誰といつ話すか決めたとき\n318　インパクト評価の指標を、事業の実態に合わせて決めるとき\n319　成果指標が実態と合っていないと気づいたとき\n320　インパクト評価を、誰のために作るのか考えたとき\n321　成果が出ていない年度末に、何を書くか考えたとき\n401　担当者は乗り気だが、稟議で止まっていたとき\n402　「で、御社のメリットは何ですか」と聞かれたとき\n403　CSR部門の話が、事業部門に通っていなかったとき\n404　相手の期末と、こちらの年度がずれていたとき\n405　受け入れ先の上司が、この件を知らないと分かったとき\n406　現場は乗り気だが、決裁権のある人に会えていないとき\n407　仕様書の枠に収めないと成立しないが、収めるとやりたいことが痩せるとき\n408　担当者が異動して、話が最初に戻ったとき\n409　首長が代わって、前の合意が白紙になりかけたとき\n410　議会や予算の都合で、スケジュールが決まってしまうとき\n411　単年度で終わる事業を、続くものとして設計したいとき\n412　前例がないことを通そうとしたとき\n413　行政に前例を作ってもらうために、書き方を工夫したとき\n414　相手の団体にノウハウを渡すとき、どこまで渡すか決めたとき\n415　共同事業で、相手のやり方と自分のやり方が違ったとき\n416　相手の理事会で決まったことが、現場と噛み合っていなかったとき\n417　引き合いを、他の団体に回すか自分で受けるか決めたとき\n418　パートナーが約束した役割を果たしていないとき\n419　共同事業の成果を、どちらの成果として出すか決めたとき\n420　相手の組織の中の対立に、巻き込まれそうなとき\n421　関係者の合意を取りに回ったとき\n422　相手の組織の中で、誰を巻き込むか決めたとき\n423　覚書を交わすか、口約束で進めるか決めたとき\n424　複数の団体を同じ場に集めるとき、誰を呼ぶか決めたとき\n425　相手の担当者が社内で評価されるように、立てたとき\n426　助成元・出資元の意向と、現場の判断が違ったとき\n427　本業が忙しくなって、関わりが薄くなってきたとき\n428　期待していた関わり方と、実際がずれてきたとき\n501　チーム内で、案件の抱え方が偏っていると気づいたとき\n502　後輩の案件に、どこまで口を出すか決めたとき\n503　自分のやり方が、チームのやり方と違うと気づいたとき\n504　チームの誰かが、明らかに疲れていると気づいたとき\n505　委託・業務委託メンバーとの線引きを決めたとき\n506　上司や経営に、案件の判断を上げるか決めたとき\n507　案件を断る判断を、チームで共有したとき\n508　引き合いが来ているが、受けきれないとき\n509　予算の中で、何を削るか決めたとき\n510　事業の撤退・終了を決めたとき\n511　新しく入った人に、言語化していないやり方を渡すとき\n512　引き継ぎの資料を作るとき、何を書くか決めたとき\n513　自分がいなくても回る形にしようとしたとき\n514　成果報告の場に、当事者以外を呼ぶかどうか決めたとき\n515　うまくいかなかった部分を、報告書にどこまで書くか決めたとき\n801　依頼のメールを書くとき\n802　断りの連絡をするとき\n803　長いメールを短くするか、丁寧に書くか決めたとき\n804　相手が返事をくれないとき、催促の書き方を考えたとき\n805　誰をCCに入れるか決めたとき\n806　チャットとメールと電話を使い分けたとき\n807　議事録に、言われていないことを書くかどうか迷ったとき\n808　議事録を、その場で見せるか後で送るか決めたとき\n809　議事録や運営表を、どこまで作るか決めたとき\n810　記録を残すか、あえて残さないか決めたとき\n811　相手の情報を、どこまでチームに共有するか決めたとき\n812　助成金の申請書を、相手の言葉から審査に通る言葉に書き換えるとき\n813　報告書の見出しを決めるとき\n814　プレゼンで、どの順に話すか決めたとき\n815　資料を作らず、口頭だけで臨むと決めたとき\n816　相手の言葉を引用するとき、どこを切り取るか決めたとき\n817　数字を、良く見せるか正直に見せるか決めたとき\n818　契約書や覚書の文面を詰めるとき\n819　相手の組織図を見て、誰に話すべきかを考えたとき\n820　過去の似た案件の資料を探すとき\n821　名刺やSNSでつながった人を、どう管理しているか\n822　AIやツールに任せるか、自分で書くか決めたとき\n601　自分が実感を持って見立てられる範囲を意識したとき\n602　自分の得意な型に、無理に当てはめようとしたと気づいたとき\n603　前の案件の成功パターンが、通じなかったとき\n604　他のコーディネーターのやり方を見て、真似したいと思ったとき\n605　自分の価値観と、相手の選択がぶつかったとき\n606　分からない分野の相談を受けたとき\n607　相手のほうが専門知識があるとき、どう関わるか決めたとき\n608　自分が判断を間違えたと気づいたとき、どう扱ったか\n609　感情的になっている自分に気づいたとき\n610　成果が出ないまま時間が過ぎているとき\n611　断りたい仕事を引き受けたとき／断ったとき\n612　休めていないと気づいたとき\n613　自分の伴走が良かったのか、分からないまま終わったとき";
+const KEY="sr_records_v1", LKEY="sr_logs_v1", SKEY="sr_sessions_v1";
+let mem={}, useLS=true;
+try{ localStorage.setItem("__t","1"); localStorage.removeItem("__t"); }catch(e){ useLS=false; }
+if(!useLS){
+  const w=document.getElementById("warn");
+  w.style.display="block";
+  w.innerHTML="<b>この環境ではブラウザ保存が使えません。</b>入力は一時的にしか残らないので、必ず「書き出し」からJSONを保存してください。";
+}
+const store={
+  get(k){ try{ return useLS? JSON.parse(localStorage.getItem(k)||"[]") : (mem[k]||[]); }catch(e){ return []; } },
+  set(k,v){ if(useLS) localStorage.setItem(k,JSON.stringify(v)); else mem[k]=v; }
+};
+const F=id=>document.getElementById(id);
+const R=n=>(document.querySelector('input[name="'+n+'"]:checked')||{}).value||"";
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const today=()=>new Date().toISOString().slice(0,10);
+["l_date","ai_date","date","s_date"].forEach(i=>{ if(F(i)) F(i).value=today(); });
+
+/* ---- タブ ---- */
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("nav button").forEach(x=>x.classList.remove("on"));
+  document.querySelectorAll(".panel").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on");
+  F("p-"+b.dataset.p).classList.add("on");
+  const p=b.dataset.p;
+  if(p==="log") renderLogs();
+  if(p==="ai"){ fillPick(); renderCheck(); }
+  if(p==="view") renderView();
+  if(p==="sess") renderSess();
+  if(p==="out") renderPv();
+  window.scrollTo(0,0);
+});
+
+/* ================= ① 文字起こし ================= */
+F("l_save").onclick=()=>{
+  const t=F("l_text").value.trim();
+  if(!t){ alert("文字起こしが空です。"); return; }
+  const logs=store.get(LKEY);
+  logs.push({ id:"l"+Date.now(), speaker:F("l_speaker").value.trim(), date:F("l_date").value,
+    title:F("l_title").value.trim(), text:t, memo:F("l_memo").value.trim(),
+    chars:t.length, extracted:false, saved:new Date().toISOString() });
+  store.set(LKEY,logs);
+  F("l_msg").textContent="保存しました（全"+logs.length+"本）";
+  setTimeout(()=>F("l_msg").textContent="",2800);
+  ["l_text","l_memo","l_title"].forEach(i=>F(i).value="");
+  renderLogs();
+};
+F("l_clear").onclick=()=>["l_text","l_memo","l_title"].forEach(i=>F(i).value="");
+
+function renderLogs(){
+  const logs=store.get(LKEY), b=F("logtbl");
+  if(!logs.length){ b.innerHTML='<div class="empty">まだありません。聞いたものをどんどん貯めてください。</div>'; return; }
+  let h="<table><tr><th>日付</th><th>話し手</th><th>タイトル</th><th>字数</th><th>抽出</th><th></th></tr>";
+  logs.slice().reverse().forEach(l=>{
+    h+="<tr><td>"+esc(l.date)+"</td><td>"+esc(l.speaker)+"</td><td>"+esc(l.title||"—")
+      +"</td><td>"+l.chars.toLocaleString()+"</td><td>"
+      +(l.extracted?'<span class="bg o">済</span>':'<span class="bg a">未</span>')
+      +'</td><td><button class="gh" onclick="toAI(\''+l.id+'\')">AIへ</button> '
+      +'<button class="gh dg" onclick="delLog(\''+l.id+'\')">削除</button></td></tr>';
+  });
+  b.innerHTML=h+"</table>";
+}
+window.toAI=id=>{
+  const l=store.get(LKEY).find(x=>x.id===id); if(!l) return;
+  document.querySelector('nav button[data-p=ai]').click();
+  fillPick(); F("pick").value=id; F("tr").value=l.text;
+  F("ai_speaker").value=l.speaker||""; F("ai_date").value=l.date||today();
+};
+window.delLog=id=>{
+  if(!confirm("この文字起こしを削除しますか。原本なので、消すと戻せません。")) return;
+  store.set(LKEY, store.get(LKEY).filter(x=>x.id!==id)); renderLogs();
+};
+
+/* ================= ② AI下書き ================= */
+function fillPick(){
+  const s=F("pick"), cur=s.value;
+  s.innerHTML='<option value="">— 選択 —</option>';
+  store.get(LKEY).slice().reverse().forEach(l=>{
+    const o=document.createElement("option");
+    o.value=l.id;
+    o.textContent=(l.date||"")+"　"+(l.speaker||"")+"　"+(l.title||l.text.slice(0,18)+"…")+(l.extracted?"（抽出済）":"");
+    s.appendChild(o);
+  });
+  s.value=cur;
+}
+F("pick").onchange=()=>{
+  const l=store.get(LKEY).find(x=>x.id===F("pick").value);
+  if(!l) return;
+  F("tr").value=l.text; F("ai_speaker").value=l.speaker||""; F("ai_date").value=l.date||today();
+};
+const fullPrompt=()=>PROMPT+"\n\n## 文字起こし\n"+(F("tr").value.trim()||"（ここに貼る）");
+F("cp-prompt").onclick=()=>{
+  if(!F("tr").value.trim() && !confirm("文字起こしが空です。プロンプトだけコピーしますか。")) return;
+  copy(fullPrompt(), F("pmsg"), "コピーしました。生成AIに貼ってください。");
+};
+F("see-prompt").onclick=()=>{
+  const v=F("promptview");
+  v.style.display = v.style.display==="none" ? "block" : "none";
+  v.textContent=fullPrompt();
+};
+function copy(text, el, ok){
+  navigator.clipboard.writeText(text).then(()=>{
+    if(el){ el.textContent=ok; setTimeout(()=>el.textContent="",3200); }
+  },()=>alert("コピーできませんでした。プレビューから手動でコピーしてください。"));
+}
+function grabArray(s){
+  s=String(s||"").trim();
+  try{ const o=JSON.parse(s); return Array.isArray(o)?o:(o.patterns||o.records||[o]); }catch(e){}
+  const i=s.indexOf("["), j=s.lastIndexOf("]");
+  if(i>=0&&j>i){ try{ return JSON.parse(s.slice(i,j+1)); }catch(e){} }
+  return null;
+}
+F("ingest").onclick=()=>{
+  const arr=grabArray(F("aijson").value);
+  if(!arr||!arr.length){ alert("JSONを読み取れませんでした。配列になっているか確認してください。"); return; }
+  const sp=F("ai_speaker").value.trim(), dt=F("ai_date").value, lid=F("pick").value;
+  const recs=store.get(KEY); let n=0;
+  arr.forEach(x=>{
+    const t=x.tension||{};
+    recs.push({ id:"r"+Date.now()+"_"+(n++), log_id:lid||"",
+      scene_no:x.scene_no||"", scene_text:x.scene_text||"", repeat:x.repeat||"未確認",
+      context:x.context||"", tension:{a:t.a||"",b:t.b||""},
+      tension_guessed:!!t.guessed, tension_checked:false,
+      dropped:x.dropped||"", solution:x.solution||"", principle:x.principle||"",
+      result:x.result||"", caution:x.caution||"",
+      own_words:Array.isArray(x.own_words)?x.own_words:(x.own_words?[x.own_words]:[]),
+      name:x.name||"", layer:x.layer||"判定保留", edc:Array.isArray(x.edc)?x.edc:[],
+      speaker:x.speaker||sp, asker:"宮地", date:x.date||dt,
+      confirm:"未確認", scope:"内部のみ", memo:x.memo||"", by:"AI下書き",
+      updated:new Date().toISOString() });
+  });
+  store.set(KEY,recs);
+  if(lid){ const logs=store.get(LKEY); const l=logs.find(x=>x.id===lid); if(l){ l.extracted=true; store.set(LKEY,logs); } }
+  F("aijson").value="";
+  F("imsg").textContent=arr.length+"件を取り込みました（全"+recs.length+"件）";
+  renderCheck();
+};
+function renderCheck(){
+  const box=F("checklist");
+  const recs=store.get(KEY).filter(r=>r.by==="AI下書き"&&!r.tension_checked);
+  if(!recs.length){ box.innerHTML='<div class="empty">確認待ちはありません。</div>'; return; }
+  let h='<div style="font-size:11.5px;color:#6B7280;margin-bottom:8px">確認待ち '+recs.length+'件</div>'
+       +'<table><tr><th>場面</th><th>板挟み</th><th>状態</th><th></th></tr>';
+  recs.slice().reverse().forEach(r=>{
+    const ten=r.tension.a? esc(r.tension.a)+'<br><span style="color:#0F766E">↕</span> '+esc(r.tension.b)
+      : '<span style="color:#9CA3AF">—（空）</span>';
+    h+="<tr><td><b>"+esc(r.scene_no)+"</b> "+esc(r.scene_text)+"</td><td>"+ten+"</td><td>"
+      +(r.tension_guessed?'<span class="bg n">要確認・推測</span>':'<span class="bg o">本人が明言</span>')
+      +'</td><td><button class="gh" onclick="edit(\''+r.id+'\')">直す</button> '
+      +'<button class="gh" onclick="okTension(\''+r.id+'\')">確認済に</button></td></tr>';
+  });
+  box.innerHTML=h+"</table>";
+}
+window.okTension=id=>{
+  const recs=store.get(KEY), r=recs.find(x=>x.id===id); if(!r) return;
+  r.tension_checked=true; store.set(KEY,recs); renderCheck();
+};
+
+/* ================= ③ 記録を見る ================= */
+const areaOf=no=>{ const c=String(no||"").charAt(0); return c? c+"00" : ""; };
+const stageOf=no=>{ const s=D.scenes.find(x=>x.no===String(no)); return s? s.stage : ""; };
+
+(function initFilters(){
+  const fa=F("farea");
+  Object.keys(D.areas).forEach(c=>{
+    const o=document.createElement("option"); o.value=c; o.textContent=c+" "+D.areas[c]; fa.appendChild(o);
+  });
+})();
+["fq","farea","flayer","fconf","ften","fsp"].forEach(i=>{
+  F(i).oninput=renderGallery; F(i).onchange=renderGallery;
+});
+
+function renderView(){
+  const recs=store.get(KEY);
+  F("stats").innerHTML=[
+    ["総記録数",recs.length,"#0F766E"],
+    ["板挟みあり",recs.filter(r=>r.tension&&r.tension.a&&r.tension.b).length,"#7C3AED"],
+    ["パターン候補",recs.filter(r=>r.layer==="パターン候補").length,"#DB2777"],
+    ["本人確認済み",recs.filter(r=>r.confirm==="確認済み").length,"#059669"],
+    ["板挟み要確認",recs.filter(r=>r.by==="AI下書き"&&!r.tension_checked).length,"#DC2626"],
+    ["文字起こし",store.get(LKEY).length+"本","#6B7280"],
+  ].map(([l,v,c])=>'<div><b style="color:'+c+'">'+v+'</b><span>'+l+'</span></div>').join("");
+
+  // 段階別
+  const cnt={}; D.stages.forEach(s=>cnt[s]=0); cnt["（不明・その他）"]=0;
+  recs.forEach(r=>{ const s=stageOf(r.scene_no); if(s&&cnt[s]!==undefined) cnt[s]++; else cnt["（不明・その他）"]++; });
+  const max=Math.max(1,...Object.values(cnt));
+  F("bars").innerHTML='<div style="font-size:11px;color:#9CA3AF;margin-bottom:7px">虎の巻の支援サイクル別</div>'
+    + Object.keys(cnt).map(k=>{
+      const v=cnt[k], z=(v===0&&k!=="（不明・その他）")?" zero":"";
+      return '<div class="barrow'+z+'"><span class="lb">'+esc(k)+'</span><span class="tr">'
+        +'<span class="fl" style="width:'+(v/max*100)+'%"></span></span><span class="vv">'+v+'</span></div>';
+    }).join("");
+  const zeros=Object.keys(cnt).filter(k=>cnt[k]===0&&k!=="（不明・その他）");
+  F("gapnote").innerHTML = recs.length
+    ? (zeros.length? "まだ記録が1件もない段階：<b>"+zeros.join("、")+"</b>　← 次に聞きに行く先"
+                   : "すべての段階に記録がある。ここからは厚みと質の勝負。")
+    : "まだ記録がありません。";
+
+  const sp=[...new Set(recs.map(r=>r.speaker).filter(Boolean))];
+  const cur=F("fsp").value;
+  F("fsp").innerHTML='<option value="">話し手すべて</option>'+sp.map(s=>'<option>'+esc(s)+'</option>').join("");
+  F("fsp").value=cur;
+  renderGallery();
+}
+function renderGallery(){
+  const q=F("fq").value.trim(), fa=F("farea").value, fl=F("flayer").value,
+        fc=F("fconf").value, ft=F("ften").value, fs=F("fsp").value;
+  let recs=store.get(KEY);
+  if(q) recs=recs.filter(r=>JSON.stringify(r).includes(q));
+  if(fa) recs=recs.filter(r=>areaOf(r.scene_no)===fa);
+  if(fl) recs=recs.filter(r=>r.layer===fl);
+  if(fc) recs=recs.filter(r=>r.confirm===fc);
+  if(fs) recs=recs.filter(r=>r.speaker===fs);
+  if(ft==="has") recs=recs.filter(r=>r.tension&&r.tension.a&&r.tension.b);
+  if(ft==="none") recs=recs.filter(r=>!(r.tension&&r.tension.a&&r.tension.b));
+  if(ft==="need") recs=recs.filter(r=>r.by==="AI下書き"&&!r.tension_checked);
+  const g=F("gallery");
+  if(!recs.length){ g.innerHTML='<div class="empty">該当する記録がありません。</div>'; return; }
+  g.innerHTML='<div style="font-size:11.5px;color:#6B7280;margin-bottom:9px">'+recs.length+'件</div><div class="cards">'
+   + recs.slice().reverse().map(r=>{
+      const ten=(r.tension&&r.tension.a)
+        ? '<div class="tn">'+esc(r.tension.a)+'<br><i>↕</i> '+esc(r.tension.b)+'</div>' : '';
+      const bs=[];
+      if(r.layer==="パターン候補") bs.push('<span class="bg p">パターン候補</span>');
+      else bs.push('<span class="bg">'+esc(r.layer)+'</span>');
+      if(r.repeat&&r.repeat!=="未確認") bs.push('<span class="bg">'+esc(r.repeat)+'</span>');
+      if(r.confirm==="確認済み") bs.push('<span class="bg o">確認済</span>');
+      if(r.by==="AI下書き"&&!r.tension_checked) bs.push('<span class="bg n">板挟み要確認</span>');
+      if(r.speaker) bs.push('<span class="bg a">'+esc(r.speaker)+'</span>');
+      return '<div class="rc" onclick="detail(\''+r.id+'\')">'
+        +'<div class="no">'+esc(r.scene_no||"—")+(stageOf(r.scene_no)?"　"+esc(stageOf(r.scene_no)):"")+'</div>'
+        +'<div class="ti">'+esc(r.name||r.scene_text||"（無題）")+'</div>'
+        +(r.name&&r.scene_text?'<div style="font-size:11px;color:#9CA3AF;margin:-5px 0 8px">'+esc(r.scene_text)+'</div>':'')
+        +ten+'<div class="bs">'+bs.join("")+'</div></div>';
+   }).join("")+'</div>';
+}
+window.detail=id=>{
+  const r=store.get(KEY).find(x=>x.id===id); if(!r) return;
+  const row=(l,v)=> v? '<div class="lbl">'+l+'</div><p>'+esc(v)+'</p>' : '';
+  F("mcbody").innerHTML='<button class="close" onclick="closeM()">×</button>'
+    +'<h3>'+esc(r.name||r.scene_text||"（無題）")+'</h3>'
+    +'<div style="font-size:11.5px;color:#9CA3AF">'+esc(r.scene_no||"")+'　'+esc(stageOf(r.scene_no)||"")
+    +'　/　'+esc(r.speaker||"")+'　'+esc(r.date||"")+'</div>'
+    +row("場面",r.scene_text)+row("繰り返し性",r.repeat)+row("状況",r.context)
+    +((r.tension&&r.tension.a)?'<div class="lbl">板挟み'+(r.tension_guessed&&!r.tension_checked?' ／ 推測・要確認':'')
+       +'</div><p>'+esc(r.tension.a)+'\n↕ 両立しない\n'+esc(r.tension.b)+'</p>':'')
+    +row("捨てた選択肢",r.dropped)+row("解決",r.solution)+row("その裏の考え方",r.principle)
+    +row("結果",r.result)+row("副作用",r.caution)
+    +((r.own_words||[]).length?'<div class="lbl">本人の言葉</div><p>'+r.own_words.map(esc).join("\n")+'</p>':'')
+    +((r.edc||[]).length?'<div class="lbl">EDC</div><p>'+r.edc.map(esc).join("／")+'</p>':'')
+    +row("聞き手メモ",r.memo)
+    +'<div class="bar"><button class="act" onclick="edit(\''+r.id+'\');closeM()">開いて直す</button>'
+    +'<button class="gh dg" onclick="del(\''+r.id+'\');closeM()">削除</button></div>';
+  F("modal").classList.add("on");
+};
+window.closeM=()=>F("modal").classList.remove("on");
+F("modal").onclick=e=>{ if(e.target.id==="modal") closeM(); };
+
+/* ================= 手で記録 ================= */
+const sel=F("scene_no");
+let lastArea=null;
+D.scenes.forEach(s=>{
+  if(s.area!==lastArea){ const og=document.createElement("optgroup"); og.label=s.area; sel.appendChild(og); lastArea=s.area; }
+  const o=document.createElement("option"); o.value=s.no; o.textContent=s.no+"　"+s.text;
+  sel.lastChild.appendChild(o);
+});
+sel.onchange=()=>{
+  const info=F("sceneinfo"), v=sel.value;
+  if(v==="other"){ info.textContent="リストにない場面。あとで場面リストに追加する。"; F("scene_text").value=""; return; }
+  const s=D.scenes.find(x=>x.no===v);
+  if(!s){ info.textContent=""; return; }
+  F("scene_text").value=s.text;
+  let t=s.area+" ／ "+(s.stage||"—")+" ／ "+s.group;
+  if(D.cards[v]) t+="　【カードあり："+D.cards[v]+" → 当てにいく】";
+  info.innerHTML = D.immerse.includes(v)? t+' <span class="im">【没入・カード0枚 → 時間を多めに】</span>' : t;
+};
+const edcBox=F("edc");
+D.edc.forEach(([g,items])=>{
+  const d=document.createElement("div"); d.className="edcg"; d.innerHTML="<span>"+g+"</span>";
+  const c=document.createElement("div"); c.className="chips";
+  items.forEach(it=>{ const l=document.createElement("label");
+    l.innerHTML='<input type="checkbox" value="'+it+'">'+it; c.appendChild(l); });
+  d.appendChild(c); edcBox.appendChild(d);
+});
+F("f").onsubmit=e=>{
+  e.preventDefault();
+  const recs=store.get(KEY);
+  const prev=recs.find(x=>x.id===F("rid").value)||{};
+  const rec={ id:F("rid").value||("r"+Date.now()), log_id:prev.log_id||"",
+    scene_no:sel.value, scene_text:F("scene_text").value.trim(), repeat:R("repeat"),
+    context:F("context").value.trim(), tension:{a:F("t_a").value.trim(),b:F("t_b").value.trim()},
+    tension_guessed:prev.tension_guessed||false, tension_checked:F("t_checked").checked,
+    dropped:F("dropped").value.trim(), solution:F("solution").value.trim(),
+    principle:F("principle").value.trim(), result:F("result").value.trim(),
+    caution:F("caution").value.trim(),
+    own_words:F("own_words").value.split("\n").map(s=>s.trim()).filter(Boolean),
+    name:F("name").value.trim(), layer:R("layer"),
+    edc:[...edcBox.querySelectorAll("input:checked")].map(i=>i.value),
+    speaker:F("speaker").value.trim(), asker:F("asker").value.trim(), date:F("date").value,
+    confirm:R("confirm"), scope:R("scope"), memo:F("memo").value.trim(),
+    by:prev.by||"手入力", updated:new Date().toISOString() };
+  if(!rec.scene_text&&!rec.context){ alert("場面か状況のどちらかは入れてください。"); return; }
+  const i=recs.findIndex(x=>x.id===rec.id);
+  if(i>=0) recs[i]=rec; else recs.push(rec);
+  store.set(KEY,recs);
+  F("msg").textContent="保存しました（全"+recs.length+"件）";
+  setTimeout(()=>F("msg").textContent="",2800);
+  resetForm();
+};
+function resetForm(){
+  F("rid").value=""; sel.value=""; F("sceneinfo").textContent="";
+  ["scene_text","context","t_a","t_b","dropped","solution","principle","result","caution","own_words","name","memo"]
+    .forEach(i=>F(i).value="");
+  edcBox.querySelectorAll("input:checked").forEach(i=>i.checked=false);
+  F("t_checked").checked=false;
+  document.querySelector('input[name=repeat][value=未確認]').checked=true;
+  document.querySelector('input[name=layer][value="コツ・TIPS"]').checked=true;
+  document.querySelector('input[name=confirm][value=未確認]').checked=true;
+}
+F("clear").onclick=resetForm;
+window.edit=id=>{
+  const r=store.get(KEY).find(x=>x.id===id); if(!r) return;
+  document.querySelector('nav button[data-p=rec]').click();
+  F("rid").value=r.id; sel.value=r.scene_no||""; sel.onchange();
+  F("scene_text").value=r.scene_text||""; F("context").value=r.context||"";
+  F("t_a").value=(r.tension||{}).a||""; F("t_b").value=(r.tension||{}).b||"";
+  F("t_checked").checked=!!r.tension_checked;
+  F("dropped").value=r.dropped||""; F("solution").value=r.solution||"";
+  F("principle").value=r.principle||""; F("result").value=r.result||"";
+  F("caution").value=r.caution||""; F("own_words").value=(r.own_words||[]).join("\n");
+  F("name").value=r.name||""; F("speaker").value=r.speaker||""; F("asker").value=r.asker||"宮地";
+  F("date").value=r.date||today(); F("memo").value=r.memo||"";
+  [["repeat",r.repeat],["layer",r.layer],["confirm",r.confirm],["scope",r.scope]].forEach(([n,v])=>{
+    const el=document.querySelector('input[name="'+n+'"][value="'+v+'"]'); if(el) el.checked=true;
+  });
+  edcBox.querySelectorAll("input").forEach(i=>i.checked=(r.edc||[]).includes(i.value));
+};
+window.del=id=>{
+  if(!confirm("この記録を削除しますか。文字起こしが残っていれば作り直せます。")) return;
+  store.set(KEY, store.get(KEY).filter(x=>x.id!==id));
+  renderView(); renderCheck();
+};
+
+/* ================= セッション ================= */
+F("sf").onsubmit=e=>{
+  e.preventDefault();
+  const ss=store.get(SKEY);
+  ss.push({ id:"s"+Date.now(), speaker:F("s_speaker").value, date:F("s_date").value, minutes:F("s_min").value,
+    q1:F("s_q1").value,q2:F("s_q2").value,q3:F("s_q3").value,q4:F("s_q4").value,q5:F("s_q5").value,q6:F("s_q6").value,
+    next:F("s_next").value });
+  store.set(SKEY,ss);
+  F("smsg").textContent="保存しました";
+  setTimeout(()=>F("smsg").textContent="",2800);
+  ["s_speaker","s_min","s_q1","s_q2","s_q3","s_q4","s_q5","s_q6","s_next"].forEach(i=>F(i).value="");
+  renderSess();
+};
+function renderSess(){
+  const ss=store.get(SKEY), t=F("stbl");
+  if(!ss.length){ t.innerHTML='<div class="empty">まだありません。</div>'; return; }
+  let h="<table><tr><th>日付</th><th>話し手</th><th>分</th><th>板挟みの出方</th><th>次に聞く人</th></tr>";
+  ss.slice().reverse().forEach(s=>{
+    h+="<tr><td>"+esc(s.date)+"</td><td>"+esc(s.speaker)+"</td><td>"+esc(s.minutes)
+      +"</td><td>"+esc(s.q2)+"</td><td>"+esc(s.next)+"</td></tr>";
+  });
+  t.innerHTML=h+"</table>";
+}
+
+/* ================= 書き出し ================= */
+const payload=()=>({exported:new Date().toISOString(), logs:store.get(LKEY), records:store.get(KEY), sessions:store.get(SKEY)});
+function dl(obj,fn){
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(obj,null,1)],{type:"application/json"}));
+  a.download=fn; a.click();
+}
+F("dl-json").onclick=()=>dl(payload(),"interview_all.json");
+F("dl-logs").onclick=()=>dl({logs:store.get(LKEY)},"transcripts.json");
+F("dl-pat").onclick=()=>dl({collection:"coordinator-draft",version:"draft",updated:today(),
+  notes:["インタビュー記録から自動変換した草案。未検証。10件以上溜めてから束ね直す。"],
+  patterns:store.get(KEY).map((r,i)=>({ id:1000+i, name:r.name||"（名前未定）", summary:r.scene_text||"",
+    scene_no:r.scene_no||"", context:r.context||"",
+    problem:(r.tension&&r.tension.a)? r.tension.a+" ／ しかし "+r.tension.b : "",
+    tension:{a:(r.tension||{}).a||"",b:(r.tension||{}).b||"",verified:!!r.tension_checked},
+    solution:[r.solution,r.principle?("〈考え方〉"+r.principle):""].filter(Boolean).join("　"),
+    result:r.result||"", caution:r.caution||"", dropped:r.dropped||"", own_words:r.own_words||[],
+    repeat:r.repeat||"", layer:r.layer||"", edc:r.edc||[],
+    source:[r.speaker,r.date].filter(Boolean).join(" ／ "), transfer:"そのまま",
+    verified:false, jp_cases:[], related:[] }))},"pattern_drafts.json");
+F("cp-bulk").onclick=()=>{
+  const logs=store.get(LKEY);
+  if(!logs.length){ alert("文字起こしがまだありません。"); return; }
+  const body=logs.map((l,i)=>"### ログ"+(i+1)+"｜"+(l.speaker||"")+"　"+(l.date||"")+"\n"+l.text).join("\n\n");
+  copy(PROMPT+"\n\n## 文字起こし（複数本）\n各ログごとに場面を拾い、speakerとdateを各要素に入れてください。\n\n"+body,
+       F("omsg"), logs.length+"本ぶんをコピーしました。");
+};
+F("dl-csv").onclick=()=>{
+  const recs=store.get(KEY);
+  const cols=["id","log_id","scene_no","scene_text","repeat","context","tension_a","tension_b","tension_checked",
+    "dropped","solution","principle","result","caution","own_words","name","layer","edc","speaker","date","confirm","scope","by","memo"];
+  const q=v=>'"'+String(v==null?"":v).replace(/"/g,'""')+'"';
+  const rows=recs.map(r=>cols.map(c=>{
+    if(c==="tension_a") return q((r.tension||{}).a);
+    if(c==="tension_b") return q((r.tension||{}).b);
+    if(c==="own_words") return q((r.own_words||[]).join(" / "));
+    if(c==="edc") return q((r.edc||[]).join(" / "));
+    return q(r[c]);
+  }).join(","));
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob(["\uFEFF"+cols.join(",")+"\n"+rows.join("\n")],{type:"text/csv"}));
+  a.download="records.csv"; a.click();
+};
+F("do-imp").onclick=()=>{
+  try{
+    const o=JSON.parse(F("imp").value);
+    if(o.logs) store.set(LKEY, store.get(LKEY).concat(o.logs));
+    if(o.records) store.set(KEY, store.get(KEY).concat(o.records));
+    if(o.sessions) store.set(SKEY, store.get(SKEY).concat(o.sessions));
+    if(Array.isArray(o)) store.set(KEY, store.get(KEY).concat(o));
+    F("imp").value=""; renderPv(); alert("読み込みました。");
+  }catch(e){ alert("JSONを読み取れませんでした。"); }
+};
+F("wipe").onclick=()=>{
+  if(!confirm("文字起こしも記録もすべて削除します。先にJSONを保存しましたか。")) return;
+  store.set(KEY,[]); store.set(LKEY,[]); store.set(SKEY,[]);
+  renderPv(); renderLogs();
+};
+function renderPv(){
+  const p=payload();
+  F("pv").textContent=(p.logs.length||p.records.length)? JSON.stringify(p,null,1) : "（記録がありません）";
+}
+renderLogs();
+
+</script>
+</body>
+</html>
