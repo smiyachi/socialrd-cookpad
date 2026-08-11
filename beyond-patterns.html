@@ -22,7 +22,19 @@ h1{font-size:22px;font-weight:800;line-height:1.5;margin-bottom:8px}
 .filters input,.filters select{padding:7px 10px;border:1px solid #E5E7EB;border-radius:9px;
   font-family:inherit;font-size:12.5px;background:#fff;color:#1A1A1A;min-width:150px}
 .filters input:focus,.filters select:focus{outline:none;border-color:#9E4B2C}
+.tabs{display:flex;gap:6px;margin:0 0 14px}
+.tabs button{background:#fff;border:1px solid #E5E7EB;border-radius:20px;padding:8px 18px;
+  font-size:12.5px;color:#6B7280;cursor:pointer;font-family:inherit;transition:all .15s}
+.tabs button:hover{border-color:#9CA3AF}
+.tabs button.on{background:#2B2B2B;border-color:#2B2B2B;color:#fff;font-weight:700}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.tc{background:#fff;border:1px solid #E5E7EB;border-radius:13px;padding:14px 16px;margin-bottom:9px;cursor:pointer;transition:all .15s}
+.tc:hover{border-color:#9CA3AF;box-shadow:0 4px 14px rgba(0,0,0,.06)}
+.tc .n{font-size:10.5px;color:#9CA3AF;letter-spacing:.05em}
+.tc h4{font-size:14px;font-weight:800;line-height:1.5;margin:3px 0 5px}
+.tc p{font-size:12.5px;color:#4B5563;line-height:1.75}
+.tc .m{font-size:10.5px;color:#9CA3AF;margin-top:7px}
+.tc .m b{color:#9E4B2C;font-weight:700}
 .chip{border:1px solid #E5E7EB;background:#fff;border-radius:20px;padding:5px 13px;font-size:11.5px;
   color:#6B7280;cursor:pointer;transition:all .15s}
 .chip:hover{border-color:#9CA3AF}
@@ -77,11 +89,17 @@ h1{font-size:22px;font-weight:800;line-height:1.5;margin-bottom:8px}
   <div class="note">
     <b>読み方。</b>パターンは正解ではなく、その場面で何と何がぶつかっていたかの記録。
     解決はひとつの捌き方であって、同じ場面でも背負っているものが違えば答えは変わる。
-    <b>「原文で確認」</b>は、板挟みまで文字起こしで裏が取れたもの。<b>「推論」</b>は暗黙知集からの推測で未検証。
+    <b>「原文で確認」</b>は、板挟みまで文字起こしで裏が取れたもの。<b>「推論」</b>は暗黙知集からの推測で未検証。<br>上のタブで<b>暗黙知集116項目</b>に切り替えられる。パターンと相互にリンクしており、台帳IDから文字起こし原文まで遡れる。
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button class="on" data-v="p">パターン</button>
+    <button data-v="t">暗黙知集</button>
   </div>
 
   <div class="filters">
     <input type="text" id="q" placeholder="フリーワード（引用も検索）">
+    <select id="fc" style="display:none"><option value="">章すべて</option></select>
     <select id="fs"><option value="">セッションすべて</option></select>
     <select id="fv"><option value="">確からしさすべて</option>
       <option value="1">原文で確認</option><option value="0">推論・未検証</option></select>
@@ -99,7 +117,7 @@ h1{font-size:22px;font-weight:800;line-height:1.5;margin-bottom:8px}
 <div class="modal" id="modal"><div class="mc" id="mcb"></div></div>
 
 <script>
-let D=null, F={g:"", q:"", s:"", v:""};
+let D=null, V="p", F={g:"", q:"", s:"", v:""};
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const G=k=>D.groups.find(g=>g.key===k)||{label:k,color:"999999"};
 
@@ -118,7 +136,7 @@ async function boot(){
     ["原文で確認",P.filter(p=>p.verified).length,"#0F766E"],
     ["逐語引用",P.reduce((a,b)=>a+b.own_words.length,0),"#6B5B8C"],
     ["セッション",new Set(P.map(p=>p.session)).size,"#3D6B8C"],
-    ["群",D.groups.length,"#6B7280"],
+    ["暗黙知",D.tacit.length,"#8C6B3D"],
   ].map(([l,v,c])=>`<div><b style="color:${c}">${v}</b><span>${l}</span></div>`).join("");
 
   document.getElementById("chips").innerHTML=
@@ -132,7 +150,16 @@ async function boot(){
   });
   const ss=[...new Set(P.map(p=>p.session))];
   document.getElementById("fs").innerHTML='<option value="">セッションすべて</option>'+ss.map(s=>`<option>${esc(s)}</option>`).join("");
-  ["q","fs","fv"].forEach(i=>{const e=document.getElementById(i);e.oninput=e.onchange=()=>{
+  const ch=[...new Set(D.tacit.map(t=>t.chapter))];
+  document.getElementById("fc").innerHTML='<option value="">章すべて</option>'+
+    ch.map(c=>{const t=D.tacit.find(x=>x.chapter===c);
+      return `<option value="${c}">${c}. ${esc(t.chapter_label)}</option>`;}).join("");
+  document.querySelectorAll("#tabs button").forEach(b=>b.onclick=()=>{
+    V=b.dataset.v;
+    document.querySelectorAll("#tabs button").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on"); render();
+  });
+  ["q","fs","fv","fc"].forEach(i=>{const e=document.getElementById(i);e.oninput=e.onchange=()=>{
     F.q=document.getElementById("q").value.trim();
     F.s=document.getElementById("fs").value;
     F.v=document.getElementById("fv").value;
@@ -140,6 +167,11 @@ async function boot(){
   render();
 }
 function render(){
+  if(V==="t") return renderT();
+  document.getElementById("fs").style.display="";
+  document.getElementById("fv").style.display="";
+  document.getElementById("fc").style.display="none";
+  document.getElementById("chips").style.display="";
   let P=D.patterns;
   if(F.g) P=P.filter(p=>p.group===F.g);
   if(F.s) P=P.filter(p=>p.session===F.s);
@@ -159,9 +191,52 @@ function render(){
         <span class="bg ${p.verified?"v":"u"}">${p.verified?"原文で確認":"推論・未検証"}</span>
         <span class="bg">${esc(p.session)}</span>
         ${p.own_words.length?`<span class="bg">引用${p.own_words.length}</span>`:""}
+        ${p.tacit.length?`<span class="bg">暗黙知${p.tacit.join("・")}</span>`:""}
       </div></div>`;
   }).join("")+'</div>';
 }
+function renderT(){
+  document.getElementById("fs").style.display="none";
+  document.getElementById("fv").style.display="none";
+  document.getElementById("fc").style.display="";
+  document.getElementById("chips").style.display="none";
+  let T=D.tacit;
+  const fc=document.getElementById("fc").value;
+  if(fc) T=T.filter(t=>t.chapter===fc);
+  if(F.q) T=T.filter(t=>JSON.stringify(t).includes(F.q));
+  document.getElementById("cnt").textContent=T.length+"件";
+  const g=document.getElementById("grid");
+  if(!T.length){ g.innerHTML='<div class="empty">該当する項目がありません。</div>'; return; }
+  g.innerHTML=T.map(t=>`<div class="tc" onclick="tdetail(${t.no})">
+     <div class="n">${t.no}　${esc(t.chapter)}. ${esc(t.chapter_label)}</div>
+     <h4>${esc(t.name)}</h4>
+     <p>${esc(t.body)}</p>
+     <div class="m">${esc(t.session)}${t.ledger?"｜"+esc(t.ledger):""}
+       ${t.patterns.length?" 　<b>→ パターンあり</b>":""}
+       ${t.note?" 　"+esc(t.note):""}</div>
+   </div>`).join("");
+}
+window.tdetail=no=>{
+  const t=D.tacit.find(x=>x.no===no); if(!t) return;
+  const rel=t.patterns.map(r=>{const p=D.patterns.find(x=>x.id===r);
+    return p?`<span onclick="detail(${r})">${esc(p.name)}</span>`:"";}).join("");
+  document.getElementById("mcb").innerHTML=
+    `<button class="close" onclick="closeM()">×</button>
+     <div class="g" style="color:#6B7280">暗黙知 ${t.no}　${esc(t.chapter)}. ${esc(t.chapter_label)}</div>
+     <h2>${esc(t.name)}</h2>
+     <div class="lbl">中身</div><p>${esc(t.body)}</p>
+     ${t.note?'<div class="lbl">注記</div><p>'+esc(t.note)+'</p>':""}
+     ${rel?'<div class="lbl">この暗黙知から起こしたパターン</div><div class="rel">'+rel+'</div>':'<div class="note" style="margin-top:16px">この項目からは、まだパターンを起こしていない。</div>'}
+     ${t.patterns_same_source.length?'<div class="lbl">同じ発言から起こされたパターン</div><div class="rel">'+t.patterns_same_source.map(r=>{
+        const p=D.patterns.find(x=>x.id===r);
+        return p?`<span style="color:#9CA3AF;border-bottom-color:#9CA3AF" onclick="detail(${r})">${esc(p.name)}</span>`:"";}).join("")+'</div>':""}
+     <div class="meta">
+       出典セッション：${esc(t.session)}${t.ledger?"　／　台帳 "+esc(t.ledger):""}<br>
+       台帳IDから、文字起こし原文まで遡れる。人名・社名は音声認識由来のため照合前提。
+     </div>`;
+  document.getElementById("modal").classList.add("on");
+  document.getElementById("modal").scrollTop=0;
+};
 window.detail=id=>{
   const p=D.patterns.find(x=>x.id===id); if(!p) return;
   const c=G(p.group);
@@ -178,6 +253,12 @@ window.detail=id=>{
      ${row("解決",p.solution)}${row("結果",p.result)}${row("注意",p.caution)}
      ${p.own_words.length?'<div class="lbl">現場の言葉</div>'+p.own_words.map(w=>`<div class="q">${esc(w)}</div>`).join(""):""}
      ${rel?'<div class="lbl">関連するパターン</div><div class="rel">'+rel+'</div>':""}
+     ${p.tacit.length?'<div class="lbl">もとになった暗黙知</div><div class="rel">'+p.tacit.map(n=>{
+        const t=D.tacit.find(x=>x.no===n);
+        return t?`<span onclick="tdetail(${n})">${n}　${esc(t.name)}</span>`:"";}).join("")+'</div>':""}
+     ${p.tacit_same_source.length?'<div class="lbl">同じ発言から起こされた別の暗黙知</div><div class="rel">'+p.tacit_same_source.map(n=>{
+        const t=D.tacit.find(x=>x.no===n);
+        return t?`<span style="color:#9CA3AF;border-bottom-color:#9CA3AF" onclick="tdetail(${n})">${n}　${esc(t.name)}</span>`:"";}).join("")+'</div>':""}
      <div class="meta">
        出典セッション：${esc(p.session)}${p.ledger?"　／　台帳 "+esc(p.ledger):""}${p.scene?"　／　場面 "+esc(p.scene):""}<br>
        ${p.verified?"板挟みまで文字起こし原文で確認したもの。":"暗黙知集からの推論。原文での裏取りが未了。"}

@@ -52,7 +52,8 @@
   "板挟み（tension）は、原文で確認できたものを verified:true としている。false のものは暗黙知集からの推論で、未検証。",
   "own_words は文字起こしからの逐語。音声認識由来の誤りを含むため、人名・社名は落としている。",
   "ledger は暗黙知集の台帳ID。scene は場面リストの番号。原文まで遡れる。",
-  "繰り返し性は未検証。カンファレンスで語られたことであって、日常の頻度は確認していない。"
+  "繰り返し性は未検証。カンファレンスで語られたことであって、日常の頻度は確認していない。",
+  "暗黙知集116項目を同梱。パターンと相互にリンクしている。台帳IDは beyond2026_知見台帳_v7 の項目番号に対応し、そこから文字起こし原文へ遡れる。"
  ],
  "patterns": [
   {
@@ -80,7 +81,11 @@
     2,
     3
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    77
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 2,
@@ -111,7 +116,11 @@
     1,
     30
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    33
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 3,
@@ -140,7 +149,11 @@
     4,
     25
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    76
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 4,
@@ -167,7 +180,9 @@
    "related": [
     3
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 5,
@@ -195,7 +210,13 @@
    "related": [
     38
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    75
+   ],
+   "tacit_same_source": [
+    48
+   ]
   },
   {
    "id": 6,
@@ -224,7 +245,11 @@
     8,
     9
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    71
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 7,
@@ -253,7 +278,11 @@
     8,
     9
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    72
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 8,
@@ -281,7 +310,13 @@
     7,
     9
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    73
+   ],
+   "tacit_same_source": [
+    74
+   ]
   },
   {
    "id": 9,
@@ -309,7 +344,13 @@
     8,
     2
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    74
+   ],
+   "tacit_same_source": [
+    73
+   ]
   },
   {
    "id": 10,
@@ -333,7 +374,9 @@
    "related": [
     11
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 11,
@@ -358,7 +401,9 @@
     10,
     44
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 12,
@@ -382,7 +427,9 @@
    "related": [
     10
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 13,
@@ -409,7 +456,11 @@
     14,
     18
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    1
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 14,
@@ -438,7 +489,9 @@
     13,
     15
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 15,
@@ -468,7 +521,9 @@
     16,
     13
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 16,
@@ -491,13 +546,15 @@
    ],
    "session": "あいだ作戦会議",
    "ledger": "L系",
-   "scene": "B08系",
+   "scene": "",
    "verified": true,
    "related": [
     15,
     17
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 17,
@@ -527,7 +584,9 @@
     16,
     18
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 18,
@@ -555,7 +614,11 @@
     13,
     19
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    11
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 19,
@@ -582,7 +645,11 @@
     18,
     15
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    12
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 20,
@@ -609,7 +676,9 @@
    "related": [
     15
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 21,
@@ -637,7 +706,11 @@
     22,
     23
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    58
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 22,
@@ -666,7 +739,11 @@
     21,
     23
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    59
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 23,
@@ -694,7 +771,11 @@
     21,
     22
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    60
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 24,
@@ -722,7 +803,11 @@
     21,
     29
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    61
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 25,
@@ -749,7 +834,9 @@
     3,
     26
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 26,
@@ -777,7 +864,9 @@
     25,
     27
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 27,
@@ -803,7 +892,9 @@
    "related": [
     26
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 28,
@@ -827,7 +918,9 @@
    "related": [
     25
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 29,
@@ -855,7 +948,9 @@
     30,
     31
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 30,
@@ -882,7 +977,11 @@
     29,
     31
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    62
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 31,
@@ -907,7 +1006,9 @@
     29,
     30
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 32,
@@ -931,7 +1032,11 @@
    "related": [
     29
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    70
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 33,
@@ -955,7 +1060,11 @@
    "related": [
     32
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    66
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 34,
@@ -979,7 +1088,11 @@
    "related": [
     30
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    69
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 35,
@@ -1007,7 +1120,9 @@
     36,
     37
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 36,
@@ -1034,7 +1149,9 @@
     35,
     37
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 37,
@@ -1062,7 +1179,11 @@
    "related": [
     36
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    36
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 38,
@@ -1090,7 +1211,9 @@
     35,
     36
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 39,
@@ -1118,7 +1241,11 @@
     2,
     35
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    35
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 40,
@@ -1146,7 +1273,9 @@
     38,
     13
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 41,
@@ -1174,7 +1303,11 @@
     42,
     5
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    47
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 42,
@@ -1203,7 +1336,11 @@
     41,
     43
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    28
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 43,
@@ -1231,7 +1368,9 @@
     42,
     44
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 44,
@@ -1259,7 +1398,9 @@
     43,
     45
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 45,
@@ -1287,7 +1428,11 @@
     44,
     46
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    45
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 46,
@@ -1315,7 +1460,9 @@
     45,
     44
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 47,
@@ -1339,7 +1486,13 @@
    "related": [
     48
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    43
+   ],
+   "tacit_same_source": [
+    44
+   ]
   },
   {
    "id": 48,
@@ -1364,7 +1517,11 @@
     47,
     43
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    46
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 49,
@@ -1391,7 +1548,11 @@
    "related": [
     50
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    14
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 50,
@@ -1417,7 +1578,11 @@
    "related": [
     49
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    20
+   ],
+   "tacit_same_source": []
   },
   {
    "id": 51,
@@ -1444,7 +1609,9 @@
     1,
     52
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 52,
@@ -1471,7 +1638,9 @@
     9,
     39
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [],
+   "tacit_same_source": []
   },
   {
    "id": 53,
@@ -1496,7 +1665,14 @@
     52,
     54
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    22
+   ],
+   "tacit_same_source": [
+    15,
+    17
+   ]
   },
   {
    "id": 54,
@@ -1521,7 +1697,1482 @@
     53,
     51
    ],
-   "cases": []
+   "cases": [],
+   "tacit": [
+    116
+   ],
+   "tacit_same_source": [
+    108
+   ]
   }
- ]
+ ],
+ "tacit": [
+  {
+   "no": 1,
+   "chapter": "Ⅰ",
+   "chapter_label": "関係性の設計",
+   "name": "共創の前に共生がある（順序は不可逆）",
+   "body": "共創から入ると相手が手段になり、撤退も早い。共生から始めると創造は結果的に起きる。「儲かるはずだから」と入る企業は痩せ我慢。",
+   "session": "都市と地方・フェーズフリー",
+   "ledger": "C1, N3",
+   "note": "",
+   "patterns": [
+    13
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 2,
+   "chapter": "Ⅰ",
+   "chapter_label": "関係性の設計",
+   "name": "信頼と依存は見た目が同じだが構造が違う",
+   "body": "110年インフラを作ってきた結果、信頼されているが依存もされている。対話で切り分けないと対等な共創に移行できない。",
+   "session": "トランジション",
+   "ledger": "W6",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 3,
+   "chapter": "Ⅰ",
+   "chapter_label": "関係性の設計",
+   "name": "「必要な瞬間に関わってほしい。それ以外は関わってほしくない」",
+   "body": "地域が外部に求めるのは常駐ではなく、タイミングの察知。これを外すのがオーバーツーリズム。",
+   "session": "フェーズフリー",
+   "ledger": "X5",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 4,
+   "chapter": "Ⅰ",
+   "chapter_label": "関係性の設計",
+   "name": "地域は企業とではなく「人」と繋がりたい",
+   "body": "「親戚を増やしたい、仲間を増やしたいだけの話」。日本の生活を支えるのは企業だが、地域を支えているのは人。",
+   "session": "フェーズフリー",
+   "ledger": "X6",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 5,
+   "chapter": "Ⅰ",
+   "chapter_label": "関係性の設計",
+   "name": "1人の若者が集落を歩くだけで、震災前より元気になる",
+   "body": "「孫が来た」と寿司が出る。制御不能だがそれでいい。関係人口の本質は量ではなく関係の質。",
+   "session": "フェーズフリー",
+   "ledger": "X9",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 6,
+   "chapter": "Ⅰ",
+   "chapter_label": "関係性の設計",
+   "name": "「嫌がることをしない」は消極策ではなく意思決定原則",
+   "body": "100%の賛同はありえない。嫌がらない範囲で最大のプロジェクトを組み立てる＝自分たちのやりたいことを最優先しないという規律。40年の信頼の土台。",
+   "session": "トランジション",
+   "ledger": "W7",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 7,
+   "chapter": "Ⅰ",
+   "chapter_label": "関係性の設計",
+   "name": "横展開は「説得」ではなく「目撃」で起きる",
+   "body": "外部チームが祭礼準備を手伝った集落を見て、隣の集落が「うちもできるんじゃないか」と動く。三豊の出資モデルも、うまくいった事業を見た人が広げた。1件は必ず波及する。",
+   "session": "フェーズフリー・ローカルファンド",
+   "ledger": "X9, K系",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 8,
+   "chapter": "Ⅰ",
+   "chapter_label": "関係性の設計",
+   "name": "「私たち」の範囲が広がると、時間軸が自動的に長くなる",
+   "body": "隣の企業が元気であることが自分の元気と同じになると、短期思考が長期思考に変わる。",
+   "session": "ローカルファンド",
+   "ledger": "K系",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 9,
+   "chapter": "Ⅰ",
+   "chapter_label": "関係性の設計",
+   "name": "相手にも悪気はない。「ただ知らないだけ」",
+   "body": "提案書を自治体名だけ変えて横流ししていた元・地方創生営業の告白。「かつての自分を見ているかのよう」。断罪ではなく学習の問題として扱う。",
+   "session": "都市と地方",
+   "ledger": "N9",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 10,
+   "chapter": "Ⅰ",
+   "chapter_label": "関係性の設計",
+   "name": "グラデーション人材が増えるほど、都市と地方は混ざる",
+   "body": "地域にも都市にも精通し両方の気持ちが分かる「ローカル外交官」。二項のあいだに濃淡の階調を作ることが接続の実体。",
+   "session": "都市と地方",
+   "ledger": "N10",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 11,
+   "chapter": "Ⅰ",
+   "chapter_label": "関係性の設計",
+   "name": "縁のマネジメント：一緒に歯磨きをする、墓を移す",
+   "body": "経営陣をゲストハウスに泊め歯磨きを共にすると縁がつく。先祖の墓を移した人は急に祭りの主催に誘われた。縁があれば「金の切れ目が縁の切れ目」が「縁から金が生まれる」に反転する。",
+   "session": "都市と地方",
+   "ledger": "N23",
+   "note": "",
+   "patterns": [
+    18
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 12,
+   "chapter": "Ⅰ",
+   "chapter_label": "関係性の設計",
+   "name": "名刺を置いて生活者として暮らす＝「恋に落ちる確率を高める方法」",
+   "body": "月1週間のリモートワークでいい。地域との関係は論理でなく確率設計。企業がバーを下げないと若者のきっかけ自体が消える。",
+   "session": "都市と地方",
+   "ledger": "N24",
+   "note": "",
+   "patterns": [
+    19
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 13,
+   "chapter": "Ⅰ",
+   "chapter_label": "関係性の設計",
+   "name": "誰でもない土地では、とにかく駅前を歩き、思い出話を聞く",
+   "body": "積み重ねから地域のアイデンティティと精神性を掴む。よそ者の特権は「どこの誰だと言われない。アホなことが言える」こと。",
+   "session": "Glass Rock",
+   "ledger": "R7",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 14,
+   "chapter": "Ⅰ",
+   "chapter_label": "関係性の設計",
+   "name": "「今じゃない」こともある。成就しない前提で関わり続ける",
+   "body": "支援のタイミングは探り合い。1回うまくいかなくても「災害支援はもうやりたくない」にならないでほしい。長い付き合いの中で、海外向けの浄水装置が最初に活きたのは国内・能登だった。",
+   "session": "休眠預金",
+   "ledger": "V12",
+   "note": "",
+   "patterns": [
+    49
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 15,
+   "chapter": "Ⅱ",
+   "chapter_label": "時間",
+   "name": "時間を味方につけろ",
+   "body": "非上場・財団という「左利き」だからこそできる時間軸の使い方がある。信頼は時間をかけないと作れない。",
+   "session": "トランジション",
+   "ledger": "W8",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": [
+    53
+   ]
+  },
+  {
+   "no": 16,
+   "chapter": "Ⅱ",
+   "chapter_label": "時間",
+   "name": "「生活」は戻るが「暮らし」は戻らない",
+   "body": "水道・電気・店（生活）は復旧するが、漁・収穫・祭礼（暮らし）は壊れにくいのに戻りにくい。復興支援のメニューは生活に偏り、このミスマッチが集落を疲弊させた。",
+   "session": "フェーズフリー",
+   "ledger": "X2, X3",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 17,
+   "chapter": "Ⅱ",
+   "chapter_label": "時間",
+   "name": "課題の因果は見た目と違うことがある",
+   "body": "能登の約190自治区で祭礼が止まった起点は、震災ではなくコロナだった。目の前の危機に原因を帰属させると処方を誤る。",
+   "session": "フェーズフリー",
+   "ledger": "X4",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": [
+    53
+   ]
+  },
+  {
+   "no": 18,
+   "chapter": "Ⅱ",
+   "chapter_label": "時間",
+   "name": "復興の意志は非線形に立ち上がる",
+   "body": "1年目は生活支援が殺到、2年目はまだまだ、3年目に「暮らしを戻したい」という気合いが強くなる。外部の想定より長く、遅れてピークが来る。",
+   "session": "フェーズフリー",
+   "ledger": "X2",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 19,
+   "chapter": "Ⅱ",
+   "chapter_label": "時間",
+   "name": "50年儲からず51年目に儲かるものは、金融商品にならない",
+   "body": "首長の任期は4年、投資家が待てても10年。20年超の時間軸は、地域の人自身が「自分ごと」として出す以外にない。",
+   "session": "ローカルファンド",
+   "ledger": "K系",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 20,
+   "chapter": "Ⅱ",
+   "chapter_label": "時間",
+   "name": "関係資産は複利で効く",
+   "body": "外資との英語契約書を読むのは最初だけ。口座も決済も1回作れば残り、「次の災害で誰が協力してくれるか分かる」だけでも大きい。",
+   "session": "休眠預金",
+   "ledger": "V10",
+   "note": "",
+   "patterns": [
+    50
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 21,
+   "chapter": "Ⅱ",
+   "chapter_label": "時間",
+   "name": "指標は最初に作らなくていい",
+   "body": "やる前から設計はできない。1回ループを回してから「これなら指標に置けそう」と気づく。全てがアジャイル。",
+   "session": "NTTパビリオン",
+   "ledger": "Q12",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 22,
+   "chapter": "Ⅱ",
+   "chapter_label": "時間",
+   "name": "ハレの日は発表会。本体は間の日常である",
+   "body": "芸術祭は3年に1度の「ハレ」で、残り3年間の日々の活動が本質。祭りも同じ構造（宮の掃除・草刈り・季節の営みが連続している）。",
+   "session": "トランジション・フェーズフリー",
+   "ledger": "W8, X4",
+   "note": "",
+   "patterns": [
+    53
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 23,
+   "chapter": "Ⅱ",
+   "chapter_label": "時間",
+   "name": "2050年を議論するメンバーは、2050年にいないかもしれない",
+   "body": "自分がいない未来を、今いるメンバーでどれだけ真剣に考えられるか。トランジションの隠れた前提条件。",
+   "session": "トランジション",
+   "ledger": "W13",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 24,
+   "chapter": "Ⅱ",
+   "chapter_label": "時間",
+   "name": "子ども時間は江戸時代から証明済みの超長期投資",
+   "body": "5年10年30年100年の時間軸で企業が子どもに向き合う関わり方は、歴史がすでに答え合わせをしている。",
+   "session": "子ども支援・クロージング",
+   "ledger": "T14, P9",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 25,
+   "chapter": "Ⅲ",
+   "chapter_label": "お金・資源",
+   "name": "非財務リターンが金融の壁を超える",
+   "body": "三豊のローカルIPO。金融利回り2%に年1泊の宿泊優待をつけると実質18.3%相当。ローカルには非財務の資源（宿・食・土地・体験）が山ほどある。",
+   "session": "ローカルファンド",
+   "ledger": "K系",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 26,
+   "chapter": "Ⅲ",
+   "chapter_label": "お金・資源",
+   "name": "みんなで出資すると「まず誰と組もうか」が地域の思考回路になる",
+   "body": "1社500万円×11社の共同出資。出資行為自体が共同体意識を作る。",
+   "session": "ローカルファンド",
+   "ledger": "K系",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 27,
+   "chapter": "Ⅲ",
+   "chapter_label": "お金・資源",
+   "name": "配当より先に、実業でリターンを返す",
+   "body": "運営会社に社員ゼロ、全業務を株主企業に発注。配当目的の出資者はいない。「外資に頼らず自分たちで作れる」というプライドが生まれる。",
+   "session": "ローカルファンド",
+   "ledger": "K系・施設名は要照合",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 28,
+   "chapter": "Ⅲ",
+   "chapter_label": "お金・資源",
+   "name": "大企業の人をガンギマリさせてはいけない——辞めてしまうから",
+   "body": "「ちょいギマリくらいが両方にとってちょうどいい」。個の熱量は、組織に残したまま活かす設計が要る。",
+   "session": "都市と地方",
+   "ledger": "N19",
+   "note": "※原案25を原発言の趣旨に修正",
+   "patterns": [
+    42
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 29,
+   "chapter": "Ⅲ",
+   "chapter_label": "お金・資源",
+   "name": "お金が足りなかったことが、最良の設計を生んだ",
+   "body": "社員2,300名運営は「エンゲージメント向上」という表の理由と「予算不足」という裏の理由の掛け算。制約と蓄積の掛け合わせが覚悟を生む。",
+   "session": "NTTパビリオン",
+   "ledger": "Q2",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 30,
+   "chapter": "Ⅲ",
+   "chapter_label": "お金・資源",
+   "name": "箱と仕組みが先ではない。まず売れるコンテンツ",
+   "body": "仕組みが素晴らしかったから成功したのではなく「本当に作って、できちゃった」から。事業が成立して初めて出資モデルもファンドも機能する。順番論。",
+   "session": "ローカルファンド",
+   "ledger": "K系",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 31,
+   "chapter": "Ⅲ",
+   "chapter_label": "お金・資源",
+   "name": "「間に合ってるんで大丈夫です」が地域のプライドを守る",
+   "body": "自分たちで作れるという実績を根拠に、大手の進出を断れる。どこかで見た景色の複製を拒否する力。",
+   "session": "ローカルファンド",
+   "ledger": "K系",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 32,
+   "chapter": "Ⅲ",
+   "chapter_label": "お金・資源",
+   "name": "遺贈寄付と公益信託が、生きている時間軸を超えた資金循環を作る",
+   "body": "公益信託の約100年ぶりの大改正で、不動産・山・畑もプールして運用可能に。制度変更が新しい実践を可能にする。",
+   "session": "ローカルファンド",
+   "ledger": "K系・要出典確認",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 33,
+   "chapter": "Ⅲ",
+   "chapter_label": "お金・資源",
+   "name": "見積書に載る仕事1、載らない仕事9",
+   "body": "小水力の事業で見積もりに載るのは一部で、残りの大半はコーディネーション。「見えてる人が全部引き受ける」。調整そのものに支援が入るメニューが要る、という声は災害の現場からも上がった。",
+   "session": "あいだ作戦会議・休眠預金",
+   "ledger": "L系, V14",
+   "note": "",
+   "patterns": [
+    2
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 34,
+   "chapter": "Ⅲ",
+   "chapter_label": "お金・資源",
+   "name": "見栄えのいい活動にお金が集まり、地味な活動には届かない",
+   "body": "井戸を掘れば本国で寄付が集まるがメンテには金が出ない→使われない井戸だらけ。草刈り・穴掘りにリソースが回らない構造問題。",
+   "session": "自然と経済",
+   "ledger": "O6",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 35,
+   "chapter": "Ⅲ",
+   "chapter_label": "お金・資源",
+   "name": "フィーを取るから続く",
+   "body": "銀行の寄付仲介事業。「ソーシャルの人には批判されるが、対価をもらうのが持続の条件。数年後にはみんなやる。それでいい」。三方よしと同じ結論に金融側から到達。",
+   "session": "子ども支援・MOTTAINAI",
+   "ledger": "T11, AB3",
+   "note": "",
+   "patterns": [
+    39
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 36,
+   "chapter": "Ⅲ",
+   "chapter_label": "お金・資源",
+   "name": "費用はアセットに変換できる",
+   "body": "鉄道の広告費3,000万円を「沿線を眺める企画への出資」に反転→1円も使わず話題化し資産も残る。研修先を都心から地域に変えるだけの「劇的でない意思決定」でBSが動く。",
+   "session": "都市と地方",
+   "ledger": "N16, N17",
+   "note": "",
+   "patterns": [
+    37
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 37,
+   "chapter": "Ⅲ",
+   "chapter_label": "お金・資源",
+   "name": "初動の金と、稟議の金は、時間差で設計する",
+   "body": "企業の社内稟議は約1ヶ月。休眠預金は「発災当日から使える」枠組みを用意し、初動は休眠預金・本格支援は企業と役割分担する。",
+   "session": "休眠預金",
+   "ledger": "V3",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 38,
+   "chapter": "Ⅲ",
+   "chapter_label": "お金・資源",
+   "name": "悪い結果でも、数字が出ること自体が価値",
+   "body": "「観光客が素通りしている気がする」を位置情報で可視化したら3%だった。悲観的な事実でも、数字になれば次の判断ができる。",
+   "session": "AI",
+   "ledger": "S6",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 39,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "ちょいギマリの殻を破る「最後の一押し」を、組織が仕組みとして提供する",
+   "body": "ガンギマリは放っておいても動く。問題は覚悟が芽生えたが振り切れない大多数。「頑張らずして・ある程度安全に」殻を破れる環境を組織側が設計する。",
+   "session": "NTTパビリオン",
+   "ledger": "Q11",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 40,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "本当にガンギマると、上の人は意外と聞いてくれる",
+   "body": "退職願をしたためて最後のつもりで直訴したら、受け入れられて地域担当になった。熱量の本気度は組織に伝わる。",
+   "session": "都市と地方",
+   "ledger": "N19-20",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 41,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "個の熱量を「呪い」にしない",
+   "body": "承認が降りないことを「会社が分かってくれない」と敵視すると、熱量がマイナスに反転する。山への登り方は複数ある。",
+   "session": "参加者仮説",
+   "ledger": "A系",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 42,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "「挑戦したいから辞めます」が組織への最大の警告",
+   "body": "受け止める器がなければ、熱量のある人から順に去っていく。",
+   "session": "オープニング",
+   "ledger": "M系",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 43,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "ゼロクリアなのに右肩上がり＝知は個人ではなく組織に溜まる",
+   "body": "5日ごとに素人に入れ替わるのに全体は洗練されていった。良い工夫は次のブロックへ引き継がれ、失敗は「試す必要のないノウハウ」として蓄積された。",
+   "session": "NTTパビリオン",
+   "ledger": "Q3, Q4",
+   "note": "",
+   "patterns": [
+    47
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 44,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "弱みは時間設計で強みに反転する",
+   "body": "「常に素人」は当初の不安要素だったが、夏には「日々フレッシュ」が他館の「慣れ」に対する強みになり顧客満足に直結した。",
+   "session": "NTTパビリオン",
+   "ledger": "Q4",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": [
+    47
+   ]
+  },
+  {
+   "no": 45,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "署名者は役員ではなく「現場を見てくれている部長」を選ぶ",
+   "body": "「自分が署名すると『いつか会社を辞める個人』に紐づいてしまう」。協定を属人化させず組織に埋め込む知恵。",
+   "session": "都市と地方",
+   "ledger": "N21",
+   "note": "",
+   "patterns": [
+    45
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 46,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "人事記録に残す",
+   "body": "晴れの場への参画を正式な人事記録に残すことで、個人の経験が組織の人的資本として追跡可能になる。「会社を辞めるのをやめました」という声は複数出た。",
+   "session": "NTTパビリオン",
+   "ledger": "Q10",
+   "note": "",
+   "patterns": [
+    48
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 47,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "外から突くだけでは火は入らない。中から呼応する人が要る",
+   "body": "脱藩浪人が世を変えられたのは、体制側に勝海舟がいたから。大企業の中に「矛盾を抱えながら呼応する人」を育てる。",
+   "session": "都市と地方",
+   "ledger": "N15",
+   "note": "",
+   "patterns": [
+    41
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 48,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "「この人だけが言ってるんじゃない」というストーリーを持ち帰らせる",
+   "body": "他社・他省庁の事例を仕入れて組織に還元すると、個人の主張が社会の動きに変換される。共創拠点の隠れた機能。",
+   "session": "Glass Rock",
+   "ledger": "R19",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": [
+    5
+   ]
+  },
+  {
+   "no": 49,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "「こっそりソーシャルインパクト領域」という大企業内の生存戦略",
+   "body": "目立たず実績を積んでから開示する。正面突破だけが道ではない。",
+   "session": "トップマネジメント",
+   "ledger": "M8",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 50,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "「死ぬからやる」が覚悟の最終形",
+   "body": "人生の締め切りを意識すると、私と公が一体化する。メメントモリ経営。",
+   "session": "トップマネジメント",
+   "ledger": "M系",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 51,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "会社が存在したまま、関係性だけを変えるのが最難関",
+   "body": "会社がなくなれば否応なく変わる。存在し続けながら依存構造を対等に変えるには、対話の場を制度として常設するしかない。",
+   "session": "トランジション",
+   "ledger": "W6",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 52,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "毎日、言葉で殴り合う場（トランジション・アリーナ）を作る",
+   "body": "市役所常駐の企業社員が、民間の利益追求と行政の公益性を日々ぶつけ合う。価値観をさらけ出す場が制度としてあることでマインドセットが変わる。",
+   "session": "トランジション",
+   "ledger": "W10",
+   "note": "※人名は要照合",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 53,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "AIで余白を作ることが「熱量の種」を育てる",
+   "body": "過ぎていく仕事をAIに渡すと「俺は何をしたかったんだっけ」と向き合う時間が生まれる。余白は熱量の前提条件。",
+   "session": "AI",
+   "ledger": "S9",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 54,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "枠組みはAI、中身は人が考える",
+   "body": "フレームの設計・情報の構造化はAIに任せ、判断と意思は人間が握る。「人間の確認を譲らない」と最初に組織と握ることが信頼の条件。",
+   "session": "AI",
+   "ledger": "S10, S5",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 55,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "AI活用の成否は熱意でなくデータ整備で決まる",
+   "body": "同じシステムでも、資料が格納されていた人は2〜4時間→15分、なければ効果ゼロ。中途半端な形式混在の蓄積はむしろ有害。最新モデルでもこの原則は変わらない。",
+   "session": "AI",
+   "ledger": "S4",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 56,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "3部リーグでレギュラーを張れ",
+   "body": "1部の2軍に居続けるより、地域で20代のうちに事業を丸ごと回す経験を積む。地域も「引き抜かれる」でなくトライアルの場として送り出す。",
+   "session": "都市と地方",
+   "ledger": "N25",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 57,
+   "chapter": "Ⅳ",
+   "chapter_label": "組織の変容と個の熱量",
+   "name": "100年企業の多くは、倒産の危機を「地域」に救われている",
+   "body": "地域のことをやっていたから100年続いた。運命共同体性は長寿の条件。",
+   "session": "都市と地方",
+   "ledger": "N26・要出典確認",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 58,
+   "chapter": "Ⅴ",
+   "chapter_label": "場と対話の設計",
+   "name": "問いの質を上げることに時間の大半を使う",
+   "body": "知恵の車座は40分の2/3を本質探索に充てる。解決策に飛びつく衝動を構造で抑える。",
+   "session": "共創体感",
+   "ledger": "AA1",
+   "note": "",
+   "patterns": [
+    21
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 59,
+   "chapter": "Ⅴ",
+   "chapter_label": "場と対話の設計",
+   "name": "質問されるだけで、本人の中に気づきが起きる",
+   "body": "アドバイスの前に、1人1問ずつ・1つずつ深める。問いは観測装置である。",
+   "session": "共創体感",
+   "ledger": "AA2",
+   "note": "",
+   "patterns": [
+    22
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 60,
+   "chapter": "Ⅴ",
+   "chapter_label": "場と対話の設計",
+   "name": "直感は理由を並べず、短くシャープに伝える",
+   "body": "「あなたの悩みの本質はこれな気がします」。無責任に・遠慮なく言うことこそが貢献。外れていても他者の視点がブレイクスルーになる。",
+   "session": "共創体感",
+   "ledger": "AA3",
+   "note": "",
+   "patterns": [
+    23
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 61,
+   "chapter": "Ⅴ",
+   "chapter_label": "場と対話の設計",
+   "name": "相談者に「いないふり」をさせる",
+   "body": "本人が背を向けると、支援者は遠慮なく話せ、本人は自分の課題が客観的に語られるのを聞ける。究極の自分ごと化の装置。",
+   "session": "共創体感",
+   "ledger": "AA4",
+   "note": "",
+   "patterns": [
+    24
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 62,
+   "chapter": "Ⅴ",
+   "chapter_label": "場と対話の設計",
+   "name": "葛藤を開示できる場が当事者性を引き出す",
+   "body": "成功事例の紹介ではなく葛藤の共有を中心に据える。上昇曲線だけでなく下降曲線を意図的に扱う。",
+   "session": "全セッション共通",
+   "ledger": "W系ほか",
+   "note": "",
+   "patterns": [
+    30
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 63,
+   "chapter": "Ⅴ",
+   "chapter_label": "場と対話の設計",
+   "name": "「仮説」を持ち寄ると、場が「教える/教わる」でなくなる",
+   "body": "答えではなく問いとして持ち込むことで、参加者全員が対等な当事者になる。",
+   "session": "カンファレンス設計",
+   "ledger": "G系",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 64,
+   "chapter": "Ⅴ",
+   "chapter_label": "場と対話の設計",
+   "name": "「隣にドラえもんがいる」と思って言う",
+   "body": "実現可能性を考えた瞬間にアイデアの幅が狭まる。3原則＝何でもOK・乗っかりOK・楽しんでOK。出なくても「いいね」と言うだけで場に貢献（相手が調子に乗って出てくる）。",
+   "session": "遊び発見ラボ",
+   "ledger": "Y4",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 65,
+   "chapter": "Ⅴ",
+   "chapter_label": "場と対話の設計",
+   "name": "応援フォームは名刺交換より強い",
+   "body": "登壇者ごとに「今後どう関わりたいか」を表明するフォーマット。コロナ期の代替策が、対面復帰後も本家を超えて残った。",
+   "session": "遊び発見ラボ",
+   "ledger": "Y3",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 66,
+   "chapter": "Ⅴ",
+   "chapter_label": "場と対話の設計",
+   "name": "言葉ひとつで参加の安全性が変わる",
+   "body": "「幼少期の傷つき」を「モヤつき」に言い換える。土曜の朝に傷を思い出したくない人にも入口を開く、言語レベルの安全設計。",
+   "session": "0〜10歳",
+   "ledger": "U1",
+   "note": "",
+   "patterns": [
+    33
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 67,
+   "chapter": "Ⅴ",
+   "chapter_label": "場と対話の設計",
+   "name": "「そもそも問いから疑う」席を常設する",
+   "body": "本当に整える必要があるのか？と問える席をグループ分けに組み込む。前提ごと差し出す設計。",
+   "session": "0〜10歳",
+   "ledger": "U5",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 68,
+   "chapter": "Ⅴ",
+   "chapter_label": "場と対話の設計",
+   "name": "答えは提示しない。固定概念を取っ払い、思考停止を超えて考えきる",
+   "body": "「こうだからしょうがない」と思った瞬間がシグナル。冒頭に「身近な子どもを5人思い浮かべる」錨を打ってから始める。",
+   "session": "子ども支援",
+   "ledger": "T1",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 69,
+   "chapter": "Ⅴ",
+   "chapter_label": "場と対話の設計",
+   "name": "闇研には守秘義務を敷く",
+   "body": "「まだ始まってもいない企み」を安心して出せるのは、批判ではなく応援のルールと、他言しない約束があるから。G-SHOCKやアイサイトを生んだ有志の夜の現代版。",
+   "session": "闇研",
+   "ledger": "AC1",
+   "note": "",
+   "patterns": [
+    34
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 70,
+   "chapter": "Ⅴ",
+   "chapter_label": "場と対話の設計",
+   "name": "「いい具合の不完全燃焼」を設計する",
+   "body": "あえて話し足りない状態で終え、Slack・次回・フィールドワークへ飢餓感ごと接続する。点を線に、線を面にする年間設計。",
+   "session": "遊び発見ラボ",
+   "ledger": "Y2",
+   "note": "",
+   "patterns": [
+    32
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 71,
+   "chapter": "Ⅵ",
+   "chapter_label": "翻訳と「あいだ」",
+   "name": "政策の言語とビジネスの言語は噛み合わない",
+   "body": "ワークショップをやっても「来年度の予算になります」で止まる。間に立つ翻訳者への依頼はここから生まれる。",
+   "session": "Glass Rock",
+   "ledger": "R3",
+   "note": "",
+   "patterns": [
+    6
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 72,
+   "chapter": "Ⅵ",
+   "chapter_label": "翻訳と「あいだ」",
+   "name": "ニーズの翻訳：「なぜシーツなのか」まで聞き出す",
+   "body": "福祉施設が定員の倍で断水し洗濯できない——現場でしか分からない一段深い理由を聞き出して企業に渡すのが中間組織の仕事。",
+   "session": "休眠預金",
+   "ledger": "V9",
+   "note": "",
+   "patterns": [
+    7
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 73,
+   "chapter": "Ⅵ",
+   "chapter_label": "翻訳と「あいだ」",
+   "name": "ロットの翻訳：小口をまとめて企業の単位に合わせる",
+   "body": "現場の団体は忙しすぎて企業対応ができない。中間組織が束ねることで支援が流れ出す。",
+   "session": "休眠預金",
+   "ledger": "V11",
+   "note": "",
+   "patterns": [
+    8
+   ],
+   "patterns_same_source": [
+    9
+   ]
+  },
+  {
+   "no": 74,
+   "chapter": "Ⅵ",
+   "chapter_label": "翻訳と「あいだ」",
+   "name": "速度の翻訳：ビジネス速度と現場速度の通訳を毎日続ける",
+   "body": "即時レスポンスを求める企業と、人手不足で情報が出ない現地。両方のタイミングを合わせ続けるのが中間支援の疲労の実態であり、価値の実体。",
+   "session": "休眠預金",
+   "ledger": "V11",
+   "note": "",
+   "patterns": [
+    9
+   ],
+   "patterns_same_source": [
+    8
+   ]
+  },
+  {
+   "no": 75,
+   "chapter": "Ⅵ",
+   "chapter_label": "翻訳と「あいだ」",
+   "name": "「僕が言ってるんじゃなくて、みんなが言ってた」と伝聞化する",
+   "body": "対立調整では発言を伝聞に変換する。反対者も対話プロセスの最初から入れると、最後は使ってくれる。",
+   "session": "Glass Rock",
+   "ledger": "R17",
+   "note": "",
+   "patterns": [
+    5
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 76,
+   "chapter": "Ⅵ",
+   "chapter_label": "翻訳と「あいだ」",
+   "name": "合意形成の逆説：あえてぼやっとさせる",
+   "body": "はっきりさせると対立が鮮明になる局面がある。輪郭を保留する技術も翻訳の一部。",
+   "session": "あいだ作戦会議",
+   "ledger": "L系",
+   "note": "",
+   "patterns": [
+    3
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 77,
+   "chapter": "Ⅵ",
+   "chapter_label": "翻訳と「あいだ」",
+   "name": "接着剤は、固まると透明になる",
+   "body": "うまくいくほど中間の仕事は見えなくなる。まちづくり会社の理想も「自然と無視される状態」。中間支援のフェーズフリーとは「自分がいなくても地域と外が回る」こと。",
+   "session": "あいだ作戦会議・Glass Rock・フェーズフリー",
+   "ledger": "L2, R11, X10",
+   "note": "",
+   "patterns": [
+    1
+   ],
+   "patterns_same_source": []
+  },
+  {
+   "no": 78,
+   "chapter": "Ⅵ",
+   "chapter_label": "翻訳と「あいだ」",
+   "name": "「中間言語」を作る",
+   "body": "やってきたことを人と議論できる共通フォーマット。ウェルビーイングISOのシートも、相互認定会も、本質は評価でなく対話のための言語。",
+   "session": "NTTパビリオン",
+   "ledger": "Q15, Q8",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 79,
+   "chapter": "Ⅵ",
+   "chapter_label": "翻訳と「あいだ」",
+   "name": "子どもが生まれた瞬間に「時限装置」が発動する",
+   "body": "わが子が22歳で社会に出るまでの残り時間を意識すると、仕事の時間軸が社会の時間軸に接続される。",
+   "session": "Glass Rock",
+   "ledger": "R系",
+   "note": "※原案の三豊帰属を修正・要照合",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 80,
+   "chapter": "Ⅵ",
+   "chapter_label": "翻訳と「あいだ」",
+   "name": "行政の勉強をちゃんとする",
+   "body": "国の制度を地域に「流し込む」翻訳（融資と同額を国が持つ制度＋自治体のお墨付き等）は、民間側が制度を学んで初めて可能になる。",
+   "session": "Glass Rock",
+   "ledger": "R6",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 81,
+   "chapter": "Ⅵ",
+   "chapter_label": "翻訳と「あいだ」",
+   "name": "官民は契約書から一緒に作るとワンチームになる",
+   "body": "補助金の書類を県・市と全部一緒に作り、成功の果実（税収・雇用100人）を行政側に渡す設計にすると、行政が本気の伴走者になる。",
+   "session": "Glass Rock",
+   "ledger": "R8",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 82,
+   "chapter": "Ⅶ",
+   "chapter_label": "自然・文化と経済の接続",
+   "name": "「やらねばならない」では続かない。「やること自体が楽しい」でないと",
+   "body": "義務のマイナス→ゼロではなく、遊び・美味しい・気持ちいいから入るプラス方向が継続の条件。入り口は不純でいい。",
+   "session": "遊び発見ラボ・自然と経済",
+   "ledger": "Y系, O11",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 83,
+   "chapter": "Ⅶ",
+   "chapter_label": "自然・文化と経済の接続",
+   "name": "体験を通じて人の価値観は一瞬で変わる",
+   "body": "野菜嫌いの子が収穫体験でキャベツをバリバリ食べ始めた。頭の理解でなく五感の体験が行動変容の起点。",
+   "session": "遊び発見ラボ",
+   "ledger": "Y5",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 84,
+   "chapter": "Ⅶ",
+   "chapter_label": "自然・文化と経済の接続",
+   "name": "「意識が高い」から「意識が分散する」へ",
+   "body": "森に手を入れると、自分が作ったもの（直した道、組んだしがらみ）が気になり、意識が森のあちこちに宿る。個を超えて意識が分散した状態こそが、森との距離が縮まった状態。祈りと遊びは課題解決とは別の回路。",
+   "session": "自然と経済",
+   "ledger": "O10",
+   "note": "※原案43を原義に修正",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 85,
+   "chapter": "Ⅶ",
+   "chapter_label": "自然・文化と経済の接続",
+   "name": "減価されてきた価値の復元",
+   "body": "暮らし、祭礼、自然、子ども、間の仕事、信頼。経済成長の過程で「価値がない」とされたものを資産として認識し直す。カンファレンス全体の通奏低音。",
+   "session": "自然と経済ほか",
+   "ledger": "O14",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 86,
+   "chapter": "Ⅶ",
+   "chapter_label": "自然・文化と経済の接続",
+   "name": "手作りのものには心が宿り、それは受け手に伝わる",
+   "body": "避難所で誰が働きかけても笑わなかった子が、手作りのぬいぐるみを抱いたら笑った。誰に届くか分からないまま「喜んでくれたらいいな」と作る気持ちは、物を超えて届く。",
+   "session": "休眠預金",
+   "ledger": "V7",
+   "note": "※文脈を修正",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 87,
+   "chapter": "Ⅶ",
+   "chapter_label": "自然・文化と経済の接続",
+   "name": "文脈を変えれば、同じ活動が違う顔で通る",
+   "body": "「生き物を守ろう」を「災害に強い地域づくり」へ。やることは同じでも、企業の創業精神（火消しDNA）に接続すると社内が動く。",
+   "session": "自然と経済",
+   "ledger": "O5",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 88,
+   "chapter": "Ⅶ",
+   "chapter_label": "自然・文化と経済の接続",
+   "name": "可視化は単体では事業にならない",
+   "body": "開示のためだけのデータは実体経済から離れ、幻滅期を生む。「何を・何のために見える化するのか」の再定義が先。",
+   "session": "自然と経済",
+   "ledger": "O3",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 89,
+   "chapter": "Ⅶ",
+   "chapter_label": "自然・文化と経済の接続",
+   "name": "距離が遠いと「言ったもん勝ち」になる",
+   "body": "価値が直感的に分からない距離では検証が働かない。使われない井戸が並ぶ。根本対策は距離を縮めること。",
+   "session": "自然と経済",
+   "ledger": "O7",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 90,
+   "chapter": "Ⅶ",
+   "chapter_label": "自然・文化と経済の接続",
+   "name": "場作りそのものが価値を生む。その入り口が遊び",
+   "body": "6次化やブランド化は時間がかかる。ビオトープ田んぼで生き物が増え、子どもが遊び、コミュニティができる——場が先に価値になる。",
+   "session": "遊び発見ラボ",
+   "ledger": "Y9",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 91,
+   "chapter": "Ⅶ",
+   "chapter_label": "自然・文化と経済の接続",
+   "name": "フロンティアは資源でなく認識の側にある",
+   "body": "海藻1,500種のうち1,400種はまだ誰も食べていない。「もったいない」も同じで、レンズを変えると眠っている資源が見える。",
+   "session": "遊び発見ラボ・MOTTAINAI",
+   "ledger": "Y6, AB4",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 92,
+   "chapter": "Ⅷ",
+   "chapter_label": "子ども・次世代",
+   "name": "子どもは「支援対象」ではなく「大人と社会の回復装置」",
+   "body": "7歳までは神の子＝生命史30億年を体験する存在。大人が教えるのではなく子どもから学ぶことで、大人が人間を取り戻す。",
+   "session": "子ども支援",
+   "ledger": "T8, T9",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 93,
+   "chapter": "Ⅷ",
+   "chapter_label": "子ども・次世代",
+   "name": "子どもが求めたのは3つだけ：「食べられる場所」「嫌な大人がいない」「好きなことができる」",
+   "body": "50年前の寿町。この3条件から料理教室が生まれ、野球チームが生まれ、大人が元気になり、町が変わった。子ども食堂の原型は半世紀前に実践されていた。",
+   "session": "子ども支援",
+   "ledger": "T6",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 94,
+   "chapter": "Ⅷ",
+   "chapter_label": "子ども・次世代",
+   "name": "変化の回路は「子ども→大人」に流れる",
+   "body": "親に禁煙を言っても変わらないが、子どもが学校で学んで親に言うと親が変わる（ヘルスメッセンジャー）。子どもが元気になると、先生が変わり、校長が変わり、町が変わる。",
+   "session": "子ども支援",
+   "ledger": "T7",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 95,
+   "chapter": "Ⅷ",
+   "chapter_label": "子ども・次世代",
+   "name": "立ち直った人が支援者になる",
+   "body": "担い手の多くは厳しい状況から回復してきた人。苦しみを知っているから同じ気持ちになれる。回復→支援の循環が支援の質の源泉。",
+   "session": "子ども支援",
+   "ledger": "T10",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 96,
+   "chapter": "Ⅷ",
+   "chapter_label": "子ども・次世代",
+   "name": "いじめる側のケアという視点",
+   "body": "いじめは何かのストレスのサインかもしれない。問題の構造を個人の善悪に帰結させない。",
+   "session": "0〜10歳",
+   "ledger": "U3",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 97,
+   "chapter": "Ⅷ",
+   "chapter_label": "子ども・次世代",
+   "name": "体験の欠落こそが貧困の実体",
+   "body": "児童養護施設の子に刺身や温泉が未経験の子は珍しくない。「かっこいい言葉（サステナビリティ）より経験」。",
+   "session": "子ども支援",
+   "ledger": "T5",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 98,
+   "chapter": "Ⅷ",
+   "chapter_label": "子ども・次世代",
+   "name": "保護者は企業の従業員である",
+   "body": "NPO→企業に寄付を求める構図の裏に、この接点が眠っていた。人事施策（社内）とESG/CSR（社外）の両面で企業には固有の打ち手がある。",
+   "session": "子ども支援",
+   "ledger": "T2",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 99,
+   "chapter": "Ⅷ",
+   "chapter_label": "子ども・次世代",
+   "name": "企業の制度が行政を動かすことがある",
+   "body": "里親研修の受講に「30万円＋有給」を出す日本初の制度を作ったら、行政から「一緒に始めませんか」と連絡が来た。",
+   "session": "子ども支援",
+   "ledger": "T4",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 100,
+   "chapter": "Ⅷ",
+   "chapter_label": "子ども・次世代",
+   "name": "豊かな土を耕せば芽が生えてくる",
+   "body": "勉強会が4区から18区へ。場を耕すと噂で人が集まる。上から直すのではなく「コミュニティの一部として入る」（ドクターコトーの「医者国民が医者やってんだ」）。",
+   "session": "子ども支援",
+   "ledger": "T15",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 101,
+   "chapter": "Ⅸ",
+   "chapter_label": "制度・仕組みの設計",
+   "name": "ウェルビーイングISOは「定義」ではなく「対話のためのフォーマット」",
+   "body": "定義せず「地域には独自の概念がある」前提でプロセスだけを可視化する。「共通理解しているつもりで全くしていなかった」ことが露呈するのが価値。",
+   "session": "NTTパビリオン",
+   "ledger": "Q7, Q9",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 102,
+   "chapter": "Ⅸ",
+   "chapter_label": "制度・仕組みの設計",
+   "name": "「ステークホルダーに家族を入れるか」でやることが全部変わる",
+   "body": "家族を含めるなら持ち帰れるグッズを作る。スコープの定義こそが最重要の意思決定。",
+   "session": "NTTパビリオン",
+   "ledger": "Q9",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 103,
+   "chapter": "Ⅸ",
+   "chapter_label": "制度・仕組みの設計",
+   "name": "認定は審査員でなく「相互認定会」でよい",
+   "body": "同じフォーマットで語り合う場そのものが認証機能を果たす。",
+   "session": "NTTパビリオン",
+   "ledger": "Q8",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 104,
+   "chapter": "Ⅸ",
+   "chapter_label": "制度・仕組みの設計",
+   "name": "民間が都市計画を「提案できる」制度を先駆的に使う",
+   "body": "都市再生推進法人。制度を先に使うこと自体がイノベーションで、後続のためのルールを自ら作る役割を伴う。",
+   "session": "Glass Rock",
+   "ledger": "R12",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 105,
+   "chapter": "Ⅸ",
+   "chapter_label": "制度・仕組みの設計",
+   "name": "QV投票は「応援のグラデーション」の実装",
+   "body": "1人1票では表現できない濃淡を、コスト2乗の設計（8票=64クレジット）で可視化。広く支持されることが構造的に有利になり、投票→コミュニティ→再投票→資金分配まで一周させた。",
+   "session": "クロージング",
+   "ledger": "P1",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 106,
+   "chapter": "Ⅸ",
+   "chapter_label": "制度・仕組みの設計",
+   "name": "住民参加は「義務化」すると文化になる",
+   "body": "日本は自治体の任意判断だが、インドネシアは政策手続きとして法的義務→参加プラットフォームの利用度が日本より高い。制度設計が文化を作る。",
+   "session": "Glass Rock",
+   "ledger": "R15",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 107,
+   "chapter": "Ⅸ",
+   "chapter_label": "制度・仕組みの設計",
+   "name": "痛みを伴う政策こそ、あえて声を聴く",
+   "body": "開庁時間短縮や料金見直しのような不人気政策を、黙って通すのではなく対話しながら進める自治体が現れている。集めた声はAIで構造化し対面会議に接続する。",
+   "session": "Glass Rock",
+   "ledger": "R13",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 108,
+   "chapter": "Ⅸ",
+   "chapter_label": "制度・仕組みの設計",
+   "name": "カンファレンスを仮説検証サイクルの起点にする",
+   "body": "セッションで見えたことを仮説として言語化→AIで統合→3年後に答え合わせ。イベントを「観測→言語化→蓄積」の装置に変える設計。",
+   "session": "Day2オープニング・クロージング",
+   "ledger": "AD3, P6",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": [
+    54
+   ]
+  },
+  {
+   "no": 109,
+   "chapter": "Ⅹ",
+   "chapter_label": "構造的認識",
+   "name": "Xカーブの④と⑤は対立概念ではなく支え合う関係",
+   "body": "企業城下町の衰退と市民共創社会の立ち上がりは対比ではなく接続。衰退する側の技術・信頼・人脈が、新システムの基盤になる。",
+   "session": "トランジション",
+   "ledger": "W2, W15",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 110,
+   "chapter": "Ⅹ",
+   "chapter_label": "構造的認識",
+   "name": "さなぎの中では細胞が一度溶ける",
+   "body": "交差点③は非平衡状態の中の自己組織化。トラブルや偶然をポジティブに活用しながら変化し続ける。バックキャスト一辺倒からエフェクチュエーションへ。",
+   "session": "トランジション",
+   "ledger": "W11",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 111,
+   "chapter": "Ⅹ",
+   "chapter_label": "構造的認識",
+   "name": "社会性と経済性を「切り分けて考えること」自体が問題を作っている",
+   "body": "事業活動はそもそも社会のニーズを満たすためのもの。分離した議論が分離した現実を生む。",
+   "session": "参加者仮説",
+   "ledger": "H系",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 112,
+   "chapter": "Ⅹ",
+   "chapter_label": "構造的認識",
+   "name": "マーケットインからライフアウトへ",
+   "body": "外から機能を問うのではなく、生活者として内側に入り「こんな世界だったら楽しい」から作る。ジョブズは顧客とではなく時代と向き合った。変わるべきは地方ではなく都市と企業の側。",
+   "session": "都市と地方",
+   "ledger": "N1, N2",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 113,
+   "chapter": "Ⅹ",
+   "chapter_label": "構造的認識",
+   "name": "行政も担えず、民間も担いきれない領域が拡大している",
+   "body": "行政は人手不足、民間は市場が不成立。この空白は総力戦の共創でしか埋まらない。",
+   "session": "Glass Rock",
+   "ledger": "R系",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 114,
+   "chapter": "Ⅹ",
+   "chapter_label": "構造的認識",
+   "name": "「人口」でも「GDP」でもなく「活動量」を増やす",
+   "body": "活動する人の活動量と、活動する人同士の交流を目標に置き直す。豊かさのベクトル自体を変える。",
+   "session": "Glass Rock",
+   "ledger": "R5",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 115,
+   "chapter": "Ⅹ",
+   "chapter_label": "構造的認識",
+   "name": "横展開になった瞬間に魂は分散する。ただし裏側の仕組みは移転してよい",
+   "body": "表のコンテンツを複製すると全部同じになる（駅前再開発）。ファイナンスのストラクチャーや型は共有し、魂は1点に込める。「広げる」（他動詞）ではなく「広がる」（自動詞）。",
+   "session": "ローカルファンド・都市と地方",
+   "ledger": "K系, N12",
+   "note": "",
+   "patterns": [],
+   "patterns_same_source": []
+  },
+  {
+   "no": 116,
+   "chapter": "Ⅹ",
+   "chapter_label": "構造的認識",
+   "name": "熱は距離が近いところでしか伝わらない。そして仕組みは冷めていく",
+   "body": "だから「火を一人で抱え込まず、距離を縮めて、仕組みに乗せ、間をつないでいく」。1人では続かない、仲間で続く。全20セッションのAI統合が到達した結論。",
+   "session": "クロージング",
+   "ledger": "P6",
+   "note": "",
+   "patterns": [
+    54
+   ],
+   "patterns_same_source": []
+  }
+ ],
+ "tacit_label": "暗黙知集 改訂版（116項目）"
 }
