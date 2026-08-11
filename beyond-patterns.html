@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ビヨンドカンファレンス2026 パターン・ランゲージ</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#F8F7F4;font-family:'Helvetica Neue','Noto Sans JP',sans-serif;color:#1A1A1A;
+  font-size:14px;line-height:1.75;padding:34px 16px 80px}
+.wrap{max-width:1000px;margin:0 auto}
+.badge0{font-size:10px;font-weight:700;letter-spacing:.12em;color:#9E4B2C;text-transform:uppercase;margin-bottom:8px}
+h1{font-size:22px;font-weight:800;line-height:1.5;margin-bottom:8px}
+.sub{font-size:12.5px;color:#6B7280;line-height:1.8}
+.back{font-size:11px;color:#9CA3AF;text-decoration:none;letter-spacing:.06em}
+.back:hover{color:#374151}
+.stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:20px 0 16px}
+.stat div{background:#fff;border:1px solid #E5E7EB;border-radius:13px;padding:12px 14px}
+.stat b{display:block;font-size:20px;font-weight:800;line-height:1.25}
+.stat span{font-size:10.5px;color:#9CA3AF}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.filters input,.filters select{padding:7px 10px;border:1px solid #E5E7EB;border-radius:9px;
+  font-family:inherit;font-size:12.5px;background:#fff;color:#1A1A1A;min-width:150px}
+.filters input:focus,.filters select:focus{outline:none;border-color:#9E4B2C}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.chip{border:1px solid #E5E7EB;background:#fff;border-radius:20px;padding:5px 13px;font-size:11.5px;
+  color:#6B7280;cursor:pointer;transition:all .15s}
+.chip:hover{border-color:#9CA3AF}
+.chip.on{color:#fff;font-weight:700;border-color:transparent}
+.count{font-size:11.5px;color:#6B7280;margin-bottom:10px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:13px}
+.c{background:#fff;border:1px solid #E5E7EB;border-radius:15px;padding:17px 18px;cursor:pointer;
+  transition:all .18s;box-shadow:0 1px 3px rgba(0,0,0,.04);border-top-width:3px}
+.c:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.10)}
+.c .g{font-size:10px;letter-spacing:.06em;font-weight:700}
+.c h3{font-size:15px;font-weight:800;line-height:1.45;margin:5px 0 6px}
+.c .s{font-size:12px;color:#6B7280;line-height:1.6;margin-bottom:10px}
+.c .t{font-size:11.5px;line-height:1.65;background:#FAF7F5;border-radius:9px;padding:9px 11px;color:#374151}
+.c .t i{color:#9E4B2C;font-style:normal;font-weight:700}
+.c .b{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
+.bg{font-size:9.5px;padding:2px 8px;border-radius:20px;border:1px solid #E5E7EB;color:#9CA3AF}
+.bg.v{border-color:#99F6E4;background:#F0FDFA;color:#0F766E}
+.bg.u{border-color:#FDE68A;background:#FFFBEB;color:#B45309}
+.empty{background:#fff;border:1px dashed #E5E7EB;border-radius:14px;padding:40px;text-align:center;color:#9CA3AF}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-start;
+  justify-content:center;padding:36px 16px;z-index:50;overflow-y:auto}
+.modal.on{display:flex}
+.mc{background:#fff;border-radius:18px;padding:28px 30px;max-width:700px;width:100%}
+.mc .close{float:right;background:none;border:0;font-size:22px;color:#9CA3AF;cursor:pointer;line-height:1}
+.mc .g{font-size:10.5px;font-weight:700;letter-spacing:.06em}
+.mc h2{font-size:22px;font-weight:800;line-height:1.4;margin:6px 0 4px}
+.mc .s{font-size:13.5px;color:#6B7280;margin-bottom:16px}
+.lbl{font-size:10px;font-weight:700;color:#9E4B2C;letter-spacing:.1em;margin:18px 0 5px}
+.mc p{font-size:13.5px;line-height:1.85;color:#374151;white-space:pre-wrap}
+.tb{background:#FAF7F5;border-radius:11px;padding:14px 16px;border-left:3px solid #9E4B2C}
+.tb .vs{text-align:center;color:#9E4B2C;font-size:10.5px;letter-spacing:.14em;margin:7px 0}
+.q{background:#F9FAFB;border-left:2px solid #D1D5DB;padding:9px 13px;margin:7px 0;
+  font-size:12.5px;line-height:1.8;color:#374151}
+.meta{font-size:11px;color:#9CA3AF;margin-top:18px;padding-top:14px;border-top:1px solid #F3F4F6;line-height:1.9}
+.rel{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.rel span{font-size:11.5px;color:#9E4B2C;cursor:pointer;border-bottom:1px dotted #9E4B2C}
+.note{background:#F3F4F6;border-radius:10px;padding:11px 14px;font-size:11.5px;color:#6B7280;line-height:1.8;margin:16px 0}
+.footer{margin-top:44px;text-align:center;font-size:11px;color:#9CA3AF;line-height:1.9}
+@media(max-width:520px){.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="badge0">Beyond Conference 2026</div>
+  <h1>共創の現場に埋まっていた、判断のかたち</h1>
+  <p class="sub">全20セッションの文字起こしと暗黙知集116項目から起こしたパターン・ランゲージ。<br>
+  それぞれに「板挟み」——両方とも正しいのに同時に立たない2つの力——を明示している。</p>
+  <div style="margin-top:10px"><a class="back" href="./index.html">← ツール一覧に戻る</a></div>
+
+  <div class="stat" id="stat"></div>
+
+  <div class="note">
+    <b>読み方。</b>パターンは正解ではなく、その場面で何と何がぶつかっていたかの記録。
+    解決はひとつの捌き方であって、同じ場面でも背負っているものが違えば答えは変わる。
+    <b>「原文で確認」</b>は、板挟みまで文字起こしで裏が取れたもの。<b>「推論」</b>は暗黙知集からの推測で未検証。
+  </div>
+
+  <div class="filters">
+    <input type="text" id="q" placeholder="フリーワード（引用も検索）">
+    <select id="fs"><option value="">セッションすべて</option></select>
+    <select id="fv"><option value="">確からしさすべて</option>
+      <option value="1">原文で確認</option><option value="0">推論・未検証</option></select>
+  </div>
+  <div class="chips" id="chips"></div>
+  <div class="count" id="cnt"></div>
+  <div id="grid"></div>
+
+  <div class="footer">
+    出典：ビヨンドカンファレンス2026 全20セッション<br>
+    人名・社名は音声認識由来のため落としている。台帳ID・場面番号から原文まで遡れる。
+  </div>
+</div>
+
+<div class="modal" id="modal"><div class="mc" id="mcb"></div></div>
+
+<script>
+let D=null, F={g:"", q:"", s:"", v:""};
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const G=k=>D.groups.find(g=>g.key===k)||{label:k,color:"999999"};
+
+async function boot(){
+  try{
+    const r=await fetch("./beyond-patterns.json?_="+Date.now());
+    D=await r.json();
+  }catch(e){
+    document.getElementById("grid").innerHTML='<div class="empty">beyond-patterns.json を読み込めませんでした。同じ階層に置き、サーバー経由で開いてください。</div>';
+    return;
+  }
+  document.title=D.label;
+  const P=D.patterns;
+  document.getElementById("stat").innerHTML=[
+    ["パターン",P.length,"#9E4B2C"],
+    ["原文で確認",P.filter(p=>p.verified).length,"#0F766E"],
+    ["逐語引用",P.reduce((a,b)=>a+b.own_words.length,0),"#6B5B8C"],
+    ["セッション",new Set(P.map(p=>p.session)).size,"#3D6B8C"],
+    ["群",D.groups.length,"#6B7280"],
+  ].map(([l,v,c])=>`<div><b style="color:${c}">${v}</b><span>${l}</span></div>`).join("");
+
+  document.getElementById("chips").innerHTML=
+    `<span class="chip on" data-g="" style="background:#2B2B2B;">すべて</span>`+
+    D.groups.map(g=>`<span class="chip" data-g="${g.key}" data-c="${g.color}">${g.label}</span>`).join("");
+  document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{
+    F.g=c.dataset.g;
+    document.querySelectorAll(".chip").forEach(x=>{x.classList.remove("on");x.style.background="";});
+    c.classList.add("on"); c.style.background="#"+(c.dataset.c||"2B2B2B");
+    render();
+  });
+  const ss=[...new Set(P.map(p=>p.session))];
+  document.getElementById("fs").innerHTML='<option value="">セッションすべて</option>'+ss.map(s=>`<option>${esc(s)}</option>`).join("");
+  ["q","fs","fv"].forEach(i=>{const e=document.getElementById(i);e.oninput=e.onchange=()=>{
+    F.q=document.getElementById("q").value.trim();
+    F.s=document.getElementById("fs").value;
+    F.v=document.getElementById("fv").value;
+    render();};});
+  render();
+}
+function render(){
+  let P=D.patterns;
+  if(F.g) P=P.filter(p=>p.group===F.g);
+  if(F.s) P=P.filter(p=>p.session===F.s);
+  if(F.v!=="") P=P.filter(p=>String(p.verified?1:0)===F.v);
+  if(F.q) P=P.filter(p=>JSON.stringify(p).includes(F.q));
+  document.getElementById("cnt").textContent=P.length+"件";
+  const g=document.getElementById("grid");
+  if(!P.length){ g.innerHTML='<div class="empty">該当するパターンがありません。</div>'; return; }
+  g.innerHTML='<div class="cards">'+P.map(p=>{
+    const c=G(p.group);
+    return `<div class="c" style="border-top-color:#${c.color}" onclick="detail(${p.id})">
+      <div class="g" style="color:#${c.color}">${esc(c.label)}</div>
+      <h3>${esc(p.name)}</h3>
+      <div class="s">${esc(p.summary)}</div>
+      <div class="t">${esc(p.tension.a)}<br><i>↕</i> ${esc(p.tension.b)}</div>
+      <div class="b">
+        <span class="bg ${p.verified?"v":"u"}">${p.verified?"原文で確認":"推論・未検証"}</span>
+        <span class="bg">${esc(p.session)}</span>
+        ${p.own_words.length?`<span class="bg">引用${p.own_words.length}</span>`:""}
+      </div></div>`;
+  }).join("")+'</div>';
+}
+window.detail=id=>{
+  const p=D.patterns.find(x=>x.id===id); if(!p) return;
+  const c=G(p.group);
+  const row=(l,v)=>v?`<div class="lbl">${l}</div><p>${esc(v)}</p>`:"";
+  const rel=p.related.map(r=>{const t=D.patterns.find(x=>x.id===r);return t?`<span onclick="detail(${r})">${esc(t.name)}</span>`:"";}).join("");
+  document.getElementById("mcb").innerHTML=
+    `<button class="close" onclick="closeM()">×</button>
+     <div class="g" style="color:#${c.color}">${esc(c.label)}</div>
+     <h2>${esc(p.name)}</h2>
+     <div class="s">${esc(p.summary)}</div>
+     ${row("状況",p.context)}
+     <div class="lbl">板挟み${p.verified?"":"（推論・未検証）"}</div>
+     <div class="tb">${esc(p.tension.a)}<div class="vs">↕ 両立しない</div>${esc(p.tension.b)}</div>
+     ${row("解決",p.solution)}${row("結果",p.result)}${row("注意",p.caution)}
+     ${p.own_words.length?'<div class="lbl">現場の言葉</div>'+p.own_words.map(w=>`<div class="q">${esc(w)}</div>`).join(""):""}
+     ${rel?'<div class="lbl">関連するパターン</div><div class="rel">'+rel+'</div>':""}
+     <div class="meta">
+       出典セッション：${esc(p.session)}${p.ledger?"　／　台帳 "+esc(p.ledger):""}${p.scene?"　／　場面 "+esc(p.scene):""}<br>
+       ${p.verified?"板挟みまで文字起こし原文で確認したもの。":"暗黙知集からの推論。原文での裏取りが未了。"}
+       繰り返し性は未検証。
+     </div>`;
+  document.getElementById("modal").classList.add("on");
+  document.getElementById("modal").scrollTop=0;
+};
+window.closeM=()=>document.getElementById("modal").classList.remove("on");
+document.getElementById("modal").onclick=e=>{if(e.target.id==="modal")closeM();};
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeM();});
+boot();
+</script>
+</body>
+</html>
